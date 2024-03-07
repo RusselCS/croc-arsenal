@@ -1,0 +1,190 @@
+actor ConcreteShotWep_NormalBar : NormalBar { args 88, 95 }
+
+actor ConcreteShotWep : BaseMM8BDMWep 10021
+{
+//$Category MM8BDM-Weapons/Close
+//$Title Concrete Shot
+//$Sprite CONCA0
+Weapon.AmmoUse 2
+Weapon.AmmoGive 28
+Weapon.SlotNumber 4
+Obituary "$OB_CONCRETESHOT"
+Tag "$TAG_CONCRETESHOT"
+Inventory.Pickupmessage "$PU_CONCRETESHOT"
+weapon.ammotype "ConcreteShotAmmo"
+inventory.icon "CONCRETI"
+States
+{
+SpawnLoop:
+CONC A -1
+loop
+Ready:
+CONC H 0 ACS_NamedExecuteWithResult("core_weaponcolor",CLR_CONCRETESHOT)
+CONC H 1 A_WeaponReady
+Goto Ready+1
+Deselect:
+CONC H 0
+goto DeselectSwap
+Select:
+CONC H 0
+goto SelectSwap
+Fire:
+CONC H 0 A_JumpIfNoAmmo("NoAmmo")
+CONC H 0 A_PlaySoundEx("weapons/mm9/concreteshotfire","Weapon")
+CONC H 0 A_FireCustomMissile("ConcreteShot",0,1,8,0)
+CONC IJ 5
+CONC H 14
+CONC H 0 A_Refire
+Goto Ready+1
+NoAmmo:
+CONC H 1 ACS_NamedExecuteAlways("core_noammo",0)
+Goto Ready+1
+}
+}
+
+actor ConcreteShot : BasicProjectile
+{
+-NOGRAVITY
+species "MovingPlatform" // It creates a platform that is solid
++THRUSPECIES
+species "ConcreteShot"
+Obituary "$OB_CONCRETESHOT"
+Radius 16
+Height 32
+damage (35)
+speed 25
+damagetype "ConcreteShot"
+States
+{
+Spawn:
+CONC B 0
+CONC B 1 ThrustThingZ(0,10,0,1)
+CONC BCC 1
+Spawn2:
+CONC BC 2
+loop
+XDeath:
+CONC E 0 A_SpawnItemEX("ConcreteCaseEffect")
+CONC E 0 A_PlaySoundEx("weapons/mm9/concreteshotland","Weapon")
+stop
+Death:
+CONC D 0 A_SpawnItemEX("ConcreteCaseEffect")
+CONC D 0 A_ChangeFlag(NOGRAVITY, 1)
+CONC D 0 A_SetAngle(0)
+CONC D 0 A_SetScale(2.0, 2.0)
+CONC D 4
+CONC D 0 A_JumpIfCloser(48, "XDeath")
+CONC B 0 A_SpawnItemEx("ConcreteBlock",0,0,0,0,0,0,0, SXF_ABSOLUTEANGLE)
+CONC E 0 A_PlaySoundEx("weapons/mm9/concreteshotland","Weapon")
+stop
+}
+}
+
+actor ConcreteShotAmmo : Ammo
+{
+inventory.amount 2
+inventory.maxamount 28
++INVENTORY.IGNORESKILL
+}
+
+actor ConcreteBlock : ProjSpawnFuncActor
+{
+height 32
+radius 16
+scale 2.0
++FORCEYBILLBOARD
++GHOST
++NOGRAVITY
++DONTRIP
++CANTSEEK
++MISSILE
++TOUCHY
++SHOOTABLE
++NOTAUTOAIMED
++NOBLOOD
++DONTBLAST
++DONTDRAIN
+damagefactor "ConcreteShot", 0.0
+damagefactor "VehicleHazard", 9999.0
+species "MovingPlatform"
++THRUSPECIES
+Health 50
+Mass 9999
++USEDAMAGEEVENTSCRIPT
+var int user_NoOwnerDamage;
+States
+{
+Spawn:
+CONC D 0
+CONC D 0 A_JumpIf(CallACS("core_getPlayersInRadius", 20, PRF_CUBE|PRF_CHECKCOLLISION) > 0, "Death")
+CONC D 1
+CONC E 0 A_ChangeFlag(TOUCHY, false)
+CONC E 0 A_ChangeFlag(MISSILE, false)
+CONC E 0 A_ChangeFlag(SOLID, true)
+CONC EF 64
+Goto Death
+Death:
+CONC B 0 A_NoBlocking
+CONC FG 3
+stop
+}
+}
+
+actor ConcreteVision : PowerUp
+{
+	powerup.color "4A 4A 4A", 0.4
+	powerup.duration 0x7FFFFFFD//105
+}
+
+actor ConcreteTime : Inventory
+{
+	inventory.amount 1
+	inventory.maxamount 105
+}
+
+actor ConcreteWatcher
+{
+	Height 0
+	Radius 0
+	+NOINTERACTION
+	-SOLID
+	+NOGRAVITY
+	+MISSILE
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 1 A_GiveToTarget("ConcreteGravity", 1)
+		TNT1 A 0 A_TakeFromTarget("ConcreteTime", 1)
+		TNT1 A 0 A_JumpIfInTargetInventory("ConcreteTime", 1, "Spawn")
+		TNT1 A 0 A_TakeFromTarget("ConcreteVision", 1)
+		stop
+	}
+}
+
+actor ConcreteGravity : CustomInventory
+{
+States
+{
+Pickup:
+TNT1 A 0
+TNT1 AAAAAA 0 A_SpawnItemEx("ConcreteFX", random(-20, 20), random(-20, 20), 0)
+TNT1 A 0 A_JumpIf(z-floorz<5, "End")
+TNT1 A 0 ThrustThingZ(0, 20, 1, 1)
+stop
+End:
+TNT1 A 0
+stop
+}
+}
+
+actor ConcreteFX : BasicGraphicEffect
+{
+	+FORCEXYBILLBOARD
+	States
+	{
+		Spawn:
+		CONC KL 5 //A_Fadeout
+		stop
+	}
+}

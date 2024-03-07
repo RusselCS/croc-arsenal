@@ -1,0 +1,233 @@
+actor ElectricShockWep_NormalBar : NormalBar { args 229, 130 }
+
+actor ElectricShockWep : BaseMM8BDMWep 10106
+{
+    //$Category MM8BDM-Weapons/Rapid
+    //$Title Electric Shock
+    //$Sprite ESPAA0
+    Weapon.AmmoUse 1
+    Weapon.AmmoGive 56
+    Weapon.SlotNumber 3
+    Inventory.Pickupmessage "$PU_ELECTRICSHOCK"
+    Obituary "$OB_ELECTRICSHOCK"
+    Tag "$TAG_ELECTRICSHOCK"
+    weapon.ammotype "ElectricShockAmmo"
+    inventory.icon "ESPAWI"
+    States
+    {
+    SpawnLoop:
+        ESPA A -1
+        loop
+    Ready:
+        ESPA D 0 ACS_NamedExecuteWithResult("core_weaponcolor",CLR_ELECTRICSHOCK)
+        ESPA D 1 A_WeaponReady
+        goto Ready+1
+    Deselect:
+        ESPA D 0
+        goto DeselectSwap
+    Select:
+        ESPA D 0
+        goto SelectSwap
+    Altfire:
+    Fire:
+        ESPA D 0 A_JumpIfNoAmmo("NoAmmo")
+        ESPA EF 2
+        TNT1 A 2
+        ESPA GH 1
+    AltHold:
+    Hold:
+        ESPA D 0 A_PlaySoundEx("weapons/mmv/electricshockfire", "Weapon")
+        ESPA D 0 A_FireCustomMissile("ElectricShockBurstStart",0,0,0,0)
+        ESPA I 3 A_FireCustomMissile("ElectricShockDamager",0,1,0,0)
+        ESPA D 0 A_JumpIfNoAmmo("FireEnd")
+        ESPA I 0 A_Refire
+    FireEnd:
+        ESPA JK 7
+        ESPA D 0 A_ClearRefire
+        goto Ready+1
+    NoAmmo:
+        ESPA D 1 ACS_NamedExecuteAlways("core_noammo",0)
+        Goto Ready+1
+    }
+}
+
+actor ElectricShockAmmo : Ammo
+{
+    inventory.amount 1
+    inventory.maxamount 56
+    +INVENTORY.IGNORESKILL
+}
+
+actor ElectricShockBurstStart : BasicWatcher
+{
+    +USESPAWNEVENTSCRIPT
+    var int user_UseProjSpawnFunc;
+    Speed 15
+    States
+    {
+    Spawn:
+        TNT1 A 0
+        TNT1 A 0 A_Warp(AAPTR_TARGET,0,0,32,0,WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)//But which interpolation? Does it matter?
+        TNT1 A 1 A_SpawnItemEx("ElectricShockBurst",0,0,0,momx,momy,momz,0,SXF_ABSOLUTEMOMENTUM|SXF_WEPFXCOLOR)
+        stop
+    }
+}
+
+actor ElectricShockBurst : FastProjectile//FastProj to match damager hitbox
+{
+    +MISSILE
+    +NOGRAVITY
+    +SKYEXPLODE
+    +EXPLODEONWATER
+    +DONTSPLASH
+    +PAINLESS
+    +CLIENTSIDEONLY
+    +HITTARGET
+    RenderStyle None
+    Damage (0)
+    Radius 10
+    Height 10
+    Speed 15
+    Scale 2.5
+    States
+    {
+    Spawn:
+        TNT1 A 0
+        TNT1 A 0 A_GiveInventory("MM8BDMProjSpawnFuncClient", 1)
+    SpawnFrame:
+        TNT1 A 0
+        TNT1 A 0 A_JumpIf(Pitch > 18,"Death2")
+        TNT1 A 0 A_SetPitch(Pitch+1)
+        TNT1 A 0 A_SpawnItemEx("ElectricShockBurst",0,0,0,momx,momy,momz,0,SXF_TRANSFERPITCH|SXF_NOCHECKPOSITION|SXF_ABSOLUTEMOMENTUM|SXF_WEPFXCOLOR)
+        TNT1 A 0 A_Stop
+        TNT1 A 0 A_SpawnItemEx("ElectricShockFX",0,frandom(-9,9),frandom(-9,9), 0, 0, 0, 0, SXF_WEPFXCOLOR)
+        TNT1 A 0 A_SpawnItemEx("ElectricShockBurst2",0,frandom(-16,16),frandom(-16,16), 0, 0, 0, 0, SXF_WEPFXCOLOR)
+        TNT1 A 1
+        stop
+    Death:
+        TNT1 A 0 A_SpawnItemEx("ElectricShockEndFX", 0, 0, 0, 0, 0, 0, 0, SXF_WEPFXCOLOR)
+        stop
+    Death2:
+        TNT1 A 0 A_Stop
+        TNT1 A 0 A_SpawnItemEx("ElectricShockEndFX", 0, 0, 0, 0, 0, 0, 0, SXF_WEPFXCOLOR)
+        stop
+    }
+}
+
+actor ElectricShockFX : BasicGraphicEffect
+{
+    +FORCEXYBILLBOARD
+    +BRIGHT
+	Speed 80
+    States
+    {
+    SpawnFrame:
+        ESPA Q 0
+        ESPA Q 0 A_Jump(256,1,4)
+        ESPA QRS 1
+        stop
+        ESPA XWV 1
+        stop
+    }
+}
+
+actor ElectricShockEndFX : ElectricShockFX
+{
+	Speed 60
+    States
+    {
+    Spawn:
+        ESPA ZYZY 1
+        ESPA Z 0 A_SetScale(1.25)
+        ESPA ZY 1
+        stop
+    }
+}
+
+actor ElectricShockBurst2
+{
+    +MISSILE
+    +NOGRAVITY
+    +SKYEXPLODE
+    +EXPLODEONWATER
+    +DONTSPLASH
+    +PAINLESS
+    +CLIENTSIDEONLY
+    +FORCEXYBILLBOARD
+    +BRIGHT
+    Damage (0)
+    Radius 10
+    Height 10
+    Speed 15
+    Scale 2.5
+    States
+    {
+    Spawn:
+        TNT1 A 0
+        TNT1 A 0 A_JumpIfInTargetInventory("PowerSpreadRune", 1, "Death")
+        TNT1 A 0 A_GiveInventory("MM8BDMProjSpawnFuncClient", 1)
+    SpawnFrame:
+        TNT1 A 0
+        TNT1 A 0 A_JumpIf(random(1,4) >= 4,"SpawnReal")
+        stop
+    SpawnReal:
+        TNT1 A 10 A_SetTics(random(2,4)*3)
+        TNT1 A 0 A_PlaySoundEx("weapons/mmv/electricshockarc","Auto")
+        TNT1 A 0 A_SetPitch(random(12,18))
+        TNT1 A 0 A_SpawnItemEx("ElectricShockBurst3",0,0,0,0,0,0,0,SXF_TRANSFERPITCH|SXF_NOCHECKPOSITION|SXF_WEPFXCOLOR)
+        stop
+    Death:
+        TNT1 A 0
+        stop
+    }
+}
+
+actor ElectricShockBurst3 : ElectricShockBurst2
+{
+    +BRIGHT
+    Scale 0.5
+    Speed 80
+    States
+    {
+    Spawn:
+        TNT1 A 0
+        TNT1 A 0 A_GiveInventory("MM8BDMProjSpawnFuncClient", 1)
+    SpawnFrame:
+        ESPA T 0
+        ESPA T 0 A_JumpIf(Pitch < 2,"Death")
+        ESPA T 0 A_SetPitch(Pitch-1)
+        ESPA T 0 A_SpawnItemEx("ElectricShockBurst3",-2*random(0,1)+1, -2*random(0,1)+1, -2*random(0,1)+1,0,0,0,0,SXF_TRANSFERPITCH|SXF_NOCHECKPOSITION|SXF_WEPFXCOLOR)
+        ESPA T 0 A_SetTics(random(0,2))
+        ESPA T 0 A_Jump(256,1,2)
+        ESPA T 1
+        stop
+        ESPA U 1
+        stop
+    }
+}
+
+actor ElectricShockDamager : BasicFastProjectile
+{
+    damagetype "ElectricShock"
+    Obituary "$OB_ELECTRICSHOCK"
+    +SKYEXPLODE
+    +EXPLODEONWATER
+    +EXPLODEONDEATH
+    RenderStyle None
+    Damage (9)
+    Radius 10
+    Height 10
+    speed 150
+    states
+    {
+    Spawn:
+        TNT1 A 0
+        TNT1 A 1
+        TNT1 A 0
+        stop
+    Death:
+        TNT1 A 0 A_SpawnItemEX("ElectrifyEffect")
+        TNT1 A 0
+        stop
+    }
+}

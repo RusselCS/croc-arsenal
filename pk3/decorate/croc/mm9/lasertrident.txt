@@ -1,0 +1,83 @@
+actor LaserTridentWep_NormalBar : NormalBar { args 228, 72 }
+
+actor LaserTridentWep : BaseMM8BDMWep 10024
+{
+//$Category MM8BDM-Weapons/Ranged
+//$Title Laser Trident
+//$Sprite LTRIA0
+Weapon.AmmoUse 2
+Weapon.AmmoGive 28
+Weapon.SlotNumber 2
+Obituary "$OB_LASERTRIDENT"
+Tag "$TAG_LASERTRIDENT"
+Inventory.Pickupmessage "$PU_LASERTRIDENT"
+weapon.ammotype "LaserTridentAmmo"
+inventory.icon "TRIDENI"
+States
+{
+SpawnLoop:
+LTRI A -1
+loop
+Ready:
+LTRI D 0 ACS_NamedExecuteWithResult("core_weaponcolor",CLR_LASERTRIDENT)
+LTRI D 1 A_WeaponReady
+Goto Ready+1
+Deselect:
+LTRI D 0
+goto DeselectSwap
+Select:
+LTRI D 0
+goto SelectSwap
+Fire:
+LTRI D 0 A_JumpIfNoAmmo("NoAmmo")
+LTRI D 0 A_PlaySoundEx("weapons/mm9/lasertridentfire","Weapon")
+LTRI D 0 A_FireCustomMissile("LaserTrident",0,1,8,0)
+LTRI FE 2
+LTRI D 12
+LTRI D 0 A_Refire
+Goto Ready+1
+NoAmmo:
+LTRI D 1 ACS_NamedExecuteAlways("core_noammo",0)
+Goto Ready+1
+}
+}
+
+actor LaserTridentAmmo : Ammo
+{
+inventory.amount 1
+inventory.maxamount 28
++INVENTORY.IGNORESKILL
+}
+
+actor LaserTrident : BasicFastProjectile
+{
+Obituary "$OB_LASERTRIDENT"
++RIPPER
+var int user_PierceRipper;
++DONTBLAST
++DONTREFLECT
++BRIGHT
+Speed 20
+Damage (35)
+Radius 10
+Height 20
+damagetype "LaserTrident"
+States
+{
+Spawn:
+TNT1 A 4
+TNT1 A 0 A_ScaleVelocity(2.0)
+LTRI C 4
+LTRI B 0 A_ScaleVelocity(2.0)
+SpawnLoop:
+LTRI BC 4
+loop
+}
+}
+/*
+actor LaserTridentProtect : PowerProtection
+{
+Powerup.Duration 4
+damagefactor "LaserTrident", 0.0
+}
+*/

@@ -1,0 +1,243 @@
+actor GyroAttackWep_NormalBar : NormalBar { args 4, 128 }
+
+actor GyroAttackWep : BaseMM8BDMWep 10059
+{
+//$Category MM8BDM-Weapons/Ranged
+//$Title Gyro Attack
+//$Sprite WEA2I0
+Weapon.AmmoUse 2
+Weapon.AmmoGive 28
+Weapon.SlotNumber 2
+Inventory.Pickupmessage "$PU_GYROATTACK"
+Obituary "$OB_GYROATTACK"
+Tag "$TAG_GYROATTACK"
+weapon.ammotype "GyroAttackAmmo"
+inventory.icon "GYROSI"
+States
+{
+SpawnLoop:
+WEA2 I -1
+loop
+Ready:
+WOOD I 0 ACS_NamedExecuteWithResult("core_weaponcolor",CLR_GYROATTACK)
+WOOD I 1 A_GiveInventory("GyroAttack_Ready_P")//A_WeaponReady
+wait
+Deselect:
+WOOD I 0
+goto DeselectSwap
+Select:
+WOOD I 0
+goto SelectSwap
+Altfire:
+WOOD I 0 A_JumpIfNoAmmo("NoAmmo")
+WOOD I 0 A_GiveInventory("GyroAttack_Fire_P")
+WOOD KJ 2
+Goto Ready+1
+Fire:
+WOOD I 0 A_JumpIfInventory("GyroAttackExists",1,"Spread")
+WOOD I 0 A_JumpIfNoAmmo("NoAmmo")
+WOOD I 0 A_GiveInventory("GyroAttack_Fire_P")
+WOOD KJ 2
+WOOD I 4
+WOOD I 0 A_Refire("Spread")//A_Refire
+Goto Ready+1
+Spread:
+WOOD I 0 A_GiveInventory("GyroAttackTrigger", 1)
+WOOD LI 3
+goto Ready+1
+NoAmmo:
+WOOD I 1 ACS_NamedExecuteAlways("core_noammo",0)
+Goto Ready+1
+}
+}
+
+actor GyroAttackAmmo : Ammo
+{
+inventory.amount 1
+inventory.maxamount 28
++INVENTORY.IGNORESKILL
+}
+
+actor GyroAttackTrigger : Powerup
+{
+    powerup.duration 3
+}
+
+actor GyroAttackExists : Powerup
+{
+    powerup.duration 5
+}
+
+actor GyroAttackAltWait : Once {}
+
+actor GyroAttackAltWaitCooldowner : BasicCooldowner
+{
+    reactiontime 18
+    States
+    {
+    Spawn:
+        TNT1 A 0
+    Spawn2:
+        TNT1 A 1 A_GiveInventory("GyroAttackAltWaitCooldownerFunc",1)
+        loop
+    Death:
+        TNT1 A 0 A_TakeFromTarget("GyroAttackAltWait",1)
+        stop
+    }
+}
+
+actor GyroAttackAltWaitCooldownerFunc : BasicCooldownerFunc
+{
+    States
+    {
+    Pickup:
+        TNT1 A 0 A_JumpIfInTargetInventory("GyroAttackAltWait",1,"PickupBasic")
+        goto PickupRemove
+    }
+}
+
+
+actor GyroAttack_Ready_P : CustomInventory
+{
+    States
+    {
+    Pickup:
+        TNT1 A 0 A_JumpIfInventory("GyroAttackAltWait",1,2)
+        TNT1 A 0 A_WeaponReady
+        stop
+        TNT1 A 0 A_JumpIfInventory("GyroAttackExists",1,2)
+        TNT1 A 0 A_WeaponReady(WRF_NOPRIMARY|WRF_NOSECONDARY)
+        stop
+        TNT1 A 0 A_WeaponReady(WRF_NOSECONDARY)
+        stop
+    }
+}
+
+actor GyroAttack_Fire_P : CustomInventory
+{
+    States
+    {
+    Pickup:
+        TNT1 A 0 A_FireCustomMissile("GyroAttack",0,0,8,0)
+        TNT1 A 0 A_PlaySoundEx("weapons/mm5/gyroattackfire","Weapon")
+        TNT1 A 0 //A_GiveInventory("GyroAttackExists",1)
+        TNT1 A 0 A_GiveInventory("GyroAttackAltWait",1)
+        TNT1 A 0 A_TakeInventory("GyroAttackAmmo",2,TIF_NOTAKEINFINITE)
+        TNT1 A 0 A_SpawnItemEx("GyroAttackAltWaitCooldowner")
+        stop
+    }
+}
+
+actor GyroAttack : BasicProjectile
+{
+Radius 15
+Height 8
+damage (30)
+damagetype "GyroAttack"
+Obituary "$OB_GYROATTACK"
+speed 30
++HITTRACER
++EXPLODEONWATER
+reactiontime 1
+var int user_TranslateWhiteColors;
+States
+{
+Spawn:
+GYRO A 0
+GYRO A 0 A_PlaySoundEx("weapons/mm5/gyroattackfly", "Auto", true)
+SpawnLoop:
+GYRO YYZZ 1 A_GiveInventory("GyroAttackFunc", 1)
+loop
+Death:
+GYRO A 0 A_JumpIf(reactiontime == 0, "Split")
+GYRO A 0 A_StopSoundEx("auto")
+TNT1 A 1
+stop
+Split:
+GYRO A 0 A_SpawnItemEx("GyroAttackPuff")
+GYRO A 0 A_CustomMissile("GyroAttack2",0,0,25,2,0)
+GYRO A 0 A_CustomMissile("GyroAttack2",0,0,-25,2,0)
+TNT1 A 1
+stop
+}
+}
+
+actor GyroAttackPuff : BasicExplosion
+{
+    States
+    {
+    Spawn:
+        GYRO A 0
+        GYRO A 0 A_PlaySoundEx("weapons/mm5/gyroattacksplit", "auto")
+        GYRO A 0 A_SpawnItemEx("ExplosionEffect1",0,0,0,0,0,0,0,SXF_WEPFXCOLOR)
+        stop
+    }
+}
+
+actor GyroAttackFunc : CustomInventory
+{
+    States
+    {
+    Pickup:
+        TNT1 A 0 A_GiveToTarget("GyroAttackExists", 1)
+        TNT1 A 0 A_JumpIfInTargetInventory("GyroAttackTrigger", 1, "Split")
+        stop
+    Split:
+        TNT1 A 0 A_Countdown
+        stop
+    }
+}
+
+actor GyroAttack2 : GyroAttack
+{
+Radius 7
+Height 5
+scale 2.5
+damage (19)
+speed 30
+yscale 2.0
+xscale 4.0
+States
+{
+Spawn:
+GYRO A 0
+GYRO A 0 A_PlaySoundEx("weapons/mm5/gyroattackfly", "Auto", true)
+SpawnLoop:
+GYRO ABCD 1 A_SpawnItemEx("GyroRadius", 0, 0, 0)
+loop
+Death:
+GYRO A 0 A_StopSoundEx("auto")
+GYRO A 0 
+stop
+}
+}
+
+actor GyroAttack3 : GyroAttack2
+{
+Speed 35
+}
+
+
+actor GyroAttackProtect : PowerProtection
+{
+Powerup.Duration 2
+DamageFactor "GyroAttack", 0.5
+}
+
+actor GyroRadius : BasicProjectile
+{
+damagetype "GyroChopper"
+Obituary "$OB_GYROATTACK"
++DONTBLAST
+damage (6)
+Radius 40
+Height 10
+States
+{
+Spawn:
+TNT1 A 2
+stop
+}
+}
+
+actor GyroFlag : WeaponCharge {} // needed for bass boss

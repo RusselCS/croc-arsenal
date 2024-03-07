@@ -1,0 +1,555 @@
+actor BlackHoleWep_NormalBar : NormalBar { args 4, 235 }
+actor BlackHoleWep_ScriptBar : ScriptBar {}
+
+actor BlackHoleWep : BaseMM8BDMWep 10107
+{
+    //$Category MM8BDM-Weapons/Shield
+    //$Title Black Hole
+    //$Sprite BHOLA0
+    Weapon.AmmoUse 7
+    Weapon.AmmoGive 28
+    Weapon.SlotNumber 7
+    Inventory.Pickupmessage "$PU_BLACKHOLE"
+    Obituary "$OB_BLACKHOLE"
+    Tag "$TAG_BLACKHOLE"
+    weapon.ammotype "BlackHoleAmmo"
+    inventory.icon "BHOLWI"
+    States
+    {
+    SpawnLoop:
+        BHOL A -1
+        loop
+    Ready:
+        BHOL I 0 ACS_NamedExecuteWithResult("core_weaponcolor",CLR_BLACKHOLE)
+        BHOL I 0 A_JumpIfInventory("BlackHoleShieldCheck", 1, "Active")
+        BHOL I 1 A_WeaponReady
+        Goto Ready+1
+    Deselect:
+        BHOL I 0
+        goto DeselectSwap
+    Select:
+        BHOL I 0
+        goto SelectSwap
+    Fire:
+        BHOL I 0 A_JumpIfInventory("IsBot", 1, "BotFire")
+        BHOL I 0 A_JumpIfInventory("BlackHoleShieldCheck", 1, "Detonate")
+        BHOL I 0 A_JumpIfNoAmmo("NoAmmo")
+        BHOL I 0 A_JumpIfInventory("BlackHoleTrigger", 1, "NoAmmo")
+        BHOL LM 1
+        BHOL I 0 A_PlaySoundEx("weapons/mmv/blackholeactivate","Weapon")
+        BHOL I 0 A_SpawnItemEX("BlackHoleSpawnerSync")
+        BHOL NOP 1
+        TNT1 A 2
+        BHOL JK 2
+        BHOL Q 1
+    Active:
+        BHOL Q 1 A_WeaponReady
+        BHOL Q 0 A_JumpIfInventory("BlackHoleShieldCheck", 1, "Active")
+        goto Detonate
+    Detonate:
+        BHOL I 0 A_PlaySoundEx("weapons/mmv/blackholetrigger","Weapon")
+        BHOL I 0 A_SpawnItemEx("BlackHoleTrigger_W")
+        BHOL RRSSSSSSSS 1 A_WeaponReady(WRF_NOFIRE)
+        BHOL RQ 1 A_WeaponReady(WRF_NOFIRE)
+        BHOL IIIIIIIIII 1 A_WeaponReady(WRF_NOFIRE)
+        BHOL I 0 A_ClearRefire
+        goto Ready+1
+    NoAmmo:
+        BHOL I 1 ACS_NamedExecuteAlways("core_noammo",0)
+        Goto Ready+1
+    
+    BotFire:
+        BHOL I 0 A_JumpIfInventory("BlackHoleTrigger", 1, "BotFireBuster")
+        BHOL I 0 A_JumpIfInventory("BlackHoleShieldCheck", 240, "BotFireBuster")
+        goto Fire+1
+    BotFireBuster:
+        BUST B 0 ACS_NamedExecuteWithResult("core_weaponcolor",CLR_MEGABUSTER)
+        BUST B 0 A_PlaySoundEx("weapons/busters/megabusterfire","SoundSlot6")
+        BUST B 0 A_FireCustomMissile("MegaShot",0,0,8,0)
+        BUST CD 3
+        BUST B 2
+        BUST B 0 A_JumpIfInventory("BlackHoleShieldCheck", 240, 2)
+        BUST B 0 A_JumpIfInventory("BlackHoleTrigger", 1, 2)
+        BUST B 0 ACS_NamedExecuteWithResult("core_weaponcolor",CLR_BLACKHOLE)
+        BUST B 0 A_Refire
+        goto Ready
+    }
+}
+
+actor BlackHoleAmmo : Ammo
+{
+    inventory.amount 1
+    inventory.maxamount 28
+    +INVENTORY.IGNORESKILL
+}
+
+// actor BlackHoleTrigger : Once {}
+
+actor SpawnBlackHole : CustomInventory
+{
+    States
+    {
+    Pickup:
+        TNT1 A 0 A_TakeInventory("BlackHoleAmmo", 7, TIF_NOTAKEINFINITE)
+        TNT1 A 0 A_SpawnItemEx("BlackHoleSpawner", 0, 0, 8)
+        TNT1 A 0 A_SpawnItemEx("BlackHoleDomeEffect", 0, 0, 32)
+        stop
+    }
+}
+
+actor SpawnBlackHole_Spread : CustomInventory
+{
+    States
+    {
+    Pickup:
+        TNT1 A 0 A_SpawnItemEx("BlackHoleSpawner_Spread", 0, 0, 76)
+        TNT1 A 0 A_SpawnItemEx("BlackHoleDomeEffect_Spread", 0, 0, 100)
+
+        TNT1 A 0 A_SpawnItemEx("BlackHoleSpawner_Spread", 0, 0, 160)
+        TNT1 A 0 A_SpawnItemEx("BlackHoleDomeEffect_Spread", 0, 0, 184)
+        stop
+    }
+}
+
+actor BlackHoleShieldCheck : Inventory
+{
+    inventory.amount 1
+    inventory.maxamount 420
+}
+
+actor BlackHoleTrigger : Powerup
+{
+    powerup.duration 140
+}
+
+actor BlackHoleTrigger_W : BasicWatcher
+{
+    States
+    {
+    Spawn:
+        TNT1 AA 0 A_GiveToTarget("BlackHoleTrigger", 1)
+        stop
+    }
+}
+
+actor BlackHoleCooldowner : BasicCooldowner
+{
+reactiontime 140
+States
+{
+Spawn:
+TNT1 A 0
+Spawn2:
+TNT1 A 1 A_GiveInventory("BlackHoleCooldownerFunc",1)
+loop
+Death:
+TNT1 A 0 A_TakeFromTarget("BlackHoleTrigger",1)
+stop
+}
+}
+
+actor BlackHoleCooldownerFunc : BasicCooldownerFunc
+{
+States
+{
+Pickup:
+TNT1 A 0 A_JumpIfInTargetInventory("BlackHoleTrigger",1,"PickupBasic")
+goto PickupRemove
+}
+}
+
+actor IsBlackHoleShield : Once {}
+
+actor BlackHoleSpawnerSync : BasicWatcher
+{
+    States
+    {
+    Spawn:
+        TNT1 A 0
+        TNT1 A 0 A_GiveToTarget("BlackHoleShieldCheck", 420)
+        TNT1 A 2 A_GiveToTarget("ShieldCheck", 1)
+        TNT1 A 0 A_TakeFromTarget("ShieldCheck", 1)
+        TNT1 A 0 A_GiveToTarget("SpawnBlackHole",1)
+        TNT1 A 0 A_JumpIfInTargetInventory("PowerSpreadRune", 1, "Spread")
+        TNT1 A 5
+        stop
+    Spread:
+        TNT1 A 0 A_GiveToTarget("SpawnBlackHole_Spread", 1)
+        TNT1 A 5
+        stop
+    }
+}
+
+const int WEPC_VBH_RADIUS = 192.0;
+
+const int WEPC_VBH_RADIUSDECAY = 20.0;
+const int WEPC_VBH_COREDIESCALE = 3.5;
+
+const float WEPC_VBH_ORBITDECAYSCALE = -0.25;
+
+const int WEPC_VBH_SHOCKWAVECOUNT = 18;
+
+const int WEPC_VBH_MINSHIELDTIME = 10;
+
+actor BlackHoleSpawner : BasicWatcher
+{
+    var int user_shockwave;
+    States
+    {
+    Spawn:
+        TNT1 A 0
+        TNT1 A 0 ACS_NamedExecuteWithResult("core_blackholedome", WEPC_VBH_RADIUS, true)
+        goto SpawnWait+1
+    SpawnWait:
+        TNT1 A 0 A_TakeFromTarget("BlackHoleShieldCheck", 1)
+        TNT1 A 1
+        TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists")==0, "End")
+        TNT1 A 0 A_JumpIfInTargetInventory("ShieldCheck", 1, "Explode")
+        TNT1 A 0 A_JumpIfInTargetInventory("BlackHoleTrigger", 1, "Explode")
+        TNT1 A 0 A_JumpIfInTargetInventory("BlackHoleShieldCheck", 1, "SpawnWait")
+        goto Explode
+    Explode:
+        TNT1 A 0 A_PlaySoundEx("weapons/mmv/blackholetrigger","Weapon")
+        TNT1 A 0 A_GiveToTarget("BlackHoleTrigger", 1)
+        TNT1 A 0 A_SpawnItemEx("BlackHoleCooldowner")
+        TNT1 A 0 A_TakeFromTarget("BlackHoleShieldCheck", 999)
+        TNT1 A 0 A_SetUserVar(user_shockwave, WEPC_VBH_SHOCKWAVECOUNT)
+        TNT1 A 50
+        TNT1 A 0 A_PlaySoundEx("weapons/mmv/blackholeexplode","auto")
+        TNT1 A 0 A_JumpIf(true, "ExplodeLoop")
+        TNT1 A 10
+        stop
+    ExplodeLoop:
+        TNT1 A 0 A_SpawnItemEx("BlackHoleShockWave", 10, 0, 10, 1.0, 0, 0, user_shockwave*(360/WEPC_VBH_SHOCKWAVECOUNT), SXF_MULTIPLYSPEED)
+        TNT1 A 0 A_SetUserVar(user_shockwave, user_shockwave-1)
+        TNT1 A 0 A_JumpIf(user_shockwave > 0, "ExplodeLoop")
+        stop
+    End:
+        TNT1 A 0 A_TakeFromTarget("BlackHoleShieldCheck", 999)
+        TNT1 A 0
+        stop
+    }
+}
+
+actor BlackHoleSpawner_Spread : BlackHoleSpawner
+{
+    States
+    {
+    Spawn:
+        TNT1 A 0
+        goto SpawnWait
+    SpawnWait:
+        TNT1 A 1
+        TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists")==0, "End")
+        TNT1 A 0 A_JumpIfInTargetInventory("ShieldCheck", 1, "Explode")
+        TNT1 A 0 A_JumpIfInTargetInventory("BlackHoleTrigger", 1, "Explode")
+        TNT1 A 0 A_JumpIfInTargetInventory("BlackHoleShieldCheck", 1, "SpawnWait")
+        goto Explode
+    Explode:
+        TNT1 A 0 A_GiveToTarget("BlackHoleTrigger", 1)
+        TNT1 A 0 A_SpawnItemEx("BlackHoleCooldowner")
+        TNT1 A 0 A_TakeFromTarget("BlackHoleShieldCheck", 999)
+        TNT1 A 0 A_SetUserVar(user_shockwave, WEPC_VBH_SHOCKWAVECOUNT)
+        TNT1 A 50
+        TNT1 A 0 A_JumpIf(true, "ExplodeLoop")
+        TNT1 A 10
+        stop
+    }
+}
+
+actor BlackHoleDomeEffect : BasicGraphicEffect
+{
+    +DONTBLAST
+    renderstyle "None"
+    States
+    {
+    SpawnFrame:
+        PLY1 A 0
+        PLY1 A 2
+        PLY1 A 0 ACS_NamedExecuteWithResult("core_blackholedome_clientside", WEPC_VBH_RADIUS, false, CallACS("core_getptrtid", AAPTR_TARGET))
+    SpawnLoop:
+        PLY1 A 0 A_JumpIf(!CallACS("core_targetexists"), "Fade")
+        PLY1 A 1 A_JumpIfInTargetInventory("BlackHoleTrigger", 1, "Fade")
+        loop
+    Fade:
+        PLY1 A 70
+        stop
+    }
+}
+
+actor BlackHoleDomeEffect_Spread : BlackHoleDomeEffect
+{
+    States
+    {
+    SpawnFrame:
+        PLY1 A 0
+        PLY1 A 2
+        PLY1 A 0 ACS_NamedExecuteWithResult("core_blackholedome_clientside", WEPC_VBH_RADIUS, true, CallACS("core_getptrtid", AAPTR_TARGET))
+        PLY1 A 140
+        stop
+    }
+}
+
+actor BlackHolePiece
+{
+    +MISSILE
+    +NOGRAVITY
+    +SHOOTABLE
+    +FORCEXYBILLBOARD
+    +NOTARGETSWITCH
+    +NODAMAGE
+    +DONTRIP
+    +HITMASTER
+    +DONTBLAST
+    +USEDAMAGEEVENTSCRIPT
+    +SERVERSIDEONLY
+    +GHOST
+    +CANTSEEK
+    +NORADIUSDMG
+    +NOTAUTOAIMED
+    species "MovingPlatform"
+    height 48
+    radius 24
+    Scale 2.5
+    renderstyle none
+    States
+    {
+    Spawn:
+        TNT1 A 0
+        TNT1 A 0 A_GiveInventory("IsBlackHoleShield")
+        TNT1 A 0 // ACS_NamedExecuteWithResult("core_showactorhitbox")
+    SpawnLoop:
+        BHOL Y 1
+        BHOL Y 0 A_JumpIfInTargetInventory("BlackHoleShieldCheck", 1, "SpawnLoop")
+        TNT1 A 0
+        stop
+    }
+}
+
+actor BlackHoleAbsorbFX : BasicGraphicEffect
+{
+    States
+    {
+    SpawnFrame:
+        BHOL UVWX 2
+        stop
+    }
+}
+
+actor BlackHoleCore : BasicGraphicEffect
+{
+    Scale 2.5
+    +DONTBLAST
+    +FORCEXYBILLBOARD
+    States
+    {
+    SpawnFrame:
+        BHOL B 0
+        BHOL B 0 ACS_NamedExecuteAlways("core_blackholemanage_clientside", 0, WEPC_VBH_MINSHIELDTIME, CallACS("core_getptrtid", AAPTR_TARGET))
+    SpawnFrameLoop:
+        BHOL BCDEF 4
+        loop
+    Death:
+        BHOL B 0 A_SetScale(scalex + 0.025, scaley + 0.025)
+        BHOL B 1 A_JumpIf(scalex > WEPC_VBH_COREDIESCALE, "BlastStart")
+        BHOL B 0 A_SetScale(scalex + 0.025, scaley + 0.025)
+        BHOL B 1 A_JumpIf(scalex > WEPC_VBH_COREDIESCALE, "BlastStart")
+
+        BHOL C 0 A_SetScale(scalex + 0.025, scaley + 0.025)
+        BHOL C 1 A_JumpIf(scalex > WEPC_VBH_COREDIESCALE, "BlastStart")
+        BHOL C 0 A_SetScale(scalex + 0.025, scaley + 0.025)
+        BHOL C 1 A_JumpIf(scalex > WEPC_VBH_COREDIESCALE, "BlastStart")
+
+        BHOL D 0 A_SetScale(scalex + 0.025, scaley + 0.025)
+        BHOL D 1 A_JumpIf(scalex > WEPC_VBH_COREDIESCALE, "BlastStart")
+        BHOL D 0 A_SetScale(scalex + 0.025, scaley + 0.025)
+        BHOL D 1 A_JumpIf(scalex > WEPC_VBH_COREDIESCALE, "BlastStart")
+
+        BHOL E 0 A_SetScale(scalex + 0.025, scaley + 0.025)
+        BHOL E 1 A_JumpIf(scalex > WEPC_VBH_COREDIESCALE, "BlastStart")
+        BHOL E 0 A_SetScale(scalex + 0.025, scaley + 0.025)
+        BHOL E 1 A_JumpIf(scalex > WEPC_VBH_COREDIESCALE, "BlastStart")
+
+        BHOL F 0 A_SetScale(scalex + 0.025, scaley + 0.025)
+        BHOL F 1 A_JumpIf(scalex > WEPC_VBH_COREDIESCALE, "BlastStart")
+        BHOL F 0 A_SetScale(scalex + 0.025, scaley + 0.025)
+        BHOL F 1 A_JumpIf(scalex > WEPC_VBH_COREDIESCALE, "BlastStart")
+        goto Death
+    BlastStart:
+        BHOL EFBCDEFBCDEFBCDEFBCDEFBCD 1
+    FadeStart:
+        BHOL E 0 A_SetScale(scalex + 0.28, scaley - 0.36)
+        BHOL E 1 A_JumpIf(scaley < 0.01, "End")
+
+        BHOL F 0 A_SetScale(scalex + 0.28, scaley - 0.36)
+        BHOL F 1 A_JumpIf(scaley < 0.01, "End")
+        
+        BHOL B 0 A_SetScale(scalex + 0.28, scaley - 0.36)
+        BHOL B 1 A_JumpIf(scaley < 0.01, "End")
+        
+        BHOL C 0 A_SetScale(scalex + 0.28, scaley - 0.36)
+        BHOL C 1 A_JumpIf(scaley < 0.01, "End")
+        
+        BHOL D 0 A_SetScale(scalex + 0.28, scaley - 0.36)
+        BHOL D 1 A_JumpIf(scaley < 0.01, "End")
+        loop
+    End:
+        BHOL F 0
+        stop
+    }
+}
+
+actor BlackHoleCore_Spread : BlackHoleCore
+{
+    States
+    {
+    SpawnFrame:
+        BHOL BCDEF 4
+        goto Super::SpawnFrame
+    }
+}
+
+actor BlackHoleOrbiter : BasicGraphicEffect
+{
+    Scale 0.25
+    +DONTBLAST
+    +FORCEXYBILLBOARD
+    var int user_angle;
+    var int user_angleadd;
+    var int user_radius;
+    var int user_radiusadd;
+    States
+    {
+    SpawnFrame:
+        BHOL B 0 ACS_NamedExecuteAlways("core_blackholemanage_clientside", 0, WEPC_VBH_MINSHIELDTIME, CallACS("core_getptrtid", AAPTR_TARGET))
+        BHOL Y 0 A_SetUserVar(user_angle, angle)
+        BHOL Y 0 A_SetUserVar(user_angleadd, sin(pitch)*12)
+        BHOL Y 0 A_SetUserVar(user_radius, WEPC_VBH_RADIUS)
+        BHOL Y 0 A_SetUserVar(user_radiusadd, 5)
+    SpawnFrameLoop:
+        BHOL Y 0 A_JumpIf(scaley >= 2.5, 2)
+        BHOL Y 0 A_SetScale(scalex - WEPC_VBH_ORBITDECAYSCALE)
+        BHOL Y 1 A_Warp(AAPTR_TRACER, cos(pitch)*cos(-user_angle)*user_radius, cos(pitch)*sin(-user_angle)*user_radius, sin(pitch)*user_radius, 0, WARPF_ABSOLUTEANGLE|WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
+        BHOL Y 0 A_SetUserVar(user_angle, user_angle-user_angleadd)
+        BHOL Y 1 A_Warp(AAPTR_TRACER, cos(pitch)*cos(-user_angle)*user_radius, cos(pitch)*sin(-user_angle)*user_radius, sin(pitch)*user_radius, 0, WARPF_ABSOLUTEANGLE|WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
+        BHOL Y 0 A_SetUserVar(user_angle, user_angle-user_angleadd)
+        BHOL Y 0 A_JumpIf(scaley >= 2.5, 2)
+        BHOL Y 0 A_SetScale(scalex - WEPC_VBH_ORBITDECAYSCALE)
+        BHOL Y 1 A_Warp(AAPTR_TRACER, cos(pitch)*cos(-user_angle)*user_radius, cos(pitch)*sin(-user_angle)*user_radius, sin(pitch)*user_radius, 0, WARPF_ABSOLUTEANGLE|WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
+        BHOL Y 0 A_SetUserVar(user_angle, user_angle-user_angleadd)
+        BHOL Y 1 A_Warp(AAPTR_TRACER, cos(pitch)*cos(-user_angle)*user_radius, cos(pitch)*sin(-user_angle)*user_radius, sin(pitch)*user_radius, 0, WARPF_ABSOLUTEANGLE|WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
+        BHOL Y 0 A_SetUserVar(user_angle, user_angle-user_angleadd)
+        BHOL Y 0 A_JumpIf(scaley >= 2.5, 2)
+        BHOL Y 0 A_SetScale(scalex - WEPC_VBH_ORBITDECAYSCALE)
+        BHOL Z 1 A_Warp(AAPTR_TRACER, cos(pitch)*cos(-user_angle)*user_radius, cos(pitch)*sin(-user_angle)*user_radius, sin(pitch)*user_radius, 0, WARPF_ABSOLUTEANGLE|WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
+        BHOL Z 0 A_SetUserVar(user_angle, user_angle-user_angleadd)
+        BHOL Z 1 A_Warp(AAPTR_TRACER, cos(pitch)*cos(-user_angle)*user_radius, cos(pitch)*sin(-user_angle)*user_radius, sin(pitch)*user_radius, 0, WARPF_ABSOLUTEANGLE|WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
+        BHOL Z 0 A_SetUserVar(user_angle, user_angle-user_angleadd)
+        BHOL Y 0 A_JumpIf(scaley >= 2.5, 2)
+        BHOL Y 0 A_SetScale(scalex - WEPC_VBH_ORBITDECAYSCALE)
+        BHOL Z 1 A_Warp(AAPTR_TRACER, cos(pitch)*cos(-user_angle)*user_radius, cos(pitch)*sin(-user_angle)*user_radius, sin(pitch)*user_radius, 0, WARPF_ABSOLUTEANGLE|WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
+        BHOL Z 0 A_SetUserVar(user_angle, user_angle-user_angleadd)
+        BHOL Z 1 A_Warp(AAPTR_TRACER, cos(pitch)*cos(-user_angle)*user_radius, cos(pitch)*sin(-user_angle)*user_radius, sin(pitch)*user_radius, 0, WARPF_ABSOLUTEANGLE|WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
+        BHOL Z 0 A_SetUserVar(user_angle, user_angle-user_angleadd)
+        loop
+    Death:
+    FadeStart:
+        BHOL Y 0 A_SetUserVar(user_angleadd, user_angleadd / 4 + 1)
+        BHOL Y 0 A_JumpIf(scaley < 0.01, "End")
+        BHOL Y 0 A_JumpIf(user_radius < 1, "End")
+        BHOL Y 0 A_SetScale(scalex + WEPC_VBH_ORBITDECAYSCALE)
+        BHOL Y 1 A_Warp(AAPTR_TRACER, cos(pitch)*cos(-user_angle)*user_radius, cos(pitch)*sin(-user_angle)*user_radius, sin(pitch)*user_radius, 0, WARPF_ABSOLUTEANGLE|WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
+        BHOL Y 0 A_SetUserVar(user_angle, user_angle-user_angleadd)
+        BHOL Y 0 A_SetUserVar(user_radius, user_radius-user_radiusadd)
+        BHOL Y 1 A_Warp(AAPTR_TRACER, cos(pitch)*cos(-user_angle)*user_radius, cos(pitch)*sin(-user_angle)*user_radius, sin(pitch)*user_radius, 0, WARPF_ABSOLUTEANGLE|WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
+        BHOL Y 0 A_SetUserVar(user_angle, user_angle-user_angleadd)
+        BHOL Y 0 A_SetUserVar(user_radius, user_radius-user_radiusadd)
+        BHOL Y 0 A_JumpIf(scaley < 0.01, "End")
+        BHOL Y 0 A_JumpIf(user_radius < 1, "End")
+        BHOL Y 0 A_SetScale(scalex + WEPC_VBH_ORBITDECAYSCALE)
+        BHOL Y 1 A_Warp(AAPTR_TRACER, cos(pitch)*cos(-user_angle)*user_radius, cos(pitch)*sin(-user_angle)*user_radius, sin(pitch)*user_radius, 0, WARPF_ABSOLUTEANGLE|WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
+        BHOL Y 0 A_SetUserVar(user_angle, user_angle-user_angleadd)
+        BHOL Y 0 A_SetUserVar(user_radius, user_radius-user_radiusadd)
+        BHOL Y 1 A_Warp(AAPTR_TRACER, cos(pitch)*cos(-user_angle)*user_radius, cos(pitch)*sin(-user_angle)*user_radius, sin(pitch)*user_radius, 0, WARPF_ABSOLUTEANGLE|WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
+        BHOL Y 0 A_SetUserVar(user_angle, user_angle-user_angleadd)
+        BHOL Y 0 A_SetUserVar(user_radius, user_radius-user_radiusadd)
+        BHOL Y 0 A_JumpIf(scaley < 0.01, "End")
+        BHOL Y 0 A_JumpIf(user_radius < 1, "End")
+        BHOL Y 0 A_SetScale(scalex + WEPC_VBH_ORBITDECAYSCALE)
+        BHOL Z 1 A_Warp(AAPTR_TRACER, cos(pitch)*cos(-user_angle)*user_radius, cos(pitch)*sin(-user_angle)*user_radius, sin(pitch)*user_radius, 0, WARPF_ABSOLUTEANGLE|WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
+        BHOL Z 0 A_SetUserVar(user_angle, user_angle-user_angleadd)
+        BHOL Y 0 A_SetUserVar(user_radius, user_radius-user_radiusadd)
+        BHOL Z 1 A_Warp(AAPTR_TRACER, cos(pitch)*cos(-user_angle)*user_radius, cos(pitch)*sin(-user_angle)*user_radius, sin(pitch)*user_radius, 0, WARPF_ABSOLUTEANGLE|WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
+        BHOL Z 0 A_SetUserVar(user_angle, user_angle-user_angleadd)
+        BHOL Y 0 A_SetUserVar(user_radius, user_radius-user_radiusadd)
+        BHOL Y 0 A_JumpIf(scaley < 0.01, "End")
+        BHOL Y 0 A_JumpIf(user_radius < 1, "End")
+        BHOL Y 0 A_SetScale(scalex + WEPC_VBH_ORBITDECAYSCALE)
+        BHOL Z 1 A_Warp(AAPTR_TRACER, cos(pitch)*cos(-user_angle)*user_radius, cos(pitch)*sin(-user_angle)*user_radius, sin(pitch)*user_radius, 0, WARPF_ABSOLUTEANGLE|WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
+        BHOL Z 0 A_SetUserVar(user_angle, user_angle-user_angleadd)
+        BHOL Y 0 A_SetUserVar(user_radius, user_radius-user_radiusadd)
+        BHOL Z 1 A_Warp(AAPTR_TRACER, cos(pitch)*cos(-user_angle)*user_radius, cos(pitch)*sin(-user_angle)*user_radius, sin(pitch)*user_radius, 0, WARPF_ABSOLUTEANGLE|WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
+        BHOL Z 0 A_SetUserVar(user_angle, user_angle-user_angleadd)
+        BHOL Y 0 A_SetUserVar(user_radius, user_radius-user_radiusadd)
+        goto Death+1
+    End:
+        TNT1 A 0
+        stop
+    }
+}
+
+const int ARGC_SPEED = 0;
+const int ARGC_MAXTURN = 1;
+const int ARGC_TURNDIVISOR = 2;
+const int ARGC_TURNDIVISOR_ADD = 3;
+
+actor BlackHoleShockWave : BasicProjectile
+{
++FORCEXYBILLBOARD
++NOINTERACTION
+Radius 38
+Height 10
+damage (0)
+damagetype "BlackHole"
+Obituary "$OB_BLACKHOLE"
+speed 0
+args 60, 5000, 16, 36
+reactiontime 35
+var int user_PierceRipper;
+States
+{
+Spawn:
+BHOL Y 0
+BHOL Y 0 A_Setangle(angle+args[ARGC_MAXTURN]/args[ARGC_TURNDIVISOR])
+Spawn2:
+BHOL YYZZ 1 A_GiveInventory("BlackholeShockWaveFunc", 1)
+loop
+Death:
+BHOL YZ 2 A_SetScale(scalex/2)
+stop
+}
+}
+
+actor BlackholeShockWaveFunc : CustomInventory
+{
+    States
+    {
+    Pickup:
+        TNT1 A 0 A_CountDown
+        TNT1 A 0 A_Explode(20, 32, 0, 0, 32)
+        TNT1 A 0 A_GiveInventory("RotateFunc", 1)
+        stop
+    }
+}
+
+actor RotateFunc : CustomInventory
+{
+    States
+    {
+    Pickup:
+        TNT1 A 0 A_SetArg(ARGC_TURNDIVISOR,args[ARGC_TURNDIVISOR]+args[ARGC_TURNDIVISOR_ADD])
+        TNT1 A 0 A_Setangle(angle-args[ARGC_MAXTURN]/args[ARGC_TURNDIVISOR])
+        TNT1 A 0 A_ChangeVelocity(args[ARGC_SPEED],0,0,CVF_RELATIVE|CVF_REPLACE)
+        stop
+    }
+}

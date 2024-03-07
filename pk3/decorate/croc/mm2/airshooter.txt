@@ -1,0 +1,76 @@
+actor AirShooterWep_NormalBar : NormalBar { args 4, 198 }
+
+actor AirShooterWep : BaseMM8BDMWep 10036
+{
+//$Category MM8BDM-Weapons/Close
+//$Title Air Shooter
+//$Sprite WEAPG0
+Weapon.AmmoUse 2
+Weapon.AmmoGive 28
+Weapon.SlotNumber 4
+Inventory.Pickupmessage "$PU_AIRSHOOTER"
+Obituary "$OB_AIRSHOOTER"
+Tag "$TAG_AIRSHOOTER"
+weapon.ammotype "AirShooterAmmo"
+inventory.icon "AIRSI"
+States
+{
+SpawnLoop:
+WEAP G -1
+loop
+Ready:
+AIRS D 0 ACS_NamedExecuteWithResult("core_weaponcolor",CLR_AIRSHOOTER)
+AIRS D 1 A_WeaponReady
+Goto Ready+1
+Deselect:
+AIRS D 0
+goto DeselectSwap
+Select:
+AIRS D 0
+goto SelectSwap
+Fire:
+AIRS D 0 A_JumpIfNoAmmo("NoAmmo")
+AIRS D 0 A_PlaySoundEx("weapons/mm2/airshooterfire","Weapon")
+AIRS D 0 A_FireCustomMissile("AirShot",-15,0,8,0)
+AIRS D 0 A_FireCustomMissile("AirShot",15,0,8,0)
+AIRS D 0 A_FireCustomMissile("AirShot",0,1,8,0)
+AIRS EF 6
+AIRS D 7
+AIRS D 0 A_Refire
+Goto Ready+1
+NoAmmo:
+AIRS D 1 ACS_NamedExecuteAlways("core_noammo",0)
+Goto Ready+1
+}
+}
+
+actor AirShooterAmmo : Ammo
+{
+inventory.amount 1
+inventory.maxamount 28
++INVENTORY.IGNORESKILL
+}
+
+
+actor AirShot : BasicProjectile
+{
+Radius 6
+Height 7
+damage (27)
++NOEXPLODEFLOOR
+damagetype "AirShooter"
+Obituary "$OB_AIRSHOOTER"
+speed 22
+States
+{
+Spawn:
+AIRS A 1
+SpawnLoop:
+AIRS AABBCC 1 ThrustThingZ(0, 2, 0, 1)
+loop
+Death:
+TNT1 A 0 A_SpawnItemEx("PropBlowerEffect")
+AIRS GHIJ 2
+stop
+}
+}

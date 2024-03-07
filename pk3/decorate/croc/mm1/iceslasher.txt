@@ -1,0 +1,73 @@
+actor IceSlasherWep_NormalBar : NormalBar { args 4, 75 }
+
+actor IceSlasherWep : BaseMM8BDMWep 10045
+{
+//$Category MM8BDM-Weapons/Rapid
+//$Title Ice Slasher
+//$Sprite WEAPP0
+Weapon.AmmoUse 1
+Weapon.AmmoGive 28
+Weapon.SlotNumber 3
+Inventory.Pickupmessage "$PU_ICESLASHER"
+Obituary "$OB_ICESLASHER"
+Tag "$TAG_ICESLASHER"
+weapon.ammotype "IceSlasherAmmo"
+inventory.icon "ICESI"
+States
+{
+SpawnLoop:
+WEAP P -1
+loop
+Ready:
+ICES D 0 ACS_NamedExecuteWithResult("core_weaponcolor",CLR_ICESLASHER)
+ICES D 1 A_WeaponReady
+Goto Ready+1
+Deselect:
+ICES D 0
+goto DeselectSwap
+Select:
+ICES D 0
+goto SelectSwap
+Fire:
+ICES D 0 A_JumpIfNoAmmo("NoAmmo")
+ICES D 0 A_PlaySoundEx("weapons/mm1/iceslasherfire","Weapon")
+ICES D 0 A_FireCustomMissile("IceSlasher",0,1,8,0)
+ICES FED 3
+ICES D 0 A_Refire
+Goto Ready+1
+NoAmmo:
+ICES D 1 ACS_NamedExecuteAlways("core_noammo",0)
+Goto Ready+1
+}
+}
+
+actor IceSlasherAmmo : Ammo
+{
+inventory.amount 1
+inventory.maxamount 28
++INVENTORY.IGNORESKILL
+}
+
+
+actor IceSlasher : BasicProjectile
+{
+Radius 5
+Height 5
+damagetype "IceSlasher"
+Obituary "$OB_ICESLASHER"
+damage (15)
++RIPPER
+speed 22
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 A 1
+SpawnLoop:
+ICES AB 3 A_SpawnItemEx("IcePitFreeze")
+loop
+Death:
+ICES A 0 A_SpawnItemEx("IcePitFreeze")
+stop
+}
+}

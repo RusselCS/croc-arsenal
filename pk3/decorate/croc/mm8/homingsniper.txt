@@ -1,0 +1,323 @@
+actor HomingSniperWep_NormalBar : NormalBar { args 192, 230 }
+actor HomingSniperWep_ScriptBar : ScriptBar {}
+
+actor HomingSniperWep : BaseMM8BDMWep 11097
+{
+//$Category MM8BDM-Weapons/Close
+//$Title Homing Sniper
+//$Sprite WEA4H0
+Weapon.AmmoUse 2
+Weapon.AmmoGive 30
+Weapon.SlotNumber 4
+Inventory.Pickupmessage "$PU_HOMINGSNIPER"
+Obituary "$OB_HOMINGSNIPER"
+Tag "$TAG_HOMINGSNIPER"
+weapon.ammotype "HomingSniperAmmo"
+inventory.icon "HSNIPERI"
+States
+{
+SpawnLoop:
+WEA4 H -1
+loop
+Ready:
+HSNI C 0 ACS_NamedExecuteWithResult("core_weaponcolor",CLR_HOMINGSNIPER)
+HSNI C 1 A_WeaponReady
+Goto Ready+1
+Deselect:
+HSNI C 0 A_StopSoundEx("Weapon")
+goto DeselectSwap
+Select:
+HSNI C 0
+goto SelectSwap
+
+PreChargeLevel:
+TNT1 A 3
+TNT1 A 0 A_GiveInventory("WeaponChargeLevel",1)
+stop
+ChargeLevel1:
+TNT1 A 0 A_PlaySoundEx("weapons/mm8/homingsnipercharge", "Weapon", false)
+TNT1 A 18
+TNT1 A 0 A_PlaySoundEx("weapons/mm8/homingsniperload", "SoundSlot5")
+TNT1 A 17 A_GiveInventory("HomingSniperCharge", 1)
+TNT1 A 0 A_GiveInventory("WeaponChargeLevel",1)
+stop
+ChargeLevel2:
+TNT1 A 0 A_PlaySoundEx("weapons/mm8/homingsniperchargeloop", "Weapon", true)
+ChargeLevel2Loop:
+TNT1 A 0 A_PlaySoundEx("weapons/mm8/homingsniperload", "SoundSlot5")
+TNT1 A 0 A_GiveInventory("HomingSniperCharge", 1)
+TNT1 A 0 A_JumpIfInventory("HomingSniperCharge", 4, "ChargeMax")
+TNT1 A 17
+loop
+ChargeMax:
+TNT1 A 0 A_PlaySoundEx("weapons/mm8/homingsniperchargeloop", "Weapon", true)
+TNT1 A 1
+wait
+ChargeEnd:
+TNT1 A 0 A_StopSoundEx("Weapon")
+TNT1 A 0 A_TakeInventory("WeaponChargeLevel",9)
+stop
+
+Fire:
+HSNI C 0 A_JumpIfNoAmmo("NoAmmo")
+HSNI C 1
+HSNI C 0 A_Refire("PreChargeStart")
+Goto Fire1
+
+PreChargeStart:
+TNT1 A 0 A_GunFlash("PreChargeLevel")
+PreCharge:
+HSNI C 0 A_JumpIfInventory("WeaponChargeLevel",1,"Charge1AnimStart")
+HSNI C 1
+HSNI C 0 A_Refire("PreCharge")
+Goto Fire1
+Charge1AnimStart:
+TNT1 A 0 A_GunFlash("ChargeLevel1")
+Charge1Anim.A:
+HSNI C 0 A_JumpIfInventory("WeaponChargeLevel",2,"Charge2AnimStart")
+HSNI F 1 ACS_NamedExecuteWithResult("core_chargecolor",CLR_HOMINGCHRG1,TCLR_CHARGE1)
+HSNI C 0 A_Refire("Charge1Anim.B")
+Goto Fire1
+Charge1Anim.B:
+HSNI C 0 A_JumpIfInventory("WeaponChargeLevel",2,"Charge2AnimStart")
+HSNI C 1 ACS_NamedExecuteWithResult("core_chargecolor",CLR_HOMINGSNIPER,TCLR_NONE)
+HSNI C 0 A_Refire("Charge1Anim.A")
+Goto Fire1
+
+Charge2AnimStart:
+TNT1 A 0 A_GunFlash("ChargeLevel2")
+Charge2Anim.A:
+HSNI I 1 ACS_NamedExecuteWithResult("core_chargecolor",CLR_HOMINGCHRG2,TCLR_CHARGE2)
+HSNI C 0 A_Refire("Charge2Anim.B")
+Goto Fire1
+Charge2Anim.B:
+HSNI J 1 ACS_NamedExecuteWithResult("core_chargecolor",CLR_HOMINGCHRG3,TCLR_CHARGE3)
+HSNI C 0 A_Refire("Charge2Anim.C")
+Goto Fire1
+Charge2Anim.C:
+HSNI C 1 ACS_NamedExecuteWithResult("core_chargecolor",CLR_HOMINGSNIPER,TCLR_NONE)
+HSNI C 0 A_JumpIfInventory("IsBot", 1, "BotFire")
+HSNI C 0 A_Refire("Charge2Anim.A")
+Goto Fire1
+BotFire:
+HSNI C 0 A_Jump(16, "Fire1")
+HSNI C 0 A_JumpIfInventory("HomingSniperCharge", 4, "Fire1")
+HSNI C 0 A_Refire("Charge2Anim.A")
+Goto Fire1
+
+Altfire:
+Fire1:
+HSNI C 0 A_JumpIfNoAmmo("NoAmmo")
+HSNI C 0 ACS_NamedExecuteWithResult("core_chargecolor",CLR_HOMINGSNIPER,TCLR_NONE)
+HSNI C 0 A_Gunflash("ChargeEnd")
+HSNI C 0 A_PlaySoundEx("weapons/mm8/homingsnipershot","Weapon")
+HSNI C 0 A_FireCustomMissile("HomingSniper",0,1,8,0)
+HSNI C 0 A_JumpIfInventory("HomingSniperCharge", 1, "FireLoopCheck")
+FireEnd:
+HSNI E 0 A_TakeInventory("HomingSniperCharge", 10)
+HSNI ED 2
+HSNI C 12
+HSNI C 0 A_Refire
+Goto Ready+1
+FireLoopCheck:
+HSNI C 0 A_JumpIfInventory("HomingSniperAmmo", 1, "FireLoop")
+goto FireEnd
+FireLoop:
+HSNI C 0 A_TakeInventory("HomingSniperCharge", 1)
+HSNI ED 1
+HSNI C 0 A_PlaySoundEx("weapons/mm8/homingsnipershot","Weapon")
+HSNI C 0 A_FireCustomMissile("HomingSniper",frandom(-15,15),1,8,0)
+HSNI C 0 A_JumpIfInventory("HomingSniperCharge", 1, "FireLoopCheck")
+goto FireEnd
+
+NoAmmo:
+HSNI C 1 ACS_NamedExecuteAlways("core_noammo",0)
+HSNI C 0 A_Refire
+Goto Ready+1
+}
+}
+
+actor HomingSniperCharge : Inventory
+{
+    inventory.amount 1
+    inventory.maxamount 4
+}
+
+actor HomingSniperAmmo : Ammo
+{
+    inventory.amount 1
+    inventory.maxamount 30
+    +INVENTORY.IGNORESKILL
+}
+
+actor HomingSniper : BasicProjectile
+{
++SEEKERMISSILE
++SCREENSEEKER
++HITTARGET
+Damagetype "HomingSniper"
+Obituary "$OB_HOMINGSNIPER"
+Radius 5
+Height 5
+scale 2.5
+damage (14)
+gravity 0.15
+speed 1
+var int user_speed;
+var int user_drift;
+reactiontime 1
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_SetUserVar(user_speed, 40) // actual speed
+TNT1 A 0 A_SetUserVar(user_drift, 1.0)
+TNT1 A 0 ACS_ExecuteAlways(259, 0, 1)
+TNT1 A 0 ACS_NamedExecuteWithResult("core_SetVelPitch", 0, 0)
+TNT1 A 0 A_ScaleVelocity(user_speed)
+TNT1 A 0 A_ChangeFlag(NOGRAVITY, false)
+TNT1 A 2
+HSNM BB 2
+HSNM BBB 2 A_ScaleVelocity(0.5)
+HSNM BBBBBBBB 1 A_GiveInventory("HomingSniperSearch", 1)
+HSNM B 0 A_SpawnItemEx("HomingSniperTakeoffSound")
+HSNM B 0 A_ChangeVelocity(cos(pitch)*user_speed, 0, sin(-pitch)*user_speed, CVF_RELATIVE|CVF_REPLACE)
+HSNM B 0 ACS_ExecuteAlways(191, 0, APROP_Speed, 40, 1)
+HSNM B 0 A_JumpIfInventory("MM8BDMPlayer", 1, "SpawnChase", AAPTR_TRACER)
+SpawnLoop:
+HSNM BC 2 // A_SpawnItemEx("HomingSniperSmoke", -momx+random(-8, 8), -momy+random(-8, 8), -momz+random(-8, 8), 0, 0, 0, 0, SXF_ABSOLUTEPOSITION|SXF_WEPFXCOLOR)
+loop
+SpawnChase:
+HSNM B 0 // A_SpawnItemEx("HomingSniperSmoke", -momx+random(-8, 8), -momy+random(-8, 8), -momz+random(-8, 8), 0, 0, 0, 0, SXF_ABSOLUTEPOSITION|SXF_WEPFXCOLOR)
+HSNM BB 1 A_GiveInventory("HomingSniperChase", 1)
+HSNM C 0 // A_SpawnItemEx("HomingSniperSmoke", -momx+random(-8, 8), -momy+random(-8, 8), -momz+random(-8, 8), 0, 0, 0, 0, SXF_ABSOLUTEPOSITION|SXF_WEPFXCOLOR)
+HSNM CC 1 A_GiveInventory("HomingSniperChase", 1)
+loop
+Death:
+HSNM B 0 A_SpawnItemEx("ExplosionEffect1", 0, 0, 0, 0, 0, 0, 0, SXF_TRANSFERPOINTERS|SXF_WEPFXCOLOR)
+HSNM B 0 A_StopSoundEx("Body")
+stop
+}
+}
+
+actor HomingSniperTakeoffSound : BasicWatcher
+{
+    States
+    {
+    Spawn:
+        TNT1 A 0
+        TNT1 A 0 A_PlaySoundEx("weapons/mm8/homingsnipertakeoff", "Body")
+        TNT1 A 10
+        stop
+    }
+}
+
+actor HomingSniperSearch : CustomInventory
+{
+    States
+    {
+    Pickup:
+        TNT1 A 0 A_SeekerMissile(4, 10, SMF_LOOK, 256, 1)
+        HSNM B 0 A_JumpIfInventory("MM8BDMPlayer", 1, "Found", AAPTR_TRACER)
+        stop
+    Found:
+        TNT1 A 0 A_GiveInventory("HomingSniperFound", 1, AAPTR_TRACER)
+        TNT1 A 0 A_JumpIfInventory("HomingSniperLockCount", 1, "End")
+        TNT1 A 0 A_GiveInventory("HomingSniperLockCount", 1)
+        TNT1 A 0 A_GiveInventory("HomingSniperLockGiver", 1, AAPTR_TRACER)
+        stop
+    End:
+        TNT1 A 0
+        stop
+    }
+}
+
+actor HomingSniperChase : CustomInventory
+{
+    States
+    {
+    Pickup:
+        TNT1 A 0 A_SeekerMissile(4, 10, SMF_PRECISE, 0, 8)
+        TNT1 A 0 A_GiveInventory("HomingSniperFound", 1, AAPTR_TRACER)
+        TNT1 A 0 A_JumpIfInventory("MM8BDMPlayer", 1, "Continue", AAPTR_TRACER)
+        TNT1 A 0 A_Countdown
+        stop
+    Continue:
+        TNT1 A 0
+        stop
+    }
+}
+
+actor HomingSniperLock : Powerup
+{
+    powerup.duration 5
+}
+
+actor HomingSniperLockCount : Inventory { inventory.maxamount 5 }
+
+actor HomingSniperLockGiver : CustomInventory
+{
+    States
+    {
+    Pickup:
+        TNT1 A 0 A_PlaySoundEx("weapons/mm8/homingsniperlock", "body")
+        TNT1 A 0 A_SpawnItemEx("HomingSniperLockWarper", 0, 0, 28)
+        stop
+    }
+}
+
+actor HomingSniperFound : CustomInventory
+{
+    States
+    {
+    Pickup:
+        TNT1 A 0 A_GiveInventory("HomingSniperLock", 1)
+        stop
+    }
+}
+
+actor HomingSniperRetain : CustomInventory
+{
+    States
+    {
+    Pickup:
+        TNT1 A 0 A_GiveInventory("HomingSniperLock", 1)
+        stop
+    }
+}
+
+actor HomingSniperLockWarper : BasicShieldWarper
+{
+    Speed 100
+    var int user_x;
+    var int user_y;
+    var int user_z;
+    States
+    {
+    Spawn:
+        TNT1 A 0
+		TNT1 A 0 A_GiveInventory("MM8BDMProjSpawnFuncClient",1)
+        TNT1 A 0 ACS_NamedExecuteAlways("core_homingsniperwarper", 0, 0)
+        TNT1 A 0 A_Jump(256, "Shield")
+        Goto Shield
+    Shield:
+        TNT1 A 1
+        TNT1 A 1 A_Warp(AAPTR_TARGET, user_x, user_y, user_z, 0, WARPF_NOCHECKPOSITION)
+        HSNI KKKKLM 1 A_Warp(AAPTR_TARGET, user_x, user_y, user_z, 0, WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
+    ShieldLoop:
+        HSNI NNNNN 1 A_Warp(AAPTR_TARGET, user_x, user_y, user_z, 0, WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
+        HSNI NNNNNN 1 A_Warp(AAPTR_TARGET, user_x, user_y, user_z, 0, WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
+        loop
+    }
+}
+
+actor HomingSniperSmoke : BasicGraphicEffect
+{
+    +FORCEXYBILLBOARD
+    States
+    {
+    SpawnFrame:
+        HSNI OPQR 2
+        stop
+    }
+}

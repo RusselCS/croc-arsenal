@@ -1,0 +1,199 @@
+actor NoiseCrushWep_ScriptBar : ScriptBar {}
+
+actor NoiseCrushWep : BaseMM8BDMWep 10083
+{
+//$Category MM8BDM-Weapons/Ranged
+//$Title Noise Crush
+//$Sprite WEA3J0
+Weapon.AmmoUse 2
+Weapon.AmmoGive 28
+Weapon.SlotNumber 2
+Inventory.Pickupmessage "$PU_NOISECRUSH"
+Obituary "$OB_NOISECRUSH"
+Tag "$TAG_NOISECRUSH"
+weapon.ammotype "NoiseCrushAmmo"
+inventory.icon "NCRUSI"
+States
+{
+SpawnLoop:
+WEA3 J -1
+loop
+Ready:
+NCRU I 0 ACS_NamedExecuteWithResult("core_weaponcolor",CLR_NOISECRUSH)
+NCRU I 0 A_JumpIfInventory("NoiseCrushCaught",1,"ChargeStart")
+NCRU I 1 A_WeaponReady
+Goto Ready+1
+ChargeStart:
+NCRU L 0 A_GiveInventory("WeaponCharge",1)
+NCRU L 0 A_GunFlash("Sound.BusterCharge", GFF_NOEXTCHANGE)
+Charged:
+NCRU L 0 ACS_NamedExecuteWithResult("core_chargecolor",CLR_NOISECRUSHCRG2,TCLR_CHARGE2)
+NCRU M 1 A_WeaponReady
+NCRU L 0 ACS_NamedExecuteWithResult("core_chargecolor",CLR_NOISECRUSHCRG3,TCLR_CHARGE3)
+NCRU N 1 A_WeaponReady
+NCRU I 0 ACS_NamedExecuteWithResult("core_chargecolor",CLR_NOISECRUSH,TCLR_NONE)
+NCRU I 1 A_WeaponReady
+loop
+Deselect:
+NCRU I 0 A_JumpIfInventory("WeaponCharge",1,1)
+goto DeselectSwap
+NCRU I 2 A_TakeInventory("WeaponCharge",999)
+goto DeselectSwap
+Select:
+NCRU I 0 A_TakeInventory("NoiseCrushCaught",999)
+goto SelectSwap
+Fire:
+NCRU I 0 A_JumpIfInventory("WeaponCharge",1,"Fire2")
+NCRU I 0 A_JumpIfNoAmmo("NoAmmo")
+NCRU I 0 ACS_NamedExecuteWithResult("core_weaponcolor",CLR_NOISECRUSH,CLRF_SILENT)
+Goto Fire1
+Fire1:
+NCRU I 0 A_PlaySoundEx("weapons/mm7/noisecrushfire","Weapon")
+NCRU I 0 A_FireCustomMissile("NoiseCrush",0,1,8,0)
+NCRU JK 5
+NCRU I 10
+NCRU I 0 A_Refire
+Goto Ready+1
+Fire2:
+NCRU I 0 A_PlaySoundEx("weapons/mm7/noisecrushchargefire", "Weapon")
+NCRU I 0 A_StopSoundEx("SoundSlot5")
+NCRU I 0 A_FireCustomMissile("NoiseCrush2",0,0,8,0)
+NCRU I 0 A_TakeInventory("NoiseCrushAmmo", 4,TIF_NOTAKEINFINITE)
+NCRU I 0 A_TakeInventory("WeaponCharge",999)
+NCRU I 0 A_TakeInventory("NoiseCrushCaught",999)
+NCR0 A 1
+NCR0 A 0 ACS_NamedExecuteWithResult("core_chargecolor",CLR_NOISECRUSH,TCLR_NONE)
+NCR0 BCDEF 2
+NCRU I 23
+NCRU I 0 A_Refire
+Goto Ready+1 // 35 ticks
+NoAmmo:
+NCRU I 1 ACS_NamedExecuteAlways("core_noammo",0)
+Goto Ready+1
+}
+}
+
+actor NoiseCrushAmmo : Ammo
+{
+inventory.amount 1
+inventory.maxamount 28
++INVENTORY.IGNORESKILL
+}
+
+const float WEPC_7NC_DIST = 0.6;
+
+actor NoiseCrush : BasicBouncer
+{
+Radius 5
+Height 5
+damage (27)
+damagetype "NoiseCrush1"
+Obituary "$OB_NOISECRUSH"
+speed 28
++FORCEXYBILLBOARD
+BounceFactor 1.0
+bouncecount 2
+reactiontime 150
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 A 1
+TNT1 A 0 A_SpawnItemEx("NoiseCrushTrail1E",0,0,0,0,0,0,0,SXF_WEPFXCOLOR)
+TNT1 A 1 A_CountDown
+TNT1 A 0 A_SpawnItemEx("NoiseCrushTrail1B",0,0,0,0,0,0,0,SXF_WEPFXCOLOR)
+TNT1 A 1 A_CountDown
+TNT1 A 0 A_SpawnItemEx("NoiseCrushTrail1A",0,0,0,0,0,0,0,SXF_WEPFXCOLOR)
+TNT1 A 1 A_CountDown
+TNT1 A 0 A_SpawnItemEx("NoiseCrushTrail1F",0,0,0,0,0,0,0,SXF_WEPFXCOLOR)
+TNT1 A 1 A_CountDown
+Goto Look
+Look:
+TNT1 A 0 A_JumpIfCloser(40, "Give")
+TNT1 A 0 A_SpawnItemEx("NoiseCrushTrail1D",0,0,0,0,0,0,0,SXF_WEPFXCOLOR)
+TNT1 A 1 A_CountDown
+TNT1 A 0 A_JumpIfCloser(40, "Give")
+TNT1 A 0 A_SpawnItemEx("NoiseCrushTrail1C",0,0,0,0,0,0,0,SXF_WEPFXCOLOR)
+TNT1 A 1 A_CountDown
+TNT1 A 0 A_JumpIfCloser(40, "Give")
+TNT1 A 0 A_SpawnItemEx("NoiseCrushTrail1B",0,0,0,0,0,0,0,SXF_WEPFXCOLOR)
+TNT1 A 1 A_CountDown
+TNT1 A 0 A_JumpIfCloser(40, "Give")
+TNT1 A 0 A_SpawnItemEx("NoiseCrushTrail1A",0,0,0,0,0,0,0,SXF_WEPFXCOLOR)
+TNT1 A 1 A_CountDown
+TNT1 A 0 A_JumpIfCloser(40, "Give")
+TNT1 A 0 A_SpawnItemEx("NoiseCrushTrail1A",0,0,0,0,0,0,0,SXF_WEPFXCOLOR)
+TNT1 A 1 A_CountDown
+loop
+Give:
+TNT1 A 2 A_GiveToTarget("NoiseCrushCaught",1)
+stop
+}
+}
+
+actor NoiseCrush2 : BasicProjectile
+{
+Radius 20
+Height 10
+damage (60)
+damagetype "NoiseCrush2"
+Obituary "$OB_NOISECRUSH"
++FORCEXYBILLBOARD
+speed 50
+reactiontime 150
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 A 1 A_SpawnItemEx("NoiseCrushTrail2E",0,0,0,0,0,0,0,SXF_WEPFXCOLOR)
+TNT1 A 1 A_SpawnItemEx("NoiseCrushTrail2B",0,0,0,0,0,0,0,SXF_WEPFXCOLOR)
+TNT1 A 1 A_SpawnItemEx("NoiseCrushTrail2A",0,0,0,0,0,0,0,SXF_WEPFXCOLOR)
+TNT1 A 1 A_SpawnItemEx("NoiseCrushTrail2F",0,0,0,0,0,0,0,SXF_WEPFXCOLOR)
+SpawnLoop:
+TNT1 A 1 A_SpawnItemEx("NoiseCrushTrail2D",0,0,0,0,0,0,0,SXF_WEPFXCOLOR)
+TNT1 A 1 A_SpawnItemEx("NoiseCrushTrail2C",0,0,0,0,0,0,0,SXF_WEPFXCOLOR)
+TNT1 A 1 A_SpawnItemEx("NoiseCrushTrail2B",0,0,0,0,0,0,0,SXF_WEPFXCOLOR)
+TNT1 A 1 A_SpawnItemEx("NoiseCrushTrail2A",0,0,0,0,0,0,0,SXF_WEPFXCOLOR)
+TNT1 A 1 A_SpawnItemEx("NoiseCrushTrail2A",0,0,0,0,0,0,0,SXF_WEPFXCOLOR)
+loop
+}
+}
+
+actor NoiseCrushTrail1A : BasicGraphicEffect
+{
+    +FORCEXYBILLBOARD
+    +BRIGHT
+    Speed 60
+    States
+    {
+    SpawnFrame:
+        NCRU CDDCC 1
+        stop
+    }
+}
+
+actor NoiseCrushTrail1B : NoiseCrushTrail1A { States { SpawnFrame: NCRU BCCBB 1
+stop }}
+actor NoiseCrushTrail1C : NoiseCrushTrail1A { States { SpawnFrame: NCRU CBBCC 1
+stop }}
+actor NoiseCrushTrail1D : NoiseCrushTrail1A { States { SpawnFrame: NCRU BAABB 1
+stop }}
+actor NoiseCrushTrail1E : NoiseCrushTrail1A { States { SpawnFrame: NCRU ABBAA 1
+stop }}
+actor NoiseCrushTrail1F : NoiseCrushTrail1A { States { SpawnFrame: NCRU DCCDD 1
+stop }}
+
+actor NoiseCrushTrail2A : NoiseCrushTrail1A { States { SpawnFrame: NCRU HGGHHHH 1
+stop }}
+actor NoiseCrushTrail2B : NoiseCrushTrail1A { States { SpawnFrame: NCRU GHHGGGG 1
+stop }}
+actor NoiseCrushTrail2C : NoiseCrushTrail1A { States { SpawnFrame: NCRU FGGFFFF 1
+stop }}
+actor NoiseCrushTrail2D : NoiseCrushTrail1A { States { SpawnFrame: NCRU FEEFFFF 1
+stop }}
+actor NoiseCrushTrail2E : NoiseCrushTrail1A { States { SpawnFrame: NCRU EFFEEEE 1
+stop }}
+actor NoiseCrushTrail2F : NoiseCrushTrail1A { States { SpawnFrame: NCRU HGGHHHH 1
+stop }}
+
+actor NoiseCrushCaught : Once {}

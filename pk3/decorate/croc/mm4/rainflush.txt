@@ -1,0 +1,137 @@
+actor RainFlushWep_NormalBar : NormalBar { args 4, 104 }
+
+actor RainFlushWep : BaseMM8BDMWep 10074
+{
+//$Category MM8BDM-Weapons/AoE
+//$Title Rain Flush
+//$Sprite WEA2Y0
+Weapon.AmmoUse 7
+Weapon.AmmoGive 28
+Weapon.SlotNumber 6
+Inventory.Pickupmessage "$PU_RAINFLUSH"
+Obituary "$OB_RAINFLUSH"
+Tag "$TAG_RAINFLUSH"
+weapon.ammotype "RainFlushAmmo"
+inventory.icon "RAINSI"
+States
+{
+SpawnLoop:
+WEA2 Y -1
+loop
+Ready:
+TOAH A 0 ACS_NamedExecuteWithResult("core_weaponcolor",CLR_RAINFLUSH)
+TOAH A 1 A_WeaponReady
+Goto Ready+1
+Deselect:
+TOAH A 0
+goto DeselectSwap
+Select:
+TOAH A 0
+goto SelectSwap
+Fire:
+TOAH A 0 A_JumpIfNoAmmo("NoAmmo")
+TOAH A 0 A_PlaySoundEx("weapons/mm4/rainflushfire","Weapon")
+TOAH A 0 A_TakeInventory("RainFlushAmmo", 7, TIF_NOTAKEINFINITE)
+TOAH A 0 A_GiveInventory("FireRainFlush")
+TOAH BCDEFG 2
+TNT1 A 50
+TOAH HIA 1
+Goto Ready+1
+NoAmmo:
+TOAH A 1 ACS_NamedExecuteAlways("core_noammo",0)
+TOAH A 0 A_Refire
+goto Ready+1
+}
+}
+
+actor FireRainFlush : CustomInventory
+{
+    States
+    {
+    Pickup:
+        TNT1 A 0 A_SpawnItemEx("RainFlushPod",16,0,32, 10, 0, 0, 0)
+        TNT1 A 0 A_SpawnItemEx("RainFlush",0,0,0,0)
+        TNT1 A 0 A_JumpIfInventory("PowerSpreadRune", 1, "PickupSpread")
+        stop
+    PickupSpread:
+        TNT1 A 0 A_SpawnItemEx("RainFlushPod",16,0,32, 10, 0, 0, 30)
+        TNT1 A 0 A_SpawnItemEx("RainFlushPod",16,0,32, 10, 0, 0, -30)
+        TNT1 A 0 A_SpawnItemEx("RainFlush",0,0,0,0,0,0,120)
+        TNT1 A 0 A_SpawnItemEx("RainFlush",0,0,0,0,0,0,240)
+        stop
+    }
+}
+
+actor RainFlushPod : BasicGraphicEffect
+{
+States
+{
+SpawnFrame:
+RAIN A 0
+RAIN A 6 ThrustThingZ(0,10,0,0)
+RAIN A 0 A_ChangeVelocity(0, 0, 0, CVF_REPLACE)
+RAIN A 0 ThrustThingZ(0,50,0,0)
+RAIN BCABCABCABCABC 2
+stop
+}
+}
+
+const int SXF_RAINFLUSH = (SXF_CLIENTSIDE|SXF_WEPFXCOLOR);
+
+actor RainFlush : BasicExplosion
+{
+damagetype "RainFlush"
+Obituary "$OB_RAINFLUSH"
+var int user_TranslateWhiteColors;
+States
+{
+Spawn:
+TNT1 A 35
+TNT1 A 0 A_PlaySoundEx("weapons/mm4/rainflushexplode","Voice")
+TNT1 A 0 A_SpawnItemEx("RainFlushSoakify")
+TNT1 A 0 A_Explode(27,512,0)
+TNT1 AAAAAAA 1 A_SpawnItemEx("RainSprinkleSpawn",0,0,0,0,0,0,0,SXF_RAINFLUSH)
+TNT1 A 0 A_SpawnItemEx("RainFlushSoakify")
+TNT1 A 0 A_Explode(13,512,0)
+TNT1 AAAAAAA 1 A_SpawnItemEx("RainSprinkleSpawn",0,0,0,0,0,0,0,SXF_RAINFLUSH)
+TNT1 A 0 A_SpawnItemEx("RainFlushSoakify")
+TNT1 A 0 A_Explode(13,512,0)
+TNT1 AAAAAAA 1 A_SpawnItemEx("RainSprinkleSpawn",0,0,0,0,0,0,0,SXF_RAINFLUSH)
+TNT1 A 0 A_SpawnItemEx("RainFlushSoakify")
+TNT1 A 0 A_Explode(13,512,0)
+TNT1 AAAAAAA 1 A_SpawnItemEx("RainSprinkleSpawn",0,0,0,0,0,0,0,SXF_RAINFLUSH)
+stop
+}
+}
+
+actor RainFlushSoakify : SoakifyEffect {args 512}
+
+actor RainSprinkleSpawn : BasicGraphicEffect
+{
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_SpawnItemEx("RainSprinkle", random(-128,384), random(-128,384), 256, -30, 0, -30, 90, SXF_RAINFLUSH)
+TNT1 A 1 A_SpawnItemEx("RainSprinkle", random(-128,384), random(-128,384), 256, -30, 0, -30, 90, SXF_RAINFLUSH)
+stop
+}
+}
+
+actor RainSprinkle : BasicGraphicEffect
+{
+States
+{
+Spawn:
+RAIN D 30
+stop
+}
+}
+
+actor RainFlushAmmo : Ammo
+{
+inventory.amount 1
+inventory.maxamount 28
++INVENTORY.IGNORESKILL
+}
+

@@ -1,0 +1,194 @@
+actor TrebleSentry : BaseMM8BDMUseItem 10159
+{
+//$Category MM8BDM-Assists/Weapon
+//$Title Treble Sentry
+//$Sprite TRBIA0
+//Inventory.RespawnTics 300
+inventory.amount 1
+inventory.maxamount 1
+inventory.pickupmessage "$PU_TREBLESENTRY"
+Tag "$TAG_TREBLESENTRY"
+inventory.icon "TRBLSI"
+Inventory.PickupSound "item/1up"
+scale 2.0
++COUNTITEM
++INVBAR
+states
+{
+SpawnLoop:
+TRBI A -1
+Loop
+Use:
+TRBI A 0 A_PlaySoundEx("item/refill","Voice")
+TRBI A 0 A_SpawnItemEx("TrebleTeleport", 40, 0, 256, 0, 0, -24, 0, SXF_NOCHECKPOSITION, 0)
+stop
+Null:
+TNT1 A 0 
+stop
+}
+}
+
+actor TrebleSentry_Respawn : 8BDMItemRespawn
+{
+	translation "192:192=62:62", "198:198=95:95"
+	mass 1050
+}
+actor TrebleSentry_RespawnShadow : 8BDMItemRespawnShadow
+{
+	mass 1050
+	States
+	{
+	Spawn:
+		TRBI A 0
+		goto Super::Spawn
+	}
+}
+
+actor TrebleTeleport : BasicProjectile
+{
++RIPPER
++NOINTERACTION
++DONTBLAST
++SKYEXPLODE
+damage (0)
+Radius 8
+Height 12
+speed 0
+states
+{
+Spawn:
+TRBL F 0
+TRBL F 9
+TRBL F 0 A_ChangeFlag("NOINTERACTION", 0)
+TRBL FFFFFFFFFF 1 A_CheckFloor("Next")
+Goto Next
+Next:
+TRBL F 0 A_ChangeFlag("NOGRAVITY", 0)
+Goto Death
+Death:
+TNT1 A 0 A_SpawnItemEx("Treble",0,0,3,0,0,momz,0,SXF_NOCHECKPOSITION,0)
+stop
+}
+}
+
+actor Treble : ProjSpawnFuncActor /*replaces MBFHelperDog*/
+{
+- SOLID
+//MONSTER
+PROJECTILE
++NOCLIP
++DONTBLAST
++SKYEXPLODE
+-SOLID
+-COUNTKILL
+-SHOOTABLE
+speed 0
+scale 2.5
++SEEKERMISSILE
+ReactionTime 175
++LOOKALLAROUND
+Radius 12
+Height 32
+reactiontime 224
+meleerange 20
+states
+{
+Spawn:
+TRBL F 0 //A_Jump(256, "Death")
+TRBL F 1 A_ChangeFlag("MISSILE",0)
+TRBL F 1 //A_ChangeFlag("NOGRAVITY",0)
+TRBL F 1 //A_PlaySound("support/rushsummon")
+TRBL F 0 A_ChangeVelocity(0, 0, -32, CVF_REPLACE)
+TRBL F 1 A_JumpIf(z-floorz<=0, "Look")
+Goto Spawn+4
+Look:
+TRBL F 0 A_Stop
+TRBL F 0 A_ChangeFlag("NOCLIP",0)
+TRBL GFHH 1
+TRBL E 5 A_PlaySoundEx("misc/polarroar","Voice")
+TRBL E 0 A_ChangeFlag("MISSILE",1)
+Looking:
+TRBL AAAAAAAA 1 A_SeekerMissile(4, 10, SMF_LOOK|SMF_PRECISE, 256, 1000)
+TRBL BCBCBC 4 A_SeekerMissile(4, 10, SMF_LOOK|SMF_PRECISE, 256, 1000)
+TRBL C 0 A_JumpIfTargetInLOS("Missile", 0, JLOSF_PROJECTILE)
+TRBL A 0 A_GiveInventory("CutterFlag",2)
+TRBL A 0 A_JumpIfInventory("CutterFlag",25,"Death")
+loop
+Missile:
+TRBL A 0 A_SeekerMissile(4, 10, SMF_PRECISE)
+TRBL A 0 A_JumpIfInventory("CutterFlag",25,"Death")
+TRBL A 0 A_PlaySoundEx("misc/devilfire","Voice")
+TRBL A 0 A_FaceTracer(0, 0)
+TRBL I 5 A_CustomMissile("TrebleShot",10,0,0,CMF_AIMDIRECTION, pitch)
+TRBL I 0 A_PlaySoundEx("misc/devilfire","Voice")
+TRBL A 0 A_FaceTracer(0, 0)
+TRBL I 5 A_CustomMissile("TrebleShot",10,0,0,CMF_AIMDIRECTION, pitch)
+TRBL I 0 A_PlaySoundEx("misc/devilfire","Voice")
+TRBL A 0 A_FaceTracer(0, 0)
+TRBL I 5 A_CustomMissile("TrebleShot",10,0,0,CMF_AIMDIRECTION, pitch)
+TRBL A 0 A_GiveInventory("CutterFlag",2)
+TRBL A 0 A_JumpIfInventory("CutterFlag",35,"Death")
+TRBL A 0 A_SeekerMissile(4, 10, SMF_PRECISE)
+TRBL A 0 A_PlaySoundEx("misc/devilfire","Voice")
+TRBL A 0 A_FaceTracer(0, 0)
+TRBL I 5 A_CustomMissile("TrebleShot",10,0,0,CMF_AIMDIRECTION, pitch)
+TRBL I 0 A_PlaySoundEx("misc/devilfire","Voice")
+TRBL A 0 A_FaceTracer(0, 0)
+TRBL I 5 A_CustomMissile("TrebleShot",10,0,0,CMF_AIMDIRECTION, pitch)
+TRBL I 0 A_PlaySoundEx("misc/devilfire","Voice")
+TRBL A 0 A_FaceTracer(0, 0)
+TRBL I 5 A_CustomMissile("TrebleShot",10,0,0,CMF_AIMDIRECTION, pitch)
+TRBL A 0 A_GiveInventory("CutterFlag",2)
+TRBL A 4
+TRBL C 0 A_JumpIfTargetInLOS("Missile", 0, JLOSF_PROJECTILE)
+TRBL A 0 A_RearrangePointers(AAPTR_DEFAULT,AAPTR_DEFAULT,AAPTR_NULL)
+TRBL A 2
+Goto Looking 
+Death:
+TNT1 A 1
+TNT1 A 1 A_SpawnItemEx("TrebleDeath",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION|SXF_WEPFXCOLOR)
+TNT1 A 1
+stop
+}
+}
+
+actor TrebleDeath : BasicProjectile
+{
++RIPPER
++BLOODLESSIMPACT
++CLIENTSIDEONLY
++DONTBLAST
+Damage (0)
+Speed 30
+Radius 4
+Height 60
+reactiontime 35
+States
+{
+Spawn:
+TRBL HFG 3
+TRBL F 0 ThrustThingZ(0, 40, 0, 1)
+TRBL F 1 A_CountDown
+Goto Spawn+4
+Death:
+TRBL F 0
+stop
+}
+}
+
+actor TrebleShot : BasicFastProjectile
+{
++FORCEXYBILLBOARD
+Damagetype "Treble"
+Obituary "$OB_TREBLESENTRY"
+Damage (8)
+Height 12
+Radius 12
+Speed 50
+States
+{
+Spawn:
+BASB A 1
+loop
+}
+}

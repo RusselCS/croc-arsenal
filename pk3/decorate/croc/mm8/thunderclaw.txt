@@ -1,0 +1,181 @@
+actor ThunderClawWep_NormalBar : NormalBar { args 192, 220 }
+
+actor ThunderClawWep : BaseMM8BDMWep 11096
+{
+    //$Category MM8BDM-Weapons/Close
+    //$Title Thunder Claw
+    //$Sprite WEA4G0
+    Weapon.AmmoUse 2
+    Weapon.AmmoGive 28
+    Weapon.SlotNumber 4
+    Inventory.Pickupmessage "$PU_THUNDERCLAW"
+    Obituary "$OB_THUNDERCLAW"
+    Tag "$TAG_THUNDERCLAW"
+    weapon.ammotype "ThunderClawAmmo"
+    inventory.icon "TCLAWI"
+    States
+    {
+    SpawnLoop:
+        WEA4 G -1 
+        loop
+    Ready:
+        TCLD D 0 ACS_NamedExecuteWithResult("core_weaponcolor",CLR_THUNDERCLAW)
+        TCLD D 1 A_WeaponReady
+        Goto Ready+1
+    Deselect:
+        TCLD D 0
+        goto DeselectSwap
+    Select:
+        TCLD D 0
+        goto SelectSwap
+    Fire:
+        TCLD D 0 A_JumpIfNoAmmo("NoAmmo")
+        TCLD D 0 A_PlaySoundEx("weapons/mm8/thunderclawfire","Weapon")
+        TCLD D 0 A_GiveInventory("FireThunderClaw", 1)
+        TCLD EFFE 3
+        TCLD D 10
+        TCLD D 0 A_Refire
+        Goto Ready+1
+    NoAmmo:
+        TCLD D 1 ACS_NamedExecuteAlways("core_noammo",0)
+        Goto Ready+1
+    }
+}
+
+actor ThunderClawAmmo : Ammo
+{
+    inventory.amount 1
+    inventory.maxamount 28
+    +INVENTORY.IGNORESKILL
+}
+
+actor ThunderClawProtect : PowerProtection
+{
+    powerup.duration 10
+    damagefactor "ThunderClaw", 0.0
+}
+
+actor FireThunderClaw : CustomInventory
+{
+    States
+    {
+    Pickup:
+		TNT1 A 0 A_TakeInventory("ThunderClawAmmo", 2,TIF_NOTAKEINFINITE)
+        TNT1 A 0 A_SpawnItemEx("ThunderClawWatcher", cos(-pitch)*16, 8, 32+(sin(-pitch)*16), 0, 0, 0, 0, SXF_TRANSFERPITCH)
+        TNT1 A 0 A_JumpIfInventory("PowerSpreadRune", 1, "PickupSpread")
+        stop
+    PickupSpread:
+        TNT1 A 0 A_SpawnItemEx("ThunderClawWatcher", cos(-pitch)*16, 8, 32+(sin(-pitch)*16), 0, 0, 0, -20, SXF_TRANSFERPITCH)
+        TNT1 A 0 A_SpawnItemEx("ThunderClawWatcher", cos(-pitch)*16, 8, 32+(sin(-pitch)*16), 0, 0, 0, 20, SXF_TRANSFERPITCH)
+        stop
+    }
+}
+
+actor ThunderClawWatcher : BasicWatcher
+{
+    speed 32
+    States
+    {
+    Spawn:
+        TNT1 A 0
+        TNT1 A 0 A_SpawnItemEx("ThunderClawDamager5", 0, 0, 0, cos(pitch), 0, sin(-pitch), 0, SXF_MULTIPLYSPEED)
+        TCLA A 1 A_Warp(AAPTR_TARGET, cos(-pitch)*16,8,32+(sin(-pitch)*16), 0, WARPF_USECALLERANGLE)
+        TNT1 A 0 A_SpawnItemEx("ThunderClawDamager10", 0, 0, 0, cos(pitch), 0, sin(-pitch), 0, SXF_MULTIPLYSPEED)
+        TCLA A 1 A_Warp(AAPTR_TARGET, cos(-pitch)*16,8,32+(sin(-pitch)*16), 0, WARPF_USECALLERANGLE)
+        TNT1 A 0 A_SpawnItemEx("ThunderClawDamager15", 0, 0, 0, cos(pitch), 0, sin(-pitch), 0, SXF_MULTIPLYSPEED)
+        TCLA A 1 A_Warp(AAPTR_TARGET, cos(-pitch)*16,8,32+(sin(-pitch)*16), 0, WARPF_USECALLERANGLE)
+        TNT1 A 0 A_SpawnItemEx("ThunderClawDamager20", 0, 0, 0, cos(pitch), 0, sin(-pitch), 0, SXF_MULTIPLYSPEED)
+        TCLA A 1 A_Warp(AAPTR_TARGET, cos(-pitch)*16,8,32+(sin(-pitch)*16), 0, WARPF_USECALLERANGLE)
+        TNT1 A 0 A_SpawnItemEx("ThunderClawDamager15", 0, 0, 0, cos(pitch), 0, sin(-pitch), 0, SXF_MULTIPLYSPEED)
+        TCLA A 1 A_Warp(AAPTR_TARGET, cos(-pitch)*16,8,32+(sin(-pitch)*16), 0, WARPF_USECALLERANGLE)
+        TNT1 A 0 A_SpawnItemEx("ThunderClawDamager10", 0, 0, 0, cos(pitch), 0, sin(-pitch), 0, SXF_MULTIPLYSPEED)
+        TCLA A 1 A_Warp(AAPTR_TARGET, cos(-pitch)*16,8,32+(sin(-pitch)*16), 0, WARPF_USECALLERANGLE)
+        TNT1 A 0 A_SpawnItemEx("ThunderClawDamager5", 0, 0, 0, cos(pitch), 0, sin(-pitch), 0, SXF_MULTIPLYSPEED)
+        stop
+    WindDown1:
+        TNT1 A 0
+        stop
+    }
+}
+
+actor ThunderClawDamager : BasicFastProjectile
+{
+    +DONTSPLASH
+    +HITTRACER
+    Obituary "$OB_THUNDERCLAW"
+    Damagetype "ThunderClaw"
+    Damage (30)
+    Radius 10
+    Height 10
+    Speed 270
+    States
+    {
+    Spawn:
+        TNT1 A 0
+        TNT1 A 1
+        goto Death
+    XDeath:
+        TNT1 A 0 A_SpawnItemEX("ElectrifyEffect")
+        TNT1 A 0 A_GiveInventory("ThunderClawProtect", 1, AAPTR_TRACER)
+    Death:
+        TNT1 A 0 A_SpawnItemEX("ElectrifyEffect")
+        TNT1 A 0 A_SpawnItemEx("ThunderClawPegHelper")
+        TNT1 A 0 A_SpawnItemEx("ThunderClaw")
+        stop
+    }
+}
+
+actor ThunderClawDamager5 : ThunderClawDamager { speed 54 }
+actor ThunderClawDamager10 : ThunderClawDamager { speed 108 }
+actor ThunderClawDamager15 : ThunderClawDamager { speed 162 }
+actor ThunderClawDamager20 : ThunderClawDamager { speed 216 -DONTSPLASH }
+
+// Tip
+actor ThunderClaw : ProjSpawnFuncActor
+{
+    +FORCEXYBILLBOARD
+    +BRIGHT
+    States
+    {
+    Spawn:
+        TNT1 A 0
+        TNT1 A 1
+        TNT1 A 1 ACS_NamedExecuteWithResult("core_drawhookshot", ACS_NamedExecuteWithResult("core_gettarget"), 32, 8, DHS_MAXDIST + 1024)
+        TNT1 A 0 A_Jump(256, "Spawn2", "Spawn3")
+        goto Spawn2
+    Spawn1:
+        TCLA D 2
+        stop
+    Spawn2:
+        TCLA E 2
+        stop
+    Spawn3:
+        TCLA F 2
+        stop
+    }
+}
+
+// chain
+actor ThunderClawFX : BasicGraphicEffect
+{
+    +FORCEXYBILLBOARD
+    +BRIGHT
+    +NOTIMEFREEZE
+    scale 1.25
+    States
+    {
+    SpawnFrame:
+        TNT1 A 0
+        TNT1 A 1
+        TNT1 A 0 A_Jump(256, "Spawn1", "Spawn2", "Spawn3")
+    Spawn1:
+        TCLA A 1
+        stop
+    Spawn2:
+        TCLA B 1
+        stop
+    Spawn3:
+        TCLA C 1
+        stop
+    }
+}

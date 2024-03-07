@@ -1,0 +1,170 @@
+actor RushCoil : BaseMM8BDMUseItem 10090
+{
+//$Category MM8BDM-Assists/Mobility
+//$Title Rush Coil
+//$Sprite WEAPB0
+Inventory.RespawnTics 245
+inventory.amount 1
+inventory.maxamount 1
+inventory.pickupmessage "$PU_RUSHCOIL"
+inventory.icon "RCOIL"
+Tag "$TAG_RUSHCOIL"
+Inventory.PickupSound "item/1up"
+scale 2.0
++COUNTITEM
++INVBAR
+states
+{
+SpawnLoop:
+WEAP B -1
+loop
+Use:
+WEAP B 0 A_PlaySoundEx("item/refill","Voice")
+WEAP B 0 A_SpawnItemEx("RushTeleport", 40, 0, 256, 0, 0, -32, 0, SXF_NOCHECKPOSITION, 0)
+stop
+}
+}
+
+actor RushCoil_Respawn : 8BDMItemRespawn
+{
+	translation "192:192=4:4", "198:198=42:42"
+	mass 245
+}
+actor RushCoil_RespawnShadow : 8BDMItemRespawnShadow
+{
+	mass 245
+	States
+	{
+	Spawn:
+		WEAP B 0
+		goto Super::Spawn
+	}
+}
+
+actor RushTeleport : BasicProjectile
+{
++RIPPER
++NOINTERACTION
++DONTBLAST
++SKYEXPLODE
+damage (0)
+Radius 12
+Height 32
+speed 0
+states
+{
+Spawn:
+RUSH D 0
+RUSH D 6
+RUSH D 0 A_ChangeFlag("NOINTERACTION", 0)
+RUSH DDDDDDDDDD 1 A_CheckFloor("Next")
+Next:
+RUSH D 0 //A_ChangeFlag("NOGRAVITY", 0)
+Goto Death
+Death:
+TNT1 A 0 A_SpawnItemEx("Rush",0,0,3,0,0,momz,0,SXF_NOCHECKPOSITION,0)
+stop
+}
+}
+
+actor Rush : ProjSpawnFuncActor
+{
+- SOLID
++MISSILE
++DONTBLAST
++NOCLIP
++SKYEXPLODE
+speed 0
+scale 2.5
+Radius 12
+Height 32
+reactiontime 250
+//meleerange 80
+states
+{
+Spawn:
+RUSH D 0 
+RUSH D 0 A_JumpIfInventory("Once",1,"Death")
+RUSH D 0 A_GiveInventory("Once",1)
+RUSH D 0 A_ChangeFlag("MISSILE",0)
+RUSH D 0 A_ChangeVelocity(0, 0, -32, CVF_REPLACE)
+RUSH D 1 A_JumpIf(z-floorz<=0, "Look")
+Goto Spawn+2
+Look:
+RUSH E 0 A_ChangeFlag("NOCLIP",0)
+RUSH FDEE 1
+LookLoop:
+RUSH A 0 A_Chase("")
+RUSH AAA 1 A_JumpIf(CallACS("core_getPlayersInRadius", 80) > 0, "Melee")
+RUSH A 0 A_Chase("")
+RUSH BBB 1 A_JumpIf(CallACS("core_getPlayersInRadius", 80) > 0, "Melee")
+RUSH A 0 A_CountDown
+Goto LookLoop
+Melee:
+RUSH C 0 A_JumpIfInTargetInventory("StrongSpring",1,"Melee2")
+RUSH C 18 A_RadiusGive("SpringActivate", 80, RGF_PLAYERS, 1)
+RUSH C 0 A_Die
+Goto Death
+Melee2:
+RUSH C 18 A_RadiusGive("SpringActivate2", 80, RGF_PLAYERS, 1)
+RUSH C 0 A_Die
+Goto Death
+Death:
+RUSH F 0 A_SpawnItemEx("RushDeath",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION|SXF_WEPFXCOLOR)
+stop
+}
+}
+
+actor StrongSpring : Once {}
+
+actor SpringActivate : CustomInventory
+{
+inventory.amount 1
+inventory.maxamount 1
++AUTOACTIVATE
+States
+{
+Spawn:
+TNT1 A 1
+loop
+Use:
+TNT1 A 1 ThrustThingZ(0, 95, 0, 0)
+TNT1 A 1 A_TakeInventory("JumpCancler",1)
+stop
+}
+}
+
+actor SpringActivate2 : SpringActivate
+{
+States
+{
+Use:
+TNT1 A 1 ThrustThingZ(0, 160, 0, 0)
+TNT1 A 1 A_TakeInventory("JumpCancler",1)
+stop
+}
+}
+
+actor RushDeath : BasicProjectile
+{
++RIPPER
++BLOODLESSIMPACT
++CLIENTSIDEONLY
++DONTBLAST
+Damage (0)
+Speed 30
+Radius 4
+Height 60
+reactiontime 35
+States
+{
+Spawn:
+RUSH EDF 3
+RUSH D 0 ThrustThingZ(0, 40, 0, 1)
+RUSH D 1 A_CountDown
+Goto Spawn+4
+Death:
+RUSH D 0
+stop
+}
+}

@@ -1,0 +1,94 @@
+actor ThunderBeamWep_NormalBar : NormalBar { args 215, 94 }
+
+actor ThunderBeamWep : BaseMM8BDMWep 10047
+{
+//$Category MM8BDM-Weapons/Ranged
+//$Title Thunder Beam
+//$Sprite WEAPR0
+Weapon.AmmoUse 1
+Weapon.AmmoGive 28
+Weapon.SlotNumber 2
+Inventory.Pickupmessage "$PU_THUNDERBEAM"
+Obituary "$OB_THUNDERBEAM"
+Tag "$TAG_THUNDERBEAM"
+weapon.ammotype "ThunderBeamAmmo"
+inventory.icon "THUNSI"
+States
+{
+SpawnLoop:
+WEAP R -1
+loop
+Ready:
+THUN H 0 ACS_NamedExecuteWithResult("core_weaponcolor",CLR_THUNDERBEAM)
+THUN H 1 A_WeaponReady
+Goto Ready+1
+Deselect:
+THUN H 0
+goto DeselectSwap
+Select:
+THUN H 0
+goto SelectSwap
+Fire:
+THUN H 0 A_JumpIfNoAmmo("NoAmmo")
+THUN H 0 A_PlaySoundEx("weapons/mm1/thunderbeamfire","Weapon")
+THUN H 0 A_GiveInventory("FireThunderBeam", 1) // SpreadRune
+THUN H 0 A_TakeInventory("ThunderBeamAmmo",1,TIF_NOTAKEINFINITE)
+THUN HJI 3
+THUN H 15
+THUN H 0 A_Refire
+Goto Ready+1
+NoAmmo:
+THUN H 1 ACS_NamedExecuteAlways("core_noammo",0)
+Goto Ready+1
+}
+}
+
+actor FireThunderBeam : CustomInventory
+{
+    States
+    {
+    Pickup:
+        TNT1 A 0 A_SpawnItemEx("ThunderBeam",0,8,32,cos(pitch)*30,0,sin(-pitch)*30,0)
+        TNT1 A 0 A_SpawnItemEx("ThunderBeam",cos(pitch)*8,0,32,cos(pitch)*30,0,sin(-pitch)*30,-90)
+        TNT1 A 0 A_SpawnItemEx("ThunderBeam",cos(pitch)*-8,0,32,cos(pitch)*30,0,sin(-pitch)*30,90)
+        TNT1 A 0 A_JumpIfInventory("PowerSpreadRune", 1, "PickupSpread")
+        stop
+    PickupSpread:
+        TNT1 A 0 A_SpawnItemEx("ThunderBeam",0,-24,32,cos(pitch)*30,0,sin(-pitch)*30,0)
+        TNT1 A 0 A_SpawnItemEx("ThunderBeam",0,40,32,cos(pitch)*30,0,sin(-pitch)*30,0)
+        TNT1 A 0 A_SpawnItemEx("ThunderBeam",cos(pitch)*8,-32,32,cos(pitch)*30,0,sin(-pitch)*30,-90)
+        TNT1 A 0 A_SpawnItemEx("ThunderBeam",cos(pitch)*8,32,32,cos(pitch)*30,0,sin(-pitch)*30,-90)
+        TNT1 A 0 A_SpawnItemEx("ThunderBeam",cos(pitch)*-8,-32,32,cos(pitch)*30,0,sin(-pitch)*30,90)
+        TNT1 A 0 A_SpawnItemEx("ThunderBeam",cos(pitch)*-8,32,32,cos(pitch)*30,0,sin(-pitch)*30,90)
+        stop
+    }
+}
+
+actor ThunderBeamAmmo : Ammo
+{
+inventory.amount 1
+inventory.maxamount 28
++INVENTORY.IGNORESKILL
+}
+
+actor ThunderBeam : BasicProjectile
+{
++BRIGHT
+damagetype "ThunderBeam"
+Obituary "$OB_THUNDERBEAM"
++RIPPER
+Speed 30
+Radius 12
+Height 6
+Damage (17)
+States
+{
+Spawn:
+TNT1 A 0
+THUN ABCDEFG 3 A_SpawnItemEX("ElectrifyEffect")
+loop
+Death:
+THUN A 0 A_SpawnItemEx("ElectrifyEffect")
+stop
+}
+}
