@@ -8,8 +8,8 @@
 #define CROC_REPLACE_MAX_LIMIT 1000
 int CROC_REPLACE_MAX = 0;
 
-str crocWeps_str[CROC_REPLACE_MAX_LIMIT][2];
-int crocWeps_int[CROC_REPLACE_MAX_LIMIT][1];
+str crocTokens_str[CROC_REPLACE_MAX_LIMIT][2];
+int crocTokens_int[CROC_REPLACE_MAX_LIMIT][1];
 
 script "croc_addweps" OPEN
 {
@@ -146,8 +146,8 @@ script "croc_replaceweps" (void)
     str me = GetActorClass(0);
 
     for(int i = 0; i < CROC_REPLACE_MAX; i++) {
-        if(StrIcmp(me, crocWeps_str[i][0]) == 0) {
-            SpawnNewWepFunc(crocWeps_str[i][1]);
+        if(StrIcmp(me, crocTokens_str[i][0]) == 0) {
+            SpawnNewWepFunc(crocTokens_str[i][1]);
             break;
         }
     }
@@ -158,19 +158,36 @@ function void DefineCrocWeapon(int buildNum, str ogWepActor, str wepTag, str wep
     if(buildNum == 0)
         return;
     
-    if(CROC_REPLACE_MAX < CROC_REPLACE_MAX_LIMIT) {
-        crocWeps_int[CROC_REPLACE_MAX][0] = buildNum;
-        crocWeps_str[CROC_REPLACE_MAX][0] = ogWepActor;
-        crocWeps_str[CROC_REPLACE_MAX][1] = wepActor;
-        CROC_REPLACE_MAX++;
-    }
+    DefineCrocReplacement(buildNum, ogWepActor, wepActor);
     DefineWeapon(wepTag, wepActor, wepIcon, wepAmmo, wepMult, wepSlot, wepMap, wepLms, wepEddie);
 }
 
+function void DefineCrocReplacement(int buildNum, int ogToken, int newToken) {
+    if(CROC_REPLACE_MAX < CROC_REPLACE_MAX_LIMIT) {
+        crocTokens_int[CROC_REPLACE_MAX][0] = buildNum;
+        crocTokens_str[CROC_REPLACE_MAX][0] = ogToken;
+        crocTokens_str[CROC_REPLACE_MAX][1] = newToken;
+        CROC_REPLACE_MAX++;
+    }
+}
+
+script "croc_give" (int build) {
+    if(build == 0) {
+        for(int i = 0; i < CROC_REPLACE_MAX; i++) {
+            if(crocTokens_int[i][0] > build)
+                build = crocTokens_int[i][0];
+        }
+    }
+
+    giveBuildWeapons(build);
+}
+
 function void giveBuildWeapons(int buildNum) {
+    if(buildNum == 0)
+        return;
     for(int i = 0; i < CROC_REPLACE_MAX; i++) {
-        if(crocWeps_int[i][0] == buildNum) {
-            GiveInventory(crocWeps_int[i][1], 1);
+        if(crocTokens_int[i][0] == buildNum) {
+            GiveInventory(crocTokens_int[i][1], 1);
         }
     }
 }
