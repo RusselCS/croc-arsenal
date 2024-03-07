@@ -19,6 +19,16 @@ function str getCrocBaseToken(int idx) { return crocTokens_str[idx][0]; }
 function str getCrocNewToken(int idx) { return crocTokens_str[idx][1]; }
 function int getCrocBuildNum(int idx) { return crocTokens_int[idx][0]; }
 
+#define BORDER_CROC 11037
+
+#define CROC_WEP_BORDER     139
+#define DEFAULT_WEP_BORDER  4
+
+script "croc_translations" OPEN
+{
+    CreateTranslation(BORDER_CROC, DEFAULT_WEP_BORDER:DEFAULT_WEP_BORDER=CROC_WEP_BORDER:CROC_WEP_BORDER);
+}
+
 script "croc_addweps" OPEN
 {
     if(GetCvar("croc_sv_usereplacements")) {
@@ -155,10 +165,23 @@ script "croc_replaceweps" (void)
 
     for(int i = 0; i < CROC_REPLACE_MAX; i++) {
         if(StrIcmp(me, getCrocBaseToken(i)) == 0) {
-            SpawnNewWepFunc(getCrocNewToken(i));
-            break;
+            CrocSpawnNewWepFunc(getCrocNewToken(i));
+            terminate;
         }
     }
+
+    Thing_SetTranslation(0, BORDER_CROC);
+}
+
+function int CrocSpawnNewWepFunc(str classname) {
+	int u = UniqueTID();
+	int r = SpawnSpotForcedCopyVelocity(classname,0,u,GetActorAngle(0)>>8);
+	SetActorProperty(u,APROP_Gravity,GetActorProperty(0,APROP_Gravity));
+	SetActorFlagDecorate(u,"DROPPED",CheckFlag(0,"DROPPED"));
+    Thing_SetTranslation(u, BORDER_CROC);
+	Thing_ChangeTID(u,ActivatorTID());
+	Thing_Remove(0);
+	return r;
 }
 
 function void DefineCrocWeapon(int buildNum, str wepTag, str wepActor, str wepIcon, str wepAmmo, int wepMult, int wepSlot, int wepMap, int wepLms, int wepEddie)
