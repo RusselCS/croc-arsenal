@@ -11,6 +11,14 @@ int CROC_REPLACE_MAX = 0;
 str crocTokens_str[CROC_REPLACE_MAX_LIMIT][2];
 int crocTokens_int[CROC_REPLACE_MAX_LIMIT][1];
 
+function void setCrocBaseToken(int idx, str val) { crocTokens_str[idx][0] = val; }
+function void setCrocNewToken(int idx, str val) { crocTokens_str[idx][1] = val; }
+function void setCrocBuildNum(int idx, int val) { crocTokens_int[idx][0] = val; }
+
+function str getCrocBaseToken(int idx) { return crocTokens_str[idx][0]; }
+function str getCrocNewToken(int idx) { return crocTokens_str[idx][1]; }
+function int getCrocBuildNum(int idx) { return crocTokens_int[idx][0]; }
+
 script "croc_addweps" OPEN
 {
     if(GetCvar("croc_sv_usereplacements")) {
@@ -18,120 +26,120 @@ script "croc_addweps" OPEN
         int lmsTrue = true;
         int eddieTrue = true;
 
-        DefineCrocWeapon(0, "SuperArmWep", "TAG_SUPERARM", "SuperArmCrocWep", "WEAPO0", "SuperArmCrocAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "HyperBombWep", "TAG_HYPERBOMB", "HyperBombCrocWep", "WEAPH0", "HyperBombCrocAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "IceSlasherWep", "TAG_ICESLASHER", "IceSlasherCrocWep", "WEAPP0", "IceSlasherCrocAmmo", 1.00, DTADD_SLOT_RAPID, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "ThunderBeamWep", "TAG_THUNDERBEAM", "ThunderBeamCrocWep", "WEAPR0", "ThunderBeamCrocAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "FireStormWep", "TAG_FIRESTORM", "FireStormCrocWep", "WEAPY0", "FireStormCrocAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "RollingCutterWep", "TAG_ROLLINGCUTTER", "RollingCutterCrocWep", "WEA2F0", "RollingCutterCrocAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "TimeSlowWep", "TAG_TIMESLOW", "TimeSlowCrocWep", "SLOTX0", "TimeSlowCrocAmmo", 1.00, DTADD_SLOT_AOE, mapTrue, false, eddieTrue);
-        DefineCrocWeapon(0, "OilSliderWep", "TAG_OILSLIDER", "OilSliderCrocWep", "WEA7J0", "OilSliderCrocAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_SUPERARM", "SuperArmWep", "WEAPO0", "SuperArmAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_HYPERBOMB", "HyperBombWep", "WEAPH0", "HyperBombAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_ICESLASHER", "IceSlasherWep", "WEAPP0", "IceSlasherAmmo", 1.00, DTADD_SLOT_RAPID, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_THUNDERBEAM", "ThunderBeamWep", "WEAPR0", "ThunderBeamAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_FIRESTORM", "FireStormWep", "WEAPY0", "FireStormAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_ROLLINGCUTTER", "RollingCutterWep", "WEA2F0", "RollingCutterAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_TIMESLOW", "TimeSlowWep", "SLOTX0", "TimeSlowAmmo", 1.00, DTADD_SLOT_AOE, mapTrue, false, eddieTrue);
+        DefineCrocWeapon(0, "TAG_OILSLIDER", "OilSliderWep", "WEA7J0", "OilSliderAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
 
-        DefineCrocWeapon(0, "BubbleLeadWep", "TAG_BUBBLELEAD", "BubbleLeadCrocWep", "WEAPD0", "BubbleLeadCrocAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "MetalBladeWep", "TAG_METALBLADE", "MetalBladeCrocWep", "WEAPS0", "MetalBladeCrocAmmo", 1.00, DTADD_SLOT_RAPID, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "AtomicFireWep", "TAG_ATOMICFIRE", "AtomicFireCrocWep", "WEAPE0", "AtomicFireCrocAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "LeafShieldWep", "TAG_LEAFSHIELD", "LeafShieldCrocWep", "WEAPF0", "LeafShieldCrocAmmo", 1.00, DTADD_SLOT_SHIELD, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "AirShooterWep", "TAG_AIRSHOOTER", "AirShooterCrocWep", "WEAPG0", "AirShooterCrocAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "QuickBoomerangWep", "TAG_QUICKBOOMERANG", "QuickBoomerangCrocWep", "WEAPZ0", "QuickBoomerangCrocAmmo", 1.00, DTADD_SLOT_RAPID, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "CrashBombWep", "TAG_CRASHBOMB", "CrashBombCrocWep", "WEA2C0", "CrashBombCrocAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "TimeStopperWep", "TAG_TIMESTOPPER", "TimeStopperCrocWep", "WEAPN0", "TimeStopperCrocAmmo", 0.25, DTADD_SLOT_AOE, mapTrue, false, eddieTrue);
+        DefineCrocWeapon(0, "TAG_BUBBLELEAD", "BubbleLeadWep", "WEAPD0", "BubbleLeadAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_METALBLADE", "MetalBladeWep", "WEAPS0", "MetalBladeAmmo", 1.00, DTADD_SLOT_RAPID, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_ATOMICFIRE", "AtomicFireWep", "WEAPE0", "AtomicFireAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_LEAFSHIELD", "LeafShieldWep", "WEAPF0", "LeafShieldAmmo", 1.00, DTADD_SLOT_SHIELD, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_AIRSHOOTER", "AirShooterWep", "WEAPG0", "AirShooterAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_QUICKBOOMERANG", "QuickBoomerangWep", "WEAPZ0", "QuickBoomerangAmmo", 1.00, DTADD_SLOT_RAPID, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_CRASHBOMB", "CrashBombWep", "WEA2C0", "CrashBombAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_TIMESTOPPER", "TimeStopperWep", "WEAPN0", "TimeStopperAmmo", 0.25, DTADD_SLOT_AOE, mapTrue, false, eddieTrue);
 
-        DefineCrocWeapon(0, "MagnetMissileWep", "TAG_MAGNETMISSILE", "MagnetMissileCrocWep", "WEAPI0", "MagnetMissileCrocAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "TopSpinWep", "TAG_TOPSPIN", "TopSpinCrocWep", "WEAPJ0", "TopSpinCrocAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "NeedleCannonWep", "TAG_NEEDLECANNON", "NeedleCannonCrocWep", "WEAPL0", "NeedleCannonCrocAmmo", 1.00, DTADD_SLOT_RAPID, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "ShadowBladeWep", "TAG_SHADOWBLADE", "ShadowBladeCrocWep", "WEAPA0", "ShadowBladeCrocAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "GeminiLaserWep", "TAG_GEMINILASER", "GeminiLaserCrocWep", "WEAPM0", "GeminiLaserCrocAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "SearchSnakeWep", "TAG_SEARCHSNAKE", "SearchSnakeCrocWep", "WEAPK0", "SearchSnakeCrocAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "HardKnuckleWep", "TAG_HARDKNUCKLE", "HardKnuckleCrocWep", "WEAPT0", "HardKnuckleCrocAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "SparkShockWep", "TAG_SPARKSHOCK", "SparkShockCrocWep", "WEA2G0", "SparkShockCrocAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_MAGNETMISSILE", "MagnetMissileWep", "WEAPI0", "MagnetMissileAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_TOPSPIN", "TopSpinWep", "WEAPJ0", "TopSpinAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_NEEDLECANNON", "NeedleCannonWep", "WEAPL0", "NeedleCannonAmmo", 1.00, DTADD_SLOT_RAPID, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_SHADOWBLADE", "ShadowBladeWep", "WEAPA0", "ShadowBladeAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_GEMINILASER", "GeminiLaserWep", "WEAPM0", "GeminiLaserAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_SEARCHSNAKE", "SearchSnakeWep", "WEAPK0", "SearchSnakeAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_HARDKNUCKLE", "HardKnuckleWep", "WEAPT0", "HardKnuckleAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_SPARKSHOCK", "SparkShockWep", "WEA2G0", "SparkShockAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
 
-        DefineCrocWeapon(0, "DrillBombWep", "TAG_DRILLBOMB", "DrillBombCrocWep", "WEAPV0", "DrillBombCrocAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "RingBoomerangWep", "TAG_RINGBOOMERANG", "RingBoomerangCrocWep", "WEA2H0", "RingBoomerangCrocAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "DustCrusherWep", "TAG_DUSTCRUSHER", "DustCrusherCrocWep", "WEA2K0", "DustCrusherCrocAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "PharaohShotWep", "TAG_PHARAOHSHOT", "PharaohShotCrocWep", "WEA2L0", "PharaohShotCrocAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "SkullBarrierWep", "TAG_SKULLBARRIER", "SkullBarrierCrocWep", "WEA2O0", "SkullBarrierCrocAmmo", 1.00, DTADD_SLOT_SHIELD, mapTrue, false, eddieTrue);
-        DefineCrocWeapon(0, "DiveMissileWep", "TAG_DIVEMISSILE", "DiveMissileCrocWep", "WEA2S0", "DiveMissileCrocAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "RainFlushWep", "TAG_RAINFLUSH", "RainFlushCrocWep", "WEA2Y0", "RainFlushCrocAmmo", 1.00, DTADD_SLOT_AOE, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "FlashStopperWep", "TAG_FLASHSTOPPER", "FlashStopperCrocWep", "WEA3E0", "FlashStopperCrocAmmo", 1.00, DTADD_SLOT_AOE, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_DRILLBOMB", "DrillBombWep", "WEAPV0", "DrillBombAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_RINGBOOMERANG", "RingBoomerangWep", "WEA2H0", "RingBoomerangAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_DUSTCRUSHER", "DustCrusherWep", "WEA2K0", "DustCrusherAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_PHARAOHSHOT", "PharaohShotWep", "WEA2L0", "PharaohShotAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_SKULLBARRIER", "SkullBarrierWep", "WEA2O0", "SkullBarrierAmmo", 1.00, DTADD_SLOT_SHIELD, mapTrue, false, eddieTrue);
+        DefineCrocWeapon(0, "TAG_DIVEMISSILE", "DiveMissileWep", "WEA2S0", "DiveMissileAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_RAINFLUSH", "RainFlushWep", "WEA2Y0", "RainFlushAmmo", 1.00, DTADD_SLOT_AOE, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_FLASHSTOPPER", "FlashStopperWep", "WEA3E0", "FlashStopperAmmo", 1.00, DTADD_SLOT_AOE, mapTrue, lmsTrue, eddieTrue);
 
-        DefineCrocWeapon(0, "NapalmBombWep", "TAG_NAPALMBOMB", "NapalmBombCrocWep", "WEAPC0", "NapalmBombCrocAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "ChargeKickWep", "TAG_CHARGEKICK", "ChargeKickCrocWep", "WEA2E0", "ChargeKickCrocAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "GyroAttackWep", "TAG_GYROATTACK", "GyroAttackCrocWep", "WEA2I0", "GyroAttackCrocAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "PowerStoneWep", "TAG_POWERSTONE", "PowerStoneCrocWep", "WEA2J0", "PowerStoneCrocAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "WaterWaveWep", "TAG_WATERWAVE", "WaterWaveCrocWep", "WEA2M0", "WaterWaveCrocAmmo", 1.00, DTADD_SLOT_RAPID, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "CrystalEyeWep", "TAG_CRYSTALEYE", "CrystalEyeCrocWep", "WEA2N0", "CrystalEyeCrocAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "StarCrashWep", "TAG_STARCRASH", "StarCrashCrocWep", "WEA2X0", "StarCrashCrocAmmo", 1.00, DTADD_SLOT_SHIELD, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "GravityHoldWep", "TAG_GRAVITYHOLD", "GravityHoldCrocWep", "WEA3F0", "GravityHoldCrocAmmo", 1.00, DTADD_SLOT_AOE, mapTrue, false, eddieTrue);
+        DefineCrocWeapon(0, "TAG_NAPALMBOMB", "NapalmBombWep", "WEAPC0", "NapalmBombAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_CHARGEKICK", "ChargeKickWep", "WEA2E0", "ChargeKickAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_GYROATTACK", "GyroAttackWep", "WEA2I0", "GyroAttackAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_POWERSTONE", "PowerStoneWep", "WEA2J0", "PowerStoneAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_WATERWAVE", "WaterWaveWep", "WEA2M0", "WaterWaveAmmo", 1.00, DTADD_SLOT_RAPID, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_CRYSTALEYE", "CrystalEyeWep", "WEA2N0", "CrystalEyeAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_STARCRASH", "StarCrashWep", "WEA2X0", "StarCrashAmmo", 1.00, DTADD_SLOT_SHIELD, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_GRAVITYHOLD", "GravityHoldWep", "WEA3F0", "GravityHoldAmmo", 1.00, DTADD_SLOT_AOE, mapTrue, false, eddieTrue);
 
-        DefineCrocWeapon(0, "BlizzardAttackWep", "TAG_BLIZZARDATTACK", "BlizzardAttackCrocWep", "WEAPW0", "BlizzardAttackCrocAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "FlameBlastWep", "TAG_FLAMEBLAST", "FlameBlastCrocWep", "WEA2P0", "FlameBlastCrocAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "YamatoSpearWep", "TAG_YAMATOSPEAR", "YamatoSpearCrocWep", "WEA2R0", "YamatoSpearCrocAmmo", 1.00, DTADD_SLOT_RAPID, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "PlantBarrierWep", "TAG_PLANTBARRIER", "PlantBarrierCrocWep", "WEA2T0", "PlantBarrierCrocAmmo", 1.00, DTADD_SLOT_SHIELD, mapTrue, false, eddieTrue);
-        DefineCrocWeapon(0, "SilverTomahawkWep", "TAG_SILVERTOMAHAWK", "SilverTomahawkCrocWep", "WEA2U0", "SilverTomahawkCrocAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "WindStormWep", "TAG_WINDSTORM", "WindStormCrocWep", "WEA2V0", "WindStormCrocAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "KnightCrushWep", "TAG_KNIGHTCRUSH", "KnightCrushCrocWep", "WEA2W0", "KnightCrushCrocAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "CentaurFlashWep", "TAG_CENTAURFLASH", "CentaurFlashCrocWep", "WEA3G0", "CentaurFlashCrocAmmo", 1.00, DTADD_SLOT_SHIELD, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_BLIZZARDATTACK", "BlizzardAttackWep", "WEAPW0", "BlizzardAttackAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_FLAMEBLAST", "FlameBlastWep", "WEA2P0", "FlameBlastAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_YAMATOSPEAR", "YamatoSpearWep", "WEA2R0", "YamatoSpearAmmo", 1.00, DTADD_SLOT_RAPID, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_PLANTBARRIER", "PlantBarrierWep", "WEA2T0", "PlantBarrierAmmo", 1.00, DTADD_SLOT_SHIELD, mapTrue, false, eddieTrue);
+        DefineCrocWeapon(0, "TAG_SILVERTOMAHAWK", "SilverTomahawkWep", "WEA2U0", "SilverTomahawkAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_WINDSTORM", "WindStormWep", "WEA2V0", "WindStormAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_KNIGHTCRUSH", "KnightCrushWep", "WEA2W0", "KnightCrushAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_CENTAURFLASH", "CentaurFlashWep", "WEA3G0", "CentaurFlashAmmo", 1.00, DTADD_SLOT_SHIELD, mapTrue, lmsTrue, eddieTrue);
 
-        DefineCrocWeapon(0, "FreezeCrackerWep", "TAG_FREEZECRACKER", "FreezeCrackerCrocWep", "WEA3O0", "FreezeCrackerCrocAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "NoiseCrushWep", "TAG_NOISECRUSH", "NoiseCrushCrocWep", "WEA3J0", "NoiseCrushCrocAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "WildCoilWep", "TAG_WILDCOIL", "WildCoilCrocWep", "WEA3K0", "WildCoilCrocAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "DangerWrapWep", "TAG_DANGERWRAP", "DangerWrapCrocWep", "WEA3L0", "DangerWrapCrocAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "ScorchWheelWep", "TAG_SCORCHWHEEL", "ScorchWheelCrocWep", "WEA3M0", "ScorchWheelCrocAmmo", 1.00, DTADD_SLOT_SHIELD, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "JunkShieldWep", "TAG_JUNKSHIELD", "JunkShieldCrocWep", "WEA3N0", "JunkShieldCrocAmmo", 1.00, DTADD_SLOT_SHIELD, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "SlashClawWep", "TAG_SLASHCLAW", "SlashClawCrocWep", "WEA3Q0", "SlashClawCrocAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "ThunderBoltWep", "TAG_THUNDERBOLT", "ThunderBoltCrocWep", "WEA3R0", "ThunderBoltCrocAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_FREEZECRACKER", "FreezeCrackerWep", "WEA3O0", "FreezeCrackerAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_NOISECRUSH", "NoiseCrushWep", "WEA3J0", "NoiseCrushAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_WILDCOIL", "WildCoilWep", "WEA3K0", "WildCoilAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_DANGERWRAP", "DangerWrapWep", "WEA3L0", "DangerWrapAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_SCORCHWHEEL", "ScorchWheelWep", "WEA3M0", "ScorchWheelAmmo", 1.00, DTADD_SLOT_SHIELD, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_JUNKSHIELD", "JunkShieldWep", "WEA3N0", "JunkShieldAmmo", 1.00, DTADD_SLOT_SHIELD, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_SLASHCLAW", "SlashClawWep", "WEA3Q0", "SlashClawAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_THUNDERBOLT", "ThunderBoltWep", "WEA3R0", "ThunderBoltAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
 
-        DefineCrocWeapon(0, "AstroCrushWep", "TAG_ASTROCRUSH", "AstroCrushCrocWep", "WEA4E0", "AstroCrushCrocAmmo", 1.00, DTADD_SLOT_AOE, mapTrue, false, eddieTrue);
-        DefineCrocWeapon(0, "FlameSwordWep", "TAG_FLAMESWORD", "FlameSwordCrocWep", "WEA4F0", "FlameSwordCrocAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "ThunderClawWep", "TAG_THUNDERCLAW", "ThunderClawCrocWep", "WEA4G0", "ThunderClawCrocAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "HomingSniperWep", "TAG_HOMINGSNIPER", "HomingSniperCrocWep", "WEA4H0", "HomingSniperCrocAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "WaterBalloonWep", "TAG_WATERBALLOON", "WaterBalloonCrocWep", "WEA4I0", "WaterBalloonCrocAmmo", 1.00, DTADD_SLOT_RAPID, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "MegaBallWep", "TAG_MEGABALL", "MegaBallCrocWep", "WEA4D0", "MegaBallCrocAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "FlashBombWep", "TAG_FLASHBOMB", "FlashBombCrocWep", "WEA4B0", "FlashBombCrocAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "IceWaveWep", "TAG_ICEWAVE", "IceWaveCrocWep", "WEA4A0", "IceWaveCrocAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "TornadoHoldWep", "TAG_TORNADOHOLD", "TornadoHoldCrocWep", "WEA4C0", "TornadoHoldCrocAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_ASTROCRUSH", "AstroCrushWep", "WEA4E0", "AstroCrushAmmo", 1.00, DTADD_SLOT_AOE, mapTrue, false, eddieTrue);
+        DefineCrocWeapon(0, "TAG_FLAMESWORD", "FlameSwordWep", "WEA4F0", "FlameSwordAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_THUNDERCLAW", "ThunderClawWep", "WEA4G0", "ThunderClawAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_HOMINGSNIPER", "HomingSniperWep", "WEA4H0", "HomingSniperAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_WATERBALLOON", "WaterBalloonWep", "WEA4I0", "WaterBalloonAmmo", 1.00, DTADD_SLOT_RAPID, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_MEGABALL", "MegaBallWep", "WEA4D0", "MegaBallAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_FLASHBOMB", "FlashBombWep", "WEA4B0", "FlashBombAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_ICEWAVE", "IceWaveWep", "WEA4A0", "IceWaveAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_TORNADOHOLD", "TornadoHoldWep", "WEA4C0", "TornadoHoldAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
 
-        DefineCrocWeapon(0, "TenguBladeWep", "TAG_TENGUBLADE", "TenguBladeCrocWep", "TBLAX0", "TenguBladeCrocAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "WaveBurnerWep", "TAG_WAVEBURNER", "WaveBurnerCrocWep", "WABUX0", "WaveBurnerCrocAmmo", 1.00, DTADD_SLOT_RAPID, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "SpreadDrillWep", "TAG_SPREADDRILL", "SpreadDrillCrocWep", "SPREX0", "SpreadDrillCrocAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "MagicCardWep", "TAG_MAGICCARD", "MagicCardCrocWep", "MCARX0", "MagicCardCrocAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "RemoteMineWep", "TAG_REMOTEMINE", "RemoteMineCrocWep", "REMIX0", "RemoteMineCrocAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "CopyVisionWep", "TAG_COPYVISION", "CopyVisionCrocWep", "COPYX0", "CopyVisionCrocAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "IceWallWep", "TAG_ICEWALL", "IceWallCrocWep", "ICWLX0", "IceWallCrocAmmo", 1.00, DTADD_SLOT_SHIELD, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "LightningBoltWep", "TAG_LIGHTNINGBOLT", "LightningBoltCrocWep", "LIBOA0", "LightningBoltCrocAmmo", 1.00, DTADD_SLOT_AOE, mapTrue, false, eddieTrue);
+        DefineCrocWeapon(0, "TAG_TENGUBLADE", "TenguBladeWep", "TBLAX0", "TenguBladeAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_WAVEBURNER", "WaveBurnerWep", "WABUX0", "WaveBurnerAmmo", 1.00, DTADD_SLOT_RAPID, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_SPREADDRILL", "SpreadDrillWep", "SPREX0", "SpreadDrillAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_MAGICCARD", "MagicCardWep", "MCARX0", "MagicCardAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_REMOTEMINE", "RemoteMineWep", "REMIX0", "RemoteMineAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_COPYVISION", "CopyVisionWep", "COPYX0", "CopyVisionAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_ICEWALL", "IceWallWep", "ICWLX0", "IceWallAmmo", 1.00, DTADD_SLOT_SHIELD, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_LIGHTNINGBOLT", "LightningBoltWep", "LIBOA0", "LightningBoltAmmo", 1.00, DTADD_SLOT_AOE, mapTrue, false, eddieTrue);
 
-        DefineCrocWeapon(0, "PlugBallWep", "TAG_PLUGBALL", "PlugBallCrocWep", "PBALA0", "PlugBallCrocAmmo", 1.00, DTADD_SLOT_RAPID, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "LaserTridentWep", "TAG_LASERTRIDENT", "LaserTridentCrocWep", "LTRIA0", "LaserTridentCrocAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "BlackHoleBombWep", "TAG_BLACKHOLEBOMB", "BlackHoleBombCrocWep", "BLKHA0", "BlackHoleBombCrocAmmo", 1.00, DTADD_SLOT_AOE, mapTrue, false, eddieTrue);
-        DefineCrocWeapon(0, "JewelSatelliteWep", "TAG_JEWELSATELLITE", "JewelSatelliteCrocWep", "JEWEA0", "JewelSatelliteCrocAmmo", 1.00, DTADD_SLOT_SHIELD, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "ConcreteShotWep", "TAG_CONCRETESHOT", "ConcreteShotCrocWep", "CONCA0", "ConcreteShotCrocAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "TornadoBlowWep", "TAG_TORNADOBLOW", "TornadoBlowCrocWep", "TBLOA0", "TornadoBlowCrocAmmo", 1.00, DTADD_SLOT_AOE, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "HornetChaserWep", "TAG_HORNETCHASER", "HornetChaserCrocWep", "HCHSA0", "HornetChaserCrocAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "MagmaBazookaWep", "TAG_MAGMABAZOOKA", "MagmaBazookaCrocWep", "MGM1A0", "MagmaBazookaCrocAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_PLUGBALL", "PlugBallWep", "PBALA0", "PlugBallAmmo", 1.00, DTADD_SLOT_RAPID, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_LASERTRIDENT", "LaserTridentWep", "LTRIA0", "LaserTridentAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_BLACKHOLEBOMB", "BlackHoleBombWep", "BLKHA0", "BlackHoleBombAmmo", 1.00, DTADD_SLOT_AOE, mapTrue, false, eddieTrue);
+        DefineCrocWeapon(0, "TAG_JEWELSATELLITE", "JewelSatelliteWep", "JEWEA0", "JewelSatelliteAmmo", 1.00, DTADD_SLOT_SHIELD, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_CONCRETESHOT", "ConcreteShotWep", "CONCA0", "ConcreteShotAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_TORNADOBLOW", "TornadoBlowWep", "TBLOA0", "TornadoBlowAmmo", 1.00, DTADD_SLOT_AOE, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_HORNETCHASER", "HornetChaserWep", "HCHSA0", "HornetChaserAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_MAGMABAZOOKA", "MagmaBazookaWep", "MGM1A0", "MagmaBazookaAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
 
-        DefineCrocWeapon(0, "SolarBlazeWep", "TAG_SOLARBLAZE", "SolarBlazeCrocWep", "SOLAA0", "SolarBlazeCrocAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "WheelCutterWep", "TAG_WHEELCUTTER", "WheelCutterCrocWep", "WHEEA0", "WheelCutterCrocAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "ReboundStrikerWep", "TAG_REBOUNDSTRIKER", "ReboundStrikerCrocWep", "STRIA0", "ReboundStrikerCrocAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "ThunderWoolWep", "TAG_THUNDERWOOL", "ThunderWoolCrocWep", "THWOA0", "ThunderWoolCrocAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "CommandoBombWep", "TAG_COMMANDOBOMB", "CommandoBombCrocWep", "COMMA0", "CommandoBombCrocAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "ChillSpikeWep", "TAG_CHILLSPIKE", "ChillSpikeCrocWep", "CHILA0", "ChillSpikeCrocAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "WaterShieldWep", "TAG_WATERSHIELD", "WaterShieldCrocWep", "WATSA0", "WaterShieldCrocAmmo", 1.00, DTADD_SLOT_SHIELD, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "TripleBladeWep", "TAG_TRIPLEBLADE", "TripleBladeCrocWep", "TRIPA0", "TripleBladeCrocAmmo", 1.00, DTADD_SLOT_RAPID, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_SOLARBLAZE", "SolarBlazeWep", "SOLAA0", "SolarBlazeAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_WHEELCUTTER", "WheelCutterWep", "WHEEA0", "WheelCutterAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_REBOUNDSTRIKER", "ReboundStrikerWep", "STRIA0", "ReboundStrikerAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_THUNDERWOOL", "ThunderWoolWep", "THWOA0", "ThunderWoolAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_COMMANDOBOMB", "CommandoBombWep", "COMMA0", "CommandoBombAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_CHILLSPIKE", "ChillSpikeWep", "CHILA0", "ChillSpikeAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_WATERSHIELD", "WaterShieldWep", "WATSA0", "WaterShieldAmmo", 1.00, DTADD_SLOT_SHIELD, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_TRIPLEBLADE", "TripleBladeWep", "TRIPA0", "TripleBladeAmmo", 1.00, DTADD_SLOT_RAPID, mapTrue, lmsTrue, eddieTrue);
         
-        DefineCrocWeapon(0, "GrabBusterWep", "TAG_GRABBUSTER", "GrabBusterCrocWep", "GRBUA0", "GrabBusterCrocAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "BubbleBombWep", "TAG_BUBBLEBOMB", "BubbleBombCrocWep", "BBOMA0", "BubbleBombCrocAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "PhotonMissileWep", "TAG_PHOTONMISSILE", "PhotonMissileCrocWep", "PMISA0", "PhotonMissileCrocAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "SaltWaterWep", "TAG_SALTWATER", "SaltWaterCrocWep", "SWATA0", "SaltWaterCrocAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "ElectricShockWep", "TAG_ELECTRICSHOCK", "ElectricShockCrocWep", "ESPAA0", "ElectricShockCrocAmmo", 1.00, DTADD_SLOT_RAPID, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "BlackHoleWep", "TAG_BLACKHOLE", "BlackHoleCrocWep", "BHOLA0", "BlackHoleCrocAmmo", 1.00, DTADD_SLOT_SHIELD, mapTrue, false, eddieTrue);
-        DefineCrocWeapon(0, "DeepDiggerWep", "TAG_DEEPDIGGER", "DeepDiggerCrocWep", "DDIGA0", "DeepDiggerCrocAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "BreakDashWep", "TAG_BREAKDASH", "BreakDashCrocWep", "BDASA0", "BreakDashCrocAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "SparkChaserWep", "TAG_SPARKCHASER", "SparkChaserCrocWep", "SCHSA0", "SparkChaserCrocAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_GRABBUSTER", "GrabBusterWep", "GRBUA0", "GrabBusterAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_BUBBLEBOMB", "BubbleBombWep", "BBOMA0", "BubbleBombAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_PHOTONMISSILE", "PhotonMissileWep", "PMISA0", "PhotonMissileAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_SALTWATER", "SaltWaterWep", "SWATA0", "SaltWaterAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_ELECTRICSHOCK", "ElectricShockWep", "ESPAA0", "ElectricShockAmmo", 1.00, DTADD_SLOT_RAPID, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_BLACKHOLE", "BlackHoleWep", "BHOLA0", "BlackHoleAmmo", 1.00, DTADD_SLOT_SHIELD, mapTrue, false, eddieTrue);
+        DefineCrocWeapon(0, "TAG_DEEPDIGGER", "DeepDiggerWep", "DDIGA0", "DeepDiggerAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_BREAKDASH", "BreakDashWep", "BDASA0", "BreakDashAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_SPARKCHASER", "SparkChaserWep", "SCHSA0", "SparkChaserAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
         
-        DefineCrocWeapon(0, "SakugarneWep", "TAG_SAKUGARNE", "SakugarneCrocWep", "WEA2Z0", "SakugarneCrocAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "BalladeCrackerWep", "TAG_BALLADECRACKER", "BalladeCrackerCrocWep", "WEA3C0", "BalladeCrackerCrocAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "ScrewCrusherWep", "TAG_SCREWCRUSHER", "ScrewCrusherCrocWep", "WEA3D0", "ScrewCrusherCrocAmmo", 1.00, DTADD_SLOT_RAPID, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "MirrorBusterWep", "TAG_MIRRORBUSTER", "MirrorBusterCrocWep", "WEA3H0", "MirrorBusterCrocAmmo", 1.00, DTADD_SLOT_SHIELD, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_SAKUGARNE", "SakugarneWep", "WEA2Z0", "SakugarneAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_BALLADECRACKER", "BalladeCrackerWep", "WEA3C0", "BalladeCrackerAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_SCREWCRUSHER", "ScrewCrusherWep", "WEA3D0", "ScrewCrusherAmmo", 1.00, DTADD_SLOT_RAPID, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(0, "TAG_MIRRORBUSTER", "MirrorBusterWep", "WEA3H0", "MirrorBusterAmmo", 1.00, DTADD_SLOT_SHIELD, mapTrue, lmsTrue, eddieTrue);
 
         AddSpawnFunc(DTADD_SFT_WEP, "croc_replaceweps");
     }
@@ -146,27 +154,30 @@ script "croc_replaceweps" (void)
     str me = GetActorClass(0);
 
     for(int i = 0; i < CROC_REPLACE_MAX; i++) {
-        if(StrIcmp(me, crocTokens_str[i][0]) == 0) {
-            SpawnNewWepFunc(crocTokens_str[i][1]);
+        if(StrIcmp(me, getCrocBaseToken(i)) == 0) {
+            SpawnNewWepFunc(getCrocNewToken(i));
             break;
         }
     }
 }
 
-function void DefineCrocWeapon(int buildNum, str ogWepActor, str wepTag, str wepActor, str wepIcon, str wepAmmo, int wepMult, int wepSlot, int wepMap, int wepLms, int wepEddie)
+function void DefineCrocWeapon(int buildNum, str wepTag, str wepActor, str wepIcon, str wepAmmo, int wepMult, int wepSlot, int wepMap, int wepLms, int wepEddie)
 {
     if(buildNum == 0)
         return;
-    
-    DefineCrocReplacement(buildNum, ogWepActor, wepActor);
-    DefineWeapon(wepTag, wepActor, wepIcon, wepAmmo, wepMult, wepSlot, wepMap, wepLms, wepEddie);
+
+    str crocToken = StrParam(s:"Croc", s:wepActor);
+    str Ammo = StrParam(s:"Croc", s:wepAmmo);
+
+    DefineCrocReplacement(buildNum, wepActor, crocToken);
+    DefineWeapon(wepTag, crocToken, wepIcon, Ammo, wepMult, wepSlot, wepMap, wepLms, wepEddie);
 }
 
 function void DefineCrocReplacement(int buildNum, int ogToken, int newToken) {
     if(CROC_REPLACE_MAX < CROC_REPLACE_MAX_LIMIT) {
-        crocTokens_int[CROC_REPLACE_MAX][0] = buildNum;
-        crocTokens_str[CROC_REPLACE_MAX][0] = ogToken;
-        crocTokens_str[CROC_REPLACE_MAX][1] = newToken;
+        setCrocBaseToken(CROC_REPLACE_MAX, ogToken);
+        setCrocNewToken(CROC_REPLACE_MAX, newToken);
+        setCrocBuildNum(CROC_REPLACE_MAX, buildNum);
         CROC_REPLACE_MAX++;
     }
 }
@@ -174,8 +185,8 @@ function void DefineCrocReplacement(int buildNum, int ogToken, int newToken) {
 script "croc_give" (int build) {
     if(build == 0) {
         for(int i = 0; i < CROC_REPLACE_MAX; i++) {
-            if(crocTokens_int[i][0] > build)
-                build = crocTokens_int[i][0];
+            if(getCrocBuildNum(i) > build)
+                build = getCrocBuildNum(i);
         }
     }
 
@@ -186,8 +197,8 @@ function void giveBuildWeapons(int buildNum) {
     if(buildNum == 0)
         return;
     for(int i = 0; i < CROC_REPLACE_MAX; i++) {
-        if(crocTokens_int[i][0] == buildNum) {
-            GiveInventory(crocTokens_int[i][1], 1);
+        if(getCrocBuildNum(i) == buildNum) {
+            GiveInventory(getCrocNewToken(i), 1);
         }
     }
 }
