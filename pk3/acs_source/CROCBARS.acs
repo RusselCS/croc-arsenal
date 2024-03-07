@@ -3,3 +3,8 @@
 #include "zcommon.acs"
 
 #include "BARLIB.acs"
+
+script "DrawBar_CrocPharaohShotWep" (void) {
+	SetOverlayBar(CheckInventory("CrocPharaohCharge"), 100);
+}
+

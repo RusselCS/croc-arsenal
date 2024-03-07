@@ -70,7 +70,7 @@
 
 // SLOT 5 - Power
 // #include "decorate/croc/mm5/crystaleye.txt"
-// #include "decorate/croc/mm4/pharaohshot.txt"
+#include "decorate/croc/mm4/pharaohshot.txt"
 // #include "decorate/croc/mm1/superarm.txt"
 // #include "decorate/croc/mmv/photonmissile.txt"
 // #include "decorate/croc/mm2/atomicfire.txt"
