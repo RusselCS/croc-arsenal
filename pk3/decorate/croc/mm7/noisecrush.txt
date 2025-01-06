@@ -136,7 +136,7 @@ actor CrocNoiseCrush2 : BasicProjectile
 Radius 20
 Height 10
 damage (60)
-damagetype "CrocNoiseCrush2"
+damagetype "NoiseCrush2"
 Obituary "$OB_NOISECRUSH"
 +FORCEXYBILLBOARD
 speed 50
@@ -172,28 +172,28 @@ actor CrocNoiseCrushTrail1A : BasicGraphicEffect
     }
 }
 
-actor CrocNoiseCrushTrail1B : NoiseCrushTrail1A { States { SpawnFrame: NCRU BCCBB 1
+actor CrocNoiseCrushTrail1B : CrocNoiseCrushTrail1A { States { SpawnFrame: NCRU BCCBB 1
 stop }}
-actor CrocNoiseCrushTrail1C : NoiseCrushTrail1A { States { SpawnFrame: NCRU CBBCC 1
+actor CrocNoiseCrushTrail1C : CrocNoiseCrushTrail1A { States { SpawnFrame: NCRU CBBCC 1
 stop }}
-actor CrocNoiseCrushTrail1D : NoiseCrushTrail1A { States { SpawnFrame: NCRU BAABB 1
+actor CrocNoiseCrushTrail1D : CrocNoiseCrushTrail1A { States { SpawnFrame: NCRU BAABB 1
 stop }}
-actor CrocNoiseCrushTrail1E : NoiseCrushTrail1A { States { SpawnFrame: NCRU ABBAA 1
+actor CrocNoiseCrushTrail1E : CrocNoiseCrushTrail1A { States { SpawnFrame: NCRU ABBAA 1
 stop }}
-actor CrocNoiseCrushTrail1F : NoiseCrushTrail1A { States { SpawnFrame: NCRU DCCDD 1
+actor CrocNoiseCrushTrail1F : CrocNoiseCrushTrail1A { States { SpawnFrame: NCRU DCCDD 1
 stop }}
 
-actor CrocNoiseCrushTrail2A : NoiseCrushTrail1A { States { SpawnFrame: NCRU HGGHHHH 1
+actor CrocNoiseCrushTrail2A : CrocNoiseCrushTrail1A { States { SpawnFrame: NCRU HGGHHHH 1
 stop }}
-actor CrocNoiseCrushTrail2B : NoiseCrushTrail1A { States { SpawnFrame: NCRU GHHGGGG 1
+actor CrocNoiseCrushTrail2B : CrocNoiseCrushTrail1A { States { SpawnFrame: NCRU GHHGGGG 1
 stop }}
-actor CrocNoiseCrushTrail2C : NoiseCrushTrail1A { States { SpawnFrame: NCRU FGGFFFF 1
+actor CrocNoiseCrushTrail2C : CrocNoiseCrushTrail1A { States { SpawnFrame: NCRU FGGFFFF 1
 stop }}
-actor CrocNoiseCrushTrail2D : NoiseCrushTrail1A { States { SpawnFrame: NCRU FEEFFFF 1
+actor CrocNoiseCrushTrail2D : CrocNoiseCrushTrail1A { States { SpawnFrame: NCRU FEEFFFF 1
 stop }}
-actor CrocNoiseCrushTrail2E : NoiseCrushTrail1A { States { SpawnFrame: NCRU EFFEEEE 1
+actor CrocNoiseCrushTrail2E : CrocNoiseCrushTrail1A { States { SpawnFrame: NCRU EFFEEEE 1
 stop }}
-actor CrocNoiseCrushTrail2F : NoiseCrushTrail1A { States { SpawnFrame: NCRU HGGHHHH 1
+actor CrocNoiseCrushTrail2F : CrocNoiseCrushTrail1A { States { SpawnFrame: NCRU HGGHHHH 1
 stop }}
 
 actor CrocNoiseCrushCaught : Once {}
