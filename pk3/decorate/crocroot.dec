@@ -12,7 +12,7 @@
 // #include "decorate/croc/mm5/gyroattack.txt"
 // #include "decorate/croc/mm3/geminilaser.txt"
 // #include "decorate/croc/mm10/reboundstriker.txt"
-// #include "decorate/croc/mm7/noisecrush.txt"
+#include "decorate/croc/mm7/noisecrush.txt"
 // #include "decorate/croc/mm8/homingsniper.txt"
 // #include "decorate/croc/mm4/divemissile.txt"
 // #include "decorate/croc/mmb/copyvision.txt"

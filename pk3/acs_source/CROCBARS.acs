@@ -8,3 +8,7 @@ script "DrawBar_CrocPharaohShotWep" (void) {
 	SetOverlayBar(CheckInventory("CrocPharaohCharge"), 100);
 }
 
+script "DrawBar_CrocNoiseCrushWep" (void) {
+	ACS_NamedExecuteWithResult("DrawBar_NoiseCrushWep");
+}
+
