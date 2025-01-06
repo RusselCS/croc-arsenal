@@ -75,7 +75,7 @@
 // #include "decorate/croc/mmv/photonmissile.txt"
 // #include "decorate/croc/mm2/atomicfire.txt"
 // #include "decorate/croc/mm3/hardknuckle.txt"
-// #include "decorate/croc/mm2/crashbomb.txt"
+#include "decorate/croc/mm2/crashbomb.txt"
 // #include "decorate/croc/mm10/solarblaze.txt"
 // #include "decorate/croc/mm5/napalmbomb.txt"
 // #include "decorate/croc/mm1/hyperbomb.txt"

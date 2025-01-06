@@ -51,7 +51,7 @@ script "croc_addweps" OPEN
         DefineCrocWeapon(0, "TAG_LEAFSHIELD", "LeafShieldWep", "WEAPF0", "LeafShieldAmmo", 1.00, DTADD_SLOT_SHIELD, mapTrue, lmsTrue, eddieTrue);
         DefineCrocWeapon(0, "TAG_AIRSHOOTER", "AirShooterWep", "WEAPG0", "AirShooterAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
         DefineCrocWeapon(0, "TAG_QUICKBOOMERANG", "QuickBoomerangWep", "WEAPZ0", "QuickBoomerangAmmo", 1.00, DTADD_SLOT_RAPID, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "TAG_CRASHBOMB", "CrashBombWep", "WEA2C0", "CrashBombAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(1, "TAG_CRASHBOMB", "CrashBombWep", "WEA2C0", "CrashBombAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
         DefineCrocWeapon(0, "TAG_TIMESTOPPER", "TimeStopperWep", "WEAPN0", "TimeStopperAmmo", 0.25, DTADD_SLOT_AOE, mapTrue, false, eddieTrue);
 
         DefineCrocWeapon(0, "TAG_MAGNETMISSILE", "MagnetMissileWep", "WEAPI0", "MagnetMissileAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
