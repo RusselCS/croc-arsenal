@@ -147,6 +147,7 @@ actor TornadoBlow : BasicProjectile
 {
 +DONTBLAST
 +NOINTERACTION
++DONTREFLECT
 Obituary "$OB_TORNADOBLOW"
 damagetype "TornadoBlow"
 damage (0)

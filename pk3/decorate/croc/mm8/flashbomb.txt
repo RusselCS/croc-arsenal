@@ -52,6 +52,7 @@ inventory.maxamount 30
 actor FlashBomb : BasicProjectile
 {
 +FORCEXYBILLBOARD
++DONTREFLECT
 Radius 6
 Height 7
 speed 26

@@ -78,6 +78,7 @@ actor DrillBomb : BasicProjectile
 {
 PROJECTILE
 +EXPLODEONWATER
++DONTREFLECT
 Speed 25
 Damage (0)
 damagetype "DrillBomb"

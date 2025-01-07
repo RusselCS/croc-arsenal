@@ -65,6 +65,7 @@ actor HyperBomb : BasicBouncer
 {
 -NOGRAVITY
 +RIPPER
++DONTREFLECT
 damage (0)
 damagetype "HyperBomb"
 Obituary "$OB_HYPERBOMB"

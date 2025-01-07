@@ -70,6 +70,7 @@ actor RemoteMine : BasicProjectile
 {
 +SKYEXPLODE
 +HITTRACER
++DONTREFLECT
 damagetype "RemoteMine"
 Obituary "$OB_REMOTEMINE"
 Radius 8

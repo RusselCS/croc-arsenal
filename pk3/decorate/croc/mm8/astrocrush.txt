@@ -62,6 +62,7 @@ actor AstroCrush : BasicProjectile
 +NOINTERACTION
 +DONTBLAST
 +BRIGHT
++DONTREFLECT
 Damagetype "AstroCrush"
 Obituary "$OB_ASTROCRUSH"
 damage (0)

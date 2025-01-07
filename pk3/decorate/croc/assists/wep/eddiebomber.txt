@@ -135,6 +135,7 @@ actor EddieBomberBomb : BasicBouncer
 -NOGRAVITY
 +SKYEXPLODE
 +FORCEXYBILLBOARD
++DONTREFLECT
 damage (1)
 damagetype "EddieBomber"
 Obituary "$OB_EDDIEBOMBER"

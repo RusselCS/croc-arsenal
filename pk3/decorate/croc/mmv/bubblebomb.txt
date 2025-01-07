@@ -127,6 +127,7 @@ inventory.maxamount 28
 actor BubbleBomb : BasicProjectile
 {
     +FORCEXYBILLBOARD
+    +DONTREFLECT
     damagetype "BubbleBomb"
     Obituary "$OB_BUBBLEBOMB"
     Radius 10
