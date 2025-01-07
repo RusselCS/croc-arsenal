@@ -12,3 +12,6 @@ script "DrawBar_CrocNoiseCrushWep" (void) {
 	ACS_NamedExecuteWithResult("DrawBar_NoiseCrushWep");
 }
 
+script "DrawBar_CrocCrashBombWep" (void) {
+	if(CheckInventory("CrocCrashCooldownFlag")) SetDarkenedBar();
+}

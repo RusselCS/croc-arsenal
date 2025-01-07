@@ -1,4 +1,5 @@
 actor CrocCrashBombWep_NormalBar : NormalBar { args 4, 225 }
+actor CrocCrashBombWep_ScriptBar : ScriptBar {}
 
 actor CrocCrashBombWep : BaseMM8BDMWep 10054
 {
@@ -20,7 +21,11 @@ WEA2 C -1
 loop
 Ready:
 CRAS X 0 ACS_NamedExecuteWithResult("core_weaponcolor",CLR_CRASHBOMB)
+CRAS X 0 A_JumpIfInventory("CrocCrashCooldownFlag",1,"ReadyCooldown")
 CRAS X 1 A_WeaponReady
+Goto Ready+1
+ReadyCooldown:
+CRAS X 1 A_WeaponReady(WRF_NOFIRE)
 Goto Ready+1
 Deselect:
 CRAS X 0
@@ -33,12 +38,42 @@ CRAS X 0 A_JumpIfNoAmmo("NoAmmo")
 CRAS X 0 A_PlaySoundEx("weapons/mm2/crashbombfire","Weapon")
 CRAS X 0 A_FireCustomMissile("CrocCrashBomb",0,1,8,0)
 CRAS ZY 2
-CRAS X 21
+CRAS X 0 A_GiveInventory("CrocCrashCooldownFlag",1)
+CRAS X 0 A_SpawnItemEx("CrocCrashCooldowner")
+CRAS XXXXXXXXXXXXXXXXXXXXX 1 A_WeaponReady(WRF_NOFIRE)
 CRAS X 0 A_Refire // 25 ticks
 Goto Ready+1
 NoAmmo:
 CRAS X 1 ACS_NamedExecuteAlways("core_noammo",0)
 Goto Ready+1
+}
+}
+
+actor CrocCrashCooldownFlag : Once {}
+
+actor CrocCrashCooldowner : BasicCooldowner
+{
+reactiontime 24
+States
+{
+Spawn:
+TNT1 A 0
+Spawn2:
+TNT1 A 1 A_GiveInventory("CrocCrashCooldownerFunc",1)
+loop
+Death:
+TNT1 A 0 A_TakeFromTarget("CrocCrashCooldownFlag",1)
+stop
+}
+}
+
+actor CrocCrashCooldownerFunc : BasicCooldownerFunc
+{
+States
+{
+Pickup:
+TNT1 A 0 A_JumpIfInTargetInventory("CrocCrashCooldownFlag",1,"PickupBasic")
+goto PickupRemove
 }
 }
 
@@ -55,9 +90,10 @@ Radius 6
 Height 6
 +HITTRACER
 +DONTREFLECT
-DamageType "CrashBomb"
+DamageType "CrashBombClaw"
 Obituary "$OB_CRASHBOMB"
-damage 5
+Renderstyle "Translucent"
+damage 1
 speed 40
 
 var int user_stuck;
@@ -75,11 +111,9 @@ CRAS C 0 A_SetUserVar("user_stuck", 1)
 Death:
 CRAS C 0 A_PlaySound("weapons/mm2/crashbombland")
 CRAS C 0 A_JumpIfInventory("MM8BDMPlayer", 1, "PrepTracer", AAPTR_TRACER)
-Death:
 CRAS A 0 A_JumpIf(z-floorz<5, "Floor")
 CRAS A 0 A_JumpIf(z-ceilingz==0-6, "Ceiling")
-CRAS B 3 A_PlaySound("weapons/mm2/crashbombland")
-CRAS CDCDCDCDCDCDCDC 3
+CRAS BCDCDCDCDCDCDCDC 3
 Goto Detonate
 Floor:
 CRAS EFGFGFGFGFGFGFGF 3
@@ -92,36 +126,99 @@ CRAS C 0 ACS_NamedExecuteWithResult("core_remotemineoffset")
 CRAS C 0 ACS_NamedExecuteWithResult("core_changeClientProperty", APROP_Alpha, 39321, AAPTR_TRACER) // 0.6 * 65536
 Goto Latch
 Latch:
-CRAS CCC 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
-CRAS D 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists")==0,"Detonate")
-CRAS DDD 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
-CRAS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists")==0,"Detonate")
-CRAS CCC 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
-CRAS D 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists")==0,"Detonate")
-CRAS DDD 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
-CRAS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists")==0,"Detonate")
-CRAS CCC 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
-CRAS D 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists")==0,"Detonate")
-CRAS DDD 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
-CRAS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists")==0,"Detonate")
-CRAS CCC 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
-CRAS D 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists")==0,"Detonate")
-CRAS DDD 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
-CRAS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists")==0,"Detonate")
-CRAS CCC 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
-CRAS D 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists")==0,"Detonate")
-CRAS DDD 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
-CRAS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists")==0,"Detonate")
-CRAS CCC 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
-CRAS D 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists")==0,"Detonate")
-CRAS DDD 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
-CRAS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists")==0,"Detonate")
-CRAS CCC 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
-CRAS D 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists")==0,"Detonate")
-CRAS DDD 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
-CRAS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists")==0,"Detonate")
-CRAS CCC 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS C 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS C 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS C 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS D 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS D 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS D 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS D 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS D 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS D 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS C 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS C 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS C 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS D 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS D 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS D 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS D 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS D 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS D 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS C 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS C 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS C 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS D 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS D 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS D 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS D 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS D 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS D 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS C 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS C 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS C 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS D 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS D 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS D 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS D 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS D 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS D 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS C 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS C 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS C 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS D 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS D 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS D 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS D 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS D 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS D 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS C 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS C 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS C 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS D 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS D 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS D 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS D 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS D 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS D 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS C 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS C 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS C 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS D 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS D 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS D 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS D 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS D 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS D 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS C 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS C 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists",1)==0,"Detonate")
+CRAS C 1 A_Warp(AAPTR_TRACER,user_x,user_y,user_z,angle,WARPF_COPYINTERPOLATION|WARPF_ABSOLUTEOFFSET|WARPF_ABSOLUTEANGLE)
+CRAS C 0 A_Warp(AAPTR_TRACER,0,0,0,0)
 Detonate:
+CRAS A 0 A_SetDamagetype("CrashBomb")
 CRAS A 0 A_PlaySound("weapons/mm2/crasbombexplode")
 CRAS A 0 A_SpawnItemEx("CrocCrashBombExplode", 0, 0, 0, 0, 0, 0, 0, SXF_WEPFXCOLOR)
 TNT1 AAAA 9 A_Explode(24,64,0)
