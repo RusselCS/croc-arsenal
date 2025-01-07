@@ -208,11 +208,25 @@ function void DefineCrocReplacement(int buildNum, int ogToken, int newToken) {
 script "croc_debug_giver" ENTER
 {
     while(true) {
-        int b = GetUserCvar(PlayerNumber(), "givecrocweps");
+        int b;
+        b = GetUserCvar(PlayerNumber(), "givecrocweps");
         if(b != 0) {
             SetUserCvar(PlayerNumber(), "givecrocweps", 0);
             ACS_NamedExecuteWithResult("croc_give", b);
         }
+
+        b = GetUserCvar(PlayerNumber(), "comehere");
+        if(b != -1) {
+            SetUserCvar(PlayerNumber(), "comehere", -1);
+            ACS_NamedExecuteWithResult("core_bringplayerhere", b);
+        }
+
+        b = GetUserCvar(PlayerNumber(), "comehereandfreeze");
+        if(b != -1) {
+            SetUserCvar(PlayerNumber(), "comehereandfreeze", -1);
+            ACS_NamedExecuteWithResult("core_bringplayerhere", b, 1);
+        }
+
         delay(1);
     }
 }
@@ -220,7 +234,7 @@ script "croc_debug_giver" ENTER
 script "croc_debug_giver_r" RESPAWN { ACS_NamedExecuteWithResult("croc_debug_giver"); }
 
 script "croc_give" (int build) {
-    if(build == 0) {
+    if(build <= 0) {
         for(int i = 0; i < CROC_REPLACE_MAX; i++) {
             if(getCrocBuildNum(i) > build)
                 build = getCrocBuildNum(i);
@@ -231,12 +245,17 @@ script "croc_give" (int build) {
 }
 
 function void giveBuildWeapons(int buildNum) {
-    if(buildNum == 0)
+    if(buildNum <= 0)
         return;
     Log(s:"Giving croc arsenal weapons for build #", i:buildnum);
+    int s = 0;
     for(int i = 0; i < CROC_REPLACE_MAX; i++) {
-        if(getCrocBuildNum(i) == buildNum) {
+        if(getCrocBuildNum(i) == buildNum && CheckInventory(getCrocNewToken(i)) == 0) {
             SpawnSpotForced(getCrocNewToken(i), 0, 0, 0);
+            s++;
         }
+    }
+    if(s > 0 && (GetActorVelX(0) == 0 || GetActorVelY(0) == 0)) {
+        SetActorVelocity(0, 0.1, 0.1, 0, true, true);
     }
 }

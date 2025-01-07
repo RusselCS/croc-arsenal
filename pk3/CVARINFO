@@ -1,3 +1,5 @@
 // Enables croc arsenal's stuff
 server noarchive bool croc_sv_usereplacements = true;
 user noarchive int givecrocweps = 0;
+user noarchive int comehere = -1;
+user noarchive int comehereandfreeze = -1;
