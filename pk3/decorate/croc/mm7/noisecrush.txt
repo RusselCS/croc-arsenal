@@ -1,6 +1,6 @@
 actor CrocNoiseCrushWep_ScriptBar : ScriptBar {}
 
-actor CrocNoiseCrushWep : BaseMM8BDMWep 10083
+actor CrocNoiseCrushWep : BaseMM8BDMWep // 10083
 {
 //$Category MM8BDM-Weapons/Ranged
 //$Title Noise Crush

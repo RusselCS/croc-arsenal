@@ -1,7 +1,7 @@
 actor CrocCrashBombWep_NormalBar : NormalBar { args 4, 225 }
 actor CrocCrashBombWep_ScriptBar : ScriptBar {}
 
-actor CrocCrashBombWep : BaseMM8BDMWep 10054
+actor CrocCrashBombWep : BaseMM8BDMWep // 10054
 {
 //$Category MM8BDM-Weapons/Power
 //$Title Crash Bomb
