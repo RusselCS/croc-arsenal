@@ -1,0 +1,158 @@
+// These are used for Copy Vision and Remote Mine's aiming
+Actor CrocTargetMarker : CustomInventory
+{
+Inventory.amount 1
+Inventory.MaxAmount 1
+States
+{
+Spawn:
+TNT1 A 1
+stop
+Pickup:
+//TNT1 A 0 A_FireCustomMissile("CrocTargetTracer",0,0,0,16,0,0)
+TNT1 A 0 A_SpawnItemEx("CrocTargetTracer", 0, 8, 32, cos(pitch), 0, sin(-pitch),0,SXF_MULTIPLYSPEED)
+//TNT1 A 0 A_RailAttack(0,0,0,"none","none",RGF_SILENT|RGF_NOPIERCING, 0, "CrocTargetAimPoint", 0, 0, 0) // For the future
+TNT1 A 0 A_JumpIfInventory("TargetAimPointActive", 1, "Timer")
+TNT1 A 0 A_GiveInventory("TargetAimPointActive", 1)
+TNT1 A 0 A_SpawnItemEx("CrocTargetAimPointWatcher")
+stop
+Timer:
+TNT1 A 0 A_GiveInventory("TargetAimPointActive", 1)
+stop
+}
+}
+
+Actor CrocTargetMarker2 : CrocTargetMarker
+{
+states
+{
+Pickup:
+//TNT1 A 0 A_FireCustomMissile("CrocTargetTracer",0,0,0,16,0,0)
+TNT1 A 0 A_SpawnItemEx("CrocTargetTracer", 0, 8, 32, cos(pitch), 0, sin(-pitch),0,SXF_MULTIPLYSPEED)
+//TNT1 A 0 A_RailAttack(0,0,0,"none","none",RGF_SILENT|RGF_NOPIERCING, 0, "CrocTargetAimPoint", 0, 0, 0) // For the future
+TNT1 A 0 A_JumpIfInventory("TargetAimPointActive", 1, "Timer")
+TNT1 A 0 A_GiveInventory("TargetAimPointActive", 1)
+TNT1 A 0 A_SpawnItemEx("CrocTargetAimPointWatcher")
+stop
+Timer:
+TNT1 A 0 A_GiveInventory("TargetAimPointActive", 1)
+stop
+}
+}
+
+actor CrocTargetTracer : FastProjectile
+{
+Radius 6
+Height 1
+PROJECTILE
+Speed 1000
+Damage(0)
+RenderStyle none
++DONTSPLASH
++DONTBLAST
++THRUGHOST
++SKYEXPLODE
++NOTARGETSWITCH
+States
+{
+Spawn:
+TNT1 A 5
+Goto Death
+Death:
+TNT1 A 0 
+TNT1 A 1 A_SpawnItemEx("CrocTargetAimPoint", 0, 0, 0)
+stop
+}
+}
+
+actor CrocTargetTracer2 : CrocTargetTracer
+{
++THRUACTORS
+}
+
+actor CrocTargetAimPoint
+{
+PROJECTILE
++NOINTERACTION
++NOCLIP
++RIPPER
+RenderStyle "NONE"
+Radius 0
+Height 0
+scale 2.5
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 Thing_Remove(ACS_NamedExecuteWithResult("core_gettarget") + PLN_TARGETPOINT_OFFSET)
+TNT1 A 0 Thing_ChangeTID(0, ACS_NamedExecuteWithResult("core_gettarget") + PLN_TARGETPOINT_OFFSET)
+ERO3 YYYYYYYYYYYYYYYYY 1 
+Stop
+Death:
+TNT1 A 0 
+stop
+}
+}
+
+actor CrocTargetAimPointWarperSpawner : CustomInventory
+{
+	States
+	{
+	Pickup:
+		TNT1 A 0 A_SpawnItemEx("CrocTargetAimPointWarper", 0, 0, 0, 0, 0, 0, 0, SXF_TRANSFERTRANSLATION)
+		stop
+	}
+}
+
+actor CrocTargetAimPointWatcher : BasicWatcher
+{
+	+SERVERSIDEONLY
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_GiveToTarget("CrocTargetAimPointWarperSpawner", 1)
+	SpawnLoop: 
+		TNT1 A 1
+		TNT1 A 0 A_JumpIfInTargetInventory("TargetAimPointActive", 1, "SpawnLoop")
+		stop
+	}
+}
+
+actor CrocTargetAimPointWarper
+{
+	Scale 2.5
+	Height 0
+	Radius 0
+	+NOINTERACTION
+	+CLIENTSIDEONLY
+	-SOLID
+	+NOGRAVITY
+	+MISSILE
+	+DONTBLAST
+	+SLIDESONWALLS
+	+FORCEXYBILLBOARD
+	States
+	{
+	Spawn:
+        TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteAlways("core_drawhookshot", 0, ACS_NamedExecuteWithResult("core_gettarget"), 64, 8)
+        TNT1 A 0 ACS_NamedExecuteAlways("core_aimpointwarper", 0, 0)
+		TNT1 A 1
+    Shield:
+		AMPT AB 4
+		loop
+	}
+}
+
+actor CrocTargetAimPointWarperFX : BasicGraphicEffect
+{
+	+FORCEXYBILLBOARD
+	States
+	{
+	Spawn:
+		AMPT C 0
+		AMPT C 1
+		stop
+	}
+}

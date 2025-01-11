@@ -1,3 +1,6 @@
+// Other fixes
+#include "decorate/croc/reaimfix.dec"
+
 // Assists
 // #include "decorate/croc/assists/tanks.txt"
 // #include "decorate/croc/assists/busterupgrade.txt"
