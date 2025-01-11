@@ -152,6 +152,30 @@ script "croc_addweps" OPEN
         DefineCrocWeapon(0, "TAG_MIRRORBUSTER", "MirrorBusterWep", "WEA3H0", "MirrorBusterAmmo", 1.00, DTADD_SLOT_SHIELD, mapTrue, lmsTrue, eddieTrue);
 
         AddSpawnFunc(DTADD_SFT_WEP, "croc_replaceweps");
+
+        mapTrue = GetCVar("mm8bdm_sv_enableitemdefs");
+
+        DefineCrocAssist(0, "TAG_ITEM1", "Item1", "WEA2A0", 3, DTADD_GRP_JUMP, mapTrue);
+        DefineCrocAssist(0, "TAG_ITEM2", "Item2", "WEA2D0", 2, DTADD_GRP_DASH, mapTrue);
+        DefineCrocAssist(0, "TAG_ITEM3", "Item3", "ITM3A0", 2, DTADD_GRP_JUMP, mapTrue);
+        DefineCrocAssist(0, "TAG_RUSHCOIL", "RushCoil", "WEAPB0", 1, DTADD_GRP_JUMP, mapTrue);
+        DefineCrocAssist(0, "TAG_RUSHJET", "RushJet", "WEA2B0", 1, DTADD_GRP_FLIGHT, mapTrue);
+        DefineCrocAssist(0, "TAG_RUSHMARINE", "RushMarine", "RUSHN0", 1, DTADD_GRP_FLIGHT, mapTrue);
+        DefineCrocAssist(0, "TAG_WIREADAPTOR", "WireAdaptor", "WADPA0", 2, DTADD_GRP_FLIGHT, mapTrue);
+        DefineCrocAssist(0, "TAG_BEATCALL", "BeatBoostItem", "WEA3I0", 1, DTADD_GRP_JUMP, mapTrue);
+        DefineCrocAssist(0, "TAG_BEATSUPPORT", "BeatSupport", "WEA4O0", 1, DTADD_GRP_WEAPON, mapTrue);
+        DefineCrocAssist(0, "TAG_EDDIE", "EddieSummon", "WEA4O0", 1, DTADD_GRP_GIFT, mapTrue);
+        DefineCrocAssist(0, "TAG_EDDIEBOMBER", "EddieBomber", "EDDIQ0", 1, DTADD_GRP_ATTACK, mapTrue);
+        DefineCrocAssist(0, "TAG_TREBLESENTRY", "TrebleSentry", "TRBIA0", 1, DTADD_GRP_ATTACK, mapTrue);
+        DefineCrocAssist(0, "TAG_TANGOSUMMON", "TangoSummon", "TRBIA0", 1, DTADD_GRP_ATTACK, mapTrue);
+        DefineCrocAssist(0, "TAG_REGGAECALL", "ReggaeCall", "WEA9Z0", 1, DTADD_GRP_ATTACK, mapTrue);
+        DefineCrocAssist(0, "TAG_EXITUNIT", "ExitUnitItem", "EXITA0", 1, DTADD_GRP_ESCAPE, mapTrue);
+        DefineCrocAssist(0, "TAG_ETANK", "ETank", "EBALF0", 1, DTADD_GRP_HEAL, mapTrue);
+        DefineCrocAssist(0, "TAG_WTANK", "WTank", "EBALH0", 1, DTADD_GRP_RELOAD, mapTrue);
+        DefineCrocAssist(0, "TAG_MTANK", "MTank", "EBALG0", 1, DTADD_GRP_FULLRESTORE, mapTrue);
+        DefineCrocAssist(0, "TAG_ENERGYBALANCER", "EnergyBalancer", "NRGBA0", 1, DTADD_GRP_PASSIVE, mapTrue);
+
+        AddSpawnFunc(DTADD_SFT_ITEM, "croc_replaceitems");
     }
 }
 
@@ -165,7 +189,9 @@ script "croc_replaceweps" (void)
 
     for(int i = 0; i < CROC_REPLACE_MAX; i++) {
         if(StrIcmp(me, getCrocBaseToken(i)) == 0) {
-            CrocSpawnNewWepFunc(getCrocNewToken(i));
+            if(!CrocSpawnNewWepFunc(getCrocNewToken(i))) {
+                Log(s:"\cgWARNING: FAILED TO SPAWN \cj", s:getCrocNewToken(i), s:"\cg! I think you forgot to include the file...");
+            }
             terminate;
         }
     }
@@ -173,8 +199,10 @@ script "croc_replaceweps" (void)
     Thing_SetTranslation(0, BORDER_CROC);
 }
 
+script "croc_replaceitems" (void) { ACS_NamedExecuteWithResult("croc_replaceweps"); }
+
 function int CrocSpawnNewWepFunc(str classname) {
-	int u = UniqueTID();
+    int u = UniqueTID();
 	int r = SpawnSpotForcedCopyVelocity(classname,0,u,GetActorAngle(0)>>8);
 	SetActorProperty(u,APROP_Gravity,GetActorProperty(0,APROP_Gravity));
 	SetActorFlagDecorate(u,"DROPPED",CheckFlag(0,"DROPPED"));
@@ -194,6 +222,17 @@ function void DefineCrocWeapon(int buildNum, str wepTag, str wepActor, str wepIc
 
     DefineCrocReplacement(buildNum, wepActor, crocToken);
     DefineWeapon(wepTag, crocToken, wepIcon, Ammo, wepMult, wepSlot, wepMap, wepLms, wepEddie);
+}
+
+function void DefineCrocAssist(int buildNum, str itemTag, str itemActor, str itemIcon, int itemAmount, int itemGroup, int itemMap)
+{
+    if(buildNum == 0)
+        return;
+
+    str crocToken = StrParam(s:"Croc", s:itemActor);
+
+    DefineCrocReplacement(buildNum, itemActor, crocToken);
+    DefineAssistItem(itemTag, crocToken, itemIcon, itemAmount, itemGroup, itemMap);
 }
 
 function void DefineCrocReplacement(int buildNum, int ogToken, int newToken) {

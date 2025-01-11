@@ -1,3 +1,22 @@
+// Assists
+// #include "decorate/croc/assists/tanks.txt"
+// #include "decorate/croc/assists/busterupgrade.txt"
+
+// #include "decorate/croc/assists/wep/beatsupport.txt"
+// #include "decorate/croc/assists/wep/tangoroll.txt"
+// #include "decorate/croc/assists/wep/treblesentry.txt"
+// #include "decorate/croc/assists/wep/eddiebomber.txt"
+// #include "decorate/croc/assists/wep/reggae.txt"
+
+// #include "decorate/croc/assists/utility/beatcall.txt"
+// #include "decorate/croc/assists/utility/eddie.txt"
+// #include "decorate/croc/assists/utility/item-1-2-3.txt"
+// #include "decorate/croc/assists/utility/misc.txt"
+// #include "decorate/croc/assists/utility/rushcoil.txt"
+// #include "decorate/croc/assists/utility/rushjet.txt"
+// #include "decorate/croc/assists/utility/rushmarine.txt"
+// #include "decorate/croc/assists/utility/wire.txt"
+// #include "decorate/croc/assists/utility/rushsearch.txt"
 
 // SLOT 2 - Ranged
 // #include "decorate/croc/mm6/blizzardattack.txt"
