@@ -37,7 +37,7 @@
 #include "decorate/croc/mm7/noisecrush.txt"
 // #include "decorate/croc/mm8/homingsniper.txt"
 // #include "decorate/croc/mm4/divemissile.txt"
-// #include "decorate/croc/mmb/copyvision.txt"
+#include "decorate/croc/mmb/copyvision.txt"
 // #include "decorate/croc/mm7/thunderbolt.txt"
 // #include "decorate/croc/mm7/freezecracker.txt"
 // #include "decorate/croc/mm6/silvertomahawk.txt"

@@ -114,7 +114,7 @@ script "croc_addweps" OPEN
         DefineCrocWeapon(0, "TAG_SPREADDRILL", "SpreadDrillWep", "SPREX0", "SpreadDrillAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
         DefineCrocWeapon(0, "TAG_MAGICCARD", "MagicCardWep", "MCARX0", "MagicCardAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
         DefineCrocWeapon(0, "TAG_REMOTEMINE", "RemoteMineWep", "REMIX0", "RemoteMineAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "TAG_COPYVISION", "CopyVisionWep", "COPYX0", "CopyVisionAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(1, "TAG_COPYVISION", "CopyVisionWep", "COPYX0", "CopyVisionAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
         DefineCrocWeapon(0, "TAG_ICEWALL", "IceWallWep", "ICWLX0", "IceWallAmmo", 1.00, DTADD_SLOT_SHIELD, mapTrue, lmsTrue, eddieTrue);
         DefineCrocWeapon(0, "TAG_LIGHTNINGBOLT", "LightningBoltWep", "LIBOA0", "LightningBoltAmmo", 1.00, DTADD_SLOT_AOE, mapTrue, false, eddieTrue);
 

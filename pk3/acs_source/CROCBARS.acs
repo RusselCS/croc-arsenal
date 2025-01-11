@@ -15,3 +15,7 @@ script "DrawBar_CrocNoiseCrushWep" (void) {
 script "DrawBar_CrocCrashBombWep" (void) {
 	if(CheckInventory("CrocCrashCooldownFlag")) SetDarkenedBar();
 }
+
+script "DrawBar_CrocCopyVisionWep" (void) {
+	SetOverlayBar(CheckInventory("CrocCopyVisionTimer"), 40);
+}
