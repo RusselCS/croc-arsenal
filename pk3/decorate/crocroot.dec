@@ -103,7 +103,7 @@
 // #include "decorate/croc/mm1/hyperbomb.txt"
 // #include "decorate/croc/mm7/dangerwrap.txt"
 // #include "decorate/croc/mm8/flashbomb.txt"
-// #include "decorate/croc/mmb/remotemine.txt"
+#include "decorate/croc/mmb/remotemine.txt"
 // #include "decorate/croc/mmb/spreaddrill.txt"
 // #include "decorate/croc/mm4/drillbomb.txt"
 // #include "decorate/croc/mm10/commandobomb.txt"

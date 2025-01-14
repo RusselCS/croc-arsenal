@@ -19,3 +19,7 @@ script "DrawBar_CrocCrashBombWep" (void) {
 script "DrawBar_CrocCopyVisionWep" (void) {
 	SetOverlayBar(CheckInventory("CrocCopyVisionTimer"), 40);
 }
+
+script "DrawBar_CrocRemoteMineWep" (void) {
+	if(CheckInventory("WeaponCharge")>4) SetFlashingBar();
+}
