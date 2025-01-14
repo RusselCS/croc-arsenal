@@ -1,0 +1,33 @@
+TODO:
+- Energy Balancer: Innate + Energy Balancer Neo
+- Commando Bomb: Give Composite Hitbox to limit damage output
+- Thunder Bolt: Give Composite Hitbox to limit damage output
+- Dust Crusher: Give Composite Hitbox to limit damage output
+- Freeze Cracker: Give Composite Hitbox to limit damage output
+- Explosive weapons: DONTREFLECT sweep
+- Power Stone: Altfire to reverse direction
+- Water Shield: I don't like how the damage is currently handled, because the change is arbitrary-feeling.
+- Chill Spike: I've heard reports that it is possible to "permafreeze" players.
+- Wind Storm: Increase pull a bit
+- Rush Coil: Activation radius larger than give radius
+- Copy Vision: Needs an over-health meter
+- Copy Vision: Give predictive homing
+- Copy Vision: Change "uncharged" shot in a functional way. Llama's suggestion is make it wider with a wavebeam-like shot.
+- Break Dash: Change "uncharged" shot in a functional way. Thinking either a short-range punch using Pluto's "claw shot" graphic, or the weird homing energy blast.
+- Flash Bomb: Needs nerfs
+- Mirror Buster: Needs nerfs or is inherently broken.
+- Homing Sniper: Very strong, unsure if nerfs needed.
+- Gyro Attack: On the strong side, though not overbearing?
+- Photon Missile: Very strong, allegedly completely oppressive.
+- Black Hole Bomb: Do something. Possible make it do what it does faster? (Suck in then explode quickly)
+- Bass Buster: Implement v6c changes.
+- Flame Sword: Composite hitbox to make each segment hit for more damage total. (Maybe a max of 60? 70?) [need input from team.]
+- Skull Barrier: [needs input from team.]
+
+DONE:
+- Reaim Tracer: -ACTIVATEIMPACT
+- Remote Mine: Has a tendency to aim behind a fleeing player.
+- Noise Crush: Catching has become less reliable after animation changes
+- Crash Bomb: Give a delay when a player is struck. Do not add the "can transfer to enemy" bit from Smash.
+- Pharaoh Shot: Implement Gibus's midcharge explosion version. Reduces uncharged damage, smooths some animations, tweak charge times.
+
