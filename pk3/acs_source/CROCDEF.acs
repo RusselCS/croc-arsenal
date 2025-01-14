@@ -236,6 +236,15 @@ function void DefineCrocAssist(int buildNum, str itemTag, str itemActor, str ite
 }
 
 function void DefineCrocReplacement(int buildNum, int ogToken, int newToken) {
+    int u = UniqueTID();
+    int s = SpawnForced(newToken, 0, 0, 0, u, 0);
+
+    if(!s) {
+        Log(s:"\cgWARNING: FAILED TO SPAWN \cj", s:newToken, s:"\cg! I think you forgot to include the file...");
+    } else {
+        Thing_Remove(u);
+    }
+    
     if(CROC_REPLACE_MAX < CROC_REPLACE_MAX_LIMIT) {
         setCrocBaseToken(CROC_REPLACE_MAX, ogToken);
         setCrocNewToken(CROC_REPLACE_MAX, newToken);
