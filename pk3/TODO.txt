@@ -21,8 +21,9 @@ TODO:
 - Photon Missile: Very strong, allegedly completely oppressive.
 - Black Hole Bomb: Do something. Possible make it do what it does faster? (Suck in then explode quickly)
 - Bass Buster: Implement v6c changes.
-- Flame Sword: Composite hitbox to make each segment hit for more damage total. (Maybe a max of 60? 70?) [need input from team.]
+- Flame Sword: Composite hitbox to make each segment hit for more damage total. First hit is big, subsequent hits are small, up to X number of hits.
 - Skull Barrier: [needs input from team.]
+- Sweep: A_JumpIfInventory("MM8BDMPlayer", 1, "State", AAPTR_TRACER) -> A_JumpIf(IsPointerEqual(AAPTR_TRACER, AAPTR_NULL), "State")
 
 DONE:
 - Reaim Tracer: -ACTIVATEIMPACT
