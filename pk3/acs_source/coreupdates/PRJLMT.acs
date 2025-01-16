@@ -1,0 +1,80 @@
+// Projectile hit limiter scripts
+#library "PRJLMT"
+#include "zcommon.acs"
+
+#DEFINE P_GAMEEVENT_ACTOR_ARMORDAMAGED 12
+
+// Ripper cap
+// to make a projectile limit how many times it can hit a single target:
+// - Give it `var int user_PierceRipper;`
+// - (Optional) A_GiveInventory("PierceRipperLimit", X) where X is the number of hits it can deal (default 1)
+// Used for Triple Blade and Laser Trident
+script "core_PierceRipper_Event" (int type, int dmg, int dmgtype) EVENT {
+	if(type==P_GAMEEVENT_ACTOR_ARMORDAMAGED) damagedEvent();
+}
+
+function void damagedEvent(void) {
+	SetActivator(0,AAPTR_DAMAGE_INFLICTOR);
+	if(checkForActorVar(0,"user_PierceRipper")) {
+		//PrintBold(i:CountRipperHitsAgainstVictim());
+		if(CountRipperHitsAgainstVictim()>=CountPierceRipperLimit()) SetResultValue(0);
+		else SpawnRipperHit();
+	}
+}
+
+function bool checkForActorVar(int tid, str theVar) {
+	SetUserVariable(tid,theVar,1);
+	return (GetUserVariable(tid,theVar)==1);
+}
+
+function int CountPierceRipperLimit(void) {
+	return max(1,CheckInventory("PierceRipperLimit"));
+}
+
+function int max (int a, int b)
+{
+	if (a > b) return a;
+	return b;
+}
+
+function int CountRipperHitsAgainstVictim(void) {
+	SetActivator(0,AAPTR_DAMAGE_TARGET);
+	GiveInventory("CurrentRipperVictim",1);
+	SetActivator(0,AAPTR_DAMAGE_INFLICTOR);
+	GiveInventory("CountVictimRipperHit",1);
+	SetActivator(0,AAPTR_DAMAGE_TARGET);
+	TakeInventory("CurrentRipperVictim",1);
+	SetActivator(0,AAPTR_DAMAGE_INFLICTOR);
+	return CheckInventory("RipperHitCount");
+}
+
+function void SpawnRipperHit(void) {
+	SetActivator(0,AAPTR_DAMAGE_INFLICTOR);
+
+	int spawned = UniqueTID();
+	SpawnSpotForced("RipperHit",0,spawned,GetActorAngle(0)>>8);
+	SetActivator(spawned);
+	Thing_ChangeTID(0,0);
+	
+	SetPointer(AAPTR_MASTER,0,AAPTR_DAMAGE_INFLICTOR);
+	SetPointer(AAPTR_TARGET,0,AAPTR_DAMAGE_TARGET);
+
+	SetActivator(0,AAPTR_DAMAGE_INFLICTOR);
+}
+
+// Ripper remover
+// if you want a projectile to die after dealing damage X times:
+// - Give it `var int user_DamageKill;`
+// - Give it a `reactiontime` equal to the number of times you want it to hit before dying.
+// Used for Chill Spike
+script "core_PierceExplode_Event" (int type, int dmg, int dmgtype) EVENT {
+	if(type==P_GAMEEVENT_ACTOR_ARMORDAMAGED) explodeDamagedEvent(dmg);
+}
+
+function void explodeDamagedEvent(int amt) {
+	SetActivator(0,AAPTR_DAMAGE_INFLICTOR);
+	if(checkForActorVar(0,"user_DamageKill") && CheckInventory("DamageKillFlag") == 0) {
+		GiveInventory("DamageKillFlag", 1);
+		GiveInventory("DamageKillCountdowner", 1);
+	}
+}
