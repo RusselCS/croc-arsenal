@@ -21,7 +21,7 @@ function int getCrocBuildNum(int idx) { return crocTokens_int[idx][0]; }
 
 #define BORDER_CROC 11037
 
-#define CROC_WEP_BORDER     139
+#define CROC_WEP_BORDER     138
 #define DEFAULT_WEP_BORDER  4
 
 script "croc_translations" OPEN
