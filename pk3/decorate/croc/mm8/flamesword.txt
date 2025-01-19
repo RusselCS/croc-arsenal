@@ -1,6 +1,6 @@
-actor FlameSwordWep_NormalBar : NormalBar { args 248, 41 }
+actor CrocFlameSwordWep_NormalBar : NormalBar { args 248, 41 }
 
-actor FlameSwordWep : BaseMM8BDMWep 11095
+actor CrocFlameSwordWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Close
 //$Title Flame Sword
@@ -11,7 +11,7 @@ Weapon.SlotNumber 4
 Inventory.Pickupmessage "$PU_FLAMESWORD"
 Obituary "$OB_FLAMESWORD"
 Tag "$TAG_FLAMESWORD"
-weapon.ammotype "FlameSwordAmmo"
+weapon.ammotype "CrocFlameSwordAmmo"
 inventory.icon "FSWORDI"
 +WEAPON.NOAUTOAIM
 States
@@ -32,23 +32,23 @@ goto SelectSwap
 Fire:
 FHUD A 0 A_JumpIfNoAmmo("NoAmmo")
 FHUD A 0 A_PlaySoundEx("weapons/mm8/flameswordfire","Weapon")
-FHUD A 0 A_TakeInventory("FlameSwordAmmo",2,TIF_NOTAKEINFINITE)
+FHUD A 0 A_TakeInventory("CrocFlameSwordAmmo",2,TIF_NOTAKEINFINITE)
 FHUD A 0
 FHUD A 0 A_CheckFloor("GroundSwing")
 Goto AirSwing
 GroundSwing:
-FHUD C 1 A_FireCustomMissile("FlameSword",50,0,-16,0,0,-10)
-FHUD D 1 A_FireCustomMissile("FlameSword",25,0,-8,0,0,-5)
-FHUD E 1 A_FireCustomMissile("FlameSword",0,0,0,0,0,0)
-FHUD F 1 A_FireCustomMissile("FlameSword",-25,0,8,0,0,10)
-FHUD G 1 A_FireCustomMissile("FlameSword",-50,0,16,0,0,20)
+FHUD C 1 A_FireCustomMissile("CrocFlameSword",50,0,-16,0,0,-10)
+FHUD D 1 A_FireCustomMissile("CrocFlameSword",25,0,-8,0,0,-5)
+FHUD E 1 A_FireCustomMissile("CrocFlameSword",0,0,0,0,0,0)
+FHUD F 1 A_FireCustomMissile("CrocFlameSword",-25,0,8,0,0,10)
+FHUD G 1 A_FireCustomMissile("CrocFlameSword",-50,0,16,0,0,20)
 Goto Finish
 AirSwing:
-FHUD J 1 A_FireCustomMissile("FlameSword2",-50,0,16,0,0,20)
-FHUD K 1 A_FireCustomMissile("FlameSword2",-25,0,8,0,0,10)
-FHUD L 1 A_FireCustomMissile("FlameSword2",0,0,0,0,0,0)
-FHUD M 1 A_FireCustomMissile("FlameSword2",25,0,-8,0,0,-5)
-FHUD N 1 A_FireCustomMissile("FlameSword2",50,0,-16,0,0,-10)
+FHUD J 1 A_FireCustomMissile("CrocFlameSword2",-50,0,16,0,0,20)
+FHUD K 1 A_FireCustomMissile("CrocFlameSword2",-25,0,8,0,0,10)
+FHUD L 1 A_FireCustomMissile("CrocFlameSword2",0,0,0,0,0,0)
+FHUD M 1 A_FireCustomMissile("CrocFlameSword2",25,0,-8,0,0,-5)
+FHUD N 1 A_FireCustomMissile("CrocFlameSword2",50,0,-16,0,0,-10)
 Goto Finish
 Finish:
 TNT1 A 14
@@ -62,14 +62,14 @@ Goto Ready+1
 }
 }
 
-actor FlameSwordAmmo : Ammo
+actor CrocFlameSwordAmmo : Ammo
 {
 inventory.amount 1
 inventory.maxamount 28
 +INVENTORY.IGNORESKILL
 }
 
-actor FlameSword : BasicProjectile
+actor CrocFlameSword : BasicProjectile
 {
 +RIPPER
 +BRIGHT
@@ -81,7 +81,7 @@ states
 {
 Spawn:
 TNT1 A 0
-TNT1 AAAAA 1 A_SpawnItemEx("FlameSwordTrail")
+TNT1 AAAAA 1 A_SpawnItemEx("CrocFlameSwordTrail")
 Goto Death
 Death:
 TNT1 A 0 
@@ -90,18 +90,18 @@ stop
 }
 }
 
-actor FlameSword2 : FlameSword
+actor CrocFlameSword2 : CrocFlameSword
 {
 States
 {
 Spawn:
 TNT1 A 0
-TNT1 AAAAA 1 A_SpawnItemEx("FlameSwordTrail2")
+TNT1 AAAAA 1 A_SpawnItemEx("CrocFlameSwordTrail2")
 Goto Death
 }
 }
 
-actor FlameSwordTrail : BasicProjectile
+actor CrocFlameSwordTrail : BasicProjectile
 {
 +FORCEXYBILLBOARD
 +EXPLODEONDEATH
@@ -111,7 +111,7 @@ actor FlameSwordTrail : BasicProjectile
 height 8
 radius 8
 damage (25) 
-damagetype "FlameSword"
+damagetype "CrocFlameSword"
 Obituary "$OB_FLAMESWORD"
 States
 {
@@ -123,7 +123,7 @@ stop
 }
 }
 
-actor FlameSwordTrail2 : FlameSwordTrail
+actor CrocFlameSwordTrail2 : CrocFlameSwordTrail
 {
 States
 {
@@ -131,83 +131,6 @@ Spawn:
 FSWD D 0 
 FSWD D 0 A_ChangeVelocity(0, 15, 0, CVF_RELATIVE | CVF_REPLACE)
 FSWD DEF 1 
-stop
-}
-}
-
-
-actor FSSParkSpawner : BasicProjectile
-{
-scale 2.5
-+RIPPER
--NOGRAVITY
-+NOINTERACTION
-damage (0)
-radius 1
-height 1
-speed 0
-ReactionTime 10
-states
-{
-Spawn:
-TNT1 A 0
-TNT1 A 0 A_SpawnItemEx("FlameSwordSpark",Random(0,16),Random(-48, -8),8,random(50,55),random(-15,15),random(0,15),0, 0, 0)
-TNT1 A 0 A_SpawnItemEx("FlameSwordSpark",Random(0,16),0,8,random(45,55),random(-15,15),random(-15,15),0, 0, 0)
-TNT1 A 0 A_SpawnItemEx("FlameSwordSpark",Random(0,16),Random(8, 48),8,random(40,55),random(-15,15),random(0,15),0, 0, 0)
-TNT1 A 1 A_CountDown
-loop
-Death:
-TNT1 A 0
-stop
-}
-}
-
-actor FlameSwordSpark : FlameSwordTrail
-{
-damagetype "FlameSwordSpark"
-Obituary "$OB_FLAMESWORD"
-+EXPLODEONDEATH
-+DONTSPLASH
-damage (1)
-height 2
-radius 2
-Scale 2.0
-States
-{
-Spawn:
-FSPK A 0
-FSPK ABCD 1
-stop
-}
-}
-
-actor FlameSwordProtect : PowerProtection
-{
-Powerup.Duration 5
-damagefactor "FlameSword", 0.28
-}
-
-
-actor FlameSwordBit : BasicGraphicEffect
-{
--NOINTERACTION
--NOGRAVITY
-+RIPPER
-+BRIGHT
-damage (0)
-States
-{
-Spawn:
-FSPK E 2
-TNT1 A 2
-FSPK E 2
-TNT1 A 2
-FSPK E 2
-TNT1 A 2
-FSPK E 2
-TNT1 A 2
-FSPK E 2
-TNT1 A 2
 stop
 }
 }

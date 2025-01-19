@@ -80,7 +80,7 @@
 // #include "decorate/croc/mm6/knightcrush.txt"
 // #include "decorate/croc/mm1/oilslider.txt"
 // #include "decorate/croc/mm2/airshooter.txt"
-// #include "decorate/croc/mm8/flamesword.txt"
+#include "decorate/croc/mm8/flamesword.txt"
 // #include "decorate/croc/mm7/slashclaw.txt"
 // #include "decorate/croc/mmb/tengublade.txt"
 // #include "decorate/croc/mm8/thunderclaw.txt"
