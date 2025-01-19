@@ -2,4 +2,33 @@
 
 #include "zcommon.acs"
 
-// i was gonna do a script here but i didn't need it
+// now i'm just mad
+script "croc_warpf_copypitch" (int ptr)
+{
+    int u = UniqueTID();
+    int o = ActivatorTID();
+    Thing_ChangeTID(0, u);
+    SetActivator(0, ptr);
+    int pitch = GetActorPitch(0);
+    SetActivator(u);
+    SetActorPitch(0, pitch);
+    Thing_ChangeTID(0, o);
+    SetResultValue(0);
+}
+
+script "PierceRipper_CrocFlameSwordTrail" (int dmg, int type, int hits)
+{
+    log(i:hits);
+    if(hits < 1) {
+        SetResultValue(dmg);
+    } else if(hits < 5) {
+        SetResultValue(5);
+    } else {
+        SetResultValue(0);
+    }
+}
+
+script "PierceRipper_CrocFlameSwordTrailAir" (int dmg, int type, int hits)
+{
+    SetResultValue(ACS_NamedExecuteWithResult("PierceRipper_CrocFlameSwordTrail", dmg, type, hits));
+}
