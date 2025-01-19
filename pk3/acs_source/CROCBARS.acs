@@ -2,7 +2,23 @@
 
 #include "zcommon.acs"
 
+#include "DTADD.acs"
 #include "BARLIB.acs"
+
+Script "croc_HPbarfx_define" OPEN CLIENTSIDE {
+	DefineAssistDisplay("croc_HPbarfx");
+}
+
+Script "croc_HPbarfx" (int cam) CLIENTSIDE {
+	SetActivator(cam);
+	CrocHPBarFXFunc();
+}
+
+function void CrocHPBarFXFunc(void) {
+	if(CheckInventory("CrocCopyVisionTimer")>0) {
+        DrawCustomBar(3, CheckInventory("CrocCopyVisionTimer"), 40);
+	}
+}
 
 script "DrawBar_CrocPharaohShotWep" (void) {
 	SetOverlayBar(CheckInventory("CrocPharaohCharge"), 100);
@@ -14,10 +30,6 @@ script "DrawBar_CrocNoiseCrushWep" (void) {
 
 script "DrawBar_CrocCrashBombWep" (void) {
 	if(CheckInventory("CrocCrashCooldownFlag")) SetDarkenedBar();
-}
-
-script "DrawBar_CrocCopyVisionWep" (void) {
-	SetOverlayBar(CheckInventory("CrocCopyVisionTimer"), 40);
 }
 
 script "DrawBar_CrocRemoteMineWep" (void) {

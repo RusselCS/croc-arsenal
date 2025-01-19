@@ -10,9 +10,6 @@ TODO:
 - Chill Spike: I've heard reports that it is possible to "permafreeze" players.
 - Wind Storm: Increase pull a bit
 - Rush Coil: Activation radius larger than give radius
-- Copy Vision: Needs an over-health meter
-- Copy Vision: Give predictive homing
-- Copy Vision: Change "uncharged" shot in a functional way. Llama's suggestion is make it wider with a wavebeam-like shot.
 - Break Dash: Change "uncharged" shot in a functional way. Thinking either a short-range punch using Pluto's "claw shot" graphic, or the weird homing energy blast.
 - Flash Bomb: Needs nerfs
 - Mirror Buster: Needs nerfs or is inherently broken.
@@ -31,4 +28,7 @@ DONE:
 - Noise Crush: Catching has become less reliable after animation changes
 - Crash Bomb: Give a delay when a player is struck. Do not add the "can transfer to enemy" bit from Smash.
 - Pharaoh Shot: Implement Gibus's midcharge explosion version. Reduces uncharged damage, smooths some animations, tweak charge times.
+- Copy Vision: Change "uncharged" shot in a functional way. Llama's suggestion is make it wider with a wavebeam-like shot.
+- Copy Vision: Give predictive homing
+- Copy Vision: Needs an over-health meter
 
