@@ -562,6 +562,7 @@ Radius 0
 +NOINTERACTION
 +SERVERSIDEONLY
 renderstyle "None"
+reactiontime 0x7FFFFFFD // not actually infinite, but should be plenty good
 //+INVISIBLE
 states
 {
@@ -569,6 +570,7 @@ Spawn:
 TNT1 A 0
 Spawn2:
 METL A 1 A_GiveInventory("RemoveIfNoMaster",1)
+METL A 0 A_Countdown
 loop
 }
 }
@@ -608,6 +610,48 @@ Pickup3:
 TNT1 A 0 A_GiveInventory("RipperHitCount",1,AAPTR_MASTER)
 stop
 }
+}
+
+actor PierceRipperComposite
+{
+	+MISSILE
+	+NOINTERACTION
+	renderstyle "None"
+	States
+	{
+	Spawn:
+		THWO B 18
+		THWO B 0 A_GiveInventory("CountCompositeChildrenFunc", 1)
+		THWO B 0 A_JumpIfInventory("ChildCount", 1, "Spawn")
+		stop
+	}
+}
+
+actor IsCompositeRipper : Once {}
+
+actor CountCompositeChildrenFunc : CustomInventory
+{
+	states
+	{
+	Pickup:
+		TNT1 A 0 A_TakeInventory("ChildCount",999)
+		TNT1 A 0 A_GiveToChildren("CountCompositeChildrenFunc2",1)
+		stop
+	}
+}
+
+actor CountCompositeChildrenFunc2 : CustomInventory
+{
+	states
+	{
+	Pickup:
+		TNT1 A 0 A_JumpIfInventory("IsCompositeRipper", 1, "Count")
+		stop
+	Count:
+		TNT1 A 0
+		TNT1 A 0 A_GiveInventory("ChildCount",1,AAPTR_MASTER)
+		stop
+	}
 }
 
 actor DamageKillCountdowner : CustomInventory

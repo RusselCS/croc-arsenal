@@ -43,7 +43,7 @@ Buster:
 COPB A 0 A_GiveInventory("CrocCopyVisionRedirect", 1)
 Altfire:
 COPB A 0 A_PlaySoundEx("weapons/mmb/copyvisionbuster","Weapon")
-COPB A 0 A_FireCustomMissile("MegaShot",0,0,8,0)
+COPB A 0 A_FireCustomMissile("CopyVisionBusterShot",0,0,8,0)
 COPB BC 3
 COPB A 2
 COPB A 0 A_Refire
@@ -157,3 +157,130 @@ TNT1 A 0
 stop
 }
 }
+
+actor CopyVisionBusterShot : BasicExplosion
+{
+    speed 35
+    var int user_CompositePierceRipper;
+    States
+    {
+    Spawn:
+        TNT1 A 0
+        TNT1 A 0 A_SpawnItemEx("CopyVisionBusterShotL",-momx,-momy,-momz,momx,momy,momz,0,SXF_TRANSFERPOINTERS|SXF_ABSOLUTEMOMENTUM|SXF_ABSOLUTEPOSITION)
+        TNT1 A 0 A_SpawnItemEx("CopyVisionBusterShotR",-momx,-momy,-momz,momx,momy,momz,0,SXF_TRANSFERPOINTERS|SXF_ABSOLUTEMOMENTUM|SXF_ABSOLUTEPOSITION)
+        stop
+    }
+}
+
+const int WEPC_BCV_SPEED = 6;
+
+actor CopyVisionBusterShotL : BasicProjectile
+{
+    +FORCEXYBILLBOARD
+    +BRIGHT
+    damagetype "Buster"
+    Obituary "$OB_COPYVISIONSHOT"
+    Damage (10)
+    radius 14
+    height 5
+    var int user_CompositePierceRipper;
+
+    var int user_DIRECTION;
+    var int user_SPEED;
+    States
+    {
+    Spawn:
+        TNT1 A 0
+        TNT1 A 0 A_SetUserVar("user_DIRECTION",1)
+        TNT1 A 0 A_SetUserVar("user_SPEED", WEPC_BCV_SPEED)
+        goto SpawnStart
+    SpawnStart:
+        COPY LL 1 A_Changevelocity(0, -(user_SPEED/2)*user_DIRECTION,0,1)
+        COPY L 0 A_Changevelocity(0, 3*user_SPEED*user_DIRECTION,0,1)
+        goto SpawnLoop
+    
+    // SpawnLoop:
+    //     BBOM CCD 2
+    //     BBOM EE 3 A_Changevelocity(0,-user_SPEED*user_DIRECTION,0,1)
+    //     BBOM DC 3 A_Changevelocity(0,-user_SPEED*user_DIRECTION,0,1)
+    //     BBOM CCD 2
+    //     BBOM EE 3 A_Changevelocity(0,user_SPEED*user_DIRECTION,0,1)
+    //     BBOM DC 3 A_Changevelocity(0,user_SPEED*user_DIRECTION,0,1)
+    //     loop
+    SpawnLoop:
+        // 6 ticks
+        COPY LLL 1 A_SpawnItemEx("CopyVisionBusterTrail")
+
+        // 12 ticks
+        COPY L 0 A_Changevelocity(0,-user_SPEED*user_DIRECTION,0,1)
+        COPY LL 1 A_SpawnItemEx("CopyVisionBusterTrail")
+        COPY L 0 A_Changevelocity(0,-user_SPEED*user_DIRECTION,0,1)
+        COPY L 1 A_SpawnItemEx("CopyVisionBusterTrail")
+        COPY L 0 A_Changevelocity(0,-user_SPEED*user_DIRECTION,0,1)
+        COPY LL 1 A_SpawnItemEx("CopyVisionBusterTrail")
+        COPY L 0 A_Changevelocity(0,-user_SPEED*user_DIRECTION,0,1)
+        COPY L 1 A_SpawnItemEx("CopyVisionBusterTrail")
+
+        // 6 ticks
+        COPY LLL 1 A_SpawnItemEx("CopyVisionBusterTrail")
+
+        // 12 ticks
+        COPY L 0 A_Changevelocity(0,user_SPEED*user_DIRECTION,0,1)
+        COPY LL 1 A_SpawnItemEx("CopyVisionBusterTrail")
+        COPY L 0 A_Changevelocity(0,user_SPEED*user_DIRECTION,0,1)
+        COPY L 1 A_SpawnItemEx("CopyVisionBusterTrail")
+        COPY L 0 A_Changevelocity(0,user_SPEED*user_DIRECTION,0,1)
+        COPY LL 1 A_SpawnItemEx("CopyVisionBusterTrail")
+        COPY L 0 A_Changevelocity(0,user_SPEED*user_DIRECTION,0,1)
+        COPY L 1 A_SpawnItemEx("CopyVisionBusterTrail")
+        loop
+        COPY L 2 A_SpawnItemEx("CopyVisionBusterTrail")
+        COPY L 0 A_Changevelocity(0,-user_SPEED*user_DIRECTION,0,1)
+        COPY L 1 A_SpawnItemEx("CopyVisionBusterTrail")
+        COPY L 0 A_Changevelocity(0,-user_SPEED*user_DIRECTION,0,1)
+        COPY L 1 A_SpawnItemEx("CopyVisionBusterTrail")
+        COPY L 0 A_Changevelocity(0,-user_SPEED*user_DIRECTION,0,1)
+        COPY L 1 A_SpawnItemEx("CopyVisionBusterTrail")
+        COPY L 0 A_Changevelocity(0,-user_SPEED*user_DIRECTION,0,1)
+        COPY L 1 A_SpawnItemEx("CopyVisionBusterTrail")
+        COPY L 2 A_SpawnItemEx("CopyVisionBusterTrail")
+        COPY L 0 A_Changevelocity(0,user_SPEED*user_DIRECTION,0,1)
+        COPY L 1 A_SpawnItemEx("CopyVisionBusterTrail")
+        COPY L 0 A_Changevelocity(0,user_SPEED*user_DIRECTION,0,1)
+        COPY L 1 A_SpawnItemEx("CopyVisionBusterTrail")
+        COPY L 0 A_Changevelocity(0,user_SPEED*user_DIRECTION,0,1)
+        COPY L 1 A_SpawnItemEx("CopyVisionBusterTrail")
+        COPY L 0 A_Changevelocity(0,user_SPEED*user_DIRECTION,0,1)
+        COPY L 1 A_SpawnItemEx("CopyVisionBusterTrail")
+        loop
+    Death:
+        TNT1 A 0
+        stop
+    }
+}
+
+actor CopyVisionBusterShotR : CopyVisionBusterShotL
+{
+    States
+    {
+    Spawn:
+        TNT1 A 0
+        TNT1 A 0 A_SetUserVar("user_DIRECTION",-1)
+        TNT1 A 0 A_SetUserVar("user_SPEED", WEPC_BCV_SPEED)
+        goto SpawnStart
+    }
+}
+
+actor CopyVisionBusterTrail : BasicGraphicEffect
+{
+    +FORCEXYBILLBOARD
+    States
+    {
+    Spawn:
+        TNT1 A 0
+        TNT1 A 2
+        COPY MN 2
+        stop
+    }
+}
+

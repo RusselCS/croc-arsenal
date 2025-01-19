@@ -2,33 +2,63 @@
 #library "PRJLMT"
 #include "zcommon.acs"
 
-#DEFINE P_GAMEEVENT_ACTOR_ARMORDAMAGED 12
+#include "DTADD.acs"
+
+script "core_SpecialRipper_Event_Defines" OPEN {
+	AddSpawnFunc(DTADD_SFT_PROJ, "core_CompositePierceRipper_Spawn");
+}
 
 // Ripper cap
 // to make a projectile limit how many times it can hit a single target:
 // - Give it `var int user_PierceRipper;`
 // - (Optional) A_GiveInventory("PierceRipperLimit", X) where X is the number of hits it can deal (default 1)
+// - (Optional) A_SetUserVar(user_PierceRipper, X) where X is the number of hits it can deal (default 1)
+// - (Optional) Give it `var int user_RipTimer;`
+// 		- A_SetUserVar(user_RipTimer, Y) where Y is the duration in tics that a hit should count for.
 // Used for Triple Blade and Laser Trident
 script "core_PierceRipper_Event" (int type, int dmg, int dmgtype) EVENT {
-	if(type==P_GAMEEVENT_ACTOR_ARMORDAMAGED) damagedEvent();
+	if(type==GAMEEVENT_ACTOR_DAMAGED_PREMOD) damagedEvent(dmgtype);
 }
 
-function void damagedEvent(void) {
+function void damagedEvent(str dmgtype) {
+	int dmg = GetEventResult();
+	if(dmg <= 0)
+		return;
+
 	SetActivator(0,AAPTR_DAMAGE_INFLICTOR);
-	if(checkForActorVar(0,"user_PierceRipper")) {
-		//PrintBold(i:CountRipperHitsAgainstVictim());
-		if(CountRipperHitsAgainstVictim()>=CountPierceRipperLimit()) SetResultValue(0);
-		else SpawnRipperHit();
+	if(CheckForActorVar(0, "user_PierceRipper")) {
+		// This prevents issues with a projectile hitting a player before the rip timer can be applied.
+		if(CheckForActorVar(0, "user_RipTimer") && GetUserVariable(0, "user_RipTimer") <= 0) {
+			// Setting a default here causes problems with FastProjectiles
+			// SetUserVariable(0, "user_RipTimer");
+			SetResultValue(0);
+		} else if(CheckForActorVar(0, "user_PierceRipperScript")) {
+			int new_dmg = ACS_NamedExecuteWithResult(StrParam(s:"PierceRipper_", s:GetActorClass(0)), dmg, dmgtype, CountRipperHitsAgainstVictim());
+			if(new_dmg != dmg)
+				SetResultValue(new_dmg);
+			if(new_dmg != 0)
+				SpawnRipperHit();
+		} else if(CountRipperHitsAgainstVictim() >= CountPierceRipperLimit()) {
+			SetResultValue(0);
+		} else {
+			SpawnRipperHit();
+		}
 	}
 }
 
-function bool checkForActorVar(int tid, str theVar) {
-	SetUserVariable(tid,theVar,1);
-	return (GetUserVariable(tid,theVar)==1);
+function bool CheckForActorVar(int tid, str theVar) {
+	int old = GetUserVariable(tid, theVar);
+
+	SetUserVariable(tid, theVar, 1);
+	if(GetUserVariable(tid, theVar) != 1)
+		return false;
+
+	SetUserVariable(tid, theVar, old);
+	return true;
 }
 
 function int CountPierceRipperLimit(void) {
-	return max(1,CheckInventory("PierceRipperLimit"));
+	return max(1, max(CheckInventory("PierceRipperLimit"), GetUserVariable(0, "user_pierceRipper")));
 }
 
 function int max (int a, int b)
@@ -53,6 +83,12 @@ function void SpawnRipperHit(void) {
 
 	int spawned = UniqueTID();
 	SpawnSpotForced("RipperHit",0,spawned,GetActorAngle(0)>>8);
+
+	int time = GetUserVariable(0, "user_RipTimer");
+	if(time > 0) {
+		SetActorProperty(spawned, APROP_ReactionTime, time);
+	}
+
 	SetActivator(spawned);
 	Thing_ChangeTID(0,0);
 	
@@ -62,13 +98,127 @@ function void SpawnRipperHit(void) {
 	SetActivator(0,AAPTR_DAMAGE_INFLICTOR);
 }
 
+// Composite ripper cap
+// to make a composite of projectiles limit how many times they can hit a single target:
+// - Give it `var int user_CompositePierceRipper;`
+// - (Optional) A_GiveInventory("PierceRipperLimit", X) where X is the number of hits it can deal (default 1)
+// - (Optional) A_SetUserVar(user_CompositePierceRipper, X) where X is the number of hits it can deal (default 1)
+// - (Optional) Give it `var int user_RipTimer;`
+// 		- A_SetUserVar(user_RipTimer, Y) where Y is the duration in tics that a hit should count for.
+// Used for Copy Vision
+script "core_CompositePierceRipper_Spawn" (void)
+{
+	if(!CheckForActorVar(0, "user_CompositePierceRipper"))
+		terminate;
+
+	GiveInventory("IsCompositeRipper", 1);
+
+	int tid = ActivatorTID();
+	int u = UniqueTID();
+	Thing_ChangeTID(0, u);
+
+	// Spawn a new master if the projectile has no master, or if the master is something else.
+	SetActivator(0, AAPTR_MASTER);
+	if(!CheckActorClass(0, "PierceRipperComposite")) {
+		SetActivator(u);
+
+		int mtid = UniqueTID();
+		SpawnSpotForced("PierceRipperComposite", u, mtid, 0);
+		SetPointer(AAPTR_MASTER, mtid);
+
+		Thing_ChangeTID(mtid, 0);
+	} else {
+		SetActivator(u);
+	}
+
+	Thing_ChangeTID(0, tid);
+}
+
+script "core_CompositePierceRipper_Event" (int type, int dmg, int dmgtype) EVENT {
+	if(type==GAMEEVENT_ACTOR_DAMAGED_PREMOD) compositeDamagedEvent(dmgtype);
+}
+
+function void compositeDamagedEvent(str dmgtype) {
+	int dmg = GetEventResult();
+	if(dmg <= 0)
+		return;
+
+	SetActivator(0,AAPTR_DAMAGE_INFLICTOR);
+	if(CheckForActorVar(0,"user_CompositePierceRipper")) {
+		// This prevents issues with a projectile hitting a player before the rip timer can be applied.
+		if(CheckForActorVar(0, "user_RipTimer") && GetUserVariable(0, "user_RipTimer") <= 0) {
+			// Setting a default here causes problems with FastProjectiles
+			// SetUserVariable(0, "user_RipTimer");
+			SetResultValue(0);
+		} else if(CheckForActorVar(0, "user_PierceRipperScript")) {
+			int new_dmg = ACS_NamedExecuteWithResult(StrParam(s:"PierceRipper_", s:GetActorClass(0)), dmg, dmgtype, CountCompositeHitsAgainstVictim());
+			if(new_dmg != dmg)
+				SetResultValue(new_dmg);
+			if(new_dmg != 0)
+				SpawnCompositeRipperHit();
+		} else if(CountCompositeHitsAgainstVictim() >= CountCompositePierceRipperLimit()) {
+			SetResultValue(0);
+		} else {
+			SpawnCompositeRipperHit();
+		}
+	}
+}
+
+function int CountCompositePierceRipperLimit(void) {
+	return max(1, max(CheckInventory("PierceRipperLimit"), GetUserVariable(0, "user_compositePierceRipper")));
+}
+
+function int CountCompositeHitsAgainstVictim(void) {
+	SetActivator(0,AAPTR_DAMAGE_TARGET);
+	GiveInventory("CurrentRipperVictim",1);
+	SetActivator(0,AAPTR_DAMAGE_INFLICTOR);
+	SetActivator(0,AAPTR_MASTER);
+	GiveInventory("CountVictimRipperHit",1);
+	SetActivator(0,AAPTR_DAMAGE_TARGET);
+	TakeInventory("CurrentRipperVictim",1);
+	SetActivator(0,AAPTR_DAMAGE_INFLICTOR);
+	SetActivator(0,AAPTR_MASTER);
+	int res = CheckInventory("RipperHitCount");
+	SetActivator(0,AAPTR_DAMAGE_INFLICTOR);
+	return res;
+}
+
+function void SpawnCompositeRipperHit(void) {
+	SetActivator(0,AAPTR_DAMAGE_INFLICTOR);
+
+	int time = GetUserVariable(0, "user_RipTimer");
+
+	SetActivator(0,AAPTR_MASTER);
+
+	int spawned = UniqueTID();
+	SpawnSpotForced("RipperHit",0,spawned,GetActorAngle(0)>>8);
+
+	if(time > 0) {
+		SetActorProperty(spawned, APROP_ReactionTime, time);
+	}
+
+	int mtid = UniqueTID();
+	Thing_ChangeTID(0, mtid);
+
+    SetActivator(spawned,AAPTR_DEFAULT);
+	Thing_ChangeTID(0,0);
+
+	SetPointer(AAPTR_MASTER,mtid,AAPTR_DEFAULT,0);
+	SetPointer(AAPTR_TARGET,0,AAPTR_DAMAGE_TARGET,0);
+
+	SetActivator(0,AAPTR_DAMAGE_INFLICTOR);
+	SetActivator(0,AAPTR_MASTER);
+
+    Thing_ChangeTID(0, 0);
+}
+
 // Ripper remover
 // if you want a projectile to die after dealing damage X times:
 // - Give it `var int user_DamageKill;`
 // - Give it a `reactiontime` equal to the number of times you want it to hit before dying.
 // Used for Chill Spike
-script "core_PierceExplode_Event" (int type, int dmg, int dmgtype) EVENT {
-	if(type==P_GAMEEVENT_ACTOR_ARMORDAMAGED) explodeDamagedEvent(dmg);
+script "core_PierceExplode_Event" (int type, int dmg, int dmgtype) /*EVENT*/ {
+	if(type==GAMEEVENT_ACTOR_DAMAGED_PREMOD) explodeDamagedEvent(dmg);
 }
 
 function void explodeDamagedEvent(int amt) {
