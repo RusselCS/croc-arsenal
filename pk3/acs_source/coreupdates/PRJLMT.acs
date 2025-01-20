@@ -165,7 +165,12 @@ function void compositeDamagedEvent(str dmgtype) {
 }
 
 function int CountCompositePierceRipperLimit(void) {
-	return max(1, max(CheckInventory("PierceRipperLimit"), GetUserVariable(0, "user_compositePierceRipper")));
+    SetActivator(0, AAPTR_MASTER);
+    int masterLimit = max(1, CheckInventory("PierceRipperLimit"));
+    SetActivator(0, AAPTR_DAMAGE_INFLICTOR);
+	int inflictorLimit = max(CheckInventory("PierceRipperLimit"), GetUserVariable(0, "user_compositePierceRipper"));
+	int res = inflictorLimit != 0 ? inflictorLimit : masterLimit;
+    return res;
 }
 
 function int CountCompositeHitsAgainstVictim(void) {
