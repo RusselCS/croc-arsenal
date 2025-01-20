@@ -1,6 +1,5 @@
 TODO:
 - Energy Balancer: Innate + Energy Balancer Neo
-- Commando Bomb: Give Composite Hitbox to limit damage output
 - Thunder Bolt: Give Composite Hitbox to limit damage output
 - Dust Crusher: Give Composite Hitbox to limit damage output
 - Freeze Cracker: Give Composite Hitbox to limit damage output
@@ -31,4 +30,4 @@ DONE:
 - Copy Vision: Give predictive homing
 - Copy Vision: Needs an over-health meter
 - Flame Sword: Composite hitbox to make each segment hit for more damage total. First hit is big, subsequent hits are small, up to X number of hits.
-
+- Commando Bomb: Give Composite Hitbox to limit damage output

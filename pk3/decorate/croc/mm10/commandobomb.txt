@@ -89,7 +89,7 @@ Obituary "$OB_COMMANDOBOMB"
 damagetype "CommandoBomb"
 Radius 15
 Height 8
-damage (20)
+damage (25)
 speed 37
 var int user_CompositePierceRipper;
 States
@@ -230,14 +230,17 @@ actor CrocCommandoBombDamagerA
     damagetype "CommandoBomb"
     PROJECTILE
     +FLOORHUGGER
-    Damage (10)
+    +THRUACTORS
+    Damage (12)
     Radius 16
     Height 30
     var int user_CompositePierceRipper;
     States
     {
     Spawn:
-        TNT1 A 0 nodelay A_SetUserVar(user_CompositePierceRipper, 5)
+        TNT1 A 0
+        TNT1 A 0 A_SetUserVar(user_CompositePierceRipper, 5)
+        TNT1 A 0 A_ChangeFlag(THRUACTORS, 0)
         TNT1 A 1
         stop
     }
@@ -247,9 +250,9 @@ actor CrocCommandoBombDamagerB : CrocCommandoBombDamagerA { height 40  }
 actor CrocCommandoBombDamagerC : CrocCommandoBombDamagerA { height 75  }
 actor CrocCommandoBombDamagerD : CrocCommandoBombDamagerA { height 112 }
 
-actor CrocCommandoBombDamagerX : CrocCommandoBombDamagerA { damage (5) }
-actor CrocCommandoBombDamagerY : CrocCommandoBombDamagerB { damage (5) }
-actor CrocCommandoBombDamagerZ : CrocCommandoBombDamagerC { damage (5) }
+actor CrocCommandoBombDamagerX : CrocCommandoBombDamagerA { damage (6) }
+actor CrocCommandoBombDamagerY : CrocCommandoBombDamagerB { damage (6) }
+actor CrocCommandoBombDamagerZ : CrocCommandoBombDamagerC { damage (6) }
 
 actor CrocCommandoBombWaveTrailFake : BasicGraphicEffect
 {
