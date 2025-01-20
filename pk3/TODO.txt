@@ -18,7 +18,6 @@ TODO:
 - Photon Missile: Very strong, allegedly completely oppressive.
 - Black Hole Bomb: Do something. Possible make it do what it does faster? (Suck in then explode quickly)
 - Bass Buster: Implement v6c changes.
-- Flame Sword: Composite hitbox to make each segment hit for more damage total. First hit is big, subsequent hits are small, up to X number of hits.
 - Skull Barrier: [needs input from team.]
 - Sweep: A_JumpIfInventory("MM8BDMPlayer", 1, "State", AAPTR_TRACER) -> A_JumpIf(IsPointerEqual(AAPTR_TRACER, AAPTR_NULL), "State")
 
@@ -31,4 +30,5 @@ DONE:
 - Copy Vision: Change "uncharged" shot in a functional way. Llama's suggestion is make it wider with a wavebeam-like shot.
 - Copy Vision: Give predictive homing
 - Copy Vision: Needs an over-health meter
+- Flame Sword: Composite hitbox to make each segment hit for more damage total. First hit is big, subsequent hits are small, up to X number of hits.
 

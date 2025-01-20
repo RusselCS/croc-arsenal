@@ -1,0 +1,9 @@
+actor ClassBaseSlot2 : ClassBaseSlot1
+{
+    States
+    {
+    Pain.CrocFlameSwordSmall: // Nullifies the effect of the stacked hitboxes. Will not apply to v6c.
+        PLY1 H 0
+        goto Pain+2
+    }
+}

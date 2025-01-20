@@ -200,10 +200,10 @@ function void SpawnCompositeRipperHit(void) {
 	int mtid = UniqueTID();
 	Thing_ChangeTID(0, mtid);
 
-    SetActivator(spawned,AAPTR_DEFAULT);
+    SetActivator(spawned);
 	Thing_ChangeTID(0,0);
 
-	SetPointer(AAPTR_MASTER,mtid,AAPTR_DEFAULT,0);
+	SetPointer(AAPTR_MASTER,mtid);
 	SetPointer(AAPTR_TARGET,0,AAPTR_DAMAGE_TARGET,0);
 
 	SetActivator(0,AAPTR_DAMAGE_INFLICTOR);

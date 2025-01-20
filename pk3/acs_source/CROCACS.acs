@@ -18,11 +18,11 @@ script "croc_warpf_copypitch" (int ptr)
 
 script "PierceRipper_CrocFlameSwordTrail" (int dmg, int type, int hits)
 {
-    log(i:hits);
+    log(i:dmg, s:" ", s:type, s:" ", i:hits);
     if(hits < 1) {
         SetResultValue(dmg);
     } else if(hits < 5) {
-        SetResultValue(5);
+        SetResultValue((dmg * 0.12) >> 16);
     } else {
         SetResultValue(0);
     }
