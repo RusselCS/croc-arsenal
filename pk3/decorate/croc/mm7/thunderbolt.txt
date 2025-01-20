@@ -1,6 +1,6 @@
 actor CrocThunderBoltWep_NormalBar : NormalBar { args 228, 73 }
 
-actor CrocThunderBoltWep : BaseMM8BDMWep 10089
+actor CrocThunderBoltWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Ranged
 //$Title Thunder Bolt
@@ -59,6 +59,7 @@ Speed 33
 Radius 25
 Height 16
 Damage (35)
+var int user_CompositePierceRipper;
 States
 {
 Spawn:
@@ -69,9 +70,10 @@ TBOL N 1
 TBOL M 1 A_SpawnItemEx("CrocThunderTrail", 0, 0, 0, 0, 0, 0, 0, SXF_WEPFXCOLOR)
 loop
 Death:
+Split:
 TNT1 A 0 A_SpawnItemEX("ElectrifyEffect")
-TNT1 A 0 A_CustomMissile("CrocThunderBoltSplit",0,0,90,2,0)
-TNT1 A 0 A_CustomMissile("CrocThunderBoltSplit",0,0,-90,2,0)
+TNT1 A 0 A_SpawnItemEx("CrocThunderBoltSplit",0,0,0,1,0,0,90,SXF_TRANSFERPOINTERS|SXF_MULTIPLYSPEED)
+TNT1 A 0 A_SpawnItemEx("CrocThunderBoltSplit",0,0,0,1,0,0,-90,SXF_TRANSFERPOINTERS|SXF_MULTIPLYSPEED)
 TNT1 A 0 A_SpawnItemEx("ExplosionEffect1", 0, 0, 0, 0, 0, 0, 0, SXF_WEPFXCOLOR)
 stop
 }
@@ -79,12 +81,12 @@ stop
 
 actor CrocThunderBoltSplit : CrocThunderBolt
 {
-+THRUACTORS
 +FORCEXYBILLBOARD
 Radius 25
 Height 16
 Damage (20)
 reactiontime 90
+var int user_CompositePierceRipper;
 States
 {
 Spawn:
@@ -93,10 +95,9 @@ goto SpawnLoop+1
 SpawnLoop:
 TBOL OP 1 A_CountDown
 TBOL O 0 A_SpawnItemEx("CrocThunderTrail", 0, 0, 0, 0, 0, 0, 0, SXF_WEPFXCOLOR)
-TBOL O 0 A_ChangeFlag(THRUACTORS, false)
 TBOL QR 1 A_CountDown
-TBOL O 0 A_GiveInventory("CutterFlag",1)
 TBOL O 0 A_SpawnItemEx("CrocThunderTrail", 0, 0, 0, 0, 0, 0, 0, SXF_WEPFXCOLOR)
+TBOL O 0 A_GiveInventory("CutterFlag",1)
 loop
 Death:
 TNT1 A 0 A_SpawnItemEX("ElectrifyEffect")
@@ -106,10 +107,6 @@ XDeath:
 Crash:
 TNT1 A 0 A_SpawnItemEX("ElectrifyEffect")
 TBOL O 0 A_JumpIfInventory("CutterFlag",1,"Split")
-stop
-Split:
-TNT1 A 0 A_CustomMissile("CrocThunderBoltSplit",0,0,90,2,0)
-TNT1 A 0 A_CustomMissile("CrocThunderBoltSplit",0,0,-90,2,0)
 stop
 }
 }
