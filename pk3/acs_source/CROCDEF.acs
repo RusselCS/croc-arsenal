@@ -173,7 +173,7 @@ script "croc_addweps" OPEN
         DefineCrocAssist(0, "TAG_ETANK", "ETank", "EBALF0", 1, DTADD_GRP_HEAL, mapTrue);
         DefineCrocAssist(0, "TAG_WTANK", "WTank", "EBALH0", 1, DTADD_GRP_RELOAD, mapTrue);
         DefineCrocAssist(0, "TAG_MTANK", "MTank", "EBALG0", 1, DTADD_GRP_FULLRESTORE, mapTrue);
-        DefineCrocAssist(0, "TAG_ENERGYBALANCER", "EnergyBalancer", "NRGBA0", 1, DTADD_GRP_PASSIVE, mapTrue);
+        DefineCrocAssist(1, "TAG_ENERGYBALANCERNEO", "EnergyBalancer", "NRGNA0", 1, DTADD_GRP_PASSIVE, mapTrue);
 
         AddSpawnFunc(DTADD_SFT_ITEM, "croc_replaceitems");
     }

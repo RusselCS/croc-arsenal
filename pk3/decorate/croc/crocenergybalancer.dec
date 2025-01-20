@@ -1,0 +1,49 @@
+actor CrocEnergyBalancer : BaseMM8BDMUseItem
+{
+//$Category MM8BDM-Assists/Utility
+//$Title Energy Balancer Neo
+//$Sprite NRGNA0
++ACTIVATEMCROSS
++INVENTORY.AUTOACTIVATE
+-FLOORCLIP
+Inventory.RespawnTics 245
+inventory.pickupmessage "$PU_ENERGYBALANCERNEO"
+inventory.pickupsound "item/1up"
+Scale 2.0
+States
+{
+SpawnLoop:
+NRGN AB 6
+loop
+Pickup:
+TNT1 A 0 A_JumpIf(!CheckClass("CustWepClassBase",AAPTR_DEFAULT,true),"CanHold")
+TNT1 A 0 A_JumpIfInventory("CustWepCanHoldEBal",1,"CanHold")
+fail
+CanHold:
+NRGN A 0 A_JumpIfInventory("EnergyBalancerNeoActive",1,"Failed")
+NRGN A 0 A_TakeInventory("EnergyBalancerActive", 1)
+NRGN A 1 A_GiveInventory("EnergyBalancerNeoActive", 1)
+stop
+Failed:
+NRGN A 0 
+fail
+}
+}
+
+actor CrocEnergyBalancer_Respawn : 8BDMItemRespawn
+{
+	translation "192:192=35:35", "198:198=239:239"
+	mass 245
+}
+actor CrocEnergyBalancer_RespawnShadow : 8BDMItemRespawnShadow
+{
+	mass 245
+	States
+	{
+	Spawn:
+		NRGN A 0
+		goto Super::Spawn
+	}
+}
+
+actor EnergyBalancerNeoActive : Once {}

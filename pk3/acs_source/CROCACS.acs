@@ -2,6 +2,16 @@
 
 #include "zcommon.acs"
 
+script "croc_enter" ENTER
+{
+    if(!GetCvar("croc_sv_usereplacements"))
+        terminate;
+    
+    GiveInventory("EnergyBalancer", 1);
+}
+
+script "croc_respawn" RESPAWN { ACS_NamedExecuteWithResult("croc_enter"); }
+
 // now i'm just mad
 script "croc_warpf_copypitch" (int ptr)
 {

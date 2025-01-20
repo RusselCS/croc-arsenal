@@ -4,6 +4,7 @@
 
 #include "DTADD.acs"
 #include "BARLIB.acs"
+#include "ASSTLIB.acs"
 
 Script "croc_HPbarfx_define" OPEN CLIENTSIDE {
 	DefineAssistDisplay("croc_HPbarfx");
@@ -12,6 +13,20 @@ Script "croc_HPbarfx_define" OPEN CLIENTSIDE {
 Script "croc_HPbarfx" (int cam) CLIENTSIDE {
 	SetActivator(cam);
 	CrocHPBarFXFunc();
+
+	SetActivator(0,AAPTR_NULL);
+	if(AssistDisplayBar_On()) {
+		SetHudSize(320,200,0);
+
+
+		if(CheckActorInventory(cam,"EnergyBalancerNeoActive")>0) {
+			int pos = Get_And_Inc_AssistBarCount();
+			BasicImageDisplay("NRGNC0",Get_And_Inc_AssistDisplayID(),
+				Get_AssistDisplayBar_X(pos)+8.0,
+				Get_AssistDisplayBar_Y(pos)+8.0
+			);
+		}
+	}
 }
 
 function void CrocHPBarFXFunc(void) {
