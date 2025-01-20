@@ -1,5 +1,4 @@
 TODO:
-- Energy Balancer: Innate + Energy Balancer Neo
 - Explosive weapons: DONTREFLECT sweep
 - Power Stone: Altfire to reverse direction
 - Water Shield: I don't like how the damage is currently handled, because the change is arbitrary-feeling.
@@ -31,3 +30,4 @@ DONE:
 - Thunder Bolt: Give Composite Hitbox to limit damage output
 - Dust Crusher: Give Composite Hitbox to limit damage output
 - Freeze Cracker: Give Composite Hitbox to limit damage output
+- Energy Balancer: Innate + Energy Balancer Neo
