@@ -105,7 +105,7 @@ function void SpawnRipperHit(void) {
 // - (Optional) A_SetUserVar(user_CompositePierceRipper, X) where X is the number of hits it can deal (default 1)
 // - (Optional) Give it `var int user_RipTimer;`
 // 		- A_SetUserVar(user_RipTimer, Y) where Y is the duration in tics that a hit should count for.
-// Used for Copy Vision
+// Used for Copy Vision, Commando Bomb, Thunder Bolt, Dust Crusher, and Freeze Cracker.
 script "core_CompositePierceRipper_Spawn" (void)
 {
 	if(!CheckForActorVar(0, "user_CompositePierceRipper"))

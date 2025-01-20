@@ -1,8 +1,5 @@
 TODO:
 - Energy Balancer: Innate + Energy Balancer Neo
-- Thunder Bolt: Give Composite Hitbox to limit damage output
-- Dust Crusher: Give Composite Hitbox to limit damage output
-- Freeze Cracker: Give Composite Hitbox to limit damage output
 - Explosive weapons: DONTREFLECT sweep
 - Power Stone: Altfire to reverse direction
 - Water Shield: I don't like how the damage is currently handled, because the change is arbitrary-feeling.
@@ -31,3 +28,6 @@ DONE:
 - Copy Vision: Needs an over-health meter
 - Flame Sword: Composite hitbox to make each segment hit for more damage total. First hit is big, subsequent hits are small, up to X number of hits.
 - Commando Bomb: Give Composite Hitbox to limit damage output
+- Thunder Bolt: Give Composite Hitbox to limit damage output
+- Dust Crusher: Give Composite Hitbox to limit damage output
+- Freeze Cracker: Give Composite Hitbox to limit damage output

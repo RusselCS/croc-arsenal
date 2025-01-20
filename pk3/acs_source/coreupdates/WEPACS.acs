@@ -1,0 +1,605 @@
+#library "wepacs"
+
+// [Mike] Scripts file for changing colors based on your weapon
+#include "zcommon.acs"// [Russ] Always include this before 8bdmlib
+#include "8bdmlib.acs"// included with MM8BDM under acs_source.
+					  // See 8bdmlib.acs for details.
+
+#import "8BDT.acs"
+
+// Ammo pickup script
+//
+Script "core_ammopickup" (int amount, int AmmoMode)
+{
+	int amount2 = amount;
+
+	Switch(AmmoMode)
+	{
+	Case 1: // If this is an mtank, give exactly the ammo of each weapon and terminate
+		For(int i = 0; i < MAX_WEAPONS_GLOBAL; i++)
+		{
+			If(CheckInventory(getWeaponActor(i)) == 1)
+			{
+				GiveInventory(getWeaponAmmoType(i), GetAmmoCapacity(getWeaponAmmoType(i)));
+				if(StrICmp(getWeaponAmmo2Type(i),"")!=0){
+					GiveInventory(getWeaponAmmo2Type(i), GetAmmoCapacity(getWeaponAmmo2Type(i)));
+				}
+			}
+		}
+		terminate;
+
+	Case 2: // Double ammo for Energy Saver
+		For(i = 0; i < MAX_WEAPONS_GLOBAL; i++)
+		{
+			If(CheckInventory(getWeaponAmmoType(i)) > 0)
+			{
+				GiveInventory(getWeaponAmmoType(i), CheckInventory(getWeaponAmmoType(i)));
+			}
+			If(StrICmp(getWeaponAmmo2Type(i),"") != 0 && CheckInventory(getWeaponAmmo2Type(i)) > 0)
+			{
+				GiveInventory(getWeaponAmmo2Type(i), CheckInventory(getWeaponAmmo2Type(i)));
+			}
+		}
+		terminate;
+	}
+	
+	
+	// Which weapon player currently has equipped.
+	int ThisWeapon = WhichWeapon();
+
+	//print(i:ThisWeapon);
+
+	If(CheckInventory("EnergyBalancerActive"))
+	{
+		If((CheckInventory(getWeaponAmmoType(ThisWeapon)) == GetAmmoCapacity(getWeaponAmmoType(ThisWeapon)) && (StrICmp(getWeaponAmmo2Type(ThisWeapon),"") == 0 || CheckInventory(getWeaponAmmo2Type(ThisWeapon)) == GetAmmoCapacity(getWeaponAmmo2Type(ThisWeapon)))) || ThisWeapon < 0)  // If player has the Energy Balancer, then check to see if the currently selected weapon is not at maximum
+		{
+			ThisWeapon = EnergyBalancer(); // Finds the lowest ammo weapon using the Energy Balancer function and sets it as the weapon to fill
+		}
+	}
+
+	If(ThisWeapon >= 0) //If this weapon is not a buster
+	{
+		// [Russ] Ammo capsules now specify a percentage
+		// This percentage is then converted to fixed, then divided by 100.
+		int AmmoMultiplier = 1.0;
+
+		int percentage = FixedMul(FixedDiv(amount << 16, 100.0), getWeaponAmmoFactor(ThisWeapon));
+		amount = (GetAmmoCapacity(getWeaponAmmoType(ThisWeapon)) * percentage) >> 16;
+		amount = FixedMul(amount, AmmoMultiplier);
+		GiveInventory(getWeaponAmmoType(ThisWeapon), amount);
+
+		if(StrICmp(getWeaponAmmo2Type(ThisWeapon),"") != 0){
+			int percentage2 = FixedMul(FixedDiv(amount2 << 16, 100.0), getWeaponAmmo2Factor(ThisWeapon));
+			amount2 = (GetAmmoCapacity(getWeaponAmmo2Type(ThisWeapon)) * percentage2) >> 16;
+			amount2 = FixedMul(amount2, AmmoMultiplier);
+			GiveInventory(getWeaponAmmo2Type(ThisWeapon), amount2);
+		}
+	}
+}
+
+//Is the player's current weapon not full?
+//If the player has the energy balancer and there was no fail recently, do they have a not-full weapon?
+//If so, pickup ammo
+script "core_ammocheck" (int any)
+{
+	int ThisWeapon = WhichWeapon();
+	if(ThisWeapon>=0 && (CheckInventory(getWeaponAmmoType(ThisWeapon)) < GetAmmoCapacity(getWeaponAmmoType(ThisWeapon)) || (StrICmp(getWeaponAmmo2Type(ThisWeapon),"") != 0 && CheckInventory(getWeaponAmmo2Type(ThisWeapon)) < GetAmmoCapacity(getWeaponAmmo2Type(ThisWeapon))))) {
+		SetResultValue( TRUE );
+	} else if((CheckInventory("EnergyBalancerActive")&&!CheckInventory("EnergyBalancerFullDelay")) || any == 1) {
+		ThisWeapon = EnergyBalancer();
+		if(ThisWeapon>=0) {
+			SetResultValue( TRUE );
+		} else {
+			if(any != 1){GiveInventory("EnergyBalancerFullDelay",1);}
+			SetResultValue( FALSE );
+		}
+	} else {
+		SetResultValue( FALSE );
+	}
+}
+
+
+// LMS Weapon Randomization
+//
+script "core_lmsgive" (void)
+{
+int pln = PlayerNumber();
+
+// Check server CVAR to see if random start weapon is enabled
+if(GetCvar("mm8bdm_sv_randomstartweapon")== true){
+	str rweapon = getWeaponActor(randomWeapon());
+	GiveInventory(rweapon,1);
+	SetWeapon(rweapon);
+	}
+
+// Check server CVAR to see if weapons are enabled (default true)
+if(GetCvar("mm8bdm_sv_nolmsweapons")==true){terminate;}
+
+// Check if the game is actually LMS
+if(GetCvar("lastmanstanding")==1||GetCvar("teamlms")==1){
+	// Ignore if game is set to instagib
+	if(GetCvar("instagib")==1){terminate;}
+	
+	while(GetGameModeState()!=GAMESTATE_COUNTDOWN && GetGameModeState()!=GAMESTATE_INPROGRESS && !GetCvar("mm8bdm_lms_rolled"))
+	{
+		Delay(5);
+	}
+	
+	Delay(35);
+	
+	// Take bots Mega Buster so they actually use a different weapon (limited to ranged weapon at present)
+	if(PlayerIsBot(pln)){
+		TakeInventory("MegaBuster",1);
+	}
+	
+	// Give players one of each weapon type at random
+	if(ShieldWepRandom != -1 && (GetCvar("mm8bdm_sv_lmsshieldwep") || CheckInventory("AlwaysReceiveLMSShield")) && !CheckInventory("NeverReceiveLMSShield"))
+	{
+		GiveInventory(getWeaponActor(ShieldWepRandom),1);
+	}
+	if(AoEWepRandom != -1 && (GetCvar("mm8bdm_sv_lmsaoewep") || CheckInventory("AlwaysReceiveLMSAoE")) && !CheckInventory("NeverReceiveLMSAoE"))
+	{
+		GiveInventory(getWeaponActor(AoEWepRandom),1);
+	}
+	if(PowerWepRandom != -1 && (GetCvar("mm8bdm_sv_lmspowerwep") || CheckInventory("AlwaysReceiveLMSPower")) && !CheckInventory("NeverReceiveLMSPower"))
+	{
+		GiveInventory(getWeaponActor(PowerWepRandom),1);
+	}
+	if(CloseWepRandom != -1 && (GetCvar("mm8bdm_sv_lmsclosewep") || CheckInventory("AlwaysReceiveLMSClose")) && !CheckInventory("NeverReceiveLMSClose"))
+	{
+		GiveInventory(getWeaponActor(CloseWepRandom),1);
+	}
+	if(RapidWepRandom != -1 && (GetCvar("mm8bdm_sv_lmsrapidwep") || CheckInventory("AlwaysReceiveLMSRapid")) && !CheckInventory("NeverReceiveLMSRapid"))
+	{
+		GiveInventory(getWeaponActor(RapidWepRandom),1);
+		}
+	if(RangedWepRandom != -1 && (GetCvar("mm8bdm_sv_lmsrangedwep") || CheckInventory("AlwaysReceiveLMSRanged")) && !CheckInventory("NeverReceiveLMSRanged"))
+	{
+		GiveInventory(getWeaponActor(RangedWepRandom),1);
+	}
+	if(BusterWepRandom != -1 && (GetCvar("mm8bdm_sv_lmsbusterwep") || CheckInventory("AlwaysReceiveLMSBuster")) && !CheckInventory("NeverReceiveLMSBuster"))
+	{
+		GiveInventory(getBusterUpgrade(BusterWepRandom),1);
+	}
+
+	Delay(1);
+	
+	// Give the bot the Mega Buster back
+	if(PlayerIsBot(pln)){
+		GiveInventory("MegaBuster",1);
+	}
+}
+}
+
+script "core_giveinstagib" (void)
+{
+	// If instagib is enabled, give Instagib Blades
+	if(GetCvar("instagib")==1 && !GetCVar("mm8bdm_sv_noigbehavior")){
+        TakeInventory("MegaBuster",1);
+        GiveInventory("IGMetalBladeWep",1);
+        GiveInventory("IGMovement",1);
+	}
+}
+
+// A script to generate random numbers for LMS weapons
+//
+script "core_lmsrandomize" OPEN
+{
+	If(ACS_NamedExecuteWithResult("core_checkmode") != 2){terminate;}
+
+	// This will reset the cvars on first OPEN only
+	if (GetGameModeState() != GAMESTATE_INPROGRESS) {
+		SetCvarString("mm8bdm_lms_buster", "");
+		SetCvarString("mm8bdm_lms_ranged", "");
+		SetCvarString("mm8bdm_lms_rapid", "");
+		SetCvarString("mm8bdm_lms_close", "");
+		SetCvarString("mm8bdm_lms_power", "");
+		SetCvarString("mm8bdm_lms_aoe", "");
+		SetCvarString("mm8bdm_lms_shield", "");
+		SetCvar("mm8bdm_lms_rolled", false);
+	}
+
+	// Wait until the countdown / waiting for players	
+	do {
+		Delay(1);
+	} while (GetGameModeState() == GAMESTATE_INPROGRESS);
+
+	// Don't want the drawing script to execute during result sequence
+	SetCvar("mm8bdm_lms_rolled", false);
+	while (GetGameModeState() == GAMESTATE_INRESULTSEQUENCE) {
+		Delay(1);
+	}
+	
+	// LMS Randomization
+	RangedWepRandom = randomWeaponEx(SLOT_RANGED, -1, true, -1);
+	if (RangedWepRandom != -1) {
+		SetCvarString("mm8bdm_lms_ranged", StrParam(s:GetWeaponIcon(RangedWepRandom), s:"|", s:GetWeaponTag(RangedWepRandom)));
+	}
+	RapidWepRandom = randomWeaponEx(SLOT_RAPID, -1, true, -1);
+	if (RapidWepRandom != -1) {
+		SetCvarString("mm8bdm_lms_rapid", StrParam(s:GetWeaponIcon(RapidWepRandom), s:"|", s:GetWeaponTag(RapidWepRandom)));
+	}
+	CloseWepRandom = randomWeaponEx(SLOT_CLOSE, -1, true, -1);
+	if (CloseWepRandom != -1) {
+		SetCvarString("mm8bdm_lms_close", StrParam(s:GetWeaponIcon(CloseWepRandom), s:"|", s:GetWeaponTag(CloseWepRandom)));
+	}
+	PowerWepRandom = randomWeaponEx(SLOT_POWER, -1, true, -1);
+	if (PowerWepRandom != -1) {
+		SetCvarString("mm8bdm_lms_power", StrParam(s:GetWeaponIcon(PowerWepRandom), s:"|", s:GetWeaponTag(PowerWepRandom)));
+	}
+	ShieldWepRandom = randomWeaponEx(SLOT_SHIELD, -1, true, -1);
+	if (ShieldWepRandom != -1) {
+		SetCvarString("mm8bdm_lms_shield", StrParam(s:GetWeaponIcon(ShieldWepRandom), s:"|", s:GetWeaponTag(ShieldWepRandom)));
+	}
+	AoEWepRandom = randomWeaponEx(SLOT_AOE, -1, true, -1);
+	if (AoEWepRandom != -1) {
+		SetCvarString("mm8bdm_lms_aoe", StrParam(s:GetWeaponIcon(AoEWepRandom), s:"|", s:GetWeaponTag(AoEWepRandom)));
+	}
+	BusterWepRandom = randomBusterUpgradeEx(-1, true, -1);
+	if (BusterWepRandom != -1) {
+		SetCvarString("mm8bdm_lms_buster", StrParam(s:GetBusterIcon(BusterWepRandom), s:"|", s:GetBusterTag(BusterWepRandom)));
+	}
+
+	// Call the draw for countdown
+	SetCvar("mm8bdm_lms_rolled", true);
+	ACS_NamedExecuteWithResult("core_drawlmsloadout");
+
+	// Give weapons to everyone who is alive
+	GiveInventory("LMSWepsGive", 1);
+}
+
+script "core_lmsrandomize_unload" UNLOADING {
+	SetCvarString("mm8bdm_lms_buster", "");
+	SetCvarString("mm8bdm_lms_ranged", "");
+	SetCvarString("mm8bdm_lms_rapid", "");
+	SetCvarString("mm8bdm_lms_close", "");
+	SetCvarString("mm8bdm_lms_power", "");
+	SetCvarString("mm8bdm_lms_aoe", "");
+	SetCvarString("mm8bdm_lms_shield", "");
+	SetCvar("mm8bdm_lms_rolled", false);
+}
+
+int timerCheck = -1;
+script "core_drawlmsloadout" OPEN CLIENTSIDE {
+	if(timerCheck == Timer()) { terminate; }
+	timerCheck = Timer();
+
+	if(GetGameModeState() != GAMESTATE_INPROGRESS)
+		Delay(1);
+	
+	if (ACS_NamedExecuteWithResult("core_checkmode") != 2 || GetCvar("mm8bdm_sv_nolmsweapons")) { terminate; }
+	if (!GetCvar("mm8bdm_lms_rolled")) { terminate; } 
+
+	int cpn = ConsolePlayerNumber();
+	clearLMSHudMessages(cpn);
+	// SetActivatorToPlayer(cpn);
+
+	if(!GetUserCVar(cpn, "mm8bdm_drawlmsweapons"))
+		terminate;
+
+	// Shield show
+	if(StrICmp(GetCvarString("mm8bdm_lms_shield"),"") != 0) {
+		ACS_NamedExecuteWithResult("core_lmsdrawqueue", cpn, GetCvarString("mm8bdm_lms_shield"), "AlwaysReceiveLMSShield", "mm8bdm_sv_lmsshieldwep");
+	}
+
+	// AoE show
+	if(StrICmp(GetCvarString("mm8bdm_lms_aoe"),"") != 0) {
+		ACS_NamedExecuteWithResult("core_lmsdrawqueue", cpn, GetCvarString("mm8bdm_lms_aoe"), "AlwaysReceiveLMSAoE", "mm8bdm_sv_lmsaoewep");
+	}
+
+	// Power show
+	if(StrICmp(GetCvarString("mm8bdm_lms_power"),"") != 0) {
+		ACS_NamedExecuteWithResult("core_lmsdrawqueue", cpn, GetCvarString("mm8bdm_lms_power"), "AlwaysReceiveLMSPower", "mm8bdm_sv_lmspowerwep");
+	}
+
+	// Close show
+	if(StrICmp(GetCvarString("mm8bdm_lms_close"),"") != 0) {
+		ACS_NamedExecuteWithResult("core_lmsdrawqueue", cpn, GetCvarString("mm8bdm_lms_close"), "AlwaysReceiveLMSClose", "mm8bdm_sv_lmsclosewep");
+	}
+
+	// Rapid show
+	if(StrICmp(GetCvarString("mm8bdm_lms_rapid"),"") != 0) {
+		ACS_NamedExecuteWithResult("core_lmsdrawqueue", cpn, GetCvarString("mm8bdm_lms_rapid"), "AlwaysReceiveLMSRapid", "mm8bdm_sv_lmsrapidwep");
+	}
+
+	// Ranged show
+	if(StrICmp(GetCvarString("mm8bdm_lms_ranged"),"") != 0) {
+		ACS_NamedExecuteWithResult("core_lmsdrawqueue", cpn, GetCvarString("mm8bdm_lms_ranged"), "AlwaysReceiveLMSRanged", "mm8bdm_sv_lmsrangedwep");
+	}
+
+	// Buster show
+	if(StrICmp(GetCvarString("mm8bdm_lms_buster"),"") != 0) {
+		ACS_NamedExecuteWithResult("core_lmsdrawqueue", cpn, GetCvarString("mm8bdm_lms_buster"), "AlwaysReceiveLMSBuster", "mm8bdm_sv_lmsbusterwep");
+	}
+
+	Delay(5);
+	timerCheck = -1;
+}
+
+// Eddie Random Weapon script
+// ttid: the target's thing id
+// threshold: divisor for max weapons + busters when checking for dupes (default 4)
+script "core_eddieroller" (int ttid)
+{
+	int valid_items = 0;
+
+	// count valid weapons
+	for(int i = 0; i < MAX_WEAPONS_GLOBAL; i++) {
+		if(isWeaponEddieValid(i) && ThingCountName(getWeaponActor(i), T_NONE) <= 0) {
+			if(ttid == 0 || CheckActorInventory(ttid, getWeaponActor(i)) <= 0) {
+				valid_items++;
+			}
+		}
+	}
+
+	// count valid busters
+	for(i = 0; i < MAX_BUSTERUPGRADES; i++) {
+		if(isBusterEddieValid(i) && ThingCountName(getBusterUpgrade(i), T_NONE) <= 0) {
+			if(ttid == 0 || (CheckActorInventory(ttid, getBusterActor(i)) <= 0 && CheckActorInventory(ttid, getBusterUpgrade(i)) <= 0)) {
+				valid_items++;
+			}
+		}
+	}
+
+	// oops nothing!
+	str default_item = "Item1";
+	if(valid_items == 0) {
+		SetResultValue(default_item);	
+		terminate;
+	}
+
+	int roll = random(1, valid_items);
+
+	// iterate weapons
+	for(i = 0; i < MAX_WEAPONS_GLOBAL; i++) {
+		if(isWeaponEddieValid(i) && ThingCountName(getWeaponActor(i), T_NONE) <= 0) {
+			if(ttid == 0 || CheckActorInventory(ttid, getWeaponActor(i)) <= 0) {
+				roll--;
+				if(roll <= 0) {
+					SetResultValue(getWeaponActor(i));
+					terminate;
+				}
+			}
+		}
+	}
+
+	// iterate busters
+	for(i = 0; i < MAX_BUSTERUPGRADES; i++) {
+		if(isBusterEddieValid(i) && ThingCountName(getBusterUpgrade(i), T_NONE) <= 0) {
+			if(ttid == 0 || (CheckActorInventory(ttid, getBusterActor(i)) <= 0 && CheckActorInventory(ttid, getBusterUpgrade(i)) <= 0)) {
+				roll--;
+				if(roll <= 0) {
+					SetResultValue(getBusterUpgrade(i));
+					terminate;
+				}
+			}
+		}
+	}
+
+	// mathematically this seems impossible, 
+	// but sure I guess
+	SetResultValue(default_item);
+}
+
+Script "core_eddiedropper" (void)
+{
+	int ThePlayer = ACS_NamedExecuteWithResult("core_gettarget");
+	str weap = ACS_NamedExecuteWithResult("core_eddieroller", thePlayer);
+
+	// [Russ] This would cause the weapon to not spawn under certain circumstances.
+	//SpawnProjectile(0, WeaponName, GetActorAngle(0)>>8, 75, 40, 1.0, 0);
+	int tempTID = UniqueTID();
+	SpawnForced(weap, GetActorX(0), GetActorY(0), GetActorZ(0), tempTID);
+	ThrustThing(GetActorAngle(0)>>8, 9, false, tempTID);
+	ThrustThingZ(tempTID, 10, 0, 0);
+	Thing_ChangeTID(tempTID, 0);
+}
+
+script "core_getweaponammo" (void)
+{
+int ThisWeapon = WhichWeapon();
+if(ThisWeapon>=0){SetResultValue(CheckInventory(getWeaponAmmoType(ThisWeapon)));}
+}
+
+script "core_getweaponammocapacity" (void)
+{
+int ThisWeapon = WhichWeapon();
+if(ThisWeapon>=0){SetResultValue(GetAmmoCapacity(getWeaponAmmoType(ThisWeapon)));}
+}
+
+script "core_getweaponammo2" (void)
+{
+int ThisWeapon = WhichWeapon();
+if(ThisWeapon>=0 && StrICmp(getWeaponAmmo2Type(ThisWeapon),"") != 0){SetResultValue(CheckInventory(getWeaponAmmo2Type(ThisWeapon)));}
+else{SetResultValue(0);}
+}
+
+script "core_getweaponammo2capacity" (void)
+{
+int ThisWeapon = WhichWeapon();
+if(ThisWeapon>=0 && StrICmp(getWeaponAmmo2Type(ThisWeapon),"") != 0){SetResultValue(GetAmmoCapacity(getWeaponAmmo2Type(ThisWeapon)));}
+else{SetResultValue(0);}
+}
+
+// [Mess] Energy Balancer Functions
+Function int WhichWeapon(void) // Which weapon is the player currently using.  From weapons_ammo array
+{
+For(int i = 0; i < MAX_WEAPONS_GLOBAL; i++)
+	{
+	If(CheckWeapon(getWeaponActor(i)))
+		{
+		If(getWeaponAmmoFactor(i) > 0.0 || getWeaponAmmo2Factor(i) > 0.0){Return i;}
+		}
+	}
+Return -1;
+}
+
+Function int EnergyBalancer(void) // Finds out which weapon has the lowest ammo ratio wise from the players inventory
+{
+int CurrentRatio;
+int MinRatio = 1.0;
+int LowestWeapon = -1;
+
+For(int w = 0; w < MAX_WEAPONS_GLOBAL; w++)
+	{
+	If(CheckInventory(getWeaponActor(w)) && (getWeaponAmmoFactor(w) > 0.0 || getWeaponAmmo2Factor(w) > 0.0))
+		{
+		if(StrICmp(getWeaponAmmo2Type(w),"") != 0 && getWeaponAmmo2Factor(w) > 0.0 && getWeaponAmmoFactor(w) <= 0.0) {
+			CurrentRatio = 1.0*CheckInventory(getWeaponAmmo2Type(w))/GetAmmoCapacity(getWeaponAmmo2Type(w));
+		} else if (StrICmp(getWeaponAmmo2Type(w),"") != 0 && getWeaponAmmo2Factor(w) > 0.0 && getWeaponAmmoFactor(w) > 0.0) {
+			int firstAmmoRatio = 1.0*CheckInventory(getWeaponAmmoType(w))/GetAmmoCapacity(getWeaponAmmoType(w));
+			int secondAmmoRatio = 1.0*CheckInventory(getWeaponAmmo2Type(w))/GetAmmoCapacity(getWeaponAmmo2Type(w));
+			CurrentRatio = FixedDiv(firstAmmoRatio + secondAmmoRatio, 2.0);
+		} else {
+			CurrentRatio = 1.0*CheckInventory(getWeaponAmmoType(w))/GetAmmoCapacity(getWeaponAmmoType(w));
+		}
+		If(CurrentRatio < MinRatio)
+			{
+			MinRatio = CurrentRatio;
+			LowestWeapon = w;
+			}
+		}
+	}
+return LowestWeapon;
+}
+
+script "core_TakeOtherBusters" (void)
+{
+	str theBuster;
+	for(int i = 0; i < MAX_BUSTERTAKES; i++) {
+		theBuster = getBusterTake(i);
+		if(!CheckWeapon(theBuster))
+			TakeInventory(theBuster,1);
+	}
+}
+
+// Return a player's current weapon
+Script "core_getplayerweapon" (int playerno)
+{
+	SetActivator(playerno + 1000);
+	SetResultValue(GetWeapon());
+}
+
+// Hudmessage stuff
+#define HDM_WEAP_START_ICON 400
+#define HDM_WEAP_START_NAME 500
+
+#define HDM_WEAP_XOFFS_ICON 32.0
+#define HDM_WEAP_XOFFS_NAME 34.1
+#define HDM_WEAP_YOFFS_ICON 222.0
+#define HDM_WEAP_YOFFS_NAME HDM_WEAP_YOFFS_ICON-16.0
+#define HDM_WEAP_YOFFS_DIFF 20.0
+
+#define HDM_WEAP_TIME_ICON 0.4
+#define HDM_WEAP_TIME_NAME 0.05
+
+#define HDM_WEAP_START_DELAY 35
+#define HDM_WEAP_BETWEEN_DELAY 8
+
+int weapCount = 0;
+int weapHudMaxLength = 0;
+
+script "core_lmsdrawqueue" (int who, int icontag, int flag, int cvar) CLIENTSIDE
+{
+	if(who != ConsolePlayerNumber())
+		terminate;
+	
+	if(!GetUserCVar(ConsolePlayerNumber(), "mm8bdm_drawlmsweapons"))
+		terminate;
+
+	if(GetChar(icontag, 6) == '|' || GetChar(icontag, 8) == '|') {
+		str icon;
+		str tag;
+		if(GetChar(icontag, 8) == '|') {
+			icon = StrLeft(icontag, 8);
+		} else {
+			icon = StrLeft(icontag, 6);
+		}
+
+		tag = StrParam(l:StrRight(icontag, StrLen(icontag)-StrLen(icon)-1));
+		
+		do {
+			Delay(1);
+		}
+		while(GetGamemodeState() == GAMESTATE_WAITFORPLAYERS);
+
+		if (!(PlayerInGame(who) && CheckActorInventory(who+PLN_TID, flag)) && !GetCvar(cvar)) { terminate; }
+
+		weapHudMaxLength = max(weapHudMaxLength, strLen(tag));
+		int msgIndex = weapCount;
+		weapCount++;
+
+		Delay(1);
+		
+		if(!GetUserCVar(ConsolePlayerNumber(), "mm8bdm_drawlmsweapons"))
+			terminate;
+
+		int yDiffs = msgIndex * HDM_WEAP_YOFFS_DIFF - weapCount / 2 * HDM_WEAP_YOFFS_DIFF;
+	
+		if(weapCount % 2 == 0) // If it's even, offset down slightly.
+			yDiffs += HDM_WEAP_YOFFS_DIFF / 2;
+
+		if(GetGameModeState() == GAMESTATE_COUNTDOWN)
+		{
+			Delay(HDM_WEAP_START_DELAY);
+			Delay(msgIndex * HDM_WEAP_BETWEEN_DELAY);
+		}
+		
+		int yOffsIcon = HDM_WEAP_YOFFS_ICON + yDiffs;
+		int yOffsName = HDM_WEAP_YOFFS_NAME + yDiffs;
+		
+		if(GetGameModeState() == GAMESTATE_COUNTDOWN || GetGameModeState() == GAMESTATE_WAITFORPLAYERS) {
+			int countdownTime = GetCVar("sv_lmscountdowntime");
+			if(countdownTime <= 0)
+				countdownTime = 10;
+			countdownTime <<= 16;
+
+			int baseTime = FixedMul(weapHudMaxLength<<16, HDM_WEAP_TIME_NAME) + countdownTime + 2.0;
+			int iconTime = baseTime-HDM_WEAP_TIME_ICON;
+			int nameTime = baseTime-(StrLen(tag)*HDM_WEAP_TIME_NAME);
+			
+			SetHudSize(600,380,0);
+			
+			SetFont(icon);
+			HudMessageBold(s:"A"; HUDMSG_FADEINOUT, HDM_WEAP_START_ICON+msgIndex, 
+							CR_GREEN, HDM_WEAP_XOFFS_ICON, yOffsIcon, iconTime, HDM_WEAP_TIME_ICON, 1.0);
+			SetFont("smallfont");
+			HudMessageBold(s:"\c*", s:tag; HUDMSG_TYPEON, HDM_WEAP_START_NAME+msgIndex,
+							CR_GREEN, HDM_WEAP_XOFFS_NAME, yOffsName, nameTime, HDM_WEAP_TIME_NAME, 1.0);
+		} else {
+			int holdTime = 5.0;
+			int fadeTime = 0.5;
+			
+			SetHudSize(600,380,0);
+			
+			SetFont(icon);
+			HudMessageBold(s:"A"; HUDMSG_FADEOUT, HDM_WEAP_START_ICON+msgIndex, 
+							CR_GREEN, HDM_WEAP_XOFFS_ICON, yOffsIcon, holdTime, 1.0);
+			SetFont("smallfont");
+			HudMessageBold(s:"\c*", s:tag; HUDMSG_FADEOUT, HDM_WEAP_START_NAME+msgIndex,
+							CR_GREEN, HDM_WEAP_XOFFS_NAME, yOffsName, holdTime, 1.0);
+		}
+
+		Delay(35 * weapCount);
+
+		if(msgIndex == 0) 
+		{
+			weapCount = 0;
+			weapHudMaxLength = 0;
+		}
+	}
+}
+
+function void clearLMSHudMessages(int who)
+{
+	if(who != ConsolePlayerNumber())
+		return;
+	
+	for(int i = 0; i <= weapCount; i++) {
+		HudMessageBold(s:""; HUDMSG_FADEOUT, HDM_WEAP_START_ICON+i, 0, 0, 0, 0);
+		HudMessageBold(s:""; HUDMSG_FADEOUT, HDM_WEAP_START_NAME+i, 0, 0, 0, 0);
+	}
+
+	weapCount = 0;
+	weapHudMaxLength = 0;
+}
