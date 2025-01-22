@@ -70,7 +70,7 @@
 // #include "decorate/croc/mmb/magiccard.txt"
 // #include "decorate/croc/mm4/ringboomerang.txt"
 // #include "decorate/croc/mm1/rollingcutter.txt"
-// #include "decorate/croc/mm5/chargekick.txt"
+#include "decorate/croc/mm5/chargekick.txt"
 // #include "decorate/croc/mm6/flameblast.txt"
 // #include "decorate/croc/mm10/chillspike.txt"
 // #include "decorate/croc/mmv/electricshock.txt"

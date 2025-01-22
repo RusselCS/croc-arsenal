@@ -1,6 +1,6 @@
-actor ChargeKickWep_NormalBar : NormalBar { args 4, 225 }
+actor CrocChargeKickWep_NormalBar : NormalBar { args 4, 225 }
 
-actor ChargeKickWep : BaseMM8BDMWep 10055
+actor CrocChargeKickWep : BaseMM8BDMWep 10055
 {
 //$Category MM8BDM-Weapons/Close
 //$Title Charge Kick
@@ -11,7 +11,7 @@ Weapon.SlotNumber 4
 Inventory.Pickupmessage "$PU_CHARGEKICK"
 Obituary "$OB_CHARGEKICK"
 Tag "$TAG_CHARGEKICK"
-weapon.ammotype "ChargeKickAmmo"
+weapon.ammotype "CrocChargeKickAmmo"
 inventory.icon "CHARSI"
 States
 {
@@ -34,7 +34,7 @@ CKIC C 0 A_PlaySoundEx("weapons/mm5/chargekickfire","Weapon")
 CKIC C 0 ACS_NamedExecuteWithResult("core_stopplayer", 0, true)
 CKIC C 0 A_SpawnItemEx("PropBlowerEffect")
 CKIC C 2 A_Recoil(-20)
-CKIC B 2 A_FireCustomMissile("ChargeKick",0,1,0,0)
+CKIC B 2 A_FireCustomMissile("CrocChargeKick",0,1,0,0)
 CKIC A 8 ACS_NamedExecuteWithResult("core_stopplayer", 0, false)
 CKIC B 5
 CKIC C 5
@@ -46,14 +46,14 @@ Goto Ready+1
 }
 }
 
-actor ChargeKickAmmo : Ammo
+actor CrocChargeKickAmmo : Ammo
 {
 inventory.amount 1
 inventory.maxamount 28
 +INVENTORY.IGNORESKILL
 }
 
-actor ChargeKick : BasicProjectile
+actor CrocChargeKick : BasicProjectile
 {
 Radius 14
 Height 25
