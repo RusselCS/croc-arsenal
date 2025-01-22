@@ -9,15 +9,17 @@
 int CROC_REPLACE_MAX = 0;
 
 str crocTokens_str[CROC_REPLACE_MAX_LIMIT][2];
-int crocTokens_int[CROC_REPLACE_MAX_LIMIT][1];
+int crocTokens_int[CROC_REPLACE_MAX_LIMIT][2];
 
 function void setCrocBaseToken(int idx, str val) { crocTokens_str[idx][0] = val; }
 function void setCrocNewToken(int idx, str val) { crocTokens_str[idx][1] = val; }
 function void setCrocBuildNum(int idx, int val) { crocTokens_int[idx][0] = val; }
+function void setCrocTranslate(int idx, int val) { crocTokens_int[idx][1] = val; }
 
 function str getCrocBaseToken(int idx) { return crocTokens_str[idx][0]; }
 function str getCrocNewToken(int idx) { return crocTokens_str[idx][1]; }
 function int getCrocBuildNum(int idx) { return crocTokens_int[idx][0]; }
+function int getCrocTranslate(int idx) { return crocTokens_int[idx][1]; }
 
 #define BORDER_CROC 11037
 
@@ -173,7 +175,7 @@ script "croc_addweps" OPEN
         DefineCrocAssist(0, "TAG_ETANK", "ETank", "EBALF0", 1, DTADD_GRP_HEAL, mapTrue);
         DefineCrocAssist(0, "TAG_WTANK", "WTank", "EBALH0", 1, DTADD_GRP_RELOAD, mapTrue);
         DefineCrocAssist(0, "TAG_MTANK", "MTank", "EBALG0", 1, DTADD_GRP_FULLRESTORE, mapTrue);
-        DefineCrocAssist(1, "TAG_ENERGYBALANCERNEO", "EnergyBalancer", "NRGNA0", 1, DTADD_GRP_PASSIVE, mapTrue);
+        DefineCrocAssistClean(1, "TAG_ENERGYBALANCERNEO", "EnergyBalancer", "NRGNA0", 1, DTADD_GRP_PASSIVE, mapTrue);
 
         AddSpawnFunc(DTADD_SFT_ITEM, "croc_replaceitems");
     }
@@ -189,7 +191,7 @@ script "croc_replaceweps" (void)
 
     for(int i = 0; i < CROC_REPLACE_MAX; i++) {
         if(StrIcmp(me, getCrocBaseToken(i)) == 0) {
-            if(!CrocSpawnNewWepFunc(getCrocNewToken(i))) {
+            if(!CrocSpawnNewWepFunc(getCrocNewToken(i), getCrocTranslate(i))) {
                 Log(s:"\cgWARNING: FAILED TO SPAWN \cj", s:getCrocNewToken(i), s:"\cg! I think you forgot to include the file...");
             }
             terminate;
@@ -201,12 +203,13 @@ script "croc_replaceweps" (void)
 
 script "croc_replaceitems" (void) { ACS_NamedExecuteWithResult("croc_replaceweps"); }
 
-function int CrocSpawnNewWepFunc(str classname) {
+function int CrocSpawnNewWepFunc(str classname, int translate) {
     int u = UniqueTID();
 	int r = SpawnSpotForcedCopyVelocity(classname,0,u,GetActorAngle(0)>>8);
 	SetActorProperty(u,APROP_Gravity,GetActorProperty(0,APROP_Gravity));
 	SetActorFlagDecorate(u,"DROPPED",CheckFlag(0,"DROPPED"));
-    Thing_SetTranslation(u, BORDER_CROC);
+    if(translate)
+        Thing_SetTranslation(u, BORDER_CROC);
 	Thing_ChangeTID(u,ActivatorTID());
 	Thing_Remove(0);
 	return r;
@@ -220,7 +223,7 @@ function void DefineCrocWeapon(int buildNum, str wepTag, str wepActor, str wepIc
     str crocToken = StrParam(s:"Croc", s:wepActor);
     str Ammo = StrParam(s:"Croc", s:wepAmmo);
 
-    DefineCrocReplacement(buildNum, wepActor, crocToken);
+    DefineCrocReplacement(buildNum, wepActor, crocToken, true);
     DefineWeapon(wepTag, crocToken, wepIcon, Ammo, wepMult, wepSlot, wepMap, wepLms, wepEddie);
 }
 
@@ -231,11 +234,22 @@ function void DefineCrocAssist(int buildNum, str itemTag, str itemActor, str ite
 
     str crocToken = StrParam(s:"Croc", s:itemActor);
 
-    DefineCrocReplacement(buildNum, itemActor, crocToken);
+    DefineCrocReplacement(buildNum, itemActor, crocToken, true);
     DefineAssistItem(itemTag, crocToken, itemIcon, itemAmount, itemGroup, itemMap);
 }
 
-function void DefineCrocReplacement(int buildNum, int ogToken, int newToken) {
+function void DefineCrocAssistClean(int buildNum, str itemTag, str itemActor, str itemIcon, int itemAmount, int itemGroup, int itemMap)
+{
+    if(buildNum == 0)
+        return;
+
+    str crocToken = StrParam(s:"Croc", s:itemActor);
+
+    DefineCrocReplacement(buildNum, itemActor, crocToken, false);
+    DefineAssistItem(itemTag, crocToken, itemIcon, itemAmount, itemGroup, itemMap);
+}
+
+function void DefineCrocReplacement(int buildNum, int ogToken, int newToken, int translate) {
     int u = UniqueTID();
     int s = SpawnForced(newToken, 0, 0, 0, u, 0);
 
@@ -249,6 +263,7 @@ function void DefineCrocReplacement(int buildNum, int ogToken, int newToken) {
         setCrocBaseToken(CROC_REPLACE_MAX, ogToken);
         setCrocNewToken(CROC_REPLACE_MAX, newToken);
         setCrocBuildNum(CROC_REPLACE_MAX, buildNum);
+        setCrocTranslate(CROC_REPLACE_MAX, translate);
         CROC_REPLACE_MAX++;
     }
 }
