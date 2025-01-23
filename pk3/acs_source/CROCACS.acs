@@ -113,8 +113,6 @@ script "croc_getPlayersInRadius" (int radius, int flags, int pointer, int unused
                 dist = VectorLength(VectorLength(dx, dy), dz);
             }
 
-            Log(f:dist);
-
             if(dist < radius) {
                 ret++;
                 if(setclosest) {
