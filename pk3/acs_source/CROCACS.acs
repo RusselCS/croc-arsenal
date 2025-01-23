@@ -42,3 +42,101 @@ script "PierceRipper_CrocFlameSwordTrailAir" (int dmg, int type, int hits)
 {
     SetResultValue(ACS_NamedExecuteWithResult("PierceRipper_CrocFlameSwordTrail", dmg, type, hits));
 }
+
+#define PRF_CUBE            1
+#define PRF_CHECKCOLLISION  2
+#define PRF_CLOSESTPOINTER  4
+
+#define C_PRF_CENTEROFMASS  8
+
+global int 4: infMaxPlrs;
+
+// same as core version but add C_PRF_CENTEROFMASS
+script "croc_getPlayersInRadius" (int radius, int flags, int pointer, int unused)
+{
+	int ret = 0;
+    int closestDist = radius * 2;
+    int closest = -1;
+
+    //Log(s:"[core_getPlayersInRadius] Radius: ", i:radius, s:"; flags: ", i:flags, s:"; pointer: ", i:pointer);
+
+	if(radius == 0) {
+        //Log(s:"Updating radius...");
+        radius = 16;
+    }
+
+    radius <<=16;
+
+    int baseRadius = radius;
+
+    bool checkCollision = flags & PRF_CHECKCOLLISION;
+    bool checkCube = flags & PRF_CUBE;
+    bool setclosest = flags & PRF_CLOSESTPOINTER;
+    bool checkCenter = flags & C_PRF_CENTEROFMASS;
+
+	for(int i = 0; i < infMaxPlrs; i++)
+	{
+        int oldRet = ret;
+        if(playerInGame(i)) {
+            int tid = i+1000;
+
+            if(checkCollision) {
+                radius = baseRadius + GetActorProperty(tid, APROP_Radius);
+            }
+
+            int px = GetActorX(tid);
+            int py = GetActorY(tid);
+            int pz = GetActorZ(tid);
+
+            int mx = GetActorX(0);
+            int my = GetActorY(0);
+            int mz = GetActorZ(0);
+
+            if(checkCube) {
+                pz += radius/2; // [Russ] the year is 2025 and i genuinely cannot recall why half the radius is added to the player side when checking cube mode.
+            }
+
+            if(checkCenter) {
+                pz += GetActorProperty(tid, APROP_Height)/2;
+                mz += GetActorProperty(0, APROP_Height)/2;
+            }
+
+            int dx = abs(px-mx);
+            int dy = abs(py-my);
+            int dz = abs(pz-mz);
+
+            int dist;
+
+            if(checkCube) {
+                dist = max(max(dx, dy), dz);
+            } else {
+                dist = VectorLength(VectorLength(dx, dy), dz);
+            }
+
+            Log(f:dist);
+
+            if(dist < radius) {
+                ret++;
+                if(setclosest) {
+                    if(dist < closestDist) {
+                        closestDist = dist;
+                        closest = tid;
+                    }
+                }
+            }
+
+            if(radius != baseRadius) {
+                radius = baseRadius;
+            }
+        }
+	}
+
+    if(setclosest && closest != 0) {
+        setPointer(pointer, closest);
+    }
+
+	SetResultValue(ret);
+}
+
+function int abs(int x) { return x > 0 ? x : -x; }
+function int max(int x, int y) { return x > y ? x : y; }

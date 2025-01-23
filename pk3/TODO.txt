@@ -4,7 +4,6 @@ TODO:
 - Water Shield: I don't like how the damage is currently handled, because the change is arbitrary-feeling.
 - Chill Spike: I've heard reports that it is possible to "permafreeze" players.
 - Wind Storm: Increase pull a bit
-- Rush Coil: Activation radius larger than give radius
 - Break Dash: Change "uncharged" shot in a functional way. Thinking either a short-range punch using Pluto's "claw shot" graphic, or the weird homing energy blast.
 - Flash Bomb: Needs nerfs
 - Mirror Buster: Needs nerfs or is inherently broken.
@@ -31,3 +30,4 @@ DONE:
 - Dust Crusher: Give Composite Hitbox to limit damage output
 - Freeze Cracker: Give Composite Hitbox to limit damage output
 - Energy Balancer: Innate + Energy Balancer Neo
+- Rush Coil: Activation radius larger than give radius

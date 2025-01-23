@@ -1,3 +1,5 @@
+const int C_PRF_CENTEROFMASS = 8;
+
 // Other fixes
 #include "decorate/croc/reaimfix.dec"
 
@@ -17,7 +19,7 @@
 // #include "decorate/croc/assists/utility/eddie.txt"
 // #include "decorate/croc/assists/utility/item-1-2-3.txt"
 // #include "decorate/croc/assists/utility/misc.txt"
-// #include "decorate/croc/assists/utility/rushcoil.txt"
+#include "decorate/croc/assists/utility/rushcoil.txt"
 // #include "decorate/croc/assists/utility/rushjet.txt"
 // #include "decorate/croc/assists/utility/rushmarine.txt"
 // #include "decorate/croc/assists/utility/wire.txt"

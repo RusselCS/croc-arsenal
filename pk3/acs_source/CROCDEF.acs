@@ -160,7 +160,7 @@ script "croc_addweps" OPEN
         DefineCrocAssist(0, "TAG_ITEM1", "Item1", "WEA2A0", 3, DTADD_GRP_JUMP, mapTrue);
         DefineCrocAssist(0, "TAG_ITEM2", "Item2", "WEA2D0", 2, DTADD_GRP_DASH, mapTrue);
         DefineCrocAssist(0, "TAG_ITEM3", "Item3", "ITM3A0", 2, DTADD_GRP_JUMP, mapTrue);
-        DefineCrocAssist(0, "TAG_RUSHCOIL", "RushCoil", "WEAPB0", 1, DTADD_GRP_JUMP, mapTrue);
+        DefineCrocAssist(1, "TAG_RUSHCOIL", "RushCoil", "WEAPB0", 1, DTADD_GRP_JUMP, mapTrue);
         DefineCrocAssist(0, "TAG_RUSHJET", "RushJet", "WEA2B0", 1, DTADD_GRP_FLIGHT, mapTrue);
         DefineCrocAssist(0, "TAG_RUSHMARINE", "RushMarine", "RUSHN0", 1, DTADD_GRP_FLIGHT, mapTrue);
         DefineCrocAssist(0, "TAG_WIREADAPTOR", "WireAdaptor", "WADPA0", 2, DTADD_GRP_FLIGHT, mapTrue);
