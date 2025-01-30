@@ -14,6 +14,7 @@ TODO:
 - Bass Buster: Implement v6c changes.
 - Skull Barrier: [needs input from team.]
 - Sweep: A_JumpIfInventory("MM8BDMPlayer", 1, "State", AAPTR_TRACER) -> A_JumpIf(IsPointerEqual(AAPTR_TRACER, AAPTR_NULL), "State")
+- Crystal Eye: Use composite hitbox to handle splits to cap its hits
 
 DONE:
 - Reaim Tracer: -ACTIVATEIMPACT
