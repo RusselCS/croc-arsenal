@@ -1,7 +1,7 @@
-actor LeafShieldWep_NormalBar : NormalBar { args 4, 129 }
-actor LeafShieldWep_ScriptBar : ScriptBar {}
+actor CrocLeafShieldWep_NormalBar : NormalBar { args 4, 129 }
+actor CrocLeafShieldWep_ScriptBar : ScriptBar {}
 
-actor LeafShieldWep : BaseMM8BDMWep 10011
+actor CrocLeafShieldWep : BaseMM8BDMWep 10011
 {
 //$Category MM8BDM-Weapons/Shield
 //$Title Leaf Shield
@@ -12,7 +12,7 @@ Weapon.SlotNumber 7
 Inventory.Pickupmessage "$PU_LEAFSHIELD"
 Obituary "$OB_LEAFSHIELD"
 Tag "$TAG_LEAFSHIELD"
-weapon.ammotype "LeafShieldAmmo"
+weapon.ammotype "CrocLeafShieldAmmo"
 inventory.icon "LEAFI"
 States
 {
@@ -24,7 +24,7 @@ LEAF A 0 ACS_NamedExecuteWithResult("core_weaponcolor",CLR_LEAFSHIELD)
 LEAF A 1 A_WeaponReady
 Goto Ready+1
 Deselect:
-LEAF A 0 A_GiveInventory("LeafShieldDisable", 1)
+LEAF A 0 A_GiveInventory("CrocLeafShieldDisable", 1)
 goto DeselectSwap
 Select:
 LEAF A 0
@@ -38,55 +38,55 @@ Hold:
 LEAF A 1
 goto Ready+1
 ShieldActivate:
-LEAF A 0 A_TakeInventory("LeafShieldAmmo", 7,TIF_NOTAKEINFINITE)
+LEAF A 0 A_TakeInventory("CrocLeafShieldAmmo", 7,TIF_NOTAKEINFINITE)
 LEAF A 0 A_GiveInventory("ShieldCheck",1)
 LEAF BCDEF 1
-LEAF A 0 A_GiveInventory("LeafShieldCharge", 31)
+LEAF A 0 A_GiveInventory("CrocLeafShieldCharge", 31)
 LEAF A 0 ACS_NamedExecuteWithResult("core_nonshootableplayer", 0, true)
 TNT1 A 0 A_GunFlash("Sound.Leaf", GFF_NOEXTCHANGE)//A_PlaySoundEx("weapons/mm2/leafshieldactive", "Weapon", 1, 0)
-LEAF A 0 A_SpawnItemEx("LeafShieldWarper",0,0,0,0,0,0,0,0)
-LEAF GG 1 A_SpawnItemEx("LeafShieldGuard", 0, 0, 0, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM, 0)
-LEAF A 0 A_JumpIfInventory("LeafShieldCounter", 1, "ShieldAttack")
-LEAF HH 1 A_SpawnItemEx("LeafShieldGuard", 0, 0, 0, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM, 0)
-LEAF A 0 A_JumpIfInventory("LeafShieldCounter", 1, "ShieldAttack")
+LEAF A 0 A_SpawnItemEx("CrocLeafShieldWarper",0,0,0,0,0,0,0,0)
+LEAF GG 1 A_SpawnItemEx("CrocLeafShieldGuard", 0, 0, 0, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM, 0)
+LEAF A 0 A_JumpIfInventory("CrocLeafShieldCounter", 1, "ShieldAttack")
+LEAF HH 1 A_SpawnItemEx("CrocLeafShieldGuard", 0, 0, 0, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM, 0)
+LEAF A 0 A_JumpIfInventory("CrocLeafShieldCounter", 1, "ShieldAttack")
 ShieldLoop:
 LEAF A 0 A_WeaponReady
-LEAF A 1 A_SpawnItemEx("LeafShieldGuard", 0, 0, 0, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM, 0)
-LEAF A 0 A_JumpIfInventory("LeafShieldCounter", 1, "ShieldAttack")
+LEAF A 1 A_SpawnItemEx("CrocLeafShieldGuard", 0, 0, 0, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM, 0)
+LEAF A 0 A_JumpIfInventory("CrocLeafShieldCounter", 1, "ShieldAttack")
 LEAF A 0 A_WeaponReady
-LEAF A 1 A_SpawnItemEx("LeafShieldGuard", 0, 0, 0, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM, 0)
-LEAF A 0 A_JumpIfInventory("LeafShieldCounter", 1, "ShieldAttack")
-LEAF A 0 A_TakeInventory("LeafShieldCharge", 1)
-LEAF A 0 A_JumpIfInventory("LeafShieldCharge", 1, "ShieldLoop")
+LEAF A 1 A_SpawnItemEx("CrocLeafShieldGuard", 0, 0, 0, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM, 0)
+LEAF A 0 A_JumpIfInventory("CrocLeafShieldCounter", 1, "ShieldAttack")
+LEAF A 0 A_TakeInventory("CrocLeafShieldCharge", 1)
+LEAF A 0 A_JumpIfInventory("CrocLeafShieldCharge", 1, "ShieldLoop")
 goto ShieldThrow
 ShieldAttack:
 TNT1 A 0 A_StopSoundEx("Weapon")
 LEAF A 0 A_PlaySoundEx("weapons/mm2/leafshieldcounter", "body")
-LEAF A 0 A_GiveInventory("LeafShieldCharge", 32)
+LEAF A 0 A_GiveInventory("CrocLeafShieldCharge", 32)
 ShieldAttackLoop:
-LEAF A 2 A_FireCustomMissile("LeafShieldCounterShot", 0, 0, 20, 20)
-LEAF A 0 A_TakeInventory("LeafShieldCharge", 2)
-LEAF A 0 A_JumpIfInventory("LeafShieldCharge", 1, 1)
+LEAF A 2 A_FireCustomMissile("CrocLeafShieldCounterShot", 0, 0, 20, 20)
+LEAF A 0 A_TakeInventory("CrocLeafShieldCharge", 2)
+LEAF A 0 A_JumpIfInventory("CrocLeafShieldCharge", 1, 1)
 goto ShieldThrow
-LEAF A 2 A_FireCustomMissile("LeafShieldCounterShot", 0, 0, 20, -20)
-LEAF A 0 A_TakeInventory("LeafShieldCharge", 2)
-LEAF A 0 A_JumpIfInventory("LeafShieldCharge", 1, 1)
+LEAF A 2 A_FireCustomMissile("CrocLeafShieldCounterShot", 0, 0, 20, -20)
+LEAF A 0 A_TakeInventory("CrocLeafShieldCharge", 2)
+LEAF A 0 A_JumpIfInventory("CrocLeafShieldCharge", 1, 1)
 goto ShieldThrow
-LEAF A 2 A_FireCustomMissile("LeafShieldCounterShot", 0, 0, -20, 20)
-LEAF A 0 A_TakeInventory("LeafShieldCharge", 2)
-LEAF A 0 A_JumpIfInventory("LeafShieldCharge", 1, 1)
+LEAF A 2 A_FireCustomMissile("CrocLeafShieldCounterShot", 0, 0, -20, 20)
+LEAF A 0 A_TakeInventory("CrocLeafShieldCharge", 2)
+LEAF A 0 A_JumpIfInventory("CrocLeafShieldCharge", 1, 1)
 goto ShieldThrow
-LEAF A 2 A_FireCustomMissile("LeafShieldCounterShot", 0, 0, -20, -20)
-LEAF A 0 A_TakeInventory("LeafShieldCharge", 2)
-LEAF A 0 A_JumpIfInventory("LeafShieldCharge", 1, "ShieldAttackLoop")
+LEAF A 2 A_FireCustomMissile("CrocLeafShieldCounterShot", 0, 0, -20, -20)
+LEAF A 0 A_TakeInventory("CrocLeafShieldCharge", 2)
+LEAF A 0 A_JumpIfInventory("CrocLeafShieldCharge", 1, "ShieldAttackLoop")
 goto ShieldThrow
 ShieldThrow:
 LEAF A 0 ACS_NamedExecuteWithResult("core_nonshootableplayer", 0, false)
-LEAF A 0 A_TakeInventory("LeafShieldCharge", 999)
+LEAF A 0 A_TakeInventory("CrocLeafShieldCharge", 999)
 LEAF I 2
 LEAF JJ 1 // this tricks rage rune into using 3 tics rather than 2 so it doesn't fire too early
 LEAF A 0 A_TakeInventory("ShieldCheck",999)
-LEAF A 0 A_FireCustomMissile("LeafShield",0,0,0,0)
+LEAF A 0 A_FireCustomMissile("CrocLeafShield",0,0,0,0)
 LEAF K 15
 LEAF JI 3
 goto Ready+1
@@ -95,27 +95,27 @@ LEAF A 1 ACS_NamedExecuteAlways("core_noammo",0)
 goto Ready+1
 Sound.Leaf:
 TNT1 A 4 A_PlaySoundEx("weapons/mm2/leafshieldactive", "Weapon", 0)
-TNT1 A 1 A_JumpIfInventory("LeafShieldCharge",1,"Sound.Leaf")
+TNT1 A 1 A_JumpIfInventory("CrocLeafShieldCharge",1,"Sound.Leaf")
 stop
 }
 }
 
-actor LeafShieldDisable : CustomInventory
+actor CrocLeafShieldDisable : CustomInventory
 {
 	States
 	{
 	Pickup:
-		TNT1 A 0 A_JumpIfInventory("LeafShieldCharge", 1, "Clear")
+		TNT1 A 0 A_JumpIfInventory("CrocLeafShieldCharge", 1, "Clear")
 		stop
 	Clear:
 		TNT1 A 0 ACS_NamedExecuteWithResult("core_nonshootableplayer", 0, false)
 		TNT1 A 0 A_TakeInventory("ShieldCheck", 1)
-		TNT1 A 0 A_TakeInventory("LeafShieldCharge", 99)
+		TNT1 A 0 A_TakeInventory("CrocLeafShieldCharge", 99)
 		stop
 	}
 }
 
-actor LeafShieldWarper : BasicShieldWarper
+actor CrocLeafShieldWarper : BasicShieldWarper
 {
 	States
 	{
@@ -127,7 +127,7 @@ actor LeafShieldWarper : BasicShieldWarper
 	}
 }
 
-actor LeafShieldGuard
+actor CrocLeafShieldGuard
 {
 	+SHOOTABLE
 	+NOTARGETSWITCH
@@ -151,7 +151,7 @@ actor LeafShieldGuard
 		stop
 	Pain:
 		TNT1 A 0 ACS_NamedExecuteWithResult("core_nonshootableplayer", ACS_NamedExecuteWithResult("core_gettarget", 0, true) + 1, false)
-		TNT1 A 0 A_GiveToTarget("LeafShieldCounter", 1)
+		TNT1 A 0 A_GiveToTarget("CrocLeafShieldCounter", 1)
 		stop
 	Death:
 		TNT1 A 0
@@ -159,7 +159,7 @@ actor LeafShieldGuard
 	}
 }
 
-actor LeafShieldNonShootableOff : CustomInventory
+actor CrocLeafShieldNonShootableOff : CustomInventory
 {
 	States
 	{
@@ -169,16 +169,16 @@ actor LeafShieldNonShootableOff : CustomInventory
 	}
 }
 
-actor LeafShieldCounter : Powerup
+actor CrocLeafShieldCounter : Powerup
 {
 	powerup.duration 10
 }
 
-actor LeafShield : BasicProjectile
+actor CrocLeafShield : BasicProjectile
 {
 Damage (27)
 Obituary "$OB_LEAFSHIELD"
-damagetype "LeafShield"
+damagetype "CrocLeafShield"
 Speed 25
 Radius 12
 Height 12
@@ -192,10 +192,10 @@ goto Spawn+2
 }
 }
 
-actor LeafShieldCounterShot : BasicProjectile
+actor CrocLeafShieldCounterShot : BasicProjectile
 {
 	Obituary "$OB_LEAFSHIELD"
-	damagetype "LeafShield"
+	damagetype "CrocLeafShield"
 	height 12
 	radius 6
 	Speed 45
@@ -210,14 +210,14 @@ actor LeafShieldCounterShot : BasicProjectile
 
 
 
-actor LeafShieldAmmo : Ammo
+actor CrocLeafShieldAmmo : Ammo
 {
 	inventory.amount 1
 	inventory.maxamount 28
 	+INVENTORY.IGNORESKILL
 }
 
-actor LeafShieldCharge : WeaponCharge
+actor CrocLeafShieldCharge : WeaponCharge
 {
 	inventory.maxamount 32
 }

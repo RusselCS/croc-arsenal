@@ -1,6 +1,6 @@
-actor PowerStoneWep_NormalBar : NormalBar { args 4, 46 }
+actor CrocPowerStoneWep_NormalBar : NormalBar { args 4, 46 }
 
-actor PowerStoneWep : BaseMM8BDMWep 10060
+actor CrocPowerStoneWep : BaseMM8BDMWep 10060
 {
 //$Category MM8BDM-Weapons/Close
 //$Title Power Stone
@@ -11,7 +11,7 @@ Weapon.SlotNumber 4
 Inventory.Pickupmessage "$PU_POWERSTONE"
 Obituary "$OB_POWERSTONE"
 Tag "$TAG_POWERSTONE"
-weapon.ammotype "PowerStoneAmmo"
+weapon.ammotype "CrocPowerStoneAmmo"
 inventory.icon "POWSSI"
 States
 {
@@ -32,7 +32,7 @@ Fire:
 POWS E 0 A_JumpIfNoAmmo("NoAmmo")
 POWS E 0 A_PlaySoundEx("weapons/mm5/powerstonefire","Weapon")
 POWS FG 2
-POWS H 3 A_FireCustomMissile("PowerStoneSpawner",0,1,0,0)
+POWS H 3 A_FireCustomMissile("CrocPowerStoneSpawner",0,1,0,0)
 POWS HH 8
 POWS H 20
 POWS GF 4
@@ -44,33 +44,33 @@ Goto Ready+1
 }
 }
 
-actor PowerStoneAmmo : Ammo
+actor CrocPowerStoneAmmo : Ammo
 {
 inventory.amount 1
 inventory.maxamount 28
 +INVENTORY.IGNORESKILL
 }
 
-actor PowerStoneSpawner : BasicWatcher
+actor CrocPowerStoneSpawner : BasicWatcher
 {
 States
 {
 Spawn:
 TNT1 A 0
-TNT1 A 0 A_SpawnItemEx("PowerStone", 46,0,-8,0,0,0,0)
-TNT1 A 0 A_SpawnItemEx("PowerStone", 46,0,-8,0,0,0,-120)
-TNT1 A 0 A_SpawnItemEx("PowerStone", 46,0,-8,0,0,0,120)
+TNT1 A 0 A_SpawnItemEx("CrocPowerStone", 46,0,-8,0,0,0,0)
+TNT1 A 0 A_SpawnItemEx("CrocPowerStone", 46,0,-8,0,0,0,-120)
+TNT1 A 0 A_SpawnItemEx("CrocPowerStone", 46,0,-8,0,0,0,120)
 stop
 }
 }
 
-actor PowerStone : BasicProjectile
+actor CrocPowerStone : BasicProjectile
 {
 +FORCEXYBILLBOARD
 Radius 38
 Height 10
 damage (48)
-damagetype "PowerStone"
+damagetype "CrocPowerStone"
 Obituary "$OB_POWERSTONE"
 speed 0
 var int user_speed;

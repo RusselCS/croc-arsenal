@@ -1,6 +1,6 @@
-actor FlashBombWep_NormalBar : NormalBar { args 229, 77 }
+actor CrocFlashBombWep_NormalBar : NormalBar { args 229, 77 }
 
-actor FlashBombWep : BaseMM8BDMWep 11091
+actor CrocFlashBombWep : BaseMM8BDMWep 11091
 {
 //$Category MM8BDM-Weapons/Power
 //$Title Flash Bomb
@@ -11,7 +11,7 @@ Weapon.SlotNumber 5
 Inventory.Pickupmessage "$PU_FLASHBOMB"
 Obituary "$OB_FLASHBOMB"
 Tag "$TAG_FLASHBOMB"
-weapon.ammotype "FlashBombAmmo"
+weapon.ammotype "CrocFlashBombAmmo"
 inventory.icon "FLSHBOMI"
 States
 {
@@ -31,7 +31,7 @@ goto SelectSwap
 Fire:
 FLSB T 0 A_JumpIfNoAmmo("NoAmmo")
 FLSB T 0 A_PlaySoundEx("weapons/mm8/flashbombfire","Weapon")
-FLSB T 0 A_FireCustomMissile("FlashBomb",0,1,8,0)
+FLSB T 0 A_FireCustomMissile("CrocFlashBomb",0,1,8,0)
 FLB0 ABCDEF 2
 FLSB T 24
 FLSB T 0 A_Refire // 36 frames
@@ -42,14 +42,14 @@ Goto Ready+1
 }
 }
 
-actor FlashBombAmmo : Ammo
+actor CrocFlashBombAmmo : Ammo
 {
 inventory.amount 1
 inventory.maxamount 30
 +INVENTORY.IGNORESKILL
 }
 
-actor FlashBomb : BasicProjectile
+actor CrocFlashBomb : BasicProjectile
 {
 +FORCEXYBILLBOARD
 +DONTREFLECT
@@ -57,25 +57,25 @@ Radius 6
 Height 7
 speed 26
 damage (0)
-damagetype "FlashBomb"
+damagetype "CrocFlashBomb"
 Obituary "$OB_FLASHBOMB"
 States
 {
 Spawn:
 FLSB BC 2
-FLSB B 0 A_SpawnItemEx("FlashBombTrail", -momx, -momy, -momz, 0, 0, 5, 0, SXF_ABSOLUTEPOSITION|SXF_WEPFXCOLOR)
+FLSB B 0 A_SpawnItemEx("CrocFlashBombTrail", -momx, -momy, -momz, 0, 0, 5, 0, SXF_ABSOLUTEPOSITION|SXF_WEPFXCOLOR)
 FLSB DE 2
-FLSB B 0 A_SpawnItemEx("FlashBombTrail", -momx, -momy, -momz, 0, 0, 5, 0, SXF_ABSOLUTEPOSITION|SXF_WEPFXCOLOR)
+FLSB B 0 A_SpawnItemEx("CrocFlashBombTrail", -momx, -momy, -momz, 0, 0, 5, 0, SXF_ABSOLUTEPOSITION|SXF_WEPFXCOLOR)
 loop
 Death:
 FLEX A 0 A_Stop
 FLEX A 0 A_PlaySoundEx("weapons/mm8/flashbombexplode", "Weapon")
-FLEX A 1 A_SpawnItemEx("FlashBombExplosion")
+FLEX A 1 A_SpawnItemEx("CrocFlashBombExplosion")
 stop
 }
 }
 
-actor FlashBombTrail : BasicGraphicEffect
+actor CrocFlashBombTrail : BasicGraphicEffect
 {
     +FORCEXYBILLBOARD
     Scale 2.0
@@ -88,12 +88,12 @@ actor FlashBombTrail : BasicGraphicEffect
     }
 }
 
-actor FlashBombExplosion : BasicExplosion
+actor CrocFlashBombExplosion : BasicExplosion
 {
 +BRIGHT
 Reactiontime 17
 Scale 3.5
-damagetype "FlashBomb"
+damagetype "CrocFlashBomb"
 Obituary "$OB_FLASHBOMB"
 States
 {
@@ -101,28 +101,28 @@ Spawn:
 FLEX AB 1 bright 
 FLEX CD 1 bright
 FLEX A 0 A_Explode(29, 80, 0)
-FLEX EE 0 A_SpawnItemEx("FlashBombFX2",Random(-16, 16),Random(-40, 40), Random(-32, 32),0,0,0,0, SXF_WEPFXCOLOR)
-FLEX EF 1 bright A_SpawnItemEx("FlashBombFX1",0,0,0,random(-7, 7),random(-7, 7),random(-7, 7),random(0,360), SXF_WEPFXCOLOR)
-FLEX EE 0 A_SpawnItemEx("FlashBombFX2",Random(-16, 16),Random(-40, 40), Random(-32, 32),0,0,0,0, SXF_WEPFXCOLOR)
-FLEX GF 1 bright A_SpawnItemEx("FlashBombFX1",0,0,0,random(-7, 7),random(-7, 7),random(-7, 7),random(0,360), SXF_WEPFXCOLOR)
+FLEX EE 0 A_SpawnItemEx("CrocFlashBombFX2",Random(-16, 16),Random(-40, 40), Random(-32, 32),0,0,0,0, SXF_WEPFXCOLOR)
+FLEX EF 1 bright A_SpawnItemEx("CrocFlashBombFX1",0,0,0,random(-7, 7),random(-7, 7),random(-7, 7),random(0,360), SXF_WEPFXCOLOR)
+FLEX EE 0 A_SpawnItemEx("CrocFlashBombFX2",Random(-16, 16),Random(-40, 40), Random(-32, 32),0,0,0,0, SXF_WEPFXCOLOR)
+FLEX GF 1 bright A_SpawnItemEx("CrocFlashBombFX1",0,0,0,random(-7, 7),random(-7, 7),random(-7, 7),random(0,360), SXF_WEPFXCOLOR)
 FLEX A 0 A_Explode(29, 80, 0)
 Goto Pattern1
 Pattern1:
-FLEX EF 1 bright A_SpawnItemEx("FlashBombFX1",0,0,0,random(-7, 7),random(-7, 7),random(-7, 7),random(0,360), SXF_WEPFXCOLOR)
-FLEX E 0 A_SpawnItemEx("FlashBombFX2",Random(-16, 16),Random(-16, -40), Random(-32, 32),0,0,0,0, SXF_WEPFXCOLOR)
-FLEX GF 1 bright A_SpawnItemEx("FlashBombFX2",Random(-16, 16),Random(16, 40), Random(-32, 32),0,0,0,0, SXF_WEPFXCOLOR)
-FLEX G 0 A_SpawnItemEx("FlashBombFX1",0,0,0,random(-7, 7),random(-7, 7),random(-7, 7),random(0,360), SXF_WEPFXCOLOR)
+FLEX EF 1 bright A_SpawnItemEx("CrocFlashBombFX1",0,0,0,random(-7, 7),random(-7, 7),random(-7, 7),random(0,360), SXF_WEPFXCOLOR)
+FLEX E 0 A_SpawnItemEx("CrocFlashBombFX2",Random(-16, 16),Random(-16, -40), Random(-32, 32),0,0,0,0, SXF_WEPFXCOLOR)
+FLEX GF 1 bright A_SpawnItemEx("CrocFlashBombFX2",Random(-16, 16),Random(16, 40), Random(-32, 32),0,0,0,0, SXF_WEPFXCOLOR)
+FLEX G 0 A_SpawnItemEx("CrocFlashBombFX1",0,0,0,random(-7, 7),random(-7, 7),random(-7, 7),random(0,360), SXF_WEPFXCOLOR)
 Goto DamageNow
 Pattern2:
-FLEX EF 1 bright A_SpawnItemEx("FlashBombFX1",0,0,0,random(-7, 7),random(-7, 7),random(-7, 7),random(0,360), SXF_WEPFXCOLOR)
-FLEX E 0 A_SpawnItemEx("FlashBombFX2",Random(-16, 16),Random(32, 64), Random(-32, 40),0,0,0,0, SXF_WEPFXCOLOR)
-FLEX E 0 A_SpawnItemEx("FlashBombFX2",Random(-16, 16),Random(-32, -64), Random(-32, 40),0,0,0,0, SXF_WEPFXCOLOR)
-FLEX EF 1 bright A_SpawnItemEx("FlashBombFX2",Random(-16, 16),Random(-40, 40), Random(-32, 32),0,0,0,0, SXF_WEPFXCOLOR)
-FLEX G 0 A_SpawnItemEx("FlashBombFX1",0,0,0,random(-7, 7),random(-7, 7),random(-7, 7),random(0,360), SXF_WEPFXCOLOR)
+FLEX EF 1 bright A_SpawnItemEx("CrocFlashBombFX1",0,0,0,random(-7, 7),random(-7, 7),random(-7, 7),random(0,360), SXF_WEPFXCOLOR)
+FLEX E 0 A_SpawnItemEx("CrocFlashBombFX2",Random(-16, 16),Random(32, 64), Random(-32, 40),0,0,0,0, SXF_WEPFXCOLOR)
+FLEX E 0 A_SpawnItemEx("CrocFlashBombFX2",Random(-16, 16),Random(-32, -64), Random(-32, 40),0,0,0,0, SXF_WEPFXCOLOR)
+FLEX EF 1 bright A_SpawnItemEx("CrocFlashBombFX2",Random(-16, 16),Random(-40, 40), Random(-32, 32),0,0,0,0, SXF_WEPFXCOLOR)
+FLEX G 0 A_SpawnItemEx("CrocFlashBombFX1",0,0,0,random(-7, 7),random(-7, 7),random(-7, 7),random(0,360), SXF_WEPFXCOLOR)
 Goto DamageNow
 DamageNow:
-FLEX A 0 A_JumpIfInventory("CutterFlag", 12, "Damage3")
-FLEX A 0 A_JumpIfInventory("CutterFlag", 4, "Damage2")
+FLEX A 0 A_JumpIfInventory("CrocCutterFlag", 12, "Damage3")
+FLEX A 0 A_JumpIfInventory("CrocCutterFlag", 4, "Damage2")
 FLEX A 0 A_Explode(29, 80, 0)
 Goto Continue
 Damage2:
@@ -133,7 +133,7 @@ FLEX A 0 A_Explode(16, 80, 0)
 Goto Continue
 Continue:
 FLEX G 0 A_CountDown
-FLEX A 0 A_GiveInventory("CutterFlag", 1)
+FLEX A 0 A_GiveInventory("CrocCutterFlag", 1)
 FLEX G 0 A_Jump(256, "Pattern1", "Pattern2")
 Goto Death
 Death:
@@ -149,7 +149,7 @@ stop
 }
 }
 
-actor FlashBombFX1 : BasicGraphicEffect
+actor CrocFlashBombFX1 : BasicGraphicEffect
 {
 +FORCEXYBILLBOARD
 +BRIGHT
@@ -169,14 +169,14 @@ stop
 }
 }
 
-actor FlashBombFX2 : FlashBombFX1
+actor CrocFlashBombFX2 : CrocFlashBombFX1
 {
 States
 {
 Spawn:
 FLEX C 0 bright
 FLEX C 0 bright A_Jump(240, "Spawn2")
-Goto "FlashBombFX1::Spawn"
+Goto "CrocFlashBombFX1::Spawn"
 Spawn2:
 FLEX BCH 1 bright
 FLEX H 0 A_Jump(64, "Spawn3")

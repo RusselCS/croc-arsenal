@@ -1,7 +1,7 @@
 //Yes, I know Sakugarne isn't a MMK weapon. But it fit here best. Okay? -Ivory
-actor SakugarneWep_NormalBar : NormalBar { args 138, 130 }
+actor CrocSakugarneWep_NormalBar : NormalBar { args 138, 130 }
 
-actor SakugarneWep : BaseMM8BDMWep 10075
+actor CrocSakugarneWep : BaseMM8BDMWep 10075
 {
 //$Category MM8BDM-Weapons/Close
 //$Title Sakugarne
@@ -12,7 +12,7 @@ Weapon.SlotNumber 4
 Inventory.Pickupmessage "$PU_SAKUGARNE"
 Obituary "$OB_SAKUGARNE"
 Tag "$TAG_SAKUGARNE"
-weapon.ammotype "SakugarneAmmo"
+weapon.ammotype "CrocSakugarneAmmo"
 inventory.icon "SAKUSI"
 States
 {
@@ -25,32 +25,32 @@ ReadyReal:
 SAKH A 1 A_WeaponReady
 Goto Ready+1
 Deselect:
-SAKH A 0 A_TakeInventory("SakugarneActive",1)
+SAKH A 0 A_TakeInventory("CrocSakugarneActive",1)
 goto DeselectSwap
 Select:
-SAKH A 0 A_TakeInventory("SakugarneActive",1)
+SAKH A 0 A_TakeInventory("CrocSakugarneActive",1)
 goto DeselectSwap
 Altfire:
-SAKH "#" 1 A_JumpIfInventory("SakugarneActive", 1, "Cancel")
+SAKH "#" 1 A_JumpIfInventory("CrocSakugarneActive", 1, "Cancel")
 SAKH "#" 1 A_Jump(256, "ReadyReal") 
 Goto ReadyReal
 Cancel:
 SAKH B 1 A_JumpIf(velz<0, "AirCancel")
-SAKH B 0 ThrustThingZ(0,0,0,0)//A_TakeInventory("SakugarneActive", 9999)
+SAKH B 0 ThrustThingZ(0,0,0,0)//A_TakeInventory("CrocSakugarneActive", 9999)
 Goto AirCancel
 //SAKH CBA 3
 Fire:
 SAKH A 0 A_JumpIfNoAmmo("NoAmmo")
 SAKH A 0 A_JumpIfInventory("PlayerPropertyNoGravity",1,"NoAmmo")
-SAKH A 0 A_JumpIfInventory("SakugarneActive",1,"AirReady")
+SAKH A 0 A_JumpIfInventory("CrocSakugarneActive",1,"AirReady")
 SAKH A 0 A_CheckFloor("FireStart")
 goto ReadyReal
 FireStart:
-SAKH A 0 A_GiveInventory("SakugarneActive",1)
+SAKH A 0 A_GiveInventory("CrocSakugarneActive",1)
 SAKH A 0 A_Stop
 SAKH A 0 A_PlaySoundEx("weapons/mmk/sakugarneactivate","Weapon")
-SAKH A 0 A_SpawnItemEx("SakugarneWarperStart")
-SAKH A 0 A_SpawnItemEx("SakugarneWarper")
+SAKH A 0 A_SpawnItemEx("CrocSakugarneWarperStart")
+SAKH A 0 A_SpawnItemEx("CrocSakugarneWarper")
 SAKH AB 4
 SAKH C 0 A_Stop
 SAKH C 0 A_ChangeVelocity(17,0,16, CVF_RELATIVE)
@@ -59,14 +59,14 @@ Goto Air
 Air:
 SAKH C 0 A_JumpIfInventory("PlayerPropertyNoGravity",1,"NoAmmo")
 SAKH C 0
-SAKH C 0 A_SpawnItemEx("SakugarneCrush",0,0,-10,0,0,-32)
+SAKH C 0 A_SpawnItemEx("CrocSakugarneCrush",0,0,-10,0,0,-32)
 SAKH C 0 ThrustThingZ(0,1,1,1)
 SAKH C 1 A_WeaponReady
 SAKH C 0 A_CheckFloor("Jump")
 loop
 AirReady:
 SAKH C 0 A_JumpIfInventory("PlayerPropertyNoGravity",1,"NoAmmo")
-SAKH C 0 A_SpawnItemEx("SakugarneCrush",0,0,-10,0,0,-32)
+SAKH C 0 A_SpawnItemEx("CrocSakugarneCrush",0,0,-10,0,0,-32)
 SAKH C 0
 SAKH C 0 ThrustThingZ(0,1,1,1)
 SAKH C 1
@@ -74,14 +74,14 @@ SAKH C 0 A_CheckFloor("Jump2")
 loop
 AirCancel:
 SAKH B 0 A_JumpIfInventory("PlayerPropertyNoGravity",1,"NoAmmo")
-SAKH B 0 A_SpawnItemEx("SakugarneCrush",0,0,-10,0,0,-32)
+SAKH B 0 A_SpawnItemEx("CrocSakugarneCrush",0,0,-10,0,0,-32)
 SAKH B 0
 SAKH B 0 ThrustThingZ(0,1,1,1)
 SAKH B 1
 SAKH B 0 A_CheckFloor("Jump")
 loop
 Jump:
-SAKH A 0 A_SpawnItemEx("SakugarneDriller",0,0,16)
+SAKH A 0 A_SpawnItemEx("CrocSakugarneDriller",0,0,16)
 SAKH A 0 A_JumpIfNoAmmo("NoAmmo")
 SAKH A 0 A_JumpIfInventory("PlayerPropertyNoGravity",1,"NoAmmo")
 SAKH A 0 A_PlaySoundEx("weapons/mmk/sakugarnebounce","Weapon")
@@ -94,7 +94,7 @@ SAKH A 0 A_ChangeVelocity(17,0,16, CVF_RELATIVE)
 SAKH C 5
 Goto Air
 Jump2:
-SAKH A 0 A_SpawnItemEx("SakugarneDriller",0,0,16)
+SAKH A 0 A_SpawnItemEx("CrocSakugarneDriller",0,0,16)
 SAKH A 0 A_JumpIfNoAmmo("NoAmmo")
 SAKH A 0 A_JumpIfInventory("PlayerPropertyNoGravity",1,"NoAmmo")
 SAKH A 0 A_PlaySoundEx("weapons/mmk/sakugarnebounce","Weapon")
@@ -107,22 +107,22 @@ SAKH A 0 A_ChangeVelocity(20,0,21, CVF_RELATIVE)
 SAKH C 5
 Goto Air
 NoAmmo:
-SAKH A 0 A_TakeInventory("SakugarneActive",1)
+SAKH A 0 A_TakeInventory("CrocSakugarneActive",1)
 SAKH "#" 1 ACS_NamedExecuteAlways("core_noammo",0)
 goto ReadyReal
 }
 }
 
-actor SakugarneAmmo : Ammo
+actor CrocSakugarneAmmo : Ammo
 {
 inventory.amount 1
 inventory.maxamount 28
 +INVENTORY.IGNORESKILL
 }
 
-actor SakugarneActive : Once {}
+actor CrocSakugarneActive : Once {}
 
-actor SakugarneWarperStart
+actor CrocSakugarneWarperStart
 {
 +NOINTERACTION
 +NOCLIP
@@ -138,13 +138,13 @@ States
 {
 Spawn:
 PLAY A 0
-PLAY A 0 A_TakeFromTarget("SakugarneAmmo",2,TIF_NOTAKEINFINITE)
-PLAY A 2 //A_SpawnItemEx("SakugarneWarper",0,0,0,0,0,0,0,SXF_TRANSFERPOINTERS)
+PLAY A 0 A_TakeFromTarget("CrocSakugarneAmmo",2,TIF_NOTAKEINFINITE)
+PLAY A 2 //A_SpawnItemEx("CrocSakugarneWarper",0,0,0,0,0,0,0,SXF_TRANSFERPOINTERS)
 stop
 }
 }
 
-actor SakugarneWarper : BasicShieldWarper
+actor CrocSakugarneWarper : BasicShieldWarper
 {
 	radius 2
 	height 2
@@ -154,31 +154,31 @@ actor SakugarneWarper : BasicShieldWarper
 		TNT1 A 0
 		TNT1 A 0 A_GiveInventory("MM8BDMProjSpawnFuncClient",1)
 		TNT1 A 0 ACS_NamedExecuteAlways("core_shieldwarper", 0, 1)
-		TNT1 AAAAA 0 A_SpawnItemEx("SakugarneDebris",0,0,0,random(1,5),random(-10,10),random(8,12),random(-5,5), SXF_WEPFXCOLOR)
+		TNT1 AAAAA 0 A_SpawnItemEx("CrocSakugarneDebris",0,0,0,random(1,5),random(-10,10),random(8,12),random(-5,5), SXF_WEPFXCOLOR)
 		SAKU DDDDDDDDDDDDDDD 1 A_Warp(AAPTR_TARGET, 22, 0, -36, 0, WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
 		
 		Goto Shield
 	ShieldCheck:
-		SAKU D 0 A_JumpIfInTargetInventory("SakugarneActive",1,"Shield")
+		SAKU D 0 A_JumpIfInTargetInventory("CrocSakugarneActive",1,"Shield")
 		Goto Disabled
 	Shield:
 		SAKU D 1 A_Warp(AAPTR_TARGET, 22, 0, -36, 0, WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
 		SAKU D 0 A_CheckFloor("Shield2")
 		goto ShieldCheck
 	ShieldCheck2:
-		SAKU C 0 A_JumpIfInTargetInventory("SakugarneActive",1,"Shield2")
+		SAKU C 0 A_JumpIfInTargetInventory("CrocSakugarneActive",1,"Shield2")
 		Goto Disabled
 	Shield2:
 		SAKU C 1 A_Warp(AAPTR_TARGET, 22, 0, -36, 0, WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
 		SAKU C 0 A_CheckFloor("ShieldCheck2")
 		Goto Shield
 	Disabled:
-		TNT1 A 1 A_JumpIfInTargetInventory("SakugarneActive",1,"Shield")
+		TNT1 A 1 A_JumpIfInTargetInventory("CrocSakugarneActive",1,"Shield")
 		stop//loop
 	}
 }
 
-actor SakugarneDebris : BasicGraphicEffect
+actor CrocSakugarneDebris : BasicGraphicEffect
 {
 -NOGRAVITY
 -NOINTERACTION
@@ -208,7 +208,7 @@ States
 }
 }
 
-actor SakugarneGiver : CustomInventory
+actor CrocSakugarneGiver : CustomInventory
 {
 //$Category MM8BDM-Weapons
 //$Title Sakugarne
@@ -222,8 +222,8 @@ Spawn:
 WEA2 Z 1
 loop
 Pickup:
-WEA2 Z 0 A_JumpIfInventory("SakugarneWep",1,"Failure")
-WEA2 Z 0 A_GiveInventory("SakugarneWep")
+WEA2 Z 0 A_JumpIfInventory("CrocSakugarneWep",1,"Failure")
+WEA2 Z 0 A_GiveInventory("CrocSakugarneWep")
 stop
 Failure:
 WEA2 Z 0
@@ -231,7 +231,7 @@ fail
 }
 }
 
-actor Sakugarne1 : BasicGraphicEffect
+actor CrocSakugarne1 : BasicGraphicEffect
 {
 +FORCEYBILLBOARD
 +NOTIMEFREEZE
@@ -243,7 +243,7 @@ stop
 }
 }
 
-actor Sakugarne2 : Sakugarne1
+actor CrocSakugarne2 : CrocSakugarne1
 {
 States
 {
@@ -253,7 +253,7 @@ stop
 }
 }
 
-actor SakugarneCrush : BasicProjectile
+actor CrocSakugarneCrush : BasicProjectile
 {
 damagetype "Sakugarne"
 Obituary "$OB_SAKUGARNE"
@@ -270,7 +270,7 @@ stop
 }
 }
 
-actor SakugarneDriller : BasicExplosion
+actor CrocSakugarneDriller : BasicExplosion
 {
 damagetype "Sakugarne"
 Obituary "$OB_SAKUGARNE"
@@ -278,10 +278,9 @@ States
 {
 Spawn:
 TNT1 A 0
-TNT1 AAAAA 0 A_SpawnItemEx("SakugarneDebris",0,0,-14,random(1,5),random(-10,10),random(8,12),random(-5,5), SXF_WEPFXCOLOR)
-TNT1 A 0 A_TakeFromTarget("SakugarneAmmo",2,TIF_NOTAKEINFINITE)
+TNT1 AAAAA 0 A_SpawnItemEx("CrocSakugarneDebris",0,0,-14,random(1,5),random(-10,10),random(8,12),random(-5,5), SXF_WEPFXCOLOR)
+TNT1 A 0 A_TakeFromTarget("CrocSakugarneAmmo",2,TIF_NOTAKEINFINITE)
 TNT1 A 4 A_Explode(80,144,0)
 stop
 }
 }
-

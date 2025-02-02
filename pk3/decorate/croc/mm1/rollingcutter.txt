@@ -1,6 +1,6 @@
-actor RollingCutterWep_NormalBar : NormalBar { args 4, 94 }
+actor CrocRollingCutterWep_NormalBar : NormalBar { args 4, 94 }
 
-actor RollingCutterWep : BaseMM8BDMWep 10056
+actor CrocRollingCutterWep : BaseMM8BDMWep 10056
 {
 //$Category MM8BDM-Weapons/Close
 //$Title Rolling Cutter
@@ -11,7 +11,7 @@ Weapon.SlotNumber 4
 Inventory.Pickupmessage "$PU_ROLLINGCUTTER"
 Obituary "$OB_ROLLINGCUTTER"
 Tag "$TAG_ROLLINGCUTTER"
-weapon.ammotype "RollingCutterAmmo"
+weapon.ammotype "CrocRollingCutterAmmo"
 inventory.icon "RCUTSI"
 States
 {
@@ -34,21 +34,21 @@ BUSH S 0
 goto DeselectSwap
 
 ReturnWait:
-TNT1 A 70 A_TakeInventory("RollingCutterFlag",1)
+TNT1 A 70 A_TakeInventory("CrocRollingCutterFlag",1)
 ReturnWaitEnd:
-TNT1 A 0 A_GiveInventory("RollingCutterFlag",1)
+TNT1 A 0 A_GiveInventory("CrocRollingCutterFlag",1)
 stop
 
 Fire:
 BUSH S 0 A_JumpIfNoAmmo("NoAmmo")
-BUSH T 0 A_GiveInventory("DespawnOldCutter",1)
+BUSH T 0 A_GiveInventory("CrocDespawnOldCutter",1)
 TNT1 A 0 A_GunFlash("ReturnWait")
-BUSH T 2 A_FireCustomMissile("RollingCutter",0,1,8,0)
-BUSH T 0 A_TakeInventory("DespawnOldCutter",1)
+BUSH T 2 A_FireCustomMissile("CrocRollingCutter",0,1,8,0)
+BUSH T 0 A_TakeInventory("CrocDespawnOldCutter",1)
 BUSH UVWXY 2
 Check:
 TNT1 A 1 A_RailWait
-TNT1 A 0 A_JumpIfInventory("RollingCutterFlag",1,"Return")
+TNT1 A 0 A_JumpIfInventory("CrocRollingCutterFlag",1,"Return")
 loop
 Return:
 TNT1 A 0 A_GunFlash("ReturnWaitEnd")
@@ -66,19 +66,19 @@ Goto ReadyNoAmmo
 }
 }
 
-actor RollingCutterAmmo : Ammo
+actor CrocRollingCutterAmmo : Ammo
 {
 inventory.amount 1
 inventory.maxamount 28
 +INVENTORY.IGNORESKILL
 }
 
-actor RollingCutterBase : BasicProjectile
+actor CrocRollingCutterBase : BasicProjectile
 {
 Radius 16
 Height 16
 damage (15)
-damagetype "RollingCutter"
+damagetype "CrocRollingCutter"
 Obituary "$OB_ROLLINGCUTTER"
 +DONTSPLASH
 +RIPPER
@@ -87,7 +87,7 @@ Args 22 //return speed
 var int user_TranslateWhiteColors;
 }
 
-actor RollingCutter : RollingCutterBase
+actor RollingCutter : CrocRollingCutterBase
 {
 +DOOMBOUNCE
 +SKYEXPLODE
@@ -104,7 +104,7 @@ RCUT A 0 A_PlaySound("weapons/mm1/rollingcutterfly")
 RCUT AAAABBBB 1 A_GiveInventory("BouncerReflectedCheck",1)
 SpawnEnd:
 TNT1 A 0 A_GiveInventory("BouncerReflectedCheck",1)
-TNT1 A 0 A_SpawnItemEx("ReturningCutterMaster")
+TNT1 A 0 A_SpawnItemEx("CrocReturningCutterMaster")
 stop
 Death:
 "----" A 4 A_PlaySound("misc/tink")
@@ -112,7 +112,7 @@ goto SpawnEnd
 }
 }
 
-actor ReturningCutterMaster : RollingCutterBase
+actor CrocReturningCutterMaster : CrocRollingCutterBase
 {
 +NOCLIP
 +NOINTERACTION
@@ -121,13 +121,13 @@ states
 {
 Spawn:
 TNT1 A 0
-TNT1 A 0 A_SpawnItemEx("ReturningCutter",0,0,0,0,0,0,0,0,0,CallACS("core_NewUniqueTID"))
+TNT1 A 0 A_SpawnItemEx("CrocReturningCutter",0,0,0,0,0,0,0,0,0,CallACS("core_NewUniqueTID"))
 TNT1 A 0 ACS_NamedExecuteWithResult("core_setTIDsPointerToThis",CallACS("core_CurrentUniqueTID"),AAPTR_MASTER)
 TNT1 A 0 ACS_NamedExecuteWithResult("core_ClearUniqueTID",0)
-RCUT CCCCDDDD 1 A_GiveInventory("ReturningCutterMasterFunc",1)
+RCUT CCCCDDDD 1 A_GiveInventory("CrocReturningCutterMasterFunc",1)
 SpawnLoop:
 RCUT A 0 A_PlaySound("weapons/mm1/rollingcutterfly")
-RCUT AAAABBBBCCCCDDDD 1 A_GiveInventory("ReturningCutterMasterFunc",1)
+RCUT AAAABBBBCCCCDDDD 1 A_GiveInventory("CrocReturningCutterMasterFunc",1)
 loop
 Death:
 TNT1 A 0 A_RemoveChildren(true)
@@ -135,7 +135,7 @@ stop
 }
 }
 
-actor ReturningCutterMasterFunc : CustomInventory
+actor CrocReturningCutterMasterFunc : CustomInventory
 {
 states
 {
@@ -150,7 +150,7 @@ stop
 }
 }
 
-actor ReturningCutter : RollingCutterBase
+actor CrocReturningCutter : CrocRollingCutterBase
 {
 +INVISIBLE
 var int user_NoTranslation;
@@ -159,15 +159,15 @@ states
 Spawn:
 TNT1 A 0
 Spawn2:
-BUST A 1 A_GiveInventory("ReturningCutterFunc",1)
+BUST A 1 A_GiveInventory("CrocReturningCutterFunc",1)
 loop
 Death:
-TNT1 A 0 A_SpawnItemEx("ReturningCutter2",0,0,0,0,0,0,0,SXF_TRANSFERPOINTERS)
+TNT1 A 0 A_SpawnItemEx("CrocReturningCutter2",0,0,0,0,0,0,0,SXF_TRANSFERPOINTERS)
 stop
 }
 }
 
-actor ReturningCutter2 : ReturningCutter
+actor CrocReturningCutter2 : ReturningCutter
 {
 +NOCLIP
 +NOINTERACTION
@@ -176,8 +176,8 @@ states
 Spawn:
 TNT1 A 0
 Spawn2:
-BUST A 1 A_GiveInventory("ReturningCutterFunc",1)
-TNT1 A 0 A_SpawnItemEx("ReturningCutter",0,0,0,0,0,0,0,SXF_TRANSFERPOINTERS)
+BUST A 1 A_GiveInventory("CrocReturningCutterFunc",1)
+TNT1 A 0 A_SpawnItemEx("CrocReturningCutter",0,0,0,0,0,0,0,SXF_TRANSFERPOINTERS)
 stop
 Death:
 TNT1 A 0
@@ -185,7 +185,7 @@ stop
 }
 }
 
-actor ReturningCutterFunc : CustomInventory
+actor CrocReturningCutterFunc : CustomInventory
 {
 states
 {
@@ -197,22 +197,22 @@ TNT1 A 0 A_RemoveMaster
 TNT1 A 0 Thing_Remove(0)
 stop
 Pickup2:
-TNT1 A 0 A_JumpIfInTargetInventory("DespawnOldCutter",1,"RemoveThis")
+TNT1 A 0 A_JumpIfInTargetInventory("CrocDespawnOldCutter",1,"RemoveThis")
 TNT1 A 0 A_JumpIfCloser(60,"Returned")
 TNT1 A 0 A_GiveInventory("HeadTowardsTarget_Arg0",1)
 TNT1 A 0 A_GiveInventory("WarpMasterHere",1)
 stop
 Returned:
-TNT1 A 0 A_GiveToTarget("RollingCutterFlag",1)
+TNT1 A 0 A_GiveToTarget("CrocRollingCutterFlag",1)
 goto RemoveThis
 }
 }
 
-actor RollingCutterFlag : Once {}
-actor DespawnOldCutter : Once {}
+actor CrocRollingCutterFlag : Once {}
+actor CrocDespawnOldCutter : Once {}
 
 //Legacy
-actor CutterFlag : Inventory
+actor CrocCutterFlag : Inventory
 {
 inventory.amount 1
 inventory.maxamount 999

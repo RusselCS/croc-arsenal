@@ -1,6 +1,6 @@
-actor TornadoBlowWep_NormalBar : NormalBar { args 4, 109 }
+actor CrocTornadoBlowWep_NormalBar : NormalBar { args 4, 109 }
 
-actor TornadoBlowWep : BaseMM8BDMWep 10023
+actor CrocTornadoBlowWep : BaseMM8BDMWep 10023
 {
 //$Category MM8BDM-Weapons/AoE
 //$Title Tornado Blow
@@ -11,7 +11,7 @@ Weapon.SlotNumber 6
 Obituary "$OB_TORNADOBLOW"
 Tag "$TAG_TORNADOBLOW"
 Inventory.Pickupmessage "$PU_TORNADOBLOW"
-weapon.ammotype "TornadoBlowAmmo"
+weapon.ammotype "CrocTornadoBlowAmmo"
 inventory.icon "TORNADBI"
 States
 {
@@ -33,42 +33,42 @@ TBLH B 0 A_JumpIfNoAmmo("NoAmmo")
 TBLH B 2
 TBLH A 0 A_PlaySoundEx("weapon/tornadoblow","Weapon")
 TBLH A 0 //A_GunFlash // TIME ASS
-TBLH A 0 A_TakeInventory("TornadoBlowAmmo", 7, TIF_NOTAKEINFINITE)
-TBLH A 0 A_GiveInventory("FireTornadoBlow1", 1)
-TBLH A 0 A_SpawnItemEx("TornadoDamager")
-TBLH C 1 A_GiveInventory("TornadoBlowThrust",1)
+TBLH A 0 A_TakeInventory("CrocTornadoBlowAmmo", 7, TIF_NOTAKEINFINITE)
+TBLH A 0 A_GiveInventory("CrocFireTornadoBlow1", 1)
+TBLH A 0 A_SpawnItemEx("CrocTornadoDamager")
+TBLH C 1 A_GiveInventory("CrocTornadoBlowThrust",1)
 TBLH CD 1
-TBLH A 0 A_GiveInventory("FireTornadoBlow2", 1)
-TBLH A 0 A_SpawnItemEx("TornadoDamager")
-TBLH D 1 A_GiveInventory("TornadoBlowThrust",1)
+TBLH A 0 A_GiveInventory("CrocFireTornadoBlow2", 1)
+TBLH A 0 A_SpawnItemEx("CrocTornadoDamager")
+TBLH D 1 A_GiveInventory("CrocTornadoBlowThrust",1)
 TBLH EE 1 
-TBLH A 0 A_GiveInventory("FireTornadoBlow3", 1)
-TBLH A 0 A_SpawnItemEx("TornadoDamager")
-TBLH F 1 A_GiveInventory("TornadoBlowThrust",1)
+TBLH A 0 A_GiveInventory("CrocFireTornadoBlow3", 1)
+TBLH A 0 A_SpawnItemEx("CrocTornadoDamager")
+TBLH F 1 A_GiveInventory("CrocTornadoBlowThrust",1)
 TBLH F 1
 TNT1 A 1
-TBLH A 0 A_GiveInventory("FireTornadoBlow4", 1)
-TBLH A 0 A_SpawnItemEx("TornadoDamager")
-TNT1 AA 1 A_GiveInventory("TornadoBlowThrust",1)
-TNT1 AAAAA 3 A_GiveInventory("TornadoBlowThrust",1)
+TBLH A 0 A_GiveInventory("CrocFireTornadoBlow4", 1)
+TBLH A 0 A_SpawnItemEx("CrocTornadoDamager")
+TNT1 AA 1 A_GiveInventory("CrocTornadoBlowThrust",1)
+TNT1 AAAAA 3 A_GiveInventory("CrocTornadoBlowThrust",1)
 TNT1 A 32
 TBLH GH 1
 TBLH F 0 A_Refire
 Goto Ready+1
 // Flash: // Old stuff
-// TNT1 A 0 A_SpawnItemEx("TornadoBlow",100,100,0)
-// TNT1 A 0 A_SpawnItemEx("TornadoDamager")
-// TNT1 A 3 A_GiveInventory("TornadoBlowThrust",1)
-// TNT1 A 0 A_SpawnItemEx("TornadoBlow",-100,100,0)
-// TNT1 A 0 A_SpawnItemEx("TornadoDamager")
-// TNT1 A 3 A_GiveInventory("TornadoBlowThrust",1)
-// TNT1 A 0 A_SpawnItemEx("TornadoBlow",-100,-100,0)
-// TNT1 A 0 A_SpawnItemEx("TornadoDamager")
-// TNT1 A 3 A_GiveInventory("TornadoBlowThrust",1)
-// TNT1 A 0 A_SpawnItemEx("TornadoBlow",100,-100,0)
-// TNT1 A 0 A_SpawnItemEx("TornadoDamager")
-// TNT1 A 3 A_GiveInventory("TornadoBlowThrust",1)
-// TNT1 AAAAAA 3 A_GiveInventory("TornadoBlowThrust",1)
+// TNT1 A 0 A_SpawnItemEx("CrocTornadoBlow",100,100,0)
+// TNT1 A 0 A_SpawnItemEx("CrocTornadoDamager")
+// TNT1 A 3 A_GiveInventory("CrocTornadoBlowThrust",1)
+// TNT1 A 0 A_SpawnItemEx("CrocTornadoBlow",-100,100,0)
+// TNT1 A 0 A_SpawnItemEx("CrocTornadoDamager")
+// TNT1 A 3 A_GiveInventory("CrocTornadoBlowThrust",1)
+// TNT1 A 0 A_SpawnItemEx("CrocTornadoBlow",-100,-100,0)
+// TNT1 A 0 A_SpawnItemEx("CrocTornadoDamager")
+// TNT1 A 3 A_GiveInventory("CrocTornadoBlowThrust",1)
+// TNT1 A 0 A_SpawnItemEx("CrocTornadoBlow",100,-100,0)
+// TNT1 A 0 A_SpawnItemEx("CrocTornadoDamager")
+// TNT1 A 3 A_GiveInventory("CrocTornadoBlowThrust",1)
+// TNT1 AAAAAA 3 A_GiveInventory("CrocTornadoBlowThrust",1)
 // stop
 NoAmmo:
 TBLH A 1 ACS_NamedExecuteAlways("core_noammo",0)
@@ -76,80 +76,80 @@ Goto Ready+1
 }
 }
 
-actor TornadoBlowAmmo : Ammo
+actor CrocTornadoBlowAmmo : Ammo
 {
 inventory.amount 7
 inventory.maxamount 28
 +INVENTORY.IGNORESKILL
 }
 
-actor FireTornadoBlow1 : CustomInventory
+actor CrocFireTornadoBlow1 : CustomInventory
 {
     States
     {
     Pickup:
-        TNT1 A 0 A_SpawnItemEx("TornadoBlow",100,100,0)
+        TNT1 A 0 A_SpawnItemEx("CrocTornadoBlow",100,100,0)
         TNT1 A 0 A_JumpIfInventory("PowerSpreadRune", 1, "PickupSpread")
         stop
     PickupSpread:
-        TNT1 A 0 A_SpawnItemEx("TornadoBlow",-100,0,0,0,0,0,45+15)
-        TNT1 A 0 A_SpawnItemEx("TornadoBlow",-100,0,0,0,0,0,45-15)
+        TNT1 A 0 A_SpawnItemEx("CrocTornadoBlow",-100,0,0,0,0,0,45+15)
+        TNT1 A 0 A_SpawnItemEx("CrocTornadoBlow",-100,0,0,0,0,0,45-15)
         stop
     }
 }
 
-actor FireTornadoBlow2 : CustomInventory
+actor CrocFireTornadoBlow2 : CustomInventory
 {
     States
     {
     Pickup:
-        TNT1 A 0 A_SpawnItemEx("TornadoBlow",-100,100,0)
+        TNT1 A 0 A_SpawnItemEx("CrocTornadoBlow",-100,100,0)
         TNT1 A 0 A_JumpIfInventory("PowerSpreadRune", 1, "PickupSpread")
         stop
     PickupSpread:
-        TNT1 A 0 A_SpawnItemEx("TornadoBlow",-100,0,0,0,0,0,-45+15)
-        TNT1 A 0 A_SpawnItemEx("TornadoBlow",-100,0,0,0,0,0,-45-15)
+        TNT1 A 0 A_SpawnItemEx("CrocTornadoBlow",-100,0,0,0,0,0,-45+15)
+        TNT1 A 0 A_SpawnItemEx("CrocTornadoBlow",-100,0,0,0,0,0,-45-15)
         stop
     }
 }
 
-actor FireTornadoBlow3 : CustomInventory
+actor CrocFireTornadoBlow3 : CustomInventory
 {
     States
     {
     Pickup:
-        TNT1 A 0 A_SpawnItemEx("TornadoBlow",-100,-100,0)
+        TNT1 A 0 A_SpawnItemEx("CrocTornadoBlow",-100,-100,0)
         TNT1 A 0 A_JumpIfInventory("PowerSpreadRune", 1, "PickupSpread")
         stop
     PickupSpread:
-        TNT1 A 0 A_SpawnItemEx("TornadoBlow",-100,0,0,0,0,0,-45+15+180)
-        TNT1 A 0 A_SpawnItemEx("TornadoBlow",-100,0,0,0,0,0,-45-15+180)
+        TNT1 A 0 A_SpawnItemEx("CrocTornadoBlow",-100,0,0,0,0,0,-45+15+180)
+        TNT1 A 0 A_SpawnItemEx("CrocTornadoBlow",-100,0,0,0,0,0,-45-15+180)
         stop
     }
 }
 
-actor FireTornadoBlow4 : CustomInventory
+actor CrocFireTornadoBlow4 : CustomInventory
 {
     States
     {
     Pickup:
-        TNT1 A 0 A_SpawnItemEx("TornadoBlow",100,-100,0)
+        TNT1 A 0 A_SpawnItemEx("CrocTornadoBlow",100,-100,0)
         TNT1 A 0 A_JumpIfInventory("PowerSpreadRune", 1, "PickupSpread")
         stop
     PickupSpread:
-        TNT1 A 0 A_SpawnItemEx("TornadoBlow",-100,0,0,0,0,0,45+15+180)
-        TNT1 A 0 A_SpawnItemEx("TornadoBlow",-100,0,0,0,0,0,45-15+180)
+        TNT1 A 0 A_SpawnItemEx("CrocTornadoBlow",-100,0,0,0,0,0,45+15+180)
+        TNT1 A 0 A_SpawnItemEx("CrocTornadoBlow",-100,0,0,0,0,0,45-15+180)
         stop
     }
 }
 
-actor TornadoBlow : BasicProjectile
+actor CrocTornadoBlow : BasicProjectile
 {
 +DONTBLAST
 +NOINTERACTION
 +DONTREFLECT
 Obituary "$OB_TORNADOBLOW"
-damagetype "TornadoBlow"
+damagetype "CrocTornadoBlow"
 damage (0)
 radius 1
 height 1
@@ -158,34 +158,34 @@ States
 Spawn:
 TBLO B 0
 TBLO B 0 ThrustThingZ(0,5,0,0)
-TBLO B 0 A_SpawnItemEx("TornadoDamager")
+TBLO B 0 A_SpawnItemEx("CrocTornadoDamager")
 TBLO BC 2
 TBLO B 0 ThrustThingZ(0,10,0,1)
 TBLO DE 2 
 TBLO B 0 ThrustThingZ(0,10,0,1)
-TBLO B 0 A_SpawnItemEx("TornadoDamager")
+TBLO B 0 A_SpawnItemEx("CrocTornadoDamager")
 TBLO BC 2
 TBLO B 0 ThrustThingZ(0,15,0,1)
 TBLO DE 2
 TBLO B 0 ThrustThingZ(0,15,0,1)
 TBLO BCDE 2
-TBLO B 0 A_SpawnItemEx("TornadoDamager")
+TBLO B 0 A_SpawnItemEx("CrocTornadoDamager")
 TBLO BCDE 2
-TBLO B 0 A_SpawnItemEx("TornadoDamager")
+TBLO B 0 A_SpawnItemEx("CrocTornadoDamager")
 TBLO BCDE 2
-TBLO B 0 A_SpawnItemEx("TornadoDamager")
+TBLO B 0 A_SpawnItemEx("CrocTornadoDamager")
 TBLO BCDE 2
-TBLO B 0 A_SpawnItemEx("TornadoDamager")
+TBLO B 0 A_SpawnItemEx("CrocTornadoDamager")
 TBLO BCDE 2
-TBLO B 0 A_SpawnItemEx("TornadoDamager")
+TBLO B 0 A_SpawnItemEx("CrocTornadoDamager")
 stop
 }
 }
 
-actor TornadoDamager : BasicExplosion
+actor CrocTornadoDamager : BasicExplosion
 {
 Obituary "$OB_TORNADOBLOW"
-damagetype "TornadoBlow"
+damagetype "CrocTornadoBlow"
 States
 {
 Spawn:
@@ -195,7 +195,7 @@ stop
 }
 }
 
-actor TornadoBlowThrust : CustomInventory
+actor CrocTornadoBlowThrust : CustomInventory
 {
 States
 {

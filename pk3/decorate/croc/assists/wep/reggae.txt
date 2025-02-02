@@ -1,8 +1,8 @@
-// Reggae
-actor ReggaeCall : BaseMM8BDMUseItem 10009
+// CrocReggae
+actor CrocReggaeCall : BaseMM8BDMUseItem 10009
 {
 //$Category MM8BDM-Assists/Weapon
-//$Title Reggae Call
+//$Title CrocReggae Call
 //$Sprite WEA9Z0
 inventory.amount 1
 inventory.maxamount 1
@@ -20,7 +20,7 @@ WEA9 Z -1
 loop
 Use:
 TNT1 A 0 A_PlaySoundEx("item/refill","Voice")
-TNT1 A 0 A_SpawnItemEx("ReggaeTeleport", 80, 0, 256, 0, 0, -24, 0, SXF_NOCHECKPOSITION, 0)
+TNT1 A 0 A_SpawnItemEx("CrocReggaeTeleport", 80, 0, 256, 0, 0, -24, 0, SXF_NOCHECKPOSITION, 0)
 stop
 Nope:
 TNT1 A 0 
@@ -28,12 +28,12 @@ Fail
 }
 }
 
-actor ReggaeCall_Respawn : 8BDMItemRespawn
+actor CrocReggaeCall_Respawn : 8BDMItemRespawn
 {
 	translation "192:192=216:216", "198:198=0:0"
 	mass 1050
 }
-actor ReggaeCall_RespawnShadow : 8BDMItemRespawnShadow
+actor CrocReggaeCall_RespawnShadow : 8BDMItemRespawnShadow
 {
 	mass 1050
 	States
@@ -44,7 +44,7 @@ actor ReggaeCall_RespawnShadow : 8BDMItemRespawnShadow
 	}
 }
 
-actor ReggaeTeleport : BasicProjectile
+actor CrocReggaeTeleport : BasicProjectile
 {
 +RIPPER
 +NOINTERACTION
@@ -66,12 +66,12 @@ TNT1 A 0 A_ChangeFlag("NOINTERACTION", 1)
 TNT1 A 0 A_Stop//A_ChangeFlag("NOINTERACTION", 0)
 Goto Death
 Death:
-TNT1 A 1 A_SpawnItemEx("Reggae",0,0,3,0,0,momz,0,SXF_NOCHECKPOSITION,0)
+TNT1 A 1 A_SpawnItemEx("CrocReggae",0,0,3,0,0,momz,0,SXF_NOCHECKPOSITION,0)
 stop
 }
 }
 
-actor Reggae : ProjSpawnFuncActor
+actor CrocReggae : ProjSpawnFuncActor
 {
 +NOINTERACTION
 -SOLID
@@ -121,18 +121,18 @@ REGG B 1 A_ChangeVelocity(9.5, 0.0, 0.0, CVF_REPLACE|CVF_RELATIVE)
 Presents:
 TNT1 A 0 A_ChangeFlag("MISSILE",1)
 REGG B 0 A_PlaySoundex("assists/reggaecandrop", "Voice", 0, 0)
-REGG B 0 A_SpawnItemEx("ReggaeCan", 0, 0, random(3,18), 8, 0, 8, random(0,360))
+REGG B 0 A_SpawnItemEx("CrocReggaeCan", 0, 0, random(3,18), 8, 0, 8, random(0,360))
 REGG BBBCCCDDDCCC 1
-REGG A 0 A_GiveInventory("CutterFlag",1)
-REGG A 0 A_JumpIfInventory("CutterFlag",15,"Death")
+REGG A 0 A_GiveInventory("CrocCutterFlag",1)
+REGG A 0 A_JumpIfInventory("CrocCutterFlag",15,"Death")
 loop
 Death:
-REGG F 0 A_SpawnItemEx("ReggaeDeath",0,0,1,0,0,0,0,SXF_NOCHECKPOSITION|SXF_WEPFXCOLOR)
+REGG F 0 A_SpawnItemEx("CrocReggaeDeath",0,0,1,0,0,0,0,SXF_NOCHECKPOSITION|SXF_WEPFXCOLOR)
 stop
 }
 }
 
-actor ReggaeCan : BasicProjectile
+actor CrocReggaeCan : BasicProjectile
 {
 +SKYEXPLODE
 +DONTSPLASH
@@ -141,7 +141,7 @@ Damage (33)
 scale 2.0
 -NOGRAVITY
 +DOOMBOUNCE
-DamageType "Reggae"
+DamageType "CrocReggae"
 Obituary "$OB_REGGAE"
 wallbouncefactor 0.0
 bouncefactor 0.0
@@ -155,8 +155,8 @@ TNT1 A 0
 TNT1 A 0 ACS_NamedExecuteWithResult("core_reggaetid", 999)
 TNT1 A 1
 Mine:
-EBAL E 4 A_JumpIfInventory("CutterFlag", 95, "Exit")
-REGG H 4 A_GiveInventory("CutterFlag",1)
+EBAL E 4 A_JumpIfInventory("CrocCutterFlag", 95, "Exit")
+REGG H 4 A_GiveInventory("CrocCutterFlag",1)
 loop
 Death:
 TNT1 A 0 A_SpawnItemEx("ExplosionEffect2", 0, 0, 32)
@@ -168,27 +168,27 @@ stop
 }
 }
 
-actor ReggaeBanish : CustomInventory 
+actor CrocReggaeBanish : CustomInventory 
 {
 inventory.amount 1
 inventory.maxamount 1
 states
 {
 Pickup:
-TNT1 A 0 A_GiveInventory("ReggaeBanishTeleporter")
+TNT1 A 0 A_GiveInventory("CrocReggaeBanishTeleporter")
 TNT1 A 0 A_StopSoundEx("Weapon")
 stop
 }
 }
 
-actor ReggaeBanishTeleporter : ArtiTeleport 
+actor CrocReggaeBanishTeleporter : ArtiTeleport 
 {
 inventory.amount 1
 inventory.maxamount 1
 +INVENTORY.AUTOACTIVATE
 }
 
-actor ReggaeDeath : BasicProjectile
+actor CrocReggaeDeath : BasicProjectile
 {
 +RIPPER
 +BLOODLESSIMPACT

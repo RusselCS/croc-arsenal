@@ -1,7 +1,7 @@
-actor SparkShockWep_NormalBar : NormalBar { args 4, 225 }
-actor SparkShockWep_ScriptBar : ScriptBar {}
+actor CrocSparkShockWep_NormalBar : NormalBar { args 4, 225 }
+actor CrocSparkShockWep_ScriptBar : ScriptBar {}
 
-actor SparkShockWep : BaseMM8BDMWep 10057
+actor CrocSparkShockWep : BaseMM8BDMWep 10057
 {
 //$Category MM8BDM-Weapons/Ranged
 //$Title Spark Shock
@@ -12,7 +12,7 @@ Weapon.SlotNumber 2
 Inventory.Pickupmessage "$PU_SPARKSHOCK"
 Obituary "$OB_SPARKSHOCK"
 Tag "$TAG_SPARKSHOCK"
-weapon.ammotype "SparkShockAmmo"
+weapon.ammotype "CrocSparkShockAmmo"
 inventory.icon "SPARSI"
 States
 {
@@ -21,7 +21,7 @@ WEA2 G -1
 loop
 Ready:
 SPAS C 0 ACS_NamedExecuteWithResult("core_weaponcolor",CLR_SPARKSHOCK)
-SPAS C 0 A_JumpIfInventory("SparkShockCooldownFlag",1,"ReadyCooldown")
+SPAS C 0 A_JumpIfInventory("CrocSparkShockCooldownFlag",1,"ReadyCooldown")
 SPAS C 1 A_WeaponReady
 Goto Ready+1
 ReadyCooldown:
@@ -36,10 +36,10 @@ goto SelectSwap
 Fire:
 SPAS C 0 A_JumpIfNoAmmo("NoAmmo")
 SPAS C 0 A_PlaySoundEx("weapons/mm3/sparkshockfire","Weapon")
-SPAS C 0 A_FireCustomMissile("SparkShock",0,1,8,0)
+SPAS C 0 A_FireCustomMissile("CrocSparkShock",0,1,8,0)
 SPAS ED 2
-SPAS D 0 A_GiveInventory("SparkShockCooldownFlag",1)
-SPAS D 0 A_SpawnItemEx("SparkShockCooldowner")
+SPAS D 0 A_GiveInventory("CrocSparkShockCooldownFlag",1)
+SPAS D 0 A_SpawnItemEx("CrocSparkShockCooldowner")
 SPAS DDDDDDDD 1 A_WeaponReady(WRF_NOFIRE)
 Goto Ready+1
 NoAmmo:
@@ -48,9 +48,9 @@ Goto Ready+1
 }
 }
 
-actor SparkShockCooldownFlag : Once {}
+actor CrocSparkShockCooldownFlag : Once {}
 
-actor SparkShockCooldowner : BasicCooldowner
+actor CrocSparkShockCooldowner : BasicCooldowner
 {
 reactiontime 24
 States
@@ -58,32 +58,32 @@ States
 Spawn:
 TNT1 A 0
 Spawn2:
-TNT1 A 1 A_GiveInventory("SparkShockCooldownerFunc",1)
+TNT1 A 1 A_GiveInventory("CrocSparkShockCooldownerFunc",1)
 loop
 Death:
-TNT1 A 0 A_TakeFromTarget("SparkShockCooldownFlag",1)
+TNT1 A 0 A_TakeFromTarget("CrocSparkShockCooldownFlag",1)
 stop
 }
 }
 
-actor SparkShockCooldownerFunc : BasicCooldownerFunc
+actor CrocSparkShockCooldownerFunc : BasicCooldownerFunc
 {
 States
 {
 Pickup:
-TNT1 A 0 A_JumpIfInTargetInventory("SparkShockCooldownFlag",1,"PickupBasic")
+TNT1 A 0 A_JumpIfInTargetInventory("CrocSparkShockCooldownFlag",1,"PickupBasic")
 goto PickupRemove
 }
 }
 
-actor SparkShockAmmo : Ammo
+actor CrocSparkShockAmmo : Ammo
 {
 inventory.amount 1
 inventory.maxamount 28
 +INVENTORY.IGNORESKILL
 }
 
-actor SparkShock : BasicProjectile
+actor CrocSparkShock : BasicProjectile
 {
 +FORCEXYBILLBOARD
 +BRIGHT
@@ -92,7 +92,7 @@ Height 6
 scale 2.5
 damage (1)
 speed 45
-damagetype "SparkShock"
+damagetype "CrocSparkShock"
 Obituary "$OB_SPARKSHOCK"
 States
 {
@@ -100,16 +100,16 @@ Spawn:
 SPAS AB 4
 loop
 Crash:
-SPAS A 0 A_SpawnItemEx("SparkShockExplode")
+SPAS A 0 A_SpawnItemEx("CrocSparkShockExplode")
 Death:
 SPAS A 0 A_SpawnItemEx("ElectrifyEffect")
 stop
 }
 }
 
-actor SparkShockExplode : BasicExplosion
+actor CrocSparkShockExplode : BasicExplosion
 {
-    damagetype "SparkShock"
+    damagetype "CrocSparkShock"
     Obituary "$OB_SPARKSHOCK"
     scale 3.6
     States
@@ -122,7 +122,7 @@ actor SparkShockExplode : BasicExplosion
     }
 }
 
-actor ShockFX : BasicGraphicEffect
+actor CrocShockFX : BasicGraphicEffect
 {
 +BRIGHT
 States
@@ -134,7 +134,7 @@ stop
 }
 }
 
-actor SparkShockFX : ShockFX
+actor CrocSparkShockFX : ShockFX
 {
     States
     {

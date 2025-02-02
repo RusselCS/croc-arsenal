@@ -1,7 +1,7 @@
-actor TimeSlowWep_NormalBar : NormalBar { args 34, 239 }
-actor TimeSlowWep_ScriptBar : ScriptBar {}
+actor CrocTimeSlowWep_NormalBar : NormalBar { args 34, 239 }
+actor CrocTimeSlowWep_ScriptBar : ScriptBar {}
 
-actor TimeSlowWep : BaseMM8BDMWep 11010
+actor CrocTimeSlowWep : BaseMM8BDMWep 11010
 {
 //$Category MM8BDM-Weapons/AoE
 //$Title Time Slow
@@ -12,7 +12,7 @@ Weapon.SlotNumber 6
 Inventory.Pickupmessage "$PU_TIMESLOW"
 Obituary "$OB_TIMESLOW"
 Tag "$TAG_TIMESLOW"
-weapon.ammotype "TimeSlowAmmo"
+weapon.ammotype "CrocTimeSlowAmmo"
 Inventory.Icon "TIMMI2"
 States
 {
@@ -31,22 +31,22 @@ TSLO A 0
 goto SelectSwap
 Fire:
 TSLO A 0 
-TSLO A 0 A_JumpIfInventory("PowerTime",1,"Ready")
+TSLO A 0 A_JumpIfInventory("CrocPowerTime",1,"Ready")
 goto Fire1
 Fire1:
-TSLO A 0 A_JumpIfInventory("TimeSlowAmmo", 14, "Fire2")
+TSLO A 0 A_JumpIfInventory("CrocTimeSlowAmmo", 14, "Fire2")
 Goto NoAmmo
 Fire2:
 //With Hand
 TSLO A 0 A_JumpIfNoAmmo("NoAmmo")
-TSLO A 0 A_JumpIfInventory("TimeSlowCooldown", 1, "NoAmmo")
+TSLO A 0 A_JumpIfInventory("CrocTimeSlowCooldown", 1, "NoAmmo")
 TSLO A 0 A_ScaleVelocity(0.5)
 SLOT JKLMN 2
 TNT1 A 0 A_PlaySoundEx("weapons/mm1/timeslowfire","Weapon")
 TNT1 A 0 ACS_NamedExecuteAlways("core_whiteflash",0)
-TNT1 A 0 A_FireCustomMissile("TimeSlow",0,1,8,0)
-TNT1 A 0 A_GiveInventory("TimeSlowCooldown", 1)
-TNT1 A 0 A_SpawnItemEx("TimeSlowCooldowner")
+TNT1 A 0 A_FireCustomMissile("CrocTimeSlow",0,1,8,0)
+TNT1 A 0 A_GiveInventory("CrocTimeSlowCooldown", 1)
+TNT1 A 0 A_SpawnItemEx("CrocTimeSlowCooldowner")
 //SLOT LMN 3
 TNT1 A 2
 TSLO BC 1
@@ -61,9 +61,9 @@ Goto Ready+1
 }
 }
 
-actor TimeSlowCooldown : Once {}
+actor CrocTimeSlowCooldown : Once {}
 
-actor TimeSlowCooldowner : BasicCooldowner
+actor CrocTimeSlowCooldowner : BasicCooldowner
 {
 reactiontime 35
 States
@@ -71,34 +71,34 @@ States
 Spawn:
 TNT1 A 0
 Spawn2:
-TNT1 A 1 A_GiveInventory("TimeSlowCooldownerFunc",1)
+TNT1 A 1 A_GiveInventory("CrocTimeSlowCooldownerFunc",1)
 loop
 Death:
-TNT1 A 0 A_TakeFromTarget("TimeSlowCooldown",1)
+TNT1 A 0 A_TakeFromTarget("CrocTimeSlowCooldown",1)
 stop
 }
 }
 
-actor TimeSlowCooldownerFunc : BasicCooldownerFunc
+actor CrocTimeSlowCooldownerFunc : BasicCooldownerFunc
 {
 States
 {
 Pickup:
-TNT1 A 0 A_JumpIfInTargetInventory("TimeSlowCooldown",1,"PickupBasic")
+TNT1 A 0 A_JumpIfInTargetInventory("CrocTimeSlowCooldown",1,"PickupBasic")
 goto PickupRemove
 }
 }
 
-actor TimeSlowAmmo : Ammo
+actor CrocTimeSlowAmmo : Ammo
 {
 inventory.amount 1
 inventory.maxamount 28
 +INVENTORY.IGNORESKILL
 }
 
-actor TimeSlow : BasicExplosion
+actor CrocTimeSlow : BasicExplosion
 {
-damagetype "TimeSlow"
+damagetype "CrocTimeSlow"
 Obituary "$OB_TIMESLOW"
 Scale 5.16
 +FORCEXYBILLBOARD
@@ -112,12 +112,12 @@ stop
 }
 }
 
-actor TimeCoolDown : PowerupGiver
+actor CrocTimeCoolDown : PowerupGiver
 {
 inventory.maxamount 0
 powerup.duration 245
 powerup.color "00 00 00", 0.0
-powerup.type "PowerTime"
+powerup.type "CrocPowerTime"
 +INVENTORY.AUTOACTIVATE
 +INVENTORY.ALWAYSPICKUP
 states
@@ -129,32 +129,32 @@ stop
 }
 
 
-actor PowerTime : PowerUp
+actor CrocPowerTime : PowerUp
 {
 Inventory.Icon "TIMICON"
 Speed 1.0
 }
 
-actor Slowed : CustomInventory
+actor CrocSlowed : CustomInventory
 {
 +INVENTORY.AUTOACTIVATE
 -INVBAR
 States
 {
 Use:
-TNT1 A 0 A_JumpIfInventory("PowerSlow", 1, 2)
-TNT1 A 0 A_SpawnItemEx("TimeSlowWatcher")
-TNT1 A 0 A_GiveInventory("SlowedPower", 1)
-TNT1 A 0 A_GiveInventory("PowerSlowFade", 1)
+TNT1 A 0 A_JumpIfInventory("CrocPowerSlow", 1, 2)
+TNT1 A 0 A_SpawnItemEx("CrocTimeSlowWatcher")
+TNT1 A 0 A_GiveInventory("CrocSlowedPower", 1)
+TNT1 A 0 A_GiveInventory("CrocPowerSlowFade", 1)
 stop
 }
 }
 
-actor SlowedPower : PowerupGiver
+actor CrocSlowedPower : PowerupGiver
 {
 Speed 0.67
 powerup.duration 105
-powerup.type "PowerSlow"
+powerup.type "CrocPowerSlow"
 +INVENTORY.AUTOACTIVATE
 +INVENTORY.ALWAYSPICKUP
 states
@@ -167,19 +167,19 @@ stop
 }
 }
 
-actor PowerSlow : PowerSpeed
+actor CrocPowerSlow : PowerSpeed
 {
 Speed 0.67
 //Powerup.Color "55 00 55", 0.4
 }
 
-actor PowerSlowFade : Powerup
+actor CrocPowerSlowFade : Powerup
 {
 powerup.duration 0x7FFFFFFD
 Powerup.Color "55 00 55", 0.4
 }
 
-actor TimeSlowWatcher
+actor CrocTimeSlowWatcher
 {
 Height 0
 Radius 0
@@ -191,14 +191,14 @@ States
 {
 Spawn:
 TNT1 A 0 
-TNT1 A 3 A_GiveToTarget("TimeSlowFX", 1)
-TNT1 A 0 A_JumpIfInTargetInventory("PowerSlow", 1, "Spawn")
-TNT1 A 0 A_TakeFromTarget("PowerSlowFade", 1)
+TNT1 A 3 A_GiveToTarget("CrocTimeSlowFX", 1)
+TNT1 A 0 A_JumpIfInTargetInventory("CrocPowerSlow", 1, "Spawn")
+TNT1 A 0 A_TakeFromTarget("CrocPowerSlowFade", 1)
 stop
 }
 }
 
-actor TimeSlowFX : CustomInventory
+actor CrocTimeSlowFX : CustomInventory
 {
 +INVENTORY.AUTOACTIVATE
 -INVBAR
@@ -206,12 +206,12 @@ States
 {
 Use:
 TNT1 A 0
-TNT1 A 0 A_SpawnItemEx("TimeSlowGFX", random(16, 48), 0, Random(16,48), 0, 0, 0, random(0, 359))
+TNT1 A 0 A_SpawnItemEx("CrocTimeSlowGFX", random(16, 48), 0, Random(16,48), 0, 0, 0, random(0, 359))
 stop
 }
 }
 
-actor TimeSlowGFX : BasicGraphicEffect
+actor CrocTimeSlowGFX : BasicGraphicEffect
 {
 +FLOATBOB
 +FORCEXYBILLBOARD

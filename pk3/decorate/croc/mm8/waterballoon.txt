@@ -1,6 +1,6 @@
-actor WaterBalloonWep_NormalBar : NormalBar { args 192, 62 }
+actor CrocWaterBalloonWep_NormalBar : NormalBar { args 192, 62 }
 
-actor WaterBalloonWep : BaseMM8BDMWep 11098
+actor CrocWaterBalloonWep : BaseMM8BDMWep 11098
 {
 //$Category MM8BDM-Weapons/Rapid
 //$Title Water Balloon
@@ -11,7 +11,7 @@ Weapon.SlotNumber 3
 Inventory.Pickupmessage "$PU_WATERBALLOON"
 Obituary "$OB_WATERBALLOON"
 Tag "$TAG_WATERBALLOON"
-weapon.ammotype "WaterBalloonAmmo"
+weapon.ammotype "CrocWaterBalloonAmmo"
 inventory.icon "WATERBI"
 States
 {
@@ -31,7 +31,7 @@ goto SelectSwap
 Fire:
 WTRB H 0 A_JumpIfNoAmmo("NoAmmo")
 WTRB H 0 A_PlaySoundEx("weapons/mm8/waterballoonfire","Weapon")
-WTRB H 0 A_FireCustomMissile("WaterBalloon",random(-1,1),1,8,0)
+WTRB H 0 A_FireCustomMissile("CrocWaterBalloon",random(-1,1),1,8,0)
 WTRB IJ 3
 WTRB J 1
 WTRB H 1 A_Refire
@@ -42,14 +42,14 @@ Goto Ready+1
 }
 }
 
-actor WaterBalloonAmmo : Ammo
+actor CrocWaterBalloonAmmo : Ammo
 {
 inventory.amount 1
 inventory.maxamount 42
 +INVENTORY.IGNORESKILL
 }
 
-actor WaterBalloon : BasicProjectile
+actor CrocWaterBalloon : BasicProjectile
 {
 -NOGRAVITY
 +FORCEXYBILLBOARD
@@ -58,7 +58,7 @@ height 6
 radius 9
 damage (5)
 speed 45
-damagetype "WaterBalloon"
+damagetype "CrocWaterBalloon"
 Obituary "$OB_WATERBALLOON"
 States
 {

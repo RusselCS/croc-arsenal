@@ -1,4 +1,4 @@
-actor ExitUnitItem : BaseMM8BDMUseItem 10160
+actor CrocExitUnitItem : BaseMM8BDMUseItem 10160
 {
     //$Category MM8BDM-Assists/Utility
     //$Title Exit Unit
@@ -27,12 +27,12 @@ actor ExitUnitItem : BaseMM8BDMUseItem 10160
     }
 }
 
-actor ExitUnitItem_Respawn : 8BDMItemRespawn
+actor CrocExitUnitItem_Respawn : 8BDMItemRespawn
 {
 	translation "192:192=4:4"
 	mass 1050
 }
-actor ExitUnitItem_RespawnShadow : 8BDMItemRespawnShadow
+actor CrocExitUnitItem_RespawnShadow : 8BDMItemRespawnShadow
 {
 	mass 1050
 	States
@@ -43,7 +43,7 @@ actor ExitUnitItem_RespawnShadow : 8BDMItemRespawnShadow
 	}
 }
 
-actor ExitUnitGhost
+actor CrocExitUnitGhost
 {
     +NOCLIP
     +NOGRAVITY
@@ -71,13 +71,13 @@ actor ExitUnitGhost
     }
 }
 
-actor ExitUnitAuto : ArtiTeleport
+actor CrocExitUnitAuto : ArtiTeleport
 {
     +INVENTORY.AUTOACTIVATE
 }
 
 // LEGACY EXIT UNIT -------------------------
-actor ExitUnit : ArtiTeleport //10160
+actor CrocExitUnit : ArtiTeleport //10160
 {
 //$Category MM8BDM-Assists
 //$Title Exit Unit
@@ -107,9 +107,9 @@ stop
 
 //Energy Balancer
 // [Jax] you should probably just give your ammo-using custom wep classes energy balancer in the first place >_>
-actor CustWepCanHoldEBal : Once {}
+actor CrocCustWepCanHoldEBal : Once {}
 
-actor EnergyBalancer : BaseMM8BDMUseItem 10008
+actor CrocEnergyBalancer : BaseMM8BDMUseItem 10008
 {
 //$Category MM8BDM-Assists/Utility
 //$Title Energy Balancer
@@ -128,11 +128,11 @@ NRGB AB 6
 loop
 Pickup:
 TNT1 A 0 A_JumpIf(!CheckClass("CustWepClassBase",AAPTR_DEFAULT,true),"CanHold")
-TNT1 A 0 A_JumpIfInventory("CustWepCanHoldEBal",1,"CanHold")
+TNT1 A 0 A_JumpIfInventory("CrocCustWepCanHoldEBal",1,"CanHold")
 fail
 CanHold:
-NRGB A 0 A_JumpIfInventory("EnergyBalancerActive",1,"Failed")
-NRGB A 1 A_GiveInventory("EnergyBalancerActive", 1)
+NRGB A 0 A_JumpIfInventory("CrocEnergyBalancerActive",1,"Failed")
+NRGB A 1 A_GiveInventory("CrocEnergyBalancerActive", 1)
 stop
 Failed:
 NRGB A 0 
@@ -140,12 +140,12 @@ fail
 }
 }
 
-actor EnergyBalancer_Respawn : 8BDMItemRespawn
+actor CrocEnergyBalancer_Respawn : 8BDMItemRespawn
 {
 	translation "192:192=4:4", "198:198=207:207"
 	mass 245
 }
-actor EnergyBalancer_RespawnShadow : 8BDMItemRespawnShadow
+actor CrocEnergyBalancer_RespawnShadow : 8BDMItemRespawnShadow
 {
 	mass 245
 	States
@@ -156,9 +156,9 @@ actor EnergyBalancer_RespawnShadow : 8BDMItemRespawnShadow
 	}
 }
 
-actor EnergyBalancerActive : Once {}
+actor CrocEnergyBalancerActive : Once {}
 
-actor EnergyBalancerFullDelay : Powerup
+actor CrocEnergyBalancerFullDelay : Powerup
 {
 //Powerup.Duration 35
 Powerup.Duration 20

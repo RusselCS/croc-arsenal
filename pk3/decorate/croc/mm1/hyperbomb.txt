@@ -1,6 +1,6 @@
-actor HyperBombWep_NormalBar : NormalBar { args 4, 110 }
+actor CrocHyperBombWep_NormalBar : NormalBar { args 4, 110 }
 
-actor HyperBombWep : BaseMM8BDMWep 10037
+actor CrocHyperBombWep : BaseMM8BDMWep 10037
 {
 //$Category MM8BDM-Weapons/Power
 //$Title Hyper Bomb
@@ -11,7 +11,7 @@ Weapon.SlotNumber 5
 Inventory.Pickupmessage "$PU_HYPERBOMB"
 Obituary "$OB_HYPERBOMB"
 Tag "$TAG_HYPERBOMB"
-weapon.ammotype "HyperBombAmmo"
+weapon.ammotype "CrocHyperBombAmmo"
 inventory.icon "BOMBSI"
 States
 {
@@ -36,7 +36,7 @@ goto SelectSwap
 Fire:
 BOMH A 0 A_JumpIfNoAmmo("NoAmmo")
 BOMH A 0 A_PlaySoundEx("weapons/mm1/hyperbombfire","Weapon")
-BOMH A 0 A_FireCustomMissile("HyperBomb",0,1,8,0)
+BOMH A 0 A_FireCustomMissile("CrocHyperBomb",0,1,8,0)
 BOMH BCDEFG 1
 BOMH H 0 A_JumpIfNoAmmo("NoAmmoDelay")
 BOMH HI 2
@@ -53,7 +53,7 @@ Goto ReadyNoAmmo
 }
 }
 
-actor HyperBombAmmo : Ammo
+actor CrocHyperBombAmmo : Ammo
 {
 inventory.amount 1
 inventory.maxamount 28
@@ -61,13 +61,13 @@ inventory.maxamount 28
 }
 
 
-actor HyperBomb : BasicBouncer
+actor CrocHyperBomb : BasicBouncer
 {
 -NOGRAVITY
 +RIPPER
 +DONTREFLECT
 damage (0)
-damagetype "HyperBomb"
+damagetype "CrocHyperBomb"
 Obituary "$OB_HYPERBOMB"
 Radius 6
 Height 7

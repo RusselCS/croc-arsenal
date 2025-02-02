@@ -1,6 +1,6 @@
-actor IceWaveWep_NormalBar : NormalBar { args 229, 205 }
+actor CrocIceWaveWep_NormalBar : NormalBar { args 229, 205 }
 
-actor IceWaveWep : BaseMM8BDMWep 11090
+actor CrocIceWaveWep : BaseMM8BDMWep 11090
 {
 //$Category MM8BDM-Weapons/Ranged
 //$Title Ice Wave
@@ -11,7 +11,7 @@ Weapon.SlotNumber 2
 Inventory.Pickupmessage "$PU_ICEWAVE"
 Obituary "$OB_ICEWAVE"
 Tag "$TAG_ICEWAVE"
-weapon.ammotype "IceWaveAmmo"
+weapon.ammotype "CrocIceWaveAmmo"
 inventory.icon "ICEWAVI"
 States
 {
@@ -31,7 +31,7 @@ goto SelectSwap
 Fire:
 ICEW I 0 A_JumpIfNoAmmo("NoAmmo")
 ICEW I 0 A_PlaySoundEx("weapons/mm8/icewavefire","Weapon")
-ICEW I 0 A_FireCustomMissile("IceWaveDropper",0,1,8,0)
+ICEW I 0 A_FireCustomMissile("CrocIceWaveDropper",0,1,8,0)
 ICEW JK 5
 ICEW I 24
 ICEW I 0 A_Refire
@@ -42,7 +42,7 @@ Goto Ready+1
 }
 }
 
-actor IceWaveAmmo : Ammo
+actor CrocIceWaveAmmo : Ammo
 {
 inventory.amount 1
 inventory.maxamount 28
@@ -50,7 +50,7 @@ inventory.maxamount 28
 }
 
 
-actor IceWaveDropper
+actor CrocIceWaveDropper
 {
 PROJECTILE
 +NOINTERACTION
@@ -62,15 +62,15 @@ States
 {
 Spawn:
 TNT1 A 0
-TNT1 A 0 A_SpawnItemEx("IceWaveSpawner",32,0,0)
+TNT1 A 0 A_SpawnItemEx("CrocIceWaveSpawner",32,0,0)
 stop
 }
 }
 
-actor IceWaveSpawner : BasicProjectile
+actor CrocIceWaveSpawner : BasicProjectile
 {
 -NOGRAVITY
-Damagetype "IceWave"
+Damagetype "CrocIceWave"
 Obituary "$OB_ICEWAVE"
 Damage(20)
 Scale 3.0
@@ -85,16 +85,16 @@ Goto Spawn+2
 Crash:
 Death:
 TNT1 A 0 A_PlaySoundEx("weapons/mm8/icewavestart", "Body")
-TNT1 A 0 A_CustomMissile("IceWave",0,0,0,2,0)
+TNT1 A 0 A_CustomMissile("CrocIceWave",0,0,0,2,0)
 stop
 }
 }
 
-actor IceWave : BasicProjectile
+actor CrocIceWave : BasicProjectile
 {
 +RIPPER
 +DONTREFLECT
-Damagetype "IceWave"
+Damagetype "CrocIceWave"
 Obituary "$OB_ICEWAVE"
 Damage (0)
 Speed 20
@@ -105,41 +105,41 @@ States
 Spawn:
 TNT1 A 0
 TNT1 A 0 A_PlaySoundEx("weapons/mm8/icewavebreak", "Body", true)
-TNT1 A 2 A_SpawnItemEx("IceWaveIcicleFloor")
+TNT1 A 2 A_SpawnItemEx("CrocIceWaveIcicleFloor")
 TNT1 A 0 A_CheckFloor("MakeIcicle")
 TNT1 AA 1 A_JumpIf(z-floorz!=0,"Down")
 Goto Spawn+3
 MakeIcicle:
-TNT1 A 0 A_SpawnItemEx("IceWaveIcicleFloor")
+TNT1 A 0 A_SpawnItemEx("CrocIceWaveIcicleFloor")
 Goto Spawn+4
 Down: 
 TNT1 A 0 A_StopSoundEx("Body")
-TNT1 A 1 A_SpawnItemEx("IceWaveDown",0,0,0,0,0,-20)
+TNT1 A 1 A_SpawnItemEx("CrocIceWaveDown",0,0,0,0,0,-20)
 stop
 Death:
 TNT1 A 0 A_StopSoundEx("Body")
-TNT1 A 1 A_SpawnItemEx("IceWaveUp",0,0,0,0,0,20)//TNT1 A 0 A_CustomMissile("IceWave",0,0,0,2,0)
+TNT1 A 1 A_SpawnItemEx("CrocIceWaveUp",0,0,0,0,0,20)//TNT1 A 0 A_CustomMissile("IceWave",0,0,0,2,0)
 stop
 }
 }
 
-actor IceWaveDown : IceWave
+actor CrocIceWaveDown : IceWave
 {
 States
 {
 Spawn:
 TNT1 A 0
 TNT1 A 0 A_PlaySoundEx("weapons/mm8/icewavebreak", "Body", true)
-TNT1 A 2 A_SpawnItemEx("IceWaveIcicleWall")
+TNT1 A 2 A_SpawnItemEx("CrocIceWaveIcicleWall")
 Goto Spawn+1
 Death:
 TNT1 A 0 A_StopSoundEx("Body")
-TNT1 A 1 A_CustomMissile("IceWave",0,0,0,2,0)
+TNT1 A 1 A_CustomMissile("CrocIceWave",0,0,0,2,0)
 stop
 }
 }
 
-actor IceWaveUp : IceWave
+actor CrocIceWaveUp : IceWave
 {
 States
 {
@@ -148,10 +148,10 @@ TNT1 A 0
 TNT1 A 0 A_PlaySoundEx("weapons/mm8/icewavebreak", "Body", true)
 TNT1 A 2
 TNT1 A 0 A_Stop
-TNT1 A 0 A_SpawnItemEx("IceWaveIcicleWall",0,0,0,0,0,0,180)
+TNT1 A 0 A_SpawnItemEx("CrocIceWaveIcicleWall",0,0,0,0,0,0,180)
 TNT1 A 0 A_ChangeVelocity(20,0,0, CVF_REPLACE | CVF_RELATIVE) 
 TNT1 A 1
-TNT1 A 0 A_CustomMissile("IceWave",0,0,0,2,0)//A_SpawnItemEx("SearchSnake",0,0,0,18)
+TNT1 A 0 A_CustomMissile("CrocIceWave",0,0,0,2,0)//A_SpawnItemEx("SearchSnake",0,0,0,18)
 stop
 Death:
 TNT1 A 0 A_JumpIf(ceilingz-z > 48, "Continue")
@@ -159,12 +159,12 @@ TNT1 A 0
 stop
 Continue:
 TNT1 A 0 A_StopSoundEx("Body")
-TNT1 A 1 A_SpawnItemEx("IceWaveUp",0,0,4,0,0,20)
+TNT1 A 1 A_SpawnItemEx("CrocIceWaveUp",0,0,4,0,0,20)
 stop
 }
 }
 
-actor IceWaveIcicle : IceWave
+actor CrocIceWaveIcicle : IceWave
 {
 +DONTBLAST
 -RIPPER
@@ -191,12 +191,12 @@ Icicle4:
 ICEW BCCDD 3
 Goto Death
 Death: 
-ICEW B 0 A_SpawnItemEx("IceWaveBreak",0,0,0,0,0,0,0, SXF_WEPFXCOLOR)
+ICEW B 0 A_SpawnItemEx("CrocIceWaveBreak",0,0,0,0,0,0,0, SXF_WEPFXCOLOR)
 stop
 }
 }
 
-actor IceWaveIcicleWall : IceWaveIcicle
+actor CrocIceWaveIcicleWall : IceWaveIcicle
 {
 States
 {
@@ -221,20 +221,20 @@ Icicle4:
 ICWV ABBCC 3
 Goto Death
 SpawnFloor:
-ICWV A 0 A_SpawnItemEx("IceWaveIcicleFloor",0,0,0,0,0,0,0)
+ICWV A 0 A_SpawnItemEx("CrocIceWaveIcicleFloor",0,0,0,0,0,0,0)
 stop
 Death: 
-ICWV A 0 A_SpawnItemEx("IceWaveBreak",0,0,0,0,0,0,0, SXF_WEPFXCOLOR)
+ICWV A 0 A_SpawnItemEx("CrocIceWaveBreak",0,0,0,0,0,0,0, SXF_WEPFXCOLOR)
 stop
 }
 }
 
-actor IceWaveIcicleFloor : IceWaveIcicle
+actor CrocIceWaveIcicleFloor : IceWaveIcicle
 {
 +FLOORHUGGER
 }
 
-actor IceWaveBreak : BasicGraphicEffect
+actor CrocIceWaveBreak : BasicGraphicEffect
 {
 +RANDOMIZE
 States

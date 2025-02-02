@@ -1,7 +1,7 @@
-actor HomingSniperWep_NormalBar : NormalBar { args 192, 230 }
-actor HomingSniperWep_ScriptBar : ScriptBar {}
+actor CrocHomingSniperWep_NormalBar : NormalBar { args 192, 230 }
+actor CrocHomingSniperWep_ScriptBar : ScriptBar {}
 
-actor HomingSniperWep : BaseMM8BDMWep 11097
+actor CrocHomingSniperWep : BaseMM8BDMWep 11097
 {
 //$Category MM8BDM-Weapons/Close
 //$Title Homing Sniper
@@ -12,7 +12,7 @@ Weapon.SlotNumber 4
 Inventory.Pickupmessage "$PU_HOMINGSNIPER"
 Obituary "$OB_HOMINGSNIPER"
 Tag "$TAG_HOMINGSNIPER"
-weapon.ammotype "HomingSniperAmmo"
+weapon.ammotype "CrocHomingSniperAmmo"
 inventory.icon "HSNIPERI"
 States
 {
@@ -38,15 +38,15 @@ ChargeLevel1:
 TNT1 A 0 A_PlaySoundEx("weapons/mm8/homingsnipercharge", "Weapon", false)
 TNT1 A 18
 TNT1 A 0 A_PlaySoundEx("weapons/mm8/homingsniperload", "SoundSlot5")
-TNT1 A 17 A_GiveInventory("HomingSniperCharge", 1)
+TNT1 A 17 A_GiveInventory("CrocHomingSniperCharge", 1)
 TNT1 A 0 A_GiveInventory("WeaponChargeLevel",1)
 stop
 ChargeLevel2:
 TNT1 A 0 A_PlaySoundEx("weapons/mm8/homingsniperchargeloop", "Weapon", true)
 ChargeLevel2Loop:
 TNT1 A 0 A_PlaySoundEx("weapons/mm8/homingsniperload", "SoundSlot5")
-TNT1 A 0 A_GiveInventory("HomingSniperCharge", 1)
-TNT1 A 0 A_JumpIfInventory("HomingSniperCharge", 4, "ChargeMax")
+TNT1 A 0 A_GiveInventory("CrocHomingSniperCharge", 1)
+TNT1 A 0 A_JumpIfInventory("CrocHomingSniperCharge", 4, "ChargeMax")
 TNT1 A 17
 loop
 ChargeMax:
@@ -101,7 +101,7 @@ HSNI C 0 A_Refire("Charge2Anim.A")
 Goto Fire1
 BotFire:
 HSNI C 0 A_Jump(16, "Fire1")
-HSNI C 0 A_JumpIfInventory("HomingSniperCharge", 4, "Fire1")
+HSNI C 0 A_JumpIfInventory("CrocHomingSniperCharge", 4, "Fire1")
 HSNI C 0 A_Refire("Charge2Anim.A")
 Goto Fire1
 
@@ -111,23 +111,23 @@ HSNI C 0 A_JumpIfNoAmmo("NoAmmo")
 HSNI C 0 ACS_NamedExecuteWithResult("core_chargecolor",CLR_HOMINGSNIPER,TCLR_NONE)
 HSNI C 0 A_Gunflash("ChargeEnd")
 HSNI C 0 A_PlaySoundEx("weapons/mm8/homingsnipershot","Weapon")
-HSNI C 0 A_FireCustomMissile("HomingSniper",0,1,8,0)
-HSNI C 0 A_JumpIfInventory("HomingSniperCharge", 1, "FireLoopCheck")
+HSNI C 0 A_FireCustomMissile("CrocHomingSniper",0,1,8,0)
+HSNI C 0 A_JumpIfInventory("CrocHomingSniperCharge", 1, "FireLoopCheck")
 FireEnd:
-HSNI E 0 A_TakeInventory("HomingSniperCharge", 10)
+HSNI E 0 A_TakeInventory("CrocHomingSniperCharge", 10)
 HSNI ED 2
 HSNI C 12
 HSNI C 0 A_Refire
 Goto Ready+1
 FireLoopCheck:
-HSNI C 0 A_JumpIfInventory("HomingSniperAmmo", 1, "FireLoop")
+HSNI C 0 A_JumpIfInventory("CrocHomingSniperAmmo", 1, "FireLoop")
 goto FireEnd
 FireLoop:
-HSNI C 0 A_TakeInventory("HomingSniperCharge", 1)
+HSNI C 0 A_TakeInventory("CrocHomingSniperCharge", 1)
 HSNI ED 1
 HSNI C 0 A_PlaySoundEx("weapons/mm8/homingsnipershot","Weapon")
-HSNI C 0 A_FireCustomMissile("HomingSniper",frandom(-15,15),1,8,0)
-HSNI C 0 A_JumpIfInventory("HomingSniperCharge", 1, "FireLoopCheck")
+HSNI C 0 A_FireCustomMissile("CrocHomingSniper",frandom(-15,15),1,8,0)
+HSNI C 0 A_JumpIfInventory("CrocHomingSniperCharge", 1, "FireLoopCheck")
 goto FireEnd
 
 NoAmmo:
@@ -137,25 +137,25 @@ Goto Ready+1
 }
 }
 
-actor HomingSniperCharge : Inventory
+actor CrocHomingSniperCharge : Inventory
 {
     inventory.amount 1
     inventory.maxamount 4
 }
 
-actor HomingSniperAmmo : Ammo
+actor CrocHomingSniperAmmo : Ammo
 {
     inventory.amount 1
     inventory.maxamount 30
     +INVENTORY.IGNORESKILL
 }
 
-actor HomingSniper : BasicProjectile
+actor CrocHomingSniper : BasicProjectile
 {
 +SEEKERMISSILE
 +SCREENSEEKER
 +HITTARGET
-Damagetype "HomingSniper"
+Damagetype "CrocHomingSniper"
 Obituary "$OB_HOMINGSNIPER"
 Radius 5
 Height 5
@@ -179,19 +179,19 @@ TNT1 A 0 A_ChangeFlag(NOGRAVITY, false)
 TNT1 A 2
 HSNM BB 2
 HSNM BBB 2 A_ScaleVelocity(0.5)
-HSNM BBBBBBBB 1 A_GiveInventory("HomingSniperSearch", 1)
-HSNM B 0 A_SpawnItemEx("HomingSniperTakeoffSound")
+HSNM BBBBBBBB 1 A_GiveInventory("CrocHomingSniperSearch", 1)
+HSNM B 0 A_SpawnItemEx("CrocHomingSniperTakeoffSound")
 HSNM B 0 A_ChangeVelocity(cos(pitch)*user_speed, 0, sin(-pitch)*user_speed, CVF_RELATIVE|CVF_REPLACE)
 HSNM B 0 ACS_ExecuteAlways(191, 0, APROP_Speed, 40, 1)
 HSNM B 0 A_JumpIfInventory("MM8BDMPlayer", 1, "SpawnChase", AAPTR_TRACER)
 SpawnLoop:
-HSNM BC 2 // A_SpawnItemEx("HomingSniperSmoke", -momx+random(-8, 8), -momy+random(-8, 8), -momz+random(-8, 8), 0, 0, 0, 0, SXF_ABSOLUTEPOSITION|SXF_WEPFXCOLOR)
+HSNM BC 2 // A_SpawnItemEx("CrocHomingSniperSmoke", -momx+random(-8, 8), -momy+random(-8, 8), -momz+random(-8, 8), 0, 0, 0, 0, SXF_ABSOLUTEPOSITION|SXF_WEPFXCOLOR)
 loop
 SpawnChase:
-HSNM B 0 // A_SpawnItemEx("HomingSniperSmoke", -momx+random(-8, 8), -momy+random(-8, 8), -momz+random(-8, 8), 0, 0, 0, 0, SXF_ABSOLUTEPOSITION|SXF_WEPFXCOLOR)
-HSNM BB 1 A_GiveInventory("HomingSniperChase", 1)
-HSNM C 0 // A_SpawnItemEx("HomingSniperSmoke", -momx+random(-8, 8), -momy+random(-8, 8), -momz+random(-8, 8), 0, 0, 0, 0, SXF_ABSOLUTEPOSITION|SXF_WEPFXCOLOR)
-HSNM CC 1 A_GiveInventory("HomingSniperChase", 1)
+HSNM B 0 // A_SpawnItemEx("CrocHomingSniperSmoke", -momx+random(-8, 8), -momy+random(-8, 8), -momz+random(-8, 8), 0, 0, 0, 0, SXF_ABSOLUTEPOSITION|SXF_WEPFXCOLOR)
+HSNM BB 1 A_GiveInventory("CrocHomingSniperChase", 1)
+HSNM C 0 // A_SpawnItemEx("CrocHomingSniperSmoke", -momx+random(-8, 8), -momy+random(-8, 8), -momz+random(-8, 8), 0, 0, 0, 0, SXF_ABSOLUTEPOSITION|SXF_WEPFXCOLOR)
+HSNM CC 1 A_GiveInventory("CrocHomingSniperChase", 1)
 loop
 Death:
 HSNM B 0 A_SpawnItemEx("ExplosionEffect1", 0, 0, 0, 0, 0, 0, 0, SXF_TRANSFERPOINTERS|SXF_WEPFXCOLOR)
@@ -200,7 +200,7 @@ stop
 }
 }
 
-actor HomingSniperTakeoffSound : BasicWatcher
+actor CrocHomingSniperTakeoffSound : BasicWatcher
 {
     States
     {
@@ -212,7 +212,7 @@ actor HomingSniperTakeoffSound : BasicWatcher
     }
 }
 
-actor HomingSniperSearch : CustomInventory
+actor CrocHomingSniperSearch : CustomInventory
 {
     States
     {
@@ -221,10 +221,10 @@ actor HomingSniperSearch : CustomInventory
         HSNM B 0 A_JumpIfInventory("MM8BDMPlayer", 1, "Found", AAPTR_TRACER)
         stop
     Found:
-        TNT1 A 0 A_GiveInventory("HomingSniperFound", 1, AAPTR_TRACER)
-        TNT1 A 0 A_JumpIfInventory("HomingSniperLockCount", 1, "End")
-        TNT1 A 0 A_GiveInventory("HomingSniperLockCount", 1)
-        TNT1 A 0 A_GiveInventory("HomingSniperLockGiver", 1, AAPTR_TRACER)
+        TNT1 A 0 A_GiveInventory("CrocHomingSniperFound", 1, AAPTR_TRACER)
+        TNT1 A 0 A_JumpIfInventory("CrocHomingSniperLockCount", 1, "End")
+        TNT1 A 0 A_GiveInventory("CrocHomingSniperLockCount", 1)
+        TNT1 A 0 A_GiveInventory("CrocHomingSniperLockGiver", 1, AAPTR_TRACER)
         stop
     End:
         TNT1 A 0
@@ -232,13 +232,13 @@ actor HomingSniperSearch : CustomInventory
     }
 }
 
-actor HomingSniperChase : CustomInventory
+actor CrocHomingSniperChase : CustomInventory
 {
     States
     {
     Pickup:
         TNT1 A 0 A_SeekerMissile(4, 10, SMF_PRECISE, 0, 8)
-        TNT1 A 0 A_GiveInventory("HomingSniperFound", 1, AAPTR_TRACER)
+        TNT1 A 0 A_GiveInventory("CrocHomingSniperFound", 1, AAPTR_TRACER)
         TNT1 A 0 A_JumpIfInventory("MM8BDMPlayer", 1, "Continue", AAPTR_TRACER)
         TNT1 A 0 A_Countdown
         stop
@@ -248,45 +248,45 @@ actor HomingSniperChase : CustomInventory
     }
 }
 
-actor HomingSniperLock : Powerup
+actor CrocHomingSniperLock : Powerup
 {
     powerup.duration 5
 }
 
-actor HomingSniperLockCount : Inventory { inventory.maxamount 5 }
+actor CrocHomingSniperLockCount : Inventory { inventory.maxamount 5 }
 
-actor HomingSniperLockGiver : CustomInventory
+actor CrocHomingSniperLockGiver : CustomInventory
 {
     States
     {
     Pickup:
         TNT1 A 0 A_PlaySoundEx("weapons/mm8/homingsniperlock", "body")
-        TNT1 A 0 A_SpawnItemEx("HomingSniperLockWarper", 0, 0, 28)
+        TNT1 A 0 A_SpawnItemEx("CrocHomingSniperLockWarper", 0, 0, 28)
         stop
     }
 }
 
-actor HomingSniperFound : CustomInventory
+actor CrocHomingSniperFound : CustomInventory
 {
     States
     {
     Pickup:
-        TNT1 A 0 A_GiveInventory("HomingSniperLock", 1)
+        TNT1 A 0 A_GiveInventory("CrocHomingSniperLock", 1)
         stop
     }
 }
 
-actor HomingSniperRetain : CustomInventory
+actor CrocHomingSniperRetain : CustomInventory
 {
     States
     {
     Pickup:
-        TNT1 A 0 A_GiveInventory("HomingSniperLock", 1)
+        TNT1 A 0 A_GiveInventory("CrocHomingSniperLock", 1)
         stop
     }
 }
 
-actor HomingSniperLockWarper : BasicShieldWarper
+actor CrocHomingSniperLockWarper : BasicShieldWarper
 {
     Speed 100
     var int user_x;
@@ -311,7 +311,7 @@ actor HomingSniperLockWarper : BasicShieldWarper
     }
 }
 
-actor HomingSniperSmoke : BasicGraphicEffect
+actor CrocHomingSniperSmoke : BasicGraphicEffect
 {
     +FORCEXYBILLBOARD
     States

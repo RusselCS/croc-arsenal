@@ -1,6 +1,6 @@
-actor LaserTridentWep_NormalBar : NormalBar { args 228, 72 }
+actor CrocLaserTridentWep_NormalBar : NormalBar { args 228, 72 }
 
-actor LaserTridentWep : BaseMM8BDMWep 10024
+actor CrocLaserTridentWep : BaseMM8BDMWep 10024
 {
 //$Category MM8BDM-Weapons/Ranged
 //$Title Laser Trident
@@ -11,7 +11,7 @@ Weapon.SlotNumber 2
 Obituary "$OB_LASERTRIDENT"
 Tag "$TAG_LASERTRIDENT"
 Inventory.Pickupmessage "$PU_LASERTRIDENT"
-weapon.ammotype "LaserTridentAmmo"
+weapon.ammotype "CrocLaserTridentAmmo"
 inventory.icon "TRIDENI"
 States
 {
@@ -31,7 +31,7 @@ goto SelectSwap
 Fire:
 LTRI D 0 A_JumpIfNoAmmo("NoAmmo")
 LTRI D 0 A_PlaySoundEx("weapons/mm9/lasertridentfire","Weapon")
-LTRI D 0 A_FireCustomMissile("LaserTrident",0,1,8,0)
+LTRI D 0 A_FireCustomMissile("CrocLaserTrident",0,1,8,0)
 LTRI FE 2
 LTRI D 12
 LTRI D 0 A_Refire
@@ -42,14 +42,14 @@ Goto Ready+1
 }
 }
 
-actor LaserTridentAmmo : Ammo
+actor CrocLaserTridentAmmo : Ammo
 {
 inventory.amount 1
 inventory.maxamount 28
 +INVENTORY.IGNORESKILL
 }
 
-actor LaserTrident : BasicFastProjectile
+actor CrocLaserTrident : BasicFastProjectile
 {
 Obituary "$OB_LASERTRIDENT"
 +RIPPER
@@ -61,7 +61,7 @@ Speed 20
 Damage (35)
 Radius 10
 Height 20
-damagetype "LaserTrident"
+damagetype "CrocLaserTrident"
 States
 {
 Spawn:
@@ -75,9 +75,9 @@ loop
 }
 }
 /*
-actor LaserTridentProtect : PowerProtection
+actor CrocLaserTridentProtect : PowerProtection
 {
 Powerup.Duration 4
-damagefactor "LaserTrident", 0.0
+damagefactor "CrocLaserTrident", 0.0
 }
 */

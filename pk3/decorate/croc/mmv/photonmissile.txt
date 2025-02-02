@@ -1,10 +1,10 @@
 const int WEPC_VPM_CHARGEMAX = 55;
 const int WEPC_VPM_CHARGEARM = 30;
 
-actor PhotonMissileWep_NormalBar : NormalBar { args 229, 199 }
-actor PhotonMissileWep_ScriptBar : ScriptBar {}
+actor CrocPhotonMissileWep_NormalBar : NormalBar { args 229, 199 }
+actor CrocPhotonMissileWep_ScriptBar : ScriptBar {}
 
-actor PhotonMissileWep : BaseMM8BDMWep 10105
+actor CrocPhotonMissileWep : BaseMM8BDMWep 10105
 {
     //$Category MM8BDM-Weapons/Power
     //$Title Photon Missile
@@ -15,7 +15,7 @@ actor PhotonMissileWep : BaseMM8BDMWep 10105
     Inventory.Pickupmessage "$PU_PHOTONMISSILE"
     Obituary "$OB_PHOTONMISSILE"
     Tag "$TAG_PHOTONMISSILE"
-    weapon.ammotype "PhotonMissileAmmo"
+    weapon.ammotype "CrocPhotonMissileAmmo"
     inventory.icon "PMISWI"
     States
     {
@@ -34,43 +34,43 @@ actor PhotonMissileWep : BaseMM8BDMWep 10105
         goto SelectSwap
     Fire:
         PMIS G 0 A_JumpIfNoAmmo("NoAmmo")
-        PMIS G 0 A_TakeInventory("PhotonMissileAmmo", 3, TIF_NOTAKEINFINITE)
+        PMIS G 0 A_TakeInventory("CrocPhotonMissileAmmo", 3, TIF_NOTAKEINFINITE)
         PMIS H 0 A_PlaySoundEx("weapons/mmv/photonmissileload", "weapon")
         PMIS H 1
     HoldB1:
-        PMIS H 0 A_SpawnItemEx("PhotonMissileHold1", 48*cos(pitch), 8, 48*sin(-pitch)+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
-        PMIS H 0 A_GiveInventory("PhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE))
-        PMIS H 1 A_JumpIfInventory("PhotonMissileCharge", WEPC_VPM_CHARGEARM, "HoldArm")
+        PMIS H 0 A_SpawnItemEx("CrocPhotonMissileHold1", 48*cos(pitch), 8, 48*sin(-pitch)+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
+        PMIS H 0 A_GiveInventory("CrocPhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE))
+        PMIS H 1 A_JumpIfInventory("CrocPhotonMissileCharge", WEPC_VPM_CHARGEARM, "HoldArm")
         PMIS H 0 A_Refire("HoldB2")
         goto Launch
     HoldB2:
-        PMIS H 0 A_SpawnItemEx("PhotonMissileHold1", 48*cos(pitch), 8, 48*sin(-pitch)+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
-        PMIS H 0 A_GiveInventory("PhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE))
-        PMIS H 1 A_JumpIfInventory("PhotonMissileCharge", WEPC_VPM_CHARGEARM, "HoldArm")
+        PMIS H 0 A_SpawnItemEx("CrocPhotonMissileHold1", 48*cos(pitch), 8, 48*sin(-pitch)+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
+        PMIS H 0 A_GiveInventory("CrocPhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE))
+        PMIS H 1 A_JumpIfInventory("CrocPhotonMissileCharge", WEPC_VPM_CHARGEARM, "HoldArm")
         PMIS H 0 A_Refire("HoldC1")
         goto Launch
     HoldC1:
-        PMIS H 0 A_SpawnItemEx("PhotonMissileHold2", 48*cos(pitch), 8, 48*sin(-pitch)+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
-        PMIS H 0 A_GiveInventory("PhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE))
-        PMIS H 1 A_JumpIfInventory("PhotonMissileCharge", WEPC_VPM_CHARGEARM, "HoldArm")
+        PMIS H 0 A_SpawnItemEx("CrocPhotonMissileHold2", 48*cos(pitch), 8, 48*sin(-pitch)+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
+        PMIS H 0 A_GiveInventory("CrocPhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE))
+        PMIS H 1 A_JumpIfInventory("CrocPhotonMissileCharge", WEPC_VPM_CHARGEARM, "HoldArm")
         PMIS H 0 A_Refire("HoldC2")
         goto Launch
     HoldC2:
-        PMIS H 0 A_SpawnItemEx("PhotonMissileHold2", 48*cos(pitch), 8, 48*sin(-pitch)+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
-        PMIS H 0 A_GiveInventory("PhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE))
-        PMIS H 1 A_JumpIfInventory("PhotonMissileCharge", WEPC_VPM_CHARGEARM, "HoldArm")
+        PMIS H 0 A_SpawnItemEx("CrocPhotonMissileHold2", 48*cos(pitch), 8, 48*sin(-pitch)+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
+        PMIS H 0 A_GiveInventory("CrocPhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE))
+        PMIS H 1 A_JumpIfInventory("CrocPhotonMissileCharge", WEPC_VPM_CHARGEARM, "HoldArm")
         PMIS H 0 A_Refire("HoldD1")
         goto Launch
     HoldD1:
-        PMIS H 0 A_SpawnItemEx("PhotonMissileHold3", 48*cos(pitch), 8, 48*sin(-pitch)+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
-        PMIS H 0 A_GiveInventory("PhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE))
-        PMIS H 1 A_JumpIfInventory("PhotonMissileCharge", WEPC_VPM_CHARGEARM, "HoldArm")
+        PMIS H 0 A_SpawnItemEx("CrocPhotonMissileHold3", 48*cos(pitch), 8, 48*sin(-pitch)+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
+        PMIS H 0 A_GiveInventory("CrocPhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE))
+        PMIS H 1 A_JumpIfInventory("CrocPhotonMissileCharge", WEPC_VPM_CHARGEARM, "HoldArm")
         PMIS H 0 A_Refire("HoldD2")
         goto Launch
     HoldD2:
-        PMIS H 0 A_SpawnItemEx("PhotonMissileHold3", 48*cos(pitch), 8, 48*sin(-pitch)+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
-        PMIS H 0 A_GiveInventory("PhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE))
-        PMIS H 1 A_JumpIfInventory("PhotonMissileCharge", WEPC_VPM_CHARGEARM, "HoldArm")
+        PMIS H 0 A_SpawnItemEx("CrocPhotonMissileHold3", 48*cos(pitch), 8, 48*sin(-pitch)+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
+        PMIS H 0 A_GiveInventory("CrocPhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE))
+        PMIS H 1 A_JumpIfInventory("CrocPhotonMissileCharge", WEPC_VPM_CHARGEARM, "HoldArm")
         PMIS H 0 A_Refire("HoldB1")
         goto Launch
     
@@ -79,52 +79,52 @@ actor PhotonMissileWep : BaseMM8BDMWep 10105
         goto HoldB3
 
     HoldB3:
-        PMIS H 0 A_SpawnItemEx("PhotonMissileHold4", 48*cos(pitch), 8, 48*sin(-pitch)+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
-        PMIS H 0 A_GiveInventory("PhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE))
-        PMIS I 1 A_JumpIfInventory("PhotonMissileCharge", WEPC_VPM_CHARGEMAX, "Launch")
+        PMIS H 0 A_SpawnItemEx("CrocPhotonMissileHold4", 48*cos(pitch), 8, 48*sin(-pitch)+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
+        PMIS H 0 A_GiveInventory("CrocPhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE))
+        PMIS I 1 A_JumpIfInventory("CrocPhotonMissileCharge", WEPC_VPM_CHARGEMAX, "Launch")
         PMIS H 0 A_Refire("HoldB4")
         goto Launch
     HoldB4:
-        PMIS H 0 A_SpawnItemEx("PhotonMissileHold4", 48*cos(pitch), 8, 48*sin(-pitch)+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
-        PMIS H 0 A_GiveInventory("PhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE))
-        PMIS I 1 A_JumpIfInventory("PhotonMissileCharge", WEPC_VPM_CHARGEMAX, "Launch")
+        PMIS H 0 A_SpawnItemEx("CrocPhotonMissileHold4", 48*cos(pitch), 8, 48*sin(-pitch)+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
+        PMIS H 0 A_GiveInventory("CrocPhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE))
+        PMIS I 1 A_JumpIfInventory("CrocPhotonMissileCharge", WEPC_VPM_CHARGEMAX, "Launch")
         PMIS H 0 A_Refire("HoldC3")
         goto Launch
     HoldC3:
-        PMIS H 0 A_SpawnItemEx("PhotonMissileHold5", 48*cos(pitch), 8, 48*sin(-pitch)+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
-        PMIS H 0 A_GiveInventory("PhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE))
-        PMIS I 1 A_JumpIfInventory("PhotonMissileCharge", WEPC_VPM_CHARGEMAX, "Launch")
+        PMIS H 0 A_SpawnItemEx("CrocPhotonMissileHold5", 48*cos(pitch), 8, 48*sin(-pitch)+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
+        PMIS H 0 A_GiveInventory("CrocPhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE))
+        PMIS I 1 A_JumpIfInventory("CrocPhotonMissileCharge", WEPC_VPM_CHARGEMAX, "Launch")
         PMIS H 0 A_Refire("HoldC4")
         goto Launch
     HoldC4:
-        PMIS H 0 A_SpawnItemEx("PhotonMissileHold5", 48*cos(pitch), 8, 48*sin(-pitch)+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
-        PMIS H 0 A_GiveInventory("PhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE))
-        PMIS I 1 A_JumpIfInventory("PhotonMissileCharge", WEPC_VPM_CHARGEMAX, "Launch")
+        PMIS H 0 A_SpawnItemEx("CrocPhotonMissileHold5", 48*cos(pitch), 8, 48*sin(-pitch)+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
+        PMIS H 0 A_GiveInventory("CrocPhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE))
+        PMIS I 1 A_JumpIfInventory("CrocPhotonMissileCharge", WEPC_VPM_CHARGEMAX, "Launch")
         PMIS H 0 A_Refire("HoldD3")
         goto Launch
     HoldD3:
-        PMIS H 0 A_SpawnItemEx("PhotonMissileHold3", 48*cos(pitch), 8, 48*sin(-pitch)+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
-        PMIS H 0 A_GiveInventory("PhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE))
-        PMIS I 1 A_JumpIfInventory("PhotonMissileCharge", WEPC_VPM_CHARGEMAX, "Launch")
+        PMIS H 0 A_SpawnItemEx("CrocPhotonMissileHold3", 48*cos(pitch), 8, 48*sin(-pitch)+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
+        PMIS H 0 A_GiveInventory("CrocPhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE))
+        PMIS I 1 A_JumpIfInventory("CrocPhotonMissileCharge", WEPC_VPM_CHARGEMAX, "Launch")
         PMIS H 0 A_Refire("HoldD4")
         goto Launch
     HoldD4:
-        PMIS H 0 A_SpawnItemEx("PhotonMissileHold3", 48*cos(pitch), 8, 48*sin(-pitch)+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
-        PMIS H 0 A_GiveInventory("PhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE))
-        PMIS I 1 A_JumpIfInventory("PhotonMissileCharge", WEPC_VPM_CHARGEMAX, "Launch")
+        PMIS H 0 A_SpawnItemEx("CrocPhotonMissileHold3", 48*cos(pitch), 8, 48*sin(-pitch)+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
+        PMIS H 0 A_GiveInventory("CrocPhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE))
+        PMIS I 1 A_JumpIfInventory("CrocPhotonMissileCharge", WEPC_VPM_CHARGEMAX, "Launch")
         PMIS H 0 A_Refire("HoldB3")
         goto Launch
 
     Launch:
-        PMIS G 0 A_GiveInventory("FirePhotonMissileLauncher", 1) // SpreadRune
-        PMIS G 0 A_SpawnItemEx("PhotonMissileHold3", 48*cos(pitch), 8, 48*sin(-pitch)+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
+        PMIS G 0 A_GiveInventory("CrocFirePhotonMissileLauncher", 1) // SpreadRune
+        PMIS G 0 A_SpawnItemEx("CrocPhotonMissileHold3", 48*cos(pitch), 8, 48*sin(-pitch)+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
         PMIS IIHH 1
-        PMIS G 0 A_TakeInventory("PhotonMissileCharge", 999)
+        PMIS G 0 A_TakeInventory("CrocPhotonMissileCharge", 999)
         PMIS G 14
         goto Ready+1
     Altfire:
         PMIS G 0 A_JumpIfNoAmmo("NoAmmo")
-        PMIS G 0 A_TakeInventory("PhotonMissileAmmo", 3, TIF_NOTAKEINFINITE)
+        PMIS G 0 A_TakeInventory("CrocPhotonMissileAmmo", 3, TIF_NOTAKEINFINITE)
         PMIS H 0 A_PlaySoundEx("weapons/mmv/photonmissileload", "weapon")
         PMIS H 1
         goto Launch
@@ -134,19 +134,19 @@ actor PhotonMissileWep : BaseMM8BDMWep 10105
     }
 }
 
-actor PhotonMissileAmmo : Ammo
+actor CrocPhotonMissileAmmo : Ammo
 {
     inventory.amount 1
     inventory.maxamount 30
     +INVENTORY.IGNORESKILL
 }
 
-actor PhotonMissileCharge : WeaponCharge
+actor CrocPhotonMissileCharge : WeaponCharge
 {
     inventory.maxamount 55
 }
 
-actor PhotonMissileHold1 : BasicGraphicEffect
+actor CrocPhotonMissileHold1 : BasicGraphicEffect
 {
     States
     {
@@ -156,7 +156,7 @@ actor PhotonMissileHold1 : BasicGraphicEffect
     }
 }
 
-actor PhotonMissileHold2 : PhotonMissileHold1
+actor CrocPhotonMissileHold2 : CrocPhotonMissileHold1
 {
     States
     {
@@ -166,7 +166,7 @@ actor PhotonMissileHold2 : PhotonMissileHold1
     }
 }
 
-actor PhotonMissileHold3 : PhotonMissileHold1
+actor CrocPhotonMissileHold3 : CrocPhotonMissileHold1
 {
     States
     {
@@ -176,7 +176,7 @@ actor PhotonMissileHold3 : PhotonMissileHold1
     }
 }
 
-actor PhotonMissileHold4 : PhotonMissileHold1
+actor CrocPhotonMissileHold4 : CrocPhotonMissileHold1
 {
     +BRIGHT
     States
@@ -187,7 +187,7 @@ actor PhotonMissileHold4 : PhotonMissileHold1
     }
 }
 
-actor PhotonMissileHold5 : PhotonMissileHold1
+actor CrocPhotonMissileHold5 : CrocPhotonMissileHold1
 {
     +BRIGHT
     States
@@ -198,23 +198,23 @@ actor PhotonMissileHold5 : PhotonMissileHold1
     }
 }
 
-actor FirePhotonMissileLauncher : Custominventory
+actor CrocFirePhotonMissileLauncher : Custominventory
 {
     States
     {
     Pickup:
         TNT1 A 0 A_JumpIfInventory("PowerSpreadRune", 1, "PickupSpread")
-        TNT1 A 0 A_SpawnItemEx("PhotonMissileLauncher", 0, 8, 32, 48*cos(pitch), 0, 48*-sin(pitch), 0, SXF_TRANSFERPITCH)
+        TNT1 A 0 A_SpawnItemEx("CrocPhotonMissileLauncher", 0, 8, 32, 48*cos(pitch), 0, 48*-sin(pitch), 0, SXF_TRANSFERPITCH)
         stop
     PickupSpread:
-        TNT1 A 0 A_SpawnItemEx("PhotonMissileLauncher", 0, 8, 48, 48*cos(pitch), 0, 48*-sin(pitch), 0, SXF_TRANSFERPITCH)
-        TNT1 A 0 A_SpawnItemEx("PhotonMissileLauncher", 0, -6, 24, 48*cos(pitch), 0, 48*-sin(pitch), 0, SXF_TRANSFERPITCH)
-        TNT1 A 0 A_SpawnItemEx("PhotonMissileLauncher", 0, 20, 24, 48*cos(pitch), 0, 48*-sin(pitch), 0, SXF_TRANSFERPITCH)
+        TNT1 A 0 A_SpawnItemEx("CrocPhotonMissileLauncher", 0, 8, 48, 48*cos(pitch), 0, 48*-sin(pitch), 0, SXF_TRANSFERPITCH)
+        TNT1 A 0 A_SpawnItemEx("CrocPhotonMissileLauncher", 0, -6, 24, 48*cos(pitch), 0, 48*-sin(pitch), 0, SXF_TRANSFERPITCH)
+        TNT1 A 0 A_SpawnItemEx("CrocPhotonMissileLauncher", 0, 20, 24, 48*cos(pitch), 0, 48*-sin(pitch), 0, SXF_TRANSFERPITCH)
         stop
     }
 }
 
-actor PhotonMissileLauncher : BasicProjectile
+actor CrocPhotonMissileLauncher : BasicProjectile
 {
     +THRUACTORS
     +DOOMBOUNCE
@@ -222,7 +222,7 @@ actor PhotonMissileLauncher : BasicProjectile
     Height 10
     damage (1)
     speed 1
-    damagetype "PhotonMissile"
+    damagetype "CrocPhotonMissile"
     Obituary "$OB_PHOTONMISSILE"
     bouncefactor 0.0
     States
@@ -234,71 +234,71 @@ actor PhotonMissileLauncher : BasicProjectile
         TNT1 A 0 ACS_NamedExecuteAlways("core_targetyawpitch", 0, 1)
         PMIS ZC 1
         PMIS B 0
-        PMIS B 0 A_JumpIfInTargetInventory("PhotonMissileCharge", WEPC_VPM_CHARGEMAX, "Launch")
+        PMIS B 0 A_JumpIfInTargetInventory("CrocPhotonMissileCharge", WEPC_VPM_CHARGEMAX, "Launch")
         PMIS B 0 ACS_NamedExecuteAlways("core_loadphotonmissile", 0)
         PMIS D 2
-        PMIS B 0 A_JumpIfInventory("PhotonMissileCharge", WEPC_VPM_CHARGEARM+1, "SpawnWait2")
+        PMIS B 0 A_JumpIfInventory("CrocPhotonMissileCharge", WEPC_VPM_CHARGEARM+1, "SpawnWait2")
     SpawnWait:
-        PMIS B 0 A_JumpIfInventory("PhotonMissileCharge", WEPC_VPM_CHARGEARM, "SpawnArm")
+        PMIS B 0 A_JumpIfInventory("CrocPhotonMissileCharge", WEPC_VPM_CHARGEARM, "SpawnArm")
         PMIS B 1
-        PMIS B 0 A_GiveInventory("PhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE, AAPTR_TARGET))
-        PMIS B 0 A_JumpIfInventory("PhotonMissileCharge", WEPC_VPM_CHARGEARM, "SpawnArm")
+        PMIS B 0 A_GiveInventory("CrocPhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE, AAPTR_TARGET))
+        PMIS B 0 A_JumpIfInventory("CrocPhotonMissileCharge", WEPC_VPM_CHARGEARM, "SpawnArm")
         PMIS B 1
-        PMIS B 0 A_GiveInventory("PhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE, AAPTR_TARGET))
-        PMIS C 0 A_JumpIfInventory("PhotonMissileCharge", WEPC_VPM_CHARGEARM, "SpawnArm")
+        PMIS B 0 A_GiveInventory("CrocPhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE, AAPTR_TARGET))
+        PMIS C 0 A_JumpIfInventory("CrocPhotonMissileCharge", WEPC_VPM_CHARGEARM, "SpawnArm")
         PMIS C 1
-        PMIS C 0 A_GiveInventory("PhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE, AAPTR_TARGET))
-        PMIS C 0 A_JumpIfInventory("PhotonMissileCharge", WEPC_VPM_CHARGEARM, "SpawnArm")
+        PMIS C 0 A_GiveInventory("CrocPhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE, AAPTR_TARGET))
+        PMIS C 0 A_JumpIfInventory("CrocPhotonMissileCharge", WEPC_VPM_CHARGEARM, "SpawnArm")
         PMIS C 1
-        PMIS C 0 A_GiveInventory("PhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE, AAPTR_TARGET))
-        PMIS D 0 A_JumpIfInventory("PhotonMissileCharge", WEPC_VPM_CHARGEARM, "SpawnArm")
+        PMIS C 0 A_GiveInventory("CrocPhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE, AAPTR_TARGET))
+        PMIS D 0 A_JumpIfInventory("CrocPhotonMissileCharge", WEPC_VPM_CHARGEARM, "SpawnArm")
         PMIS D 1
-        PMIS D 0 A_GiveInventory("PhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE, AAPTR_TARGET))
-        PMIS D 0 A_JumpIfInventory("PhotonMissileCharge", WEPC_VPM_CHARGEARM, "SpawnArm")
+        PMIS D 0 A_GiveInventory("CrocPhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE, AAPTR_TARGET))
+        PMIS D 0 A_JumpIfInventory("CrocPhotonMissileCharge", WEPC_VPM_CHARGEARM, "SpawnArm")
         PMIS D 1
-        PMIS D 0 A_GiveInventory("PhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE, AAPTR_TARGET))
+        PMIS D 0 A_GiveInventory("CrocPhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE, AAPTR_TARGET))
         loop
     SpawnArm:
         PMIS D 0 A_PlaySoundEx("weapons/mmv/photonmissilecharge", "auto")
         PMIS D 0 A_ChangeFlag(BRIGHT, true)
     SpawnWait2:
-        PMIS E 0 A_JumpIfInventory("PhotonMissileCharge", WEPC_VPM_CHARGEMAX, "Launch")
+        PMIS E 0 A_JumpIfInventory("CrocPhotonMissileCharge", WEPC_VPM_CHARGEMAX, "Launch")
         PMIS E 1
-        PMIS E 0 A_GiveInventory("PhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE, AAPTR_TARGET))
-        PMIS E 0 A_JumpIfInventory("PhotonMissileCharge", WEPC_VPM_CHARGEMAX, "Launch")
+        PMIS E 0 A_GiveInventory("CrocPhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE, AAPTR_TARGET))
+        PMIS E 0 A_JumpIfInventory("CrocPhotonMissileCharge", WEPC_VPM_CHARGEMAX, "Launch")
         PMIS E 1
-        PMIS E 0 A_GiveInventory("PhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE, AAPTR_TARGET))
-        PMIS F 0 A_JumpIfInventory("PhotonMissileCharge", WEPC_VPM_CHARGEMAX, "Launch")
+        PMIS E 0 A_GiveInventory("CrocPhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE, AAPTR_TARGET))
+        PMIS F 0 A_JumpIfInventory("CrocPhotonMissileCharge", WEPC_VPM_CHARGEMAX, "Launch")
         PMIS F 1
-        PMIS F 0 A_GiveInventory("PhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE, AAPTR_TARGET))
-        PMIS F 0 A_JumpIfInventory("PhotonMissileCharge", WEPC_VPM_CHARGEMAX, "Launch")
+        PMIS F 0 A_GiveInventory("CrocPhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE, AAPTR_TARGET))
+        PMIS F 0 A_JumpIfInventory("CrocPhotonMissileCharge", WEPC_VPM_CHARGEMAX, "Launch")
         PMIS F 1
-        PMIS F 0 A_GiveInventory("PhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE, AAPTR_TARGET))
-        PMIS D 0 A_JumpIfInventory("PhotonMissileCharge", WEPC_VPM_CHARGEMAX, "Launch")
+        PMIS F 0 A_GiveInventory("CrocPhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE, AAPTR_TARGET))
+        PMIS D 0 A_JumpIfInventory("CrocPhotonMissileCharge", WEPC_VPM_CHARGEMAX, "Launch")
         PMIS D 1
-        PMIS D 0 A_GiveInventory("PhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE, AAPTR_TARGET))
-        PMIS D 0 A_JumpIfInventory("PhotonMissileCharge", WEPC_VPM_CHARGEMAX, "Launch")
+        PMIS D 0 A_GiveInventory("CrocPhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE, AAPTR_TARGET))
+        PMIS D 0 A_JumpIfInventory("CrocPhotonMissileCharge", WEPC_VPM_CHARGEMAX, "Launch")
         PMIS D 1
-        PMIS D 0 A_GiveInventory("PhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE, AAPTR_TARGET))
+        PMIS D 0 A_GiveInventory("CrocPhotonMissileCharge", 1 + CallACS("core_checkrune", RUNE_RAGE, AAPTR_TARGET))
         loop
     Launch:
         PMIS D 0 A_PlaySoundEx("weapons/mmv/photonmissilefire", "auto")
-        PMIS D 0 A_SpawnItemEx("PhotonMissile", 0, 0, 0, 80*cos(pitch), 0, 80*sin(-pitch))
+        PMIS D 0 A_SpawnItemEx("CrocPhotonMissile", 0, 0, 0, 80*cos(pitch), 0, 80*sin(-pitch))
         TNT1 A 35
         stop
     Death:
-        TNT1 A 0 A_SpawnItemEx("PhotonMissileExplosion")
+        TNT1 A 0 A_SpawnItemEx("CrocPhotonMissileExplosion")
         stop
     }
 }
 
-actor PhotonMissile : BasicFastProjectile
+actor CrocPhotonMissile : BasicFastProjectile
 {
     +RIPPER
     +BRIGHT
     +DONTREFLECT
-    missiletype "PhotonMissileTrail"
-    damagetype "PhotonMissile"
+    missiletype "CrocPhotonMissileTrail"
+    damagetype "CrocPhotonMissile"
     Obituary "$OB_PHOTONMISSILE"
     damage (1)
     Radius 10
@@ -310,15 +310,15 @@ actor PhotonMissile : BasicFastProjectile
         PMIS DEF 2
         loop
     Death:
-        TNT1 A 0 A_SpawnItemEx("PhotonMissileExplosion")
+        TNT1 A 0 A_SpawnItemEx("CrocPhotonMissileExplosion")
         stop
     }
 }
 
-actor PhotonMissileExplosion : BasicExplosion
+actor CrocPhotonMissileExplosion : BasicExplosion
 {
     +FORCEXYBILLBOARD
-    damagetype "PhotonMissile"
+    damagetype "CrocPhotonMissile"
     Obituary "$OB_PHOTONMISSILE"
     States
     {
@@ -331,7 +331,7 @@ actor PhotonMissileExplosion : BasicExplosion
     }
 }
 
-actor PhotonMissileTrail : PhotonMissileHold3
+actor CrocPhotonMissileTrail : CrocPhotonMissileHold3
 {
     States
     {

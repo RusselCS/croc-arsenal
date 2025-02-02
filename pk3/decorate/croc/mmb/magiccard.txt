@@ -1,6 +1,6 @@
-actor MagicCardWep_NormalBar : NormalBar { args 236, 3 }
+actor CrocMagicCardWep_NormalBar : NormalBar { args 236, 3 }
 
-actor MagicCardWep : BaseMM8BDMWep 10016
+actor CrocMagicCardWep : BaseMM8BDMWep 10016
 {
 //$Category MM8BDM-Weapons/Close
 //$Title Magic Card
@@ -11,7 +11,7 @@ Weapon.SlotNumber 4
 Inventory.Pickupmessage "$PU_MAGICCARD"
 Obituary "$OB_MAGICCARD"
 Tag "$TAG_MAGICCARD"
-weapon.ammotype "MagicCardAmmo"
+weapon.ammotype "CrocMagicCardAmmo"
 inventory.icon "MAGII"
 States
 {
@@ -31,7 +31,7 @@ goto SelectSwap
 Fire:
 MCAR H 0 A_JumpIfNoAmmo("NoAmmo")
 MCAR H 0 A_PlaySoundEx("weapons/mmb/magiccardfire","Weapon")
-MCAR H 0 A_FireCustomMissile("MagicCard",0,1,8,0)
+MCAR H 0 A_FireCustomMissile("CrocMagicCard",0,1,8,0)
 MCAR IJ 4
 MCAR H 15
 MCAR H 0 A_Refire
@@ -42,14 +42,14 @@ Goto Ready+1
 }
 }
 
-actor MagicCardAmmo : Ammo
+actor CrocMagicCardAmmo : Ammo
 {
 inventory.amount 1
 inventory.maxamount 28
 +INVENTORY.IGNORESKILL
 }
 
-actor MagicCardMaster : BasicProjectile
+actor CrocMagicCardMaster : BasicProjectile
 {
     +NOCLIP
     +NOINTERACTION
@@ -60,45 +60,45 @@ actor MagicCardMaster : BasicProjectile
     speed 50
 }
 
-actor MagicCard : MagicCardMaster
+actor MagicCard : CrocMagicCardMaster
 {
 States
 {
 Spawn:
 MCAR A 0
-MCAR A 0 A_SpawnItemEx("MagicCardWallDetector", 0, 0, 0, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM|SXF_WEPFXCOLOR)
-MCAR AA 1 A_SpawnItemEx("MagicCardDamager",0,0,0,2,0,0)
-MCAR BBCCCCCC 1 A_SpawnItemEx("MagicCardDamager",0,0,0,2,0,0)
+MCAR A 0 A_SpawnItemEx("CrocMagicCardWallDetector", 0, 0, 0, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM|SXF_WEPFXCOLOR)
+MCAR AA 1 A_SpawnItemEx("CrocMagicCardDamager",0,0,0,2,0,0)
+MCAR BBCCCCCC 1 A_SpawnItemEx("CrocMagicCardDamager",0,0,0,2,0,0)
 MCAR D 0 A_ScaleVelocity(0.5)
-MCAR DD 1 A_SpawnItemEx("MagicCardDamager",0,0,0,2,0,0)
+MCAR DD 1 A_SpawnItemEx("CrocMagicCardDamager",0,0,0,2,0,0)
 MCAR D 0 A_ScaleVelocity(0.5)
-MCAR EE 1 A_SpawnItemEx("MagicCardDamager",0,0,0,2,0,0)
+MCAR EE 1 A_SpawnItemEx("CrocMagicCardDamager",0,0,0,2,0,0)
 MCAR D 0 A_ScaleVelocity(-2.0)
-MCAR FF 1 A_SpawnItemEx("MagicCardDamager",0,0,0,2,0,0)
-MCAR A 0 A_CustomMissile("ReturningMagicCard",0,0,0,0)
+MCAR FF 1 A_SpawnItemEx("CrocMagicCardDamager",0,0,0,2,0,0)
+MCAR A 0 A_CustomMissile("CrocReturningMagicCard",0,0,0,0)
 stop
 }
 }
 
-actor ReturningMagicCard : MagicCard
+actor CrocReturningMagicCard : MagicCard
 {
 States
 {
 Spawn:
 MCAR A 0
-MCAR A 0 A_SpawnItemEx("MagicCardWallDetectorReturn", 0, 0, 0, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM|SXF_WEPFXCOLOR)
+MCAR A 0 A_SpawnItemEx("CrocMagicCardWallDetectorReturn", 0, 0, 0, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM|SXF_WEPFXCOLOR)
 MCAR A 0 A_JumpIfCloser(64,"Death")
-MCAR BB 1 A_SpawnItemEx("MagicCardDamager",0,0,0,2,0,0)
+MCAR BB 1 A_SpawnItemEx("CrocMagicCardDamager",0,0,0,2,0,0)
 MCAR B 0 A_JumpIfCloser(64,"Death")
-MCAR CC 1 A_SpawnItemEx("MagicCardDamager",0,0,0,2,0,0)
+MCAR CC 1 A_SpawnItemEx("CrocMagicCardDamager",0,0,0,2,0,0)
 MCAR C 0 A_JumpIfCloser(64,"Death")
-MCAR DD 1 A_SpawnItemEx("MagicCardDamager",0,0,0,2,0,0)
+MCAR DD 1 A_SpawnItemEx("CrocMagicCardDamager",0,0,0,2,0,0)
 MCAR D 0 A_JumpIfCloser(64,"Death")
-MCAR EE 1 A_SpawnItemEx("MagicCardDamager",0,0,0,2,0,0)
+MCAR EE 1 A_SpawnItemEx("CrocMagicCardDamager",0,0,0,2,0,0)
 MCAR A 0 A_JumpIfCloser(64,"Death")
-MCAR FF 1 A_SpawnItemEx("MagicCardDamager",0,0,0,2,0,0)
+MCAR FF 1 A_SpawnItemEx("CrocMagicCardDamager",0,0,0,2,0,0)
 MCAR A 0 A_JumpIfCloser(64,"Death")
-MCAR A 0 A_CustomMissile("ReturningMagicCard",0,0,0,0)
+MCAR A 0 A_CustomMissile("CrocReturningMagicCard",0,0,0,0)
 stop
 Death:
 MCAR A 0
@@ -106,7 +106,7 @@ Stop
 }
 }
 
-actor MagicCardWallDetector : MagicCardMaster
+actor CrocMagicCardWallDetector : CrocMagicCardMaster
 {
     +THRUACTORS
     -NOCLIP
@@ -128,12 +128,12 @@ actor MagicCardWallDetector : MagicCardMaster
         PLY1 A 0
         stop
     Death:
-        PLY1 A 0 A_SpawnItemEx("MagicCardFX", -momx, -momy, -momz, 0, 0, 0, 0, SXF_ABSOLUTEPOSITION|SXF_WEPFXCOLOR)
+        PLY1 A 0 A_SpawnItemEx("CrocMagicCardFX", -momx, -momy, -momz, 0, 0, 0, 0, SXF_ABSOLUTEPOSITION|SXF_WEPFXCOLOR)
         stop
     }
 }
 
-actor MagicCardWallDetectorReturn : MagicCardWallDetector
+actor CrocMagicCardWallDetectorReturn : MagicCardWallDetector
 {
     States
     {
@@ -151,13 +151,13 @@ actor MagicCardWallDetectorReturn : MagicCardWallDetector
     }
 }
 
-actor MagicCardDamager : BasicProjectile
+actor CrocMagicCardDamager : BasicProjectile
 {
 +DONTSPLASH
 +DONTBLAST
 +THRUGHOST
 +DONTREFLECT
-Damagetype "MagicCard" 
+Damagetype "CrocMagicCard" 
 Obituary "$OB_MAGICCARD"
 radius 16
 height 8
@@ -170,7 +170,7 @@ stop
 }
 }
 
-actor MagicCardFX : BasicGraphicEffect
+actor CrocMagicCardFX : BasicGraphicEffect
 {
     +FORCEXYBILLBOARD
     +BRIGHT

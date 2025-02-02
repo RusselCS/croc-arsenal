@@ -1,7 +1,7 @@
-actor TangoSummon : BaseMM8BDMUseItem 10156
+actor CrocTangoSummon : BaseMM8BDMUseItem 10156
 {
 //$Category MM8BDM-Assists/Weapon
-//$Title Tango Roll
+//$Title CrocTango Roll
 //$Sprite WEA3B0
 Inventory.RespawnTics 350
 inventory.amount 1
@@ -20,17 +20,17 @@ WEA3 B -1
 loop
 Use:
 WEA3 B 0 A_PlaySoundEx("item/refill","Voice")
-WEA3 B 0 A_SpawnItemEx("TangoTeleport", 40, 0, 256, 0, 0, -24, 0, SXF_NOCHECKPOSITION, 0)
+WEA3 B 0 A_SpawnItemEx("CrocTangoTeleport", 40, 0, 256, 0, 0, -24, 0, SXF_NOCHECKPOSITION, 0)
 stop
 }
 }
 
-actor TangoSummon_Respawn : 8BDMItemRespawn
+actor CrocTangoSummon_Respawn : 8BDMItemRespawn
 {
 	translation "192:192=201:201", "198:198=128:128"
 	mass 350
 }
-actor TangoSummon_RespawnShadow : 8BDMItemRespawnShadow
+actor CrocTangoSummon_RespawnShadow : 8BDMItemRespawnShadow
 {
 	mass 350
 	States
@@ -41,7 +41,7 @@ actor TangoSummon_RespawnShadow : 8BDMItemRespawnShadow
 	}
 }
 
-actor TangoTeleport : BasicProjectile
+actor CrocTangoTeleport : BasicProjectile
 {
 +RIPPER
 +NOINTERACTION
@@ -63,12 +63,12 @@ TANG H 0 A_ChangeFlag("NOINTERACTION", 0)
 TANG H 0
 Goto Death
 Death:
-TNT1 A 0 A_SpawnItemEx("Tango",0,0,3,0,0,momz,0,SXF_NOCHECKPOSITION,0)
+TNT1 A 0 A_SpawnItemEx("CrocTango",0,0,3,0,0,momz,0,SXF_NOCHECKPOSITION,0)
 stop
 }
 }
 
-actor Tango : ProjSpawnFuncActor
+actor CrocTango : ProjSpawnFuncActor
 {
 +DONTBLAST
 - SOLID
@@ -95,15 +95,15 @@ TANG I 0 A_ChangeFlag("NOCLIP",0)
 TANG IHJJ 1
 TANG I 0 A_PlaySoundEx("item/tango","Voice")
 TANG ABCDBCA 4
-TANG A 0 A_SpawnItemEx("TangoAttack",0,0,0,30,0,9)
+TANG A 0 A_SpawnItemEx("CrocTangoAttack",0,0,0,30,0,9)
 stop
 Death:
-TANG F 0 A_SpawnItemEx("TangoDeath",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION|SXF_WEPFXCOLOR)
+TANG F 0 A_SpawnItemEx("CrocTangoDeath",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION|SXF_WEPFXCOLOR)
 stop
 }
 }
 
-actor TangoAttack : BasicProjectile
+actor CrocTangoAttack : BasicProjectile
 {
 wallbouncefactor 0.99
 bouncefactor 1.0
@@ -115,7 +115,7 @@ Bouncetype Classic
 +RIPPER
 Damage (20)
 Obituary "$OB_TANGOROLL"
-damagetype "Tango"
+damagetype "CrocTango"
 Height 16
 Radius 16
 speed 30
@@ -128,12 +128,12 @@ TANG EFG 3
 TANG E 0 A_CountDown
 loop
 Death:
-TANG E 0 A_SpawnItemEx("TangoDeath",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION|SXF_WEPFXCOLOR)
+TANG E 0 A_SpawnItemEx("CrocTangoDeath",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION|SXF_WEPFXCOLOR)
 stop
 }
 }
 
-actor TangoDeath : BasicProjectile
+actor CrocTangoDeath : BasicProjectile
 {
 +RIPPER
 +BLOODLESSIMPACT

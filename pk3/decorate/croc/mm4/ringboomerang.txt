@@ -1,6 +1,6 @@
-actor RingBoomerangWep_NormalBar : NormalBar { args 215, 230 }
+actor CrocRingBoomerangWep_NormalBar : NormalBar { args 215, 230 }
 
-actor RingBoomerangWep : BaseMM8BDMWep 10058
+actor CrocRingBoomerangWep : BaseMM8BDMWep 10058
 {
 //$Category MM8BDM-Weapons/Close
 //$Title Ring Boomerang
@@ -11,7 +11,7 @@ Weapon.SlotNumber 4
 Inventory.Pickupmessage "$PU_RINGBOOMERANG"
 Obituary "$OB_RINGBOOMERANG"
 Tag "$TAG_RINGBOOMERANG"
-weapon.ammotype "RingBoomerangAmmo"
+weapon.ammotype "CrocRingBoomerangAmmo"
 inventory.icon "RINGSI"
 States
 {
@@ -31,7 +31,7 @@ goto SelectSwap
 Fire:
 RING E 0 A_JumpIfNoAmmo("NoAmmo")
 RING E 0 A_PlaySoundEx("weapons/mm4/ringboomberangfire","Weapon")
-RING E 0 A_FireCustomMissile("RingBoomerang",0,1,8,0)
+RING E 0 A_FireCustomMissile("CrocRingBoomerang",0,1,8,0)
 RING FG 4
 RING E 15
 RING E 0 A_Refire
@@ -42,26 +42,26 @@ Goto Ready+1
 }
 }
 
-actor RingBoomerangAmmo : Ammo
+actor CrocRingBoomerangAmmo : Ammo
 {
 inventory.amount 1
 inventory.maxamount 28
 +INVENTORY.IGNORESKILL
 }
 
-actor RingBoomerangBase : BasicProjectile
+actor CrocRingBoomerangBase : BasicProjectile
 {
 Radius 12
 Height 12
 damage (18)
 +RIPPER
-damagetype "RingBoomerang"
+damagetype "CrocRingBoomerang"
 Obituary "$OB_RINGBOOMERANG"
 speed 65
 args 65 //return speed
 }
 
-actor RingBoomerang : RingBoomerangBase
+actor RingBoomerang : CrocRingBoomerangBase
 {
 +HEXENBOUNCE
 +CANBOUNCEWATER
@@ -78,12 +78,12 @@ TNT1 A 0 A_ChangeFlag("HITTRACER",0)
 TNT1 A 0 A_Stop
 RING ABCD 2
 Death:
-TNT1 A 0 A_SpawnItemEx("ReturningRingMaster")
+TNT1 A 0 A_SpawnItemEx("CrocReturningRingMaster")
 stop
 }
 }
 
-actor ReturningRingMaster : RingBoomerangBase
+actor CrocReturningRingMaster : CrocRingBoomerangBase
 {
 +NOCLIP
 +NOINTERACTION
@@ -92,17 +92,17 @@ states
 Spawn:
 TNT1 A 0
 TNT1 A 0 ACS_NamedExecuteWithResult("core_lookatptr", AAPTR_TARGET)
-TNT1 A 0 A_SpawnItemEx("ReturningRing",0,0,0,0,0,0,0,SXF_TRANSFERPITCH,0,CallACS("core_NewUniqueTID"))
+TNT1 A 0 A_SpawnItemEx("CrocReturningRing",0,0,0,0,0,0,0,SXF_TRANSFERPITCH,0,CallACS("core_NewUniqueTID"))
 TNT1 A 0 ACS_NamedExecuteWithResult("core_setTIDsPointerToThis",CallACS("core_CurrentUniqueTID"),AAPTR_MASTER)
 TNT1 A 0 ACS_NamedExecuteWithResult("core_ClearUniqueTID",0)
-RING AABBCCDDAA 1 A_GiveInventory("ReturningRingMasterFunc",1)
+RING AABBCCDDAA 1 A_GiveInventory("CrocReturningRingMasterFunc",1)
 Death:
 TNT1 A 0 A_RemoveChildren(true)
 stop
 }
 }
 
-actor ReturningRingMasterFunc : CustomInventory
+actor CrocReturningRingMasterFunc : CustomInventory
 {
 states
 {
@@ -116,7 +116,7 @@ stop
 }
 }
 
-actor ReturningRing : RingBoomerangBase
+actor CrocReturningRing : CrocRingBoomerangBase
 {
 +INVISIBLE
 var int user_NoTranslation;
@@ -125,15 +125,15 @@ states
 Spawn:
 TNT1 A 0
 Spawn2:
-BUST A 1 A_GiveInventory("ReturningRingFunc",1)
+BUST A 1 A_GiveInventory("CrocReturningRingFunc",1)
 loop
 Death:
-TNT1 A 0 A_SpawnItemEx("ReturningRing2",0,0,0,0,0,0,0,SXF_TRANSFERPITCH|SXF_TRANSFERPOINTERS)
+TNT1 A 0 A_SpawnItemEx("CrocReturningRing2",0,0,0,0,0,0,0,SXF_TRANSFERPITCH|SXF_TRANSFERPOINTERS)
 stop
 }
 }
 
-actor ReturningRing2 : ReturningRing
+actor CrocReturningRing2 : ReturningRing
 {
 +NOCLIP
 +NOINTERACTION
@@ -142,8 +142,8 @@ states
 Spawn:
 TNT1 A 0
 Spawn2:
-BUST A 1 A_GiveInventory("ReturningRingFunc",1)
-TNT1 A 0 A_SpawnItemEx("ReturningRing",0,0,0,0,0,0,0,SXF_TRANSFERPITCH|SXF_TRANSFERPOINTERS)
+BUST A 1 A_GiveInventory("CrocReturningRingFunc",1)
+TNT1 A 0 A_SpawnItemEx("CrocReturningRing",0,0,0,0,0,0,0,SXF_TRANSFERPITCH|SXF_TRANSFERPOINTERS)
 stop
 Death:
 TNT1 A 0
@@ -151,7 +151,7 @@ stop
 }
 }
 
-actor ReturningRingFunc : CustomInventory
+actor CrocReturningRingFunc : CustomInventory
 {
 states
 {

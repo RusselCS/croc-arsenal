@@ -1,6 +1,6 @@
-actor ThunderClawWep_NormalBar : NormalBar { args 192, 220 }
+actor CrocThunderClawWep_NormalBar : NormalBar { args 192, 220 }
 
-actor ThunderClawWep : BaseMM8BDMWep 11096
+actor CrocThunderClawWep : BaseMM8BDMWep 11096
 {
     //$Category MM8BDM-Weapons/Close
     //$Title Thunder Claw
@@ -11,7 +11,7 @@ actor ThunderClawWep : BaseMM8BDMWep 11096
     Inventory.Pickupmessage "$PU_THUNDERCLAW"
     Obituary "$OB_THUNDERCLAW"
     Tag "$TAG_THUNDERCLAW"
-    weapon.ammotype "ThunderClawAmmo"
+    weapon.ammotype "CrocThunderClawAmmo"
     inventory.icon "TCLAWI"
     States
     {
@@ -31,7 +31,7 @@ actor ThunderClawWep : BaseMM8BDMWep 11096
     Fire:
         TCLD D 0 A_JumpIfNoAmmo("NoAmmo")
         TCLD D 0 A_PlaySoundEx("weapons/mm8/thunderclawfire","Weapon")
-        TCLD D 0 A_GiveInventory("FireThunderClaw", 1)
+        TCLD D 0 A_GiveInventory("CrocFireThunderClaw", 1)
         TCLD EFFE 3
         TCLD D 10
         TCLD D 0 A_Refire
@@ -42,55 +42,55 @@ actor ThunderClawWep : BaseMM8BDMWep 11096
     }
 }
 
-actor ThunderClawAmmo : Ammo
+actor CrocThunderClawAmmo : Ammo
 {
     inventory.amount 1
     inventory.maxamount 28
     +INVENTORY.IGNORESKILL
 }
 
-actor ThunderClawProtect : PowerProtection
+actor CrocThunderClawProtect : PowerProtection
 {
     powerup.duration 10
-    damagefactor "ThunderClaw", 0.0
+    damagefactor "CrocThunderClaw", 0.0
 }
 
-actor FireThunderClaw : CustomInventory
+actor CrocFireThunderClaw : CustomInventory
 {
     States
     {
     Pickup:
-		TNT1 A 0 A_TakeInventory("ThunderClawAmmo", 2,TIF_NOTAKEINFINITE)
-        TNT1 A 0 A_SpawnItemEx("ThunderClawWatcher", cos(-pitch)*16, 8, 32+(sin(-pitch)*16), 0, 0, 0, 0, SXF_TRANSFERPITCH)
+		TNT1 A 0 A_TakeInventory("CrocThunderClawAmmo", 2,TIF_NOTAKEINFINITE)
+        TNT1 A 0 A_SpawnItemEx("CrocThunderClawWatcher", cos(-pitch)*16, 8, 32+(sin(-pitch)*16), 0, 0, 0, 0, SXF_TRANSFERPITCH)
         TNT1 A 0 A_JumpIfInventory("PowerSpreadRune", 1, "PickupSpread")
         stop
     PickupSpread:
-        TNT1 A 0 A_SpawnItemEx("ThunderClawWatcher", cos(-pitch)*16, 8, 32+(sin(-pitch)*16), 0, 0, 0, -20, SXF_TRANSFERPITCH)
-        TNT1 A 0 A_SpawnItemEx("ThunderClawWatcher", cos(-pitch)*16, 8, 32+(sin(-pitch)*16), 0, 0, 0, 20, SXF_TRANSFERPITCH)
+        TNT1 A 0 A_SpawnItemEx("CrocThunderClawWatcher", cos(-pitch)*16, 8, 32+(sin(-pitch)*16), 0, 0, 0, -20, SXF_TRANSFERPITCH)
+        TNT1 A 0 A_SpawnItemEx("CrocThunderClawWatcher", cos(-pitch)*16, 8, 32+(sin(-pitch)*16), 0, 0, 0, 20, SXF_TRANSFERPITCH)
         stop
     }
 }
 
-actor ThunderClawWatcher : BasicWatcher
+actor CrocThunderClawWatcher : BasicWatcher
 {
     speed 32
     States
     {
     Spawn:
         TNT1 A 0
-        TNT1 A 0 A_SpawnItemEx("ThunderClawDamager5", 0, 0, 0, cos(pitch), 0, sin(-pitch), 0, SXF_MULTIPLYSPEED)
+        TNT1 A 0 A_SpawnItemEx("CrocThunderClawDamager5", 0, 0, 0, cos(pitch), 0, sin(-pitch), 0, SXF_MULTIPLYSPEED)
         TCLA A 1 A_Warp(AAPTR_TARGET, cos(-pitch)*16,8,32+(sin(-pitch)*16), 0, WARPF_USECALLERANGLE)
-        TNT1 A 0 A_SpawnItemEx("ThunderClawDamager10", 0, 0, 0, cos(pitch), 0, sin(-pitch), 0, SXF_MULTIPLYSPEED)
+        TNT1 A 0 A_SpawnItemEx("CrocThunderClawDamager10", 0, 0, 0, cos(pitch), 0, sin(-pitch), 0, SXF_MULTIPLYSPEED)
         TCLA A 1 A_Warp(AAPTR_TARGET, cos(-pitch)*16,8,32+(sin(-pitch)*16), 0, WARPF_USECALLERANGLE)
-        TNT1 A 0 A_SpawnItemEx("ThunderClawDamager15", 0, 0, 0, cos(pitch), 0, sin(-pitch), 0, SXF_MULTIPLYSPEED)
+        TNT1 A 0 A_SpawnItemEx("CrocThunderClawDamager15", 0, 0, 0, cos(pitch), 0, sin(-pitch), 0, SXF_MULTIPLYSPEED)
         TCLA A 1 A_Warp(AAPTR_TARGET, cos(-pitch)*16,8,32+(sin(-pitch)*16), 0, WARPF_USECALLERANGLE)
-        TNT1 A 0 A_SpawnItemEx("ThunderClawDamager20", 0, 0, 0, cos(pitch), 0, sin(-pitch), 0, SXF_MULTIPLYSPEED)
+        TNT1 A 0 A_SpawnItemEx("CrocThunderClawDamager20", 0, 0, 0, cos(pitch), 0, sin(-pitch), 0, SXF_MULTIPLYSPEED)
         TCLA A 1 A_Warp(AAPTR_TARGET, cos(-pitch)*16,8,32+(sin(-pitch)*16), 0, WARPF_USECALLERANGLE)
-        TNT1 A 0 A_SpawnItemEx("ThunderClawDamager15", 0, 0, 0, cos(pitch), 0, sin(-pitch), 0, SXF_MULTIPLYSPEED)
+        TNT1 A 0 A_SpawnItemEx("CrocThunderClawDamager15", 0, 0, 0, cos(pitch), 0, sin(-pitch), 0, SXF_MULTIPLYSPEED)
         TCLA A 1 A_Warp(AAPTR_TARGET, cos(-pitch)*16,8,32+(sin(-pitch)*16), 0, WARPF_USECALLERANGLE)
-        TNT1 A 0 A_SpawnItemEx("ThunderClawDamager10", 0, 0, 0, cos(pitch), 0, sin(-pitch), 0, SXF_MULTIPLYSPEED)
+        TNT1 A 0 A_SpawnItemEx("CrocThunderClawDamager10", 0, 0, 0, cos(pitch), 0, sin(-pitch), 0, SXF_MULTIPLYSPEED)
         TCLA A 1 A_Warp(AAPTR_TARGET, cos(-pitch)*16,8,32+(sin(-pitch)*16), 0, WARPF_USECALLERANGLE)
-        TNT1 A 0 A_SpawnItemEx("ThunderClawDamager5", 0, 0, 0, cos(pitch), 0, sin(-pitch), 0, SXF_MULTIPLYSPEED)
+        TNT1 A 0 A_SpawnItemEx("CrocThunderClawDamager5", 0, 0, 0, cos(pitch), 0, sin(-pitch), 0, SXF_MULTIPLYSPEED)
         stop
     WindDown1:
         TNT1 A 0
@@ -98,12 +98,12 @@ actor ThunderClawWatcher : BasicWatcher
     }
 }
 
-actor ThunderClawDamager : BasicFastProjectile
+actor CrocThunderClawDamager : BasicFastProjectile
 {
     +DONTSPLASH
     +HITTRACER
     Obituary "$OB_THUNDERCLAW"
-    Damagetype "ThunderClaw"
+    Damagetype "CrocThunderClaw"
     Damage (30)
     Radius 10
     Height 10
@@ -116,22 +116,22 @@ actor ThunderClawDamager : BasicFastProjectile
         goto Death
     XDeath:
         TNT1 A 0 A_SpawnItemEX("ElectrifyEffect")
-        TNT1 A 0 A_GiveInventory("ThunderClawProtect", 1, AAPTR_TRACER)
+        TNT1 A 0 A_GiveInventory("CrocThunderClawProtect", 1, AAPTR_TRACER)
     Death:
         TNT1 A 0 A_SpawnItemEX("ElectrifyEffect")
-        TNT1 A 0 A_SpawnItemEx("ThunderClawPegHelper")
-        TNT1 A 0 A_SpawnItemEx("ThunderClaw")
+        TNT1 A 0 A_SpawnItemEx("CrocThunderClawPegHelper")
+        TNT1 A 0 A_SpawnItemEx("CrocThunderClaw")
         stop
     }
 }
 
-actor ThunderClawDamager5 : ThunderClawDamager { speed 54 }
-actor ThunderClawDamager10 : ThunderClawDamager { speed 108 }
-actor ThunderClawDamager15 : ThunderClawDamager { speed 162 }
-actor ThunderClawDamager20 : ThunderClawDamager { speed 216 -DONTSPLASH }
+actor CrocThunderClawDamager5 : ThunderClawDamager { speed 54 }
+actor CrocThunderClawDamager10 : ThunderClawDamager { speed 108 }
+actor CrocThunderClawDamager15 : ThunderClawDamager { speed 162 }
+actor CrocThunderClawDamager20 : ThunderClawDamager { speed 216 -DONTSPLASH }
 
 // Tip
-actor ThunderClaw : ProjSpawnFuncActor
+actor CrocThunderClaw : ProjSpawnFuncActor
 {
     +FORCEXYBILLBOARD
     +BRIGHT
@@ -156,7 +156,7 @@ actor ThunderClaw : ProjSpawnFuncActor
 }
 
 // chain
-actor ThunderClawFX : BasicGraphicEffect
+actor CrocThunderClawFX : BasicGraphicEffect
 {
     +FORCEXYBILLBOARD
     +BRIGHT

@@ -1,6 +1,6 @@
-actor SaltWaterWep_NormalBar : NormalBar { args 4, 198 }
+actor CrocSaltWaterWep_NormalBar : NormalBar { args 4, 198 }
 
-actor SaltWaterWep : BaseMM8BDMWep 10110
+actor CrocSaltWaterWep : BaseMM8BDMWep 10110
 {
     //$Category MM8BDM-Weapons/Close
     //$Title Salt Water
@@ -11,7 +11,7 @@ actor SaltWaterWep : BaseMM8BDMWep 10110
     Obituary "$OB_SALTWATER"
     Tag "$TAG_SALTWATER"
     Inventory.Pickupmessage "$PU_SALTWATER"
-    weapon.ammotype "SaltWaterAmmo"
+    weapon.ammotype "CrocSaltWaterAmmo"
     inventory.icon "SWATWI"
     States
     {
@@ -33,7 +33,7 @@ actor SaltWaterWep : BaseMM8BDMWep 10110
         TNT1 A 1
         SWAT MN 1
         SWAT J 0 A_PlaySoundEx("weapons/mmv/saltwaterfire","Weapon")
-        SWAT J 0 A_FireCustomMissile("SaltWater",0,1,8,0)
+        SWAT J 0 A_FireCustomMissile("CrocSaltWater",0,1,8,0)
         SWAT OPQR 1
         TNT1 A 13
         TNT1 A 0 A_JumpIfNoAmmo("NoAmmoReady")
@@ -48,14 +48,14 @@ actor SaltWaterWep : BaseMM8BDMWep 10110
     }
 }
 
-actor SaltWaterAmmo : Ammo
+actor CrocSaltWaterAmmo : Ammo
 {
     inventory.amount 1
     inventory.maxamount 28
     +INVENTORY.IGNORESKILL
 }
 
-actor SaltWater : BasicProjectile
+actor CrocSaltWater : BasicProjectile
 {
     +FORCEXYBILLBOARD
     +BOUNCEONCEILINGS
@@ -63,7 +63,7 @@ actor SaltWater : BasicProjectile
     -NOGRAVITY
     Damage (33)
     Obituary "$OB_SALTWATER"
-    damagetype "SaltWater"
+    damagetype "CrocSaltWater"
     gravity 1.2
     Speed 24
     Height 10
@@ -81,29 +81,29 @@ actor SaltWater : BasicProjectile
         SWAT B 0 A_ChangeVelocity(momx, momy, momz-1, CVF_REPLACE)
         goto Spawn+2
     Death:
-        TNT1 A 0 A_SpawnItemEx("SaltWaterBit", 0, 0, 0, 0.8, 0, 0.5,  12, SXF_MULTIPLYSPEED)
-        TNT1 A 0 A_SpawnItemEx("SaltWaterBit", 0, 0, 0, 0.9, 0, 0.5,   6, SXF_MULTIPLYSPEED)
-        TNT1 A 0 A_SpawnItemEx("SaltWaterBit", 0, 0, 0, 1.0, 0, 0.5,   0, SXF_MULTIPLYSPEED)
-        TNT1 A 0 A_SpawnItemEx("SaltWaterBit", 0, 0, 0, 0.9, 0, 0.5,  -6, SXF_MULTIPLYSPEED)
-        TNT1 A 0 A_SpawnItemEx("SaltWaterBit", 0, 0, 0, 0.8, 0, 0.5, -12, SXF_MULTIPLYSPEED)
+        TNT1 A 0 A_SpawnItemEx("CrocSaltWaterBit", 0, 0, 0, 0.8, 0, 0.5,  12, SXF_MULTIPLYSPEED)
+        TNT1 A 0 A_SpawnItemEx("CrocSaltWaterBit", 0, 0, 0, 0.9, 0, 0.5,   6, SXF_MULTIPLYSPEED)
+        TNT1 A 0 A_SpawnItemEx("CrocSaltWaterBit", 0, 0, 0, 1.0, 0, 0.5,   0, SXF_MULTIPLYSPEED)
+        TNT1 A 0 A_SpawnItemEx("CrocSaltWaterBit", 0, 0, 0, 0.9, 0, 0.5,  -6, SXF_MULTIPLYSPEED)
+        TNT1 A 0 A_SpawnItemEx("CrocSaltWaterBit", 0, 0, 0, 0.8, 0, 0.5, -12, SXF_MULTIPLYSPEED)
         TNT1 A 0 A_JumpIf(z-floorz < 4, "FloorSplash")
         TNT1 A 0 A_JumpIf(true, "WallSplash")
         TNT1 A 1
         wait
     WallSplash:
-        TNT1 A 0 A_SpawnItemEx("SaltWaterWallSplash", 0, 0, 0, 0, 0, 0, 0, SXF_WEPFXCOLOR)
+        TNT1 A 0 A_SpawnItemEx("CrocSaltWaterWallSplash", 0, 0, 0, 0, 0, 0, 0, SXF_WEPFXCOLOR)
         stop
     FloorSplash:
-        TNT1 A 0 A_SpawnItemEx("SaltWaterSplash", 0, 0, 0, 0, 0, 0, 0, SXF_WEPFXCOLOR)
+        TNT1 A 0 A_SpawnItemEx("CrocSaltWaterSplash", 0, 0, 0, 0, 0, 0, 0, SXF_WEPFXCOLOR)
         stop
     XDeath:
         TNT1 A 0 A_SpawnItemEx("SoakifyEffect")
-        TNT1 AAAAA 0 A_SpawnItemEx("SaltWaterBitDie", frandom(-32, 32), frandom(-32, 32), frandom(-32, 32), 0, 0, 0, 0, SXF_WEPFXCOLOR)
+        TNT1 AAAAA 0 A_SpawnItemEx("CrocSaltWaterBitDie", frandom(-32, 32), frandom(-32, 32), frandom(-32, 32), 0, 0, 0, 0, SXF_WEPFXCOLOR)
         stop
     }
 }
 
-actor SaltWaterSplash : BasicGraphicEffect
+actor CrocSaltWaterSplash : BasicGraphicEffect
 {
     States
     {
@@ -115,7 +115,7 @@ actor SaltWaterSplash : BasicGraphicEffect
     }
 }
 
-actor SaltWaterWallSplash : BasicGraphicEffect
+actor CrocSaltWaterWallSplash : BasicGraphicEffect
 {
     States
     {
@@ -127,13 +127,13 @@ actor SaltWaterWallSplash : BasicGraphicEffect
     }
 }
 
-actor SaltWaterBit : BasicProjectile
+actor CrocSaltWaterBit : BasicProjectile
 {
     +FORCEXYBILLBOARD
     -NOGRAVITY
     +HEXENBOUNCE
     Obituary "$OB_SALTWATER"
-    damagetype "SaltWater"
+    damagetype "CrocSaltWater"
     bouncecount 2
     Damage (11)
     Speed 20
@@ -150,12 +150,12 @@ actor SaltWaterBit : BasicProjectile
         SWAT F 1
         wait
     Death:
-        TNT1 A 0 A_SpawnItemEx("SaltWaterBitDie", 0, 0, 0, 0, 0, 0, 0, SXF_WEPFXCOLOR)
+        TNT1 A 0 A_SpawnItemEx("CrocSaltWaterBitDie", 0, 0, 0, 0, 0, 0, 0, SXF_WEPFXCOLOR)
         stop
     }
 }
 
-actor SaltWaterBitDie : SaltWaterSplash
+actor CrocSaltWaterBitDie : CrocSaltWaterSplash
 {
     +FORCEXYBILLBOARD
     States

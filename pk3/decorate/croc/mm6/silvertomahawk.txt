@@ -1,6 +1,6 @@
-actor SilverTomahawkWep_NormalBar : NormalBar { args 52, 220 }
+actor CrocSilverTomahawkWep_NormalBar : NormalBar { args 52, 220 }
 
-actor SilverTomahawkWep : BaseMM8BDMWep 10070
+actor CrocSilverTomahawkWep : BaseMM8BDMWep 10070
 {
 //$Category MM8BDM-Weapons/Ranged
 //$Title Silver Tomahawk
@@ -11,7 +11,7 @@ Weapon.SlotNumber 2
 Inventory.Pickupmessage "$PU_SILVERTOMAHAWK"
 Obituary "$OB_SILVERTOMAHAWK"
 TAG "$TAG_SILVERTOMAHAWK"
-weapon.ammotype "SilverTomahawkAmmo"
+weapon.ammotype "CrocSilverTomahawkAmmo"
 inventory.icon "TOMASI"
 States
 {
@@ -31,7 +31,7 @@ goto SelectSwap
 Fire:
 TOMA C 0 A_JumpIfNoAmmo("NoAmmo")
 TOMA C 0 A_PlaySoundEx("weapons/mm6/silvertomahawkfire","Weapon")
-TOMA C 0 A_FireCustomMissile("SilverTomahawk",0,1,8,0)
+TOMA C 0 A_FireCustomMissile("CrocSilverTomahawk",0,1,8,0)
 TOMA ED 2
 TOMA C 20
 TOMA C 0 A_Refire
@@ -42,21 +42,21 @@ Goto Ready+1
 }
 }
 
-actor SilverTomahawkAmmo : Ammo
+actor CrocSilverTomahawkAmmo : Ammo
 {
 inventory.amount 1
 inventory.maxamount 28
 +INVENTORY.IGNORESKILL
 }
 
-actor SilverTomahawk : BasicProjectile
+actor CrocSilverTomahawk : BasicProjectile
 {
 +NOEXPLODEFLOOR
 Radius 16
 Height 7
 damage (30)
 speed 50
-damagetype "SilverTomahawk"
+damagetype "CrocSilverTomahawk"
 Obituary "$OB_SILVERTOMAHAWK"
 States
 {

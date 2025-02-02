@@ -1,6 +1,6 @@
-actor LightningBoltWep_NormalBar : NormalBar { args 93,229 }
+actor CrocLightningBoltWep_NormalBar : NormalBar { args 93,229 }
 
-actor LightningBoltWep : BaseMM8BDMWep 10019
+actor CrocLightningBoltWep : BaseMM8BDMWep 10019
 {
 //$Category MM8BDM-Weapons/AoE
 //$Title Lightning Bolt
@@ -11,7 +11,7 @@ Weapon.SlotNumber 6
 Inventory.Pickupmessage "$PU_LIGHTNINGBOLT"
 Obituary "$OB_LIGHTNINGBOLT"
 Tag "$TAG_LIGHTNINGBOLT"
-weapon.ammotype "LightningBoltAmmo"
+weapon.ammotype "CrocLightningBoltAmmo"
 inventory.icon "LIGHTNI"
 States
 {
@@ -32,24 +32,24 @@ LIBO B 1 A_Raise
 Loop
 Fire:
 LIBO B 0 A_JumpIfNoAmmo("NoAmmo")
-LIBO B 0 A_JumpIfInventory("LightningBoltCooldown",1,"NoAmmo")
+LIBO B 0 A_JumpIfInventory("CrocLightningBoltCooldown",1,"NoAmmo")
 LIBO B 0 A_PlaySoundEx("weapons/mmb/lightningboltfire","Weapon")
 LIBO B 0 A_Stop
 LIBO B 0 ACS_NamedExecuteAlways("core_flyplayer",0,0,1,1)
 LIBO B 0 ACS_NamedExecuteAlways("core_freezeplayer",0,0,1)//SetPlayerProperty(0,1,4)
-LIBO B 0 A_FireCustomMissile("LightningBoltEndpoint", 0, 1) // populates the distance
-LIBO C 2 A_SpawnItemEx("LightningStartFX1",0,0,48)
-LIBO C 0 A_FireCustomMissile("LightningBoltGuessShooter", 0, 0)
-LIBO D 2 A_SpawnItemEx("LightningStartFX2",0,0,48)
+LIBO B 0 A_FireCustomMissile("CrocLightningBoltEndpoint", 0, 1) // populates the distance
+LIBO C 2 A_SpawnItemEx("CrocLightningStartFX1",0,0,48)
+LIBO C 0 A_FireCustomMissile("CrocLightningBoltGuessShooter", 0, 0)
+LIBO D 2 A_SpawnItemEx("CrocLightningStartFX2",0,0,48)
 LIBO EF 2
 TNT1 A 10
-TNT1 A 12 A_FireCustomMissile("LightningBoltTracerShooter", 0, 0)
-TNT1 A 0 A_TakeInventory("LightningBoltLength", 99999)
+TNT1 A 12 A_FireCustomMissile("CrocLightningBoltTracerShooter", 0, 0)
+TNT1 A 0 A_TakeInventory("CrocLightningBoltLength", 99999)
 TNT1 A 10
 LIBO FEDC 2
 LIBO B 0 ACS_NamedExecuteAlways("core_flyplayer",0,0,0,1)
 LIBO B 0 ACS_NamedExecuteAlways("core_freezeplayer",0,0,0)
-LIBO B 1 A_GiveInventory("LightningBoltCooldown",1)
+LIBO B 1 A_GiveInventory("CrocLightningBoltCooldown",1)
 LIBO B 0 A_Refire
 Goto Ready+1
 NoAmmo:
@@ -58,12 +58,12 @@ Goto Ready+1
 }
 }
 
-actor LightningBoltCooldown : Powerup
+actor CrocLightningBoltCooldown : Powerup
 {
     powerup.duration 20
 }
 
-actor LightningStartFX1 : BasicGraphicEffect
+actor CrocLightningStartFX1 : BasicGraphicEffect
 {
     +NOINTERACTION
     -SOLID
@@ -81,7 +81,7 @@ actor LightningStartFX1 : BasicGraphicEffect
     }
 }
 
-actor LightningStartFX2 : LightningStartFX1
+actor CrocLightningStartFX2 : CrocLightningStartFX1
 {
     -FORCEYBILLBOARD
     States
@@ -92,7 +92,7 @@ actor LightningStartFX2 : LightningStartFX1
     }
 }
 
-actor LightningBoltFX : LightningStartFX1
+actor CrocLightningBoltFX : CrocLightningStartFX1
 {
     -FORCEYBILLBOARD
     +FORCEXYBILLBOARD
@@ -107,7 +107,7 @@ actor LightningBoltFX : LightningStartFX1
 }
 
 
-actor LightningBoltTracer : BasicProjectile
+actor CrocLightningBoltTracer : BasicProjectile
 {
     +DONTSPLASH
     +NOEXPLODEFLOOR
@@ -132,17 +132,17 @@ actor LightningBoltTracer : BasicProjectile
     Crash:
     XDeath:
         TNT1 A 0
-        TNT1 A 0 A_SpawnItemEx("LightningBolt")
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBolt")
         stop
     }
 }
 
-actor LightningBoltTracer2 : LightningBoltTracer
+actor CrocLightningBoltTracer2 : LightningBoltTracer
 {
     ReactionTime 5
 }
 
-actor LightningBolt : BasicExplosion
+actor CrocLightningBolt : BasicExplosion
 {
     +THRUACTORS
     +NOEXPLODEFLOOR
@@ -150,7 +150,7 @@ actor LightningBolt : BasicExplosion
     +FLOORHUGGER
     +DONTBLAST
     +BRIGHT
-    DamageType "LightningBolt"
+    DamageType "CrocLightningBolt"
     Obituary "$OB_LIGHTNINGBOLT"
     height 32
     radius 16
@@ -158,22 +158,22 @@ actor LightningBolt : BasicExplosion
     {
     Spawn:
         LIBO G 0
-        LIBO G 1 A_SpawnItemEx("LightningExtend", 0, 0, 355, 0, 0, 0, 0, SXF_WEPFXCOLOR)
+        LIBO G 1 A_SpawnItemEx("CrocLightningExtend", 0, 0, 355, 0, 0, 0, 0, SXF_WEPFXCOLOR)
         LIBO G 0 A_PlaySoundEx("weapons/mmb/lightningboltexplode","Weapon")
         LIBO G 0 A_Explode(47, 128, 0)
         LIBO H 1
-        LIBO I 0 A_SpawnItemEx("LightningBoltFX", Random(32, 96), Random(32, 96), 32, 0, 0, 0, 0, SXF_WEPFXCOLOR)
-        LIBO I 0 A_SpawnItemEx("LightningBoltFX", Random(-32, -96), Random(-32, -96), 64, 0, 0, 0, 0, SXF_WEPFXCOLOR)
-        LIBO I 0 A_SpawnItemEx("LightningBoltFX", Random(32, 96), Random(32, 96), 96, 0, 0, 0, 0, SXF_WEPFXCOLOR)
-        LIBO I 0 A_SpawnItemEx("LightningBoltFX", Random(-32, -96), Random(-32, -96), 128, 0, 0, 0, 0, SXF_WEPFXCOLOR)
-        LIBO I 0 A_SpawnItemEx("LightningBoltFX", Random(32, 96), Random(32, 96), 160, 0, 0, 0, 0, SXF_WEPFXCOLOR)
-        LIBO I 0 A_SpawnItemEx("LightningBoltFX", Random(-32, -96), Random(-32, -96), 192, 0, 0, 0, 0, SXF_WEPFXCOLOR)
+        LIBO I 0 A_SpawnItemEx("CrocLightningBoltFX", Random(32, 96), Random(32, 96), 32, 0, 0, 0, 0, SXF_WEPFXCOLOR)
+        LIBO I 0 A_SpawnItemEx("CrocLightningBoltFX", Random(-32, -96), Random(-32, -96), 64, 0, 0, 0, 0, SXF_WEPFXCOLOR)
+        LIBO I 0 A_SpawnItemEx("CrocLightningBoltFX", Random(32, 96), Random(32, 96), 96, 0, 0, 0, 0, SXF_WEPFXCOLOR)
+        LIBO I 0 A_SpawnItemEx("CrocLightningBoltFX", Random(-32, -96), Random(-32, -96), 128, 0, 0, 0, 0, SXF_WEPFXCOLOR)
+        LIBO I 0 A_SpawnItemEx("CrocLightningBoltFX", Random(32, 96), Random(32, 96), 160, 0, 0, 0, 0, SXF_WEPFXCOLOR)
+        LIBO I 0 A_SpawnItemEx("CrocLightningBoltFX", Random(-32, -96), Random(-32, -96), 192, 0, 0, 0, 0, SXF_WEPFXCOLOR)
         LIBO IJK 1
         Stop
     }
 }
 
-Actor LightningExtend : BasicGraphicEffect
+Actor CrocLightningExtend : BasicGraphicEffect
 {
     +FORCEYBILLBOARD
     +BRIGHT
@@ -182,7 +182,7 @@ Actor LightningExtend : BasicGraphicEffect
     SpawnFrame:
         LIBO L 0 
         LIBO L 0 A_JumpIf(ceilingz-z <= 32, "Death")
-        LIBO L 0 A_SpawnItemEx("LightningExtend", 0, 0, 160, 0, 0, 0, 0, SXF_WEPFXCOLOR)
+        LIBO L 0 A_SpawnItemEx("CrocLightningExtend", 0, 0, 160, 0, 0, 0, 0, SXF_WEPFXCOLOR)
         LIBO LLMN 1
         stop
     Death:
@@ -191,7 +191,7 @@ Actor LightningExtend : BasicGraphicEffect
     }
 }
 
-actor LightningBoltAmmo : Ammo
+actor CrocLightningBoltAmmo : Ammo
 {
     inventory.amount 1
     inventory.maxamount 28
@@ -199,9 +199,9 @@ actor LightningBoltAmmo : Ammo
 }
 
 // Croc Arsenal "point to" changes
-actor LightningBoltLength : WeaponCharge {}
+actor CrocLightningBoltLength : WeaponCharge {}
 
-actor LightningBoltEndpoint : FastProjectile
+actor CrocLightningBoltEndpoint : FastProjectile
 {
     PROJECTILE
     +RIPPER
@@ -218,12 +218,12 @@ actor LightningBoltEndpoint : FastProjectile
         TNT1 A 0 A_Countdown
     Death:
         TNT1 A 0 ACS_NamedExecuteWithResult("core_lightningboltsetlength", 600, 12)
-        // TNT1 A 0 A_SpawnItemEx("LightningBoltChargePoint", 0, 0, -(z-floorz), 0, 0, 0, 0, SXF_WEPFXCOLOR)
+        // TNT1 A 0 A_SpawnItemEx("CrocLightningBoltChargePoint", 0, 0, -(z-floorz), 0, 0, 0, 0, SXF_WEPFXCOLOR)
         stop
     }
 }
 
-actor LightningBoltChargePoint : BasicGraphicEffect
+actor CrocLightningBoltChargePoint : BasicGraphicEffect
 {
     reactiontime 32
 	+BRIGHT
@@ -239,7 +239,7 @@ actor LightningBoltChargePoint : BasicGraphicEffect
     }
 }
 
-actor LightningBoltGuess : LightningBoltTracer
+actor CrocLightningBoltGuess : CrocLightningBoltTracer
 {
     reactiontime 1
     damage(0)
@@ -251,12 +251,12 @@ actor LightningBoltGuess : LightningBoltTracer
         loop
     Death:
         TNT1 A 1
-        TNT1 A 0 A_SpawnItemEx("LightningBoltChargePoint", 0, 0, -(z-floorz), 0, 0, 0, 0, SXF_WEPFXCOLOR)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltChargePoint", 0, 0, -(z-floorz), 0, 0, 0, 0, SXF_WEPFXCOLOR)
         stop
     }
 }
 
-actor LightningBoltGuessShooter
+actor CrocLightningBoltGuessShooter
 {
     PROJECTILE
     Height 0
@@ -270,65 +270,65 @@ actor LightningBoltGuessShooter
     Spawn:
         TNT1 A 0
         TNT1 A 0 A_SetUserVar(user_speed, CallACS("core_lightningboltgetlength", AAPTR_TARGET))
-        TNT1 A 0 A_SpawnItemEx("LightningBoltGuess", 0, 0, 0, user_speed, 0, 0, 0)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltGuess", 0, 0, 0, user_speed/2, 0, 0, 345)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltGuess", 0, 0, 0, user_speed, 0, 0, 30)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltGuess", 0, 0, 0, user_speed/2, 0, 0, 315)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltGuess", 0, 0, 0, user_speed, 0, 0, 60)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltGuess", 0, 0, 0, user_speed/2, 0, 0, 285)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltGuess", 0, 0, 0, user_speed, 0, 0, 90)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltGuess", 0, 0, 0, user_speed/2, 0, 0, 255)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltGuess", 0, 0, 0, user_speed, 0, 0, 120)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltGuess", 0, 0, 0, user_speed/2, 0, 0, 225)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltGuess", 0, 0, 0, user_speed, 0, 0, 150)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltGuess", 0, 0, 0, user_speed/2, 0, 0, 195)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltGuess", 0, 0, 0, user_speed, 0, 0, 180)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltGuess", 0, 0, 0, user_speed/2, 0, 0, 165)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltGuess", 0, 0, 0, user_speed, 0, 0, 210)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltGuess", 0, 0, 0, user_speed/2, 0, 0, 135)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltGuess", 0, 0, 0, user_speed, 0, 0, 240)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltGuess", 0, 0, 0, user_speed/2, 0, 0, 105)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltGuess", 0, 0, 0, user_speed, 0, 0, 270)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltGuess", 0, 0, 0, user_speed/2, 0, 0, 75)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltGuess", 0, 0, 0, user_speed, 0, 0, 300)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltGuess", 0, 0, 0, user_speed/2, 0, 0, 45)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltGuess", 0, 0, 0, user_speed, 0, 0, 330)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltGuess", 0, 0, 0, user_speed/2, 0, 0, 15)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltGuess", 0, 0, 0, user_speed, 0, 0, 0)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltGuess", 0, 0, 0, user_speed/2, 0, 0, 345)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltGuess", 0, 0, 0, user_speed, 0, 0, 30)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltGuess", 0, 0, 0, user_speed/2, 0, 0, 315)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltGuess", 0, 0, 0, user_speed, 0, 0, 60)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltGuess", 0, 0, 0, user_speed/2, 0, 0, 285)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltGuess", 0, 0, 0, user_speed, 0, 0, 90)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltGuess", 0, 0, 0, user_speed/2, 0, 0, 255)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltGuess", 0, 0, 0, user_speed, 0, 0, 120)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltGuess", 0, 0, 0, user_speed/2, 0, 0, 225)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltGuess", 0, 0, 0, user_speed, 0, 0, 150)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltGuess", 0, 0, 0, user_speed/2, 0, 0, 195)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltGuess", 0, 0, 0, user_speed, 0, 0, 180)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltGuess", 0, 0, 0, user_speed/2, 0, 0, 165)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltGuess", 0, 0, 0, user_speed, 0, 0, 210)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltGuess", 0, 0, 0, user_speed/2, 0, 0, 135)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltGuess", 0, 0, 0, user_speed, 0, 0, 240)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltGuess", 0, 0, 0, user_speed/2, 0, 0, 105)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltGuess", 0, 0, 0, user_speed, 0, 0, 270)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltGuess", 0, 0, 0, user_speed/2, 0, 0, 75)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltGuess", 0, 0, 0, user_speed, 0, 0, 300)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltGuess", 0, 0, 0, user_speed/2, 0, 0, 45)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltGuess", 0, 0, 0, user_speed, 0, 0, 330)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltGuess", 0, 0, 0, user_speed/2, 0, 0, 15)
         stop
     }
 }
 
-actor LightningBoltTracerShooter : LightningBoltGuessShooter
+actor CrocLightningBoltTracerShooter : CrocLightningBoltGuessShooter
 {
     States
     {
     Spawn:
         TNT1 A 0
         TNT1 A 0 A_SetUserVar(user_speed, CallACS("core_lightningboltgetlength", AAPTR_TARGET))
-        TNT1 A 1 A_SpawnItemEx("LightningBoltTracer", 0, 0, 0, user_speed/10, 0, 0, 0)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltTracer2", 0, 0, 0, user_speed/10, 0, 0, 345)
-        TNT1 A 1 A_SpawnItemEx("LightningBoltTracer", 0, 0, 0, user_speed/10, 0, 0, 30)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltTracer2", 0, 0, 0, user_speed/10, 0, 0, 315)
-        TNT1 A 1 A_SpawnItemEx("LightningBoltTracer", 0, 0, 0, user_speed/10, 0, 0, 60)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltTracer2", 0, 0, 0, user_speed/10, 0, 0, 285)
-        TNT1 A 1 A_SpawnItemEx("LightningBoltTracer", 0, 0, 0, user_speed/10, 0, 0, 90)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltTracer2", 0, 0, 0, user_speed/10, 0, 0, 255)
-        TNT1 A 1 A_SpawnItemEx("LightningBoltTracer", 0, 0, 0, user_speed/10, 0, 0, 120)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltTracer2", 0, 0, 0, user_speed/10, 0, 0, 225)
-        TNT1 A 1 A_SpawnItemEx("LightningBoltTracer", 0, 0, 0, user_speed/10, 0, 0, 150)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltTracer2", 0, 0, 0, user_speed/10, 0, 0, 195)
-        TNT1 A 1 A_SpawnItemEx("LightningBoltTracer", 0, 0, 0, user_speed/10, 0, 0, 180)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltTracer2", 0, 0, 0, user_speed/10, 0, 0, 165)
-        TNT1 A 1 A_SpawnItemEx("LightningBoltTracer", 0, 0, 0, user_speed/10, 0, 0, 210)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltTracer2", 0, 0, 0, user_speed/10, 0, 0, 135)
-        TNT1 A 1 A_SpawnItemEx("LightningBoltTracer", 0, 0, 0, user_speed/10, 0, 0, 240)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltTracer2", 0, 0, 0, user_speed/10, 0, 0, 105)
-        TNT1 A 1 A_SpawnItemEx("LightningBoltTracer", 0, 0, 0, user_speed/10, 0, 0, 270)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltTracer2", 0, 0, 0, user_speed/10, 0, 0, 75)
-        TNT1 A 1 A_SpawnItemEx("LightningBoltTracer", 0, 0, 0, user_speed/10, 0, 0, 300)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltTracer2", 0, 0, 0, user_speed/10, 0, 0, 45)
-        TNT1 A 1 A_SpawnItemEx("LightningBoltTracer", 0, 0, 0, user_speed/10, 0, 0, 330)
-        TNT1 A 0 A_SpawnItemEx("LightningBoltTracer2", 0, 0, 0, user_speed/10, 0, 0, 15)
+        TNT1 A 1 A_SpawnItemEx("CrocLightningBoltTracer", 0, 0, 0, user_speed/10, 0, 0, 0)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltTracer2", 0, 0, 0, user_speed/10, 0, 0, 345)
+        TNT1 A 1 A_SpawnItemEx("CrocLightningBoltTracer", 0, 0, 0, user_speed/10, 0, 0, 30)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltTracer2", 0, 0, 0, user_speed/10, 0, 0, 315)
+        TNT1 A 1 A_SpawnItemEx("CrocLightningBoltTracer", 0, 0, 0, user_speed/10, 0, 0, 60)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltTracer2", 0, 0, 0, user_speed/10, 0, 0, 285)
+        TNT1 A 1 A_SpawnItemEx("CrocLightningBoltTracer", 0, 0, 0, user_speed/10, 0, 0, 90)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltTracer2", 0, 0, 0, user_speed/10, 0, 0, 255)
+        TNT1 A 1 A_SpawnItemEx("CrocLightningBoltTracer", 0, 0, 0, user_speed/10, 0, 0, 120)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltTracer2", 0, 0, 0, user_speed/10, 0, 0, 225)
+        TNT1 A 1 A_SpawnItemEx("CrocLightningBoltTracer", 0, 0, 0, user_speed/10, 0, 0, 150)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltTracer2", 0, 0, 0, user_speed/10, 0, 0, 195)
+        TNT1 A 1 A_SpawnItemEx("CrocLightningBoltTracer", 0, 0, 0, user_speed/10, 0, 0, 180)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltTracer2", 0, 0, 0, user_speed/10, 0, 0, 165)
+        TNT1 A 1 A_SpawnItemEx("CrocLightningBoltTracer", 0, 0, 0, user_speed/10, 0, 0, 210)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltTracer2", 0, 0, 0, user_speed/10, 0, 0, 135)
+        TNT1 A 1 A_SpawnItemEx("CrocLightningBoltTracer", 0, 0, 0, user_speed/10, 0, 0, 240)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltTracer2", 0, 0, 0, user_speed/10, 0, 0, 105)
+        TNT1 A 1 A_SpawnItemEx("CrocLightningBoltTracer", 0, 0, 0, user_speed/10, 0, 0, 270)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltTracer2", 0, 0, 0, user_speed/10, 0, 0, 75)
+        TNT1 A 1 A_SpawnItemEx("CrocLightningBoltTracer", 0, 0, 0, user_speed/10, 0, 0, 300)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltTracer2", 0, 0, 0, user_speed/10, 0, 0, 45)
+        TNT1 A 1 A_SpawnItemEx("CrocLightningBoltTracer", 0, 0, 0, user_speed/10, 0, 0, 330)
+        TNT1 A 0 A_SpawnItemEx("CrocLightningBoltTracer2", 0, 0, 0, user_speed/10, 0, 0, 15)
         TNT1 A 1
         stop
     }

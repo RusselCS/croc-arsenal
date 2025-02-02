@@ -1,4 +1,4 @@
-actor RushJet : BaseMM8BDMUseItem 10152
+actor CrocRushJet : BaseMM8BDMUseItem 10152
 {
 //$Category MM8BDM-Assists/Mobility
 //$Title Rush Jet
@@ -19,22 +19,22 @@ SpawnLoop:
 WEA2 B -1
 loop
 Use:
-WEA2 B 0 A_JumpIfInventory("RushJetCounter",1,3)
+WEA2 B 0 A_JumpIfInventory("CrocRushJetCounter",1,3)
 WEA2 B 0 A_PlaySoundEx("item/refill","Voice")
-WEAP B 0 A_SpawnItemEx("RushJetTeleport", 40, 0, 256, 0, 0, -32, 0, SXF_NOCHECKPOSITION, 0)
+WEAP B 0 A_SpawnItemEx("CrocRushJetTeleport", 40, 0, 256, 0, 0, -32, 0, SXF_NOCHECKPOSITION, 0)
 stop
 WEA2 B 0 A_PlaySoundEx("item/refill","Voice")
-WEA2 B 0 A_GiveInventory("RushJetCounter",8)
+WEA2 B 0 A_GiveInventory("CrocRushJetCounter",8)
 stop
 }
 }
 
-actor RushJet_Respawn : 8BDMItemRespawn
+actor CrocRushJet_Respawn : 8BDMItemRespawn
 {
 	translation "192:192=4:4", "198:198=42:42"
 	mass 525
 }
-actor RushJet_RespawnShadow : 8BDMItemRespawnShadow
+actor CrocRushJet_RespawnShadow : 8BDMItemRespawnShadow
 {
 	mass 525
 	States
@@ -45,7 +45,7 @@ actor RushJet_RespawnShadow : 8BDMItemRespawnShadow
 	}
 }
 
-actor RushJetTeleport : RushTeleport
+actor CrocRushJetTeleport : RushTeleport
 {
 states
 {
@@ -59,12 +59,12 @@ Next:
 RUSH D 0 //A_ChangeFlag("NOGRAVITY", 0)
 Goto Death
 Death:
-TNT1 A 0 A_SpawnItemEx("RushJetGiver",0,0,3,0,0,momz,0,SXF_NOCHECKPOSITION,0)
+TNT1 A 0 A_SpawnItemEx("CrocRushJetGiver",0,0,3,0,0,momz,0,SXF_NOCHECKPOSITION,0)
 stop
 }
 }
 
-actor RushJetGiver : ProjSpawnFuncActor
+actor CrocRushJetGiver : ProjSpawnFuncActor
 {
 -SOLID
 +MISSILE
@@ -97,7 +97,7 @@ RUSH III 1 A_JumpIf(CallACS("core_getPlayersInRadius", 80, PRF_CLOSESTPOINTER, A
 RUSH I 0 A_CountDown
 Goto Look+3
 Melee:
-RUSH G 0 A_GiveInventory("RushJetActivate", 1, AAPTR_TRACER)
+RUSH G 0 A_GiveInventory("CrocRushJetActivate", 1, AAPTR_TRACER)
 stop
 Death:
 RUSH F 0 A_SpawnItemEx("RushDeath",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION|SXF_WEPFXCOLOR)
@@ -105,44 +105,44 @@ stop
 }
 }
 
-actor RushJetActivate : CustomInventory
+actor CrocRushJetActivate : CustomInventory
 {
 states
 {
 Pickup:
-TNT1 A 0 A_SpawnItemEX("RushJetActivater")
+TNT1 A 0 A_SpawnItemEX("CrocRushJetActivater")
 stop
 }
 }
 
-actor RushJetActivater : BasicWatcher
+actor CrocRushJetActivater : BasicWatcher
 {
 States
 {
 Spawn:
 TNT1 A 0
-TNT1 A 0 A_JumpIfInTargetInventory("RushJetCounter",1,"Reset")
-TNT1 A 0 A_GiveToTarget("RushJetCounter",8)
-TNT1 A 0 A_GiveToTarget("RushJetVisual",1)
+TNT1 A 0 A_JumpIfInTargetInventory("CrocRushJetCounter",1,"Reset")
+TNT1 A 0 A_GiveToTarget("CrocRushJetCounter",8)
+TNT1 A 0 A_GiveToTarget("CrocRushJetVisual",1)
 stop
 Reset:
-TNT1 A 0 A_GiveToTarget("RushJetCounter",8)
+TNT1 A 0 A_GiveToTarget("CrocRushJetCounter",8)
 stop
 }
 }
 
-actor RushJetVisual : CustomInventory
+actor CrocRushJetVisual : CustomInventory
 {
 states
 {
 Pickup:
-TNT1 A 0 A_SpawnItemEx("RushJetWarper")
+TNT1 A 0 A_SpawnItemEx("CrocRushJetWarper")
 TNT1 A 0 ACS_NamedExecuteAlways("core_rushjetflight",0)
 stop
 }
 }
 
-actor RushJetCounter : Inventory
+actor CrocRushJetCounter : Inventory
 {
 inventory.amount 1
 inventory.maxamount 8 
@@ -154,14 +154,14 @@ stop
 }
 }
 
-actor RushJetWarper : BasicGraphicEffect
+actor CrocRushJetWarper : BasicGraphicEffect
 {
 States
 {
 SpawnFrame:
 TNT1 A 0
 RUSH GGGGHHHH 1 A_Warp(AAPTR_TARGET, 0,0,0,0,WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
-RUSH H 1 A_JumpIFInTargetInventory("RushJetCounter", 1, "SpawnLoop")
+RUSH H 1 A_JumpIFInTargetInventory("CrocRushJetCounter", 1, "SpawnLoop")
 RUSH H 0 A_SpawnItemEx("RushDeath", 0, 0, 0, 0, 0, 0, 0, SXF_WEPFXCOLOR)
 stop
 SpawnLoop:
@@ -172,7 +172,7 @@ goto SpawnFrame
 
 // ================================================= LEGACY =================================================
 
-actor RushJetFX1 : CustomInventory
+actor CrocRushJetFX1 : CustomInventory
 {
 inventory.amount 1
 inventory.maxamount 1
@@ -184,12 +184,12 @@ TNT1 A 1
 loop
 Use:
 TNT1 A 1 SetPlayerProperty(0,1,3)
-TNT1 A 1 A_SpawnItemEx("RushJetFeet1",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+TNT1 A 1 A_SpawnItemEx("CrocRushJetFeet1",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
 stop
 }
 }
 
-actor RushJetFX2 : CustomInventory
+actor CrocRushJetFX2 : CustomInventory
 {
 inventory.amount 1
 inventory.maxamount 1
@@ -200,12 +200,12 @@ Spawn:
 TNT1 A 1
 loop
 Use:
-TNT1 A 1 A_SpawnItemEx("RushJetFeet2",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+TNT1 A 1 A_SpawnItemEx("CrocRushJetFeet2",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
 stop
 }
 }
 
-actor RushJetFeet1 : BasicGraphicEffect
+actor CrocRushJetFeet1 : BasicGraphicEffect
 {
 States
 {
@@ -216,7 +216,7 @@ stop
 }
 
 
-actor RushJetFeet2 : BasicGraphicEffect
+actor CrocRushJetFeet2 : BasicGraphicEffect
 {
 States
 {

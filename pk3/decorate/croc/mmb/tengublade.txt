@@ -1,7 +1,7 @@
-actor TenguBladeWep_NormalBar : NormalBar { args 208, 93 }
-actor TenguBladeWep_ScriptBar : ScriptBar {}
+actor CrocTenguBladeWep_NormalBar : NormalBar { args 208, 93 }
+actor CrocTenguBladeWep_ScriptBar : ScriptBar {}
 
-actor TenguBladeWep : BaseMM8BDMWep 10012
+actor CrocTenguBladeWep : BaseMM8BDMWep 10012
 {
 //$Category MM8BDM-Weapons/Close
 //$Title Tengu Blade
@@ -12,7 +12,7 @@ Weapon.SlotNumber 4
 Inventory.Pickupmessage "$PU_TENGUBLADE"
 Obituary "$OB_TENGUBLADE"
 Tag "$TAG_TENGUBLADE"
-weapon.ammotype "TenguBladeAmmo"
+weapon.ammotype "CrocTenguBladeAmmo"
 inventory.icon "TENBLI"
 States
 {
@@ -54,8 +54,8 @@ TENA C 0 A_Refire
 Goto Charge2+2
 DashStart:
 TENA C 1 ACS_NamedExecuteAlways("core_unsolidplayer",0,0,USP_TOGGLEON)
-TENA E 0 A_GiveInventory("CutterFlag", 10)
-TENA A 0 A_GiveInventory("TakeTenguBladeAmmo",1) //sync >_>
+TENA E 0 A_GiveInventory("CrocCutterFlag", 10)
+TENA A 0 A_GiveInventory("CrocTakeTenguBladeAmmo",1) //sync >_>
 TENA A 0 A_TakeInventory("WeaponCharge", 999)
 TENA E 0 A_Recoil(-50)
 TENA E 0 A_PlaySoundEx("weapons/mmb/tengubladedash","Weapon")
@@ -63,9 +63,9 @@ TENA E 0 ACS_NamedExecuteAlways("core_freezeplayer",0,0,1)
 Goto DashAttack
 DashAttack:
 TENA E 0 A_Recoil(-1)
-TENA E 1 A_SpawnItemEx("TenguDash", 48, 0, 32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM) //A_FireCustomMissile("TenguDash",0,0,11,-8)
-TENA E 0 A_TakeInventory("CutterFlag", 1)
-TENA E 0 A_JumpIfInventory("CutterFlag", 1, "DashAttack")
+TENA E 1 A_SpawnItemEx("CrocTenguDash", 48, 0, 32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM) //A_FireCustomMissile("CrocTenguDash",0,0,11,-8)
+TENA E 0 A_TakeInventory("CrocCutterFlag", 1)
+TENA E 0 A_JumpIfInventory("CrocCutterFlag", 1, "DashAttack")
 DashFinish:
 TENA E 0 ACS_NamedExecuteAlways("core_freezeplayer",0,0,0)
 TENA E 0 ACS_NamedExecuteAlways("core_unsolidplayer",0,0,USP_TOGGLEOFF_DAMAGE,ACS_NamedExecuteWithResult("core_getmaxhealth")/10)
@@ -80,12 +80,12 @@ Fire1:
 TENA A 0 A_JumpIfNoAmmo("NoAmmo")
 TENA A 0 A_PlaySoundEx("weapons/mmb/tengubladefire","Weapon")
 TENA A 0 A_TakeInventory("WeaponCharge", 999)
-TENA B 1 A_GiveInventory("FireTenguSlash1", 1) // SpreadRune
+TENA B 1 A_GiveInventory("CrocFireTenguSlash1", 1) // SpreadRune
 TENA C 1
 TENA D 2 
-TENA E 2 A_GiveInventory("FireTenguSlash2", 1) // SpreadRune
+TENA E 2 A_GiveInventory("CrocFireTenguSlash2", 1) // SpreadRune
 TENA F 2
-TENA G 2 A_FireCustomMissile("TenguBlade",0,1,8,0)
+TENA G 2 A_FireCustomMissile("CrocTenguBlade",0,1,8,0)
 TNT1 A 8 A_TakeInventory("WeaponCharge", 999)
 TENA CBA 2
 TENA A 1 A_Refire
@@ -96,44 +96,44 @@ Goto Ready+1
 }
 }
 
-actor TenguBladeAmmo : Ammo
+actor CrocTenguBladeAmmo : Ammo
 {
 inventory.amount 1
 inventory.maxamount 28
 +INVENTORY.IGNORESKILL
 }
 
-actor FireTenguSlash1 : CustomInventory
+actor CrocFireTenguSlash1 : CustomInventory
 {
     States
     {
     Pickup:
-        TNT1 A 0 A_SpawnItemEx ("TenguSlash1",cos(-pitch)*56,8,32+(sin(-pitch)*48), momx, momy, 0,0,SXF_ABSOLUTEMOMENTUM,0)
+        TNT1 A 0 A_SpawnItemEx ("CrocTenguSlash1",cos(-pitch)*56,8,32+(sin(-pitch)*48), momx, momy, 0,0,SXF_ABSOLUTEMOMENTUM,0)
         TNT1 A 0 A_JumpIfInventory("PowerSpreadRune", 1, "PickupSpread")
         stop
     PickupSpread:
-        TNT1 A 0 A_SpawnItemEx ("TenguSlash1",cos(-pitch)*56,8,32+(sin(-pitch)*48), momx, momy, 0,20,SXF_ABSOLUTEMOMENTUM,0)
-        TNT1 A 0 A_SpawnItemEx ("TenguSlash1",cos(-pitch)*56,8,32+(sin(-pitch)*48), momx, momy, 0,-20,SXF_ABSOLUTEMOMENTUM,0)
+        TNT1 A 0 A_SpawnItemEx ("CrocTenguSlash1",cos(-pitch)*56,8,32+(sin(-pitch)*48), momx, momy, 0,20,SXF_ABSOLUTEMOMENTUM,0)
+        TNT1 A 0 A_SpawnItemEx ("CrocTenguSlash1",cos(-pitch)*56,8,32+(sin(-pitch)*48), momx, momy, 0,-20,SXF_ABSOLUTEMOMENTUM,0)
         stop
     }
 }
 
-actor FireTenguSlash2 : CustomInventory
+actor CrocFireTenguSlash2 : CustomInventory
 {
     States
     {
     Pickup:
-        TNT1 A 0 A_SpawnItemEx ("TenguSlash2",cos(-pitch)*56,8,32+(sin(-pitch)*48), momx, momy, 0,0,SXF_ABSOLUTEMOMENTUM,0)
+        TNT1 A 0 A_SpawnItemEx ("CrocTenguSlash2",cos(-pitch)*56,8,32+(sin(-pitch)*48), momx, momy, 0,0,SXF_ABSOLUTEMOMENTUM,0)
         TNT1 A 0 A_JumpIfInventory("PowerSpreadRune", 1, "PickupSpread")
         stop
     PickupSpread:
-        TNT1 A 0 A_SpawnItemEx ("TenguSlash2",cos(-pitch)*56,8,32+(sin(-pitch)*48), momx, momy, 0,20,SXF_ABSOLUTEMOMENTUM,0)
-        TNT1 A 0 A_SpawnItemEx ("TenguSlash2",cos(-pitch)*56,8,32+(sin(-pitch)*48), momx, momy, 0,-20,SXF_ABSOLUTEMOMENTUM,0)
+        TNT1 A 0 A_SpawnItemEx ("CrocTenguSlash2",cos(-pitch)*56,8,32+(sin(-pitch)*48), momx, momy, 0,20,SXF_ABSOLUTEMOMENTUM,0)
+        TNT1 A 0 A_SpawnItemEx ("CrocTenguSlash2",cos(-pitch)*56,8,32+(sin(-pitch)*48), momx, momy, 0,-20,SXF_ABSOLUTEMOMENTUM,0)
         stop
     }
 }
 
-actor TenguDash : BasicExplosion
+actor CrocTenguDash : BasicExplosion
 {
 damagetype "TenguSlash"
 Obituary "$OB_TENGUBLADE"
@@ -152,7 +152,7 @@ stop
 }
 }
 
-actor TenguSlash1 : BasicExplosion
+actor CrocTenguSlash1 : BasicExplosion
 {
 damagetype "TenguSlash"
 Obituary "$OB_TENGUBLADE"
@@ -166,7 +166,7 @@ stop
 }
 }
 
-actor TenguSlash2 : TenguSlash1
+actor CrocTenguSlash2 : CrocTenguSlash1
 {
 States
 {
@@ -179,7 +179,7 @@ stop
 }
 
 
-actor TenguBlade : BasicProjectile
+actor CrocTenguBlade : BasicProjectile
 {
 Radius 12
 Height 8
@@ -190,7 +190,7 @@ Bouncetype Classic
 WALLBOUNCEFACTOR 0.91
 BOUNCEFACTOR 0.91
 BOUNCECOUNT 6
-damagetype "TenguBlade"
+damagetype "CrocTenguBlade"
 Obituary "$OB_TENGUBLADE"
 speed 30
 States
@@ -206,12 +206,12 @@ stop
 }
 }
 
-actor TakeTenguBladeAmmo : CustomInventory
+actor CrocTakeTenguBladeAmmo : CustomInventory
 {
 states
 {
 Pickup:
-TNT1 A 0 A_TakeInventory("TenguBladeAmmo", 2, TIF_NOTAKEINFINITE)
+TNT1 A 0 A_TakeInventory("CrocTenguBladeAmmo", 2, TIF_NOTAKEINFINITE)
 stop
 }
 }

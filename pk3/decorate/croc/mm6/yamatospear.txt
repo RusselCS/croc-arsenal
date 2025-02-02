@@ -1,6 +1,6 @@
-actor YamatoSpearWep_NormalBar : NormalBar { args 4, 236 }
+actor CrocYamatoSpearWep_NormalBar : NormalBar { args 4, 236 }
 
-actor YamatoSpearWep : BaseMM8BDMWep 10067
+actor CrocYamatoSpearWep : BaseMM8BDMWep 10067
 {
 //$Category MM8BDM-Weapons/Rapid
 //$Title Yamato Spear
@@ -11,7 +11,7 @@ Weapon.SlotNumber 3
 Inventory.Pickupmessage "$PU_YAMATOSPEAR"
 Obituary "$OB_YAMATOSPEAR"
 Tag "$TAG_YAMATOSPEAR"
-weapon.ammotype "YamatoSpearAmmo"
+weapon.ammotype "CrocYamatoSpearAmmo"
 inventory.icon "YAMASI"
 States
 {
@@ -32,17 +32,17 @@ Fire:
 Hold:
 YAMA B 0 A_JumpIfNoAmmo("NoAmmo")
 YAMA B 0 A_PlaySoundEx("weapons/mm6/yamatospearfire","Weapon")
-YAMA C 0 A_FireCustomMissile("YamatoSpear",0,0,8,0)
+YAMA C 0 A_FireCustomMissile("CrocYamatoSpear",0,0,8,0)
 YAMA C 2
 YAMA D 2
 YAMA B 1
 YAMA B 0 A_PlaySoundEx("weapons/mm6/yamatospearfire","Weapon")
-YAMA D 0 A_FireCustomMissile("YamatoSpear",3,0,8,0)
+YAMA D 0 A_FireCustomMissile("CrocYamatoSpear",3,0,8,0)
 YAMA C 2
 YAMA D 2
 YAMA B 1
 YAMA B 0 A_PlaySoundEx("weapons/mm6/yamatospearfire","Weapon")
-YAMA B 0 A_FireCustomMissile("YamatoSpear",-3,1,8,0)
+YAMA B 0 A_FireCustomMissile("CrocYamatoSpear",-3,1,8,0)
 YAMA C 2
 YAMA D 2
 YAMA B 1
@@ -54,7 +54,7 @@ Goto Ready+1
 }
 }
 
-actor YamatoSpearAmmo : Ammo
+actor CrocYamatoSpearAmmo : Ammo
 {
 inventory.amount 1
 inventory.maxamount 28
@@ -62,13 +62,13 @@ inventory.maxamount 28
 }
 
 
-actor YamatoSpear : BasicProjectile
+actor CrocYamatoSpear : BasicProjectile
 {
 Radius 5
 Height 5
 +RIPPER
 damage (9)
-damagetype "YamatoSpear"
+damagetype "CrocYamatoSpear"
 Obituary "$OB_YAMATOSPEAR"
 speed 35
 States

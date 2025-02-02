@@ -1,7 +1,7 @@
-actor StarCrashWep_NormalBar : NormalBar { args 229, 220 }
-actor StarCrashWep_ScriptBar : ScriptBar {}
+actor CrocStarCrashWep_NormalBar : NormalBar { args 229, 220 }
+actor CrocStarCrashWep_ScriptBar : ScriptBar {}
 
-actor StarCrashWep : BaseMM8BDMWep 10073
+actor CrocStarCrashWep : BaseMM8BDMWep 10073
 {
 //$Category MM8BDM-Weapons/Shield
 //$Title Star Crash
@@ -12,7 +12,7 @@ Weapon.SlotNumber 7
 Inventory.Pickupmessage "$PU_STARCRASH"
 Obituary "$OB_STARCRASH"
 Tag "$TAG_STARCRASH"
-weapon.ammotype "StarCrashAmmo"
+weapon.ammotype "CrocStarCrashAmmo"
 inventory.icon "STARSI"
 
 States
@@ -37,32 +37,32 @@ Fire:
 STAA A 0 A_JumpIfInventory("ShieldCheck",1,"ShieldThrow")
 STAA A 0 A_JumpIfNoAmmo("NoAmmo")
 STAA A 0 //A_TakeInventory("BasicArmor",9999)
-STAA A 0 A_TakeInventory("StarCrashAmmo",1,TIF_NOTAKEINFINITE)
+STAA A 0 A_TakeInventory("CrocStarCrashAmmo",1,TIF_NOTAKEINFINITE)
 STAA A 0 A_PlaySoundEx("weapons/mm5/starcrashactivate","Weapon")
 STAA A 1 A_GiveInventory("ShieldCheck",1)
 goto ShieldActive
 ShieldActive:
-STAA F 0 A_SpawnItemEx("StarCrashWarper")
+STAA F 0 A_SpawnItemEx("CrocStarCrashWarper")
 //TNT1 A 0 A_GunFlash
 STAA BC 2
-TNT1 A 0 A_SpawnItemEx("StarRadius",0,0,28)
+TNT1 A 0 A_SpawnItemEx("CrocStarRadius",0,0,28)
 STAA DE 2 
-TNT1 A 0 A_SpawnItemEx("StarRadius",0,0,28)
+TNT1 A 0 A_SpawnItemEx("CrocStarRadius",0,0,28)
 STAA FG 2 
-TNT1 A 0 A_SpawnItemEx("StarRadius",0,0,28)
+TNT1 A 0 A_SpawnItemEx("CrocStarRadius",0,0,28)
 STAA H 2
 ShieldLoop:
 STAA IIII 1 A_WeaponReady
-TNT1 A 0 A_SpawnItemEx("StarRadius",0,0,28)
+TNT1 A 0 A_SpawnItemEx("CrocStarRadius",0,0,28)
 STAA IIII 1 A_WeaponReady
-TNT1 A 0 A_SpawnItemEx("StarRadius",0,0,28)
-TNT1 A 0 A_TakeInventory("StarCrashAmmo",1,TIF_NOTAKEINFINITE)
+TNT1 A 0 A_SpawnItemEx("CrocStarRadius",0,0,28)
+TNT1 A 0 A_TakeInventory("CrocStarCrashAmmo",1,TIF_NOTAKEINFINITE)
 TNT1 A 0 A_JumpIfNoAmmo("NoAmmo")
 loop
 ShieldThrow:
 STAA A 0 A_TakeInventory("ShieldCheck",999)
 STAA A 0 A_PlaySoundEx("weapons/mm5/starcrashfire","Weapon")
-STAA I 1 A_FireCustomMissile("StarCrash",0,0,0,0)
+STAA I 1 A_FireCustomMissile("CrocStarCrash",0,0,0,0)
 STAA JK 1
 STAA K 22
 STAA J 2
@@ -84,7 +84,7 @@ stop*/
 }
 }
 
-actor StarRadius : BasicExplosion
+actor CrocStarRadius : BasicExplosion
 {
 Damagetype "Starcrash"
 Obituary "$OB_STARCRASH"
@@ -97,7 +97,7 @@ stop
 }
 }
 
-actor StarCrashWarper : BasicShieldWarper
+actor CrocStarCrashWarper : BasicShieldWarper
 {
 	+BRIGHT
 	States
@@ -108,7 +108,7 @@ actor StarCrashWarper : BasicShieldWarper
 	}
 }
 
-actor StarCrash1 : BasicGraphicEffect
+actor CrocStarCrash1 : BasicGraphicEffect
 {
 +DONTSPLASH
 +NOTIMEFREEZE
@@ -122,7 +122,7 @@ stop
 }
 }
 
-actor StarCrash2 : StarCrash1
+actor CrocStarCrash2 : CrocStarCrash1
 {
 States
 {
@@ -133,7 +133,7 @@ stop
 }
 }
 
-actor StarCrash3 : StarCrash1
+actor CrocStarCrash3 : CrocStarCrash1
 {
 States
 {
@@ -144,7 +144,7 @@ stop
 }
 }
 
-actor StarCrash4 : StarCrash1
+actor CrocStarCrash4 : CrocStarCrash1
 {
 States
 {
@@ -155,12 +155,12 @@ stop
 }
 }
 
-actor StarCrash : BasicProjectile
+actor CrocStarCrash : BasicProjectile
 {
 +DONTSPLASH
 +BRIGHT
 Damage (40)
-damagetype "StarCrash"
+damagetype "CrocStarCrash"
 Obituary "$OB_STARCRASH"
 Speed 30
 Radius 12
@@ -176,7 +176,7 @@ loop
 }
 }
 
-actor StarCrashAmmo : Ammo
+actor CrocStarCrashAmmo : Ammo
 {
 inventory.amount 1
 inventory.maxamount 28

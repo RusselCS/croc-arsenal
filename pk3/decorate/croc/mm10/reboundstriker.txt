@@ -1,6 +1,6 @@
-actor ReboundStrikerWep_NormalBar : NormalBar { args 38, 251 }
+actor CrocReboundStrikerWep_NormalBar : NormalBar { args 38, 251 }
 
-actor ReboundStrikerWep : BaseMM8BDMWep 10094
+actor CrocReboundStrikerWep : BaseMM8BDMWep 10094
 {
 //$Category MM8BDM-Weapons/Ranged
 //$Title Rebound Striker
@@ -11,7 +11,7 @@ Weapon.SlotNumber 2
 Obituary "$OB_REBOUNDSTRIKER"
 Tag "$TAG_REBOUNDSTRIKER"
 Inventory.Pickupmessage "$PU_REBOUNDSTRIKER"
-weapon.ammotype "ReboundStrikerAmmo"
+weapon.ammotype "CrocReboundStrikerAmmo"
 inventory.icon "STRIKI"
 States
 {
@@ -36,7 +36,7 @@ goto SelectSwap
 Fire:
 RSHD A 0 A_JumpIfNoAmmo("NoAmmo")
 RSHD A 0 A_PlaySoundEx("weapons/mm10/reboundstrikerfire", "weapon")
-RSHD A 0 A_FireCustomMissile("ReboundStriker", 0, 1, 8, -10)
+RSHD A 0 A_FireCustomMissile("CrocReboundStriker", 0, 1, 8, -10)
 RSHD BCDEFG 1
 TNT1 A 19
 RSHD H 0 A_JumpIfNoAmmo("NoAmmoDelay")
@@ -52,7 +52,7 @@ Goto ReadyNoAmmo
 }
 }
 
-actor ReboundStrikerAmmo : Ammo
+actor CrocReboundStrikerAmmo : Ammo
 {
 inventory.amount 1
 inventory.maxamount 33
@@ -61,13 +61,13 @@ inventory.maxamount 33
 
 const int WEPC_10RS_DMGADD = 15;
 
-actor ReboundStriker : BasicBouncer
+actor CrocReboundStriker : BasicBouncer
 {
 +FORCEXYBILLBOARD
 +USEBOUNCESTATE
 +FORCEXYBILLBOARD
 Obituary "$OB_REBOUNDSTRIKER"
-damagetype "ReboundStriker"
+damagetype "CrocReboundStriker"
 bouncesound "weapons/mm10/reboundstrikerbounce"
 Radius 10
 Height 20
@@ -89,7 +89,7 @@ STRI D 0 A_JumpIf(user_bouncenum > 15, 1)//2
 goto Spawn2
 STRI E 0 A_ChangeVelocity
 goto Spawn3
-STRI E 0 A_SpawnItemEx("ReboundStrikerMax",0,0,0,momx,momy,momz,0,8)
+STRI E 0 A_SpawnItemEx("CrocReboundStrikerMax",0,0,0,momx,momy,momz,0,8)
 stop
 Spawn2:
 STRI DF 2
@@ -104,7 +104,7 @@ stop
 }
 }
 
-actor ReboundStrikerMax : ReboundStriker
+actor CrocReboundStrikerMax : ReboundStriker
 {
 -USEBOUNCESTATE
 BounceCount 1

@@ -1,6 +1,6 @@
-actor GyroAttackWep_NormalBar : NormalBar { args 4, 128 }
+actor CrocGyroAttackWep_NormalBar : NormalBar { args 4, 128 }
 
-actor GyroAttackWep : BaseMM8BDMWep 10059
+actor CrocGyroAttackWep : BaseMM8BDMWep 10059
 {
 //$Category MM8BDM-Weapons/Ranged
 //$Title Gyro Attack
@@ -11,7 +11,7 @@ Weapon.SlotNumber 2
 Inventory.Pickupmessage "$PU_GYROATTACK"
 Obituary "$OB_GYROATTACK"
 Tag "$TAG_GYROATTACK"
-weapon.ammotype "GyroAttackAmmo"
+weapon.ammotype "CrocGyroAttackAmmo"
 inventory.icon "GYROSI"
 States
 {
@@ -20,7 +20,7 @@ WEA2 I -1
 loop
 Ready:
 WOOD I 0 ACS_NamedExecuteWithResult("core_weaponcolor",CLR_GYROATTACK)
-WOOD I 1 A_GiveInventory("GyroAttack_Ready_P")//A_WeaponReady
+WOOD I 1 A_GiveInventory("CrocGyroAttack_Ready_P")//A_WeaponReady
 wait
 Deselect:
 WOOD I 0
@@ -30,19 +30,19 @@ WOOD I 0
 goto SelectSwap
 Altfire:
 WOOD I 0 A_JumpIfNoAmmo("NoAmmo")
-WOOD I 0 A_GiveInventory("GyroAttack_Fire_P")
+WOOD I 0 A_GiveInventory("CrocGyroAttack_Fire_P")
 WOOD KJ 2
 Goto Ready+1
 Fire:
-WOOD I 0 A_JumpIfInventory("GyroAttackExists",1,"Spread")
+WOOD I 0 A_JumpIfInventory("CrocGyroAttackExists",1,"Spread")
 WOOD I 0 A_JumpIfNoAmmo("NoAmmo")
-WOOD I 0 A_GiveInventory("GyroAttack_Fire_P")
+WOOD I 0 A_GiveInventory("CrocGyroAttack_Fire_P")
 WOOD KJ 2
 WOOD I 4
 WOOD I 0 A_Refire("Spread")//A_Refire
 Goto Ready+1
 Spread:
-WOOD I 0 A_GiveInventory("GyroAttackTrigger", 1)
+WOOD I 0 A_GiveInventory("CrocGyroAttackTrigger", 1)
 WOOD LI 3
 goto Ready+1
 NoAmmo:
@@ -51,26 +51,26 @@ Goto Ready+1
 }
 }
 
-actor GyroAttackAmmo : Ammo
+actor CrocGyroAttackAmmo : Ammo
 {
 inventory.amount 1
 inventory.maxamount 28
 +INVENTORY.IGNORESKILL
 }
 
-actor GyroAttackTrigger : Powerup
+actor CrocGyroAttackTrigger : Powerup
 {
     powerup.duration 3
 }
 
-actor GyroAttackExists : Powerup
+actor CrocGyroAttackExists : Powerup
 {
     powerup.duration 5
 }
 
-actor GyroAttackAltWait : Once {}
+actor CrocGyroAttackAltWait : Once {}
 
-actor GyroAttackAltWaitCooldowner : BasicCooldowner
+actor CrocGyroAttackAltWaitCooldowner : BasicCooldowner
 {
     reactiontime 18
     States
@@ -78,34 +78,34 @@ actor GyroAttackAltWaitCooldowner : BasicCooldowner
     Spawn:
         TNT1 A 0
     Spawn2:
-        TNT1 A 1 A_GiveInventory("GyroAttackAltWaitCooldownerFunc",1)
+        TNT1 A 1 A_GiveInventory("CrocGyroAttackAltWaitCooldownerFunc",1)
         loop
     Death:
-        TNT1 A 0 A_TakeFromTarget("GyroAttackAltWait",1)
+        TNT1 A 0 A_TakeFromTarget("CrocGyroAttackAltWait",1)
         stop
     }
 }
 
-actor GyroAttackAltWaitCooldownerFunc : BasicCooldownerFunc
+actor CrocGyroAttackAltWaitCooldownerFunc : BasicCooldownerFunc
 {
     States
     {
     Pickup:
-        TNT1 A 0 A_JumpIfInTargetInventory("GyroAttackAltWait",1,"PickupBasic")
+        TNT1 A 0 A_JumpIfInTargetInventory("CrocGyroAttackAltWait",1,"PickupBasic")
         goto PickupRemove
     }
 }
 
 
-actor GyroAttack_Ready_P : CustomInventory
+actor CrocGyroAttack_Ready_P : CustomInventory
 {
     States
     {
     Pickup:
-        TNT1 A 0 A_JumpIfInventory("GyroAttackAltWait",1,2)
+        TNT1 A 0 A_JumpIfInventory("CrocGyroAttackAltWait",1,2)
         TNT1 A 0 A_WeaponReady
         stop
-        TNT1 A 0 A_JumpIfInventory("GyroAttackExists",1,2)
+        TNT1 A 0 A_JumpIfInventory("CrocGyroAttackExists",1,2)
         TNT1 A 0 A_WeaponReady(WRF_NOPRIMARY|WRF_NOSECONDARY)
         stop
         TNT1 A 0 A_WeaponReady(WRF_NOSECONDARY)
@@ -113,27 +113,27 @@ actor GyroAttack_Ready_P : CustomInventory
     }
 }
 
-actor GyroAttack_Fire_P : CustomInventory
+actor CrocGyroAttack_Fire_P : CustomInventory
 {
     States
     {
     Pickup:
-        TNT1 A 0 A_FireCustomMissile("GyroAttack",0,0,8,0)
+        TNT1 A 0 A_FireCustomMissile("CrocGyroAttack",0,0,8,0)
         TNT1 A 0 A_PlaySoundEx("weapons/mm5/gyroattackfire","Weapon")
-        TNT1 A 0 //A_GiveInventory("GyroAttackExists",1)
-        TNT1 A 0 A_GiveInventory("GyroAttackAltWait",1)
-        TNT1 A 0 A_TakeInventory("GyroAttackAmmo",2,TIF_NOTAKEINFINITE)
-        TNT1 A 0 A_SpawnItemEx("GyroAttackAltWaitCooldowner")
+        TNT1 A 0 //A_GiveInventory("CrocGyroAttackExists",1)
+        TNT1 A 0 A_GiveInventory("CrocGyroAttackAltWait",1)
+        TNT1 A 0 A_TakeInventory("CrocGyroAttackAmmo",2,TIF_NOTAKEINFINITE)
+        TNT1 A 0 A_SpawnItemEx("CrocGyroAttackAltWaitCooldowner")
         stop
     }
 }
 
-actor GyroAttack : BasicProjectile
+actor CrocGyroAttack : BasicProjectile
 {
 Radius 15
 Height 8
 damage (30)
-damagetype "GyroAttack"
+damagetype "CrocGyroAttack"
 Obituary "$OB_GYROATTACK"
 speed 30
 +HITTRACER
@@ -146,7 +146,7 @@ Spawn:
 GYRO A 0
 GYRO A 0 A_PlaySoundEx("weapons/mm5/gyroattackfly", "Auto", true)
 SpawnLoop:
-GYRO YYZZ 1 A_GiveInventory("GyroAttackFunc", 1)
+GYRO YYZZ 1 A_GiveInventory("CrocGyroAttackFunc", 1)
 loop
 Death:
 GYRO A 0 A_JumpIf(reactiontime == 0, "Split")
@@ -154,15 +154,15 @@ GYRO A 0 A_StopSoundEx("auto")
 TNT1 A 1
 stop
 Split:
-GYRO A 0 A_SpawnItemEx("GyroAttackPuff")
-GYRO A 0 A_CustomMissile("GyroAttack2",0,0,25,2,0)
-GYRO A 0 A_CustomMissile("GyroAttack2",0,0,-25,2,0)
+GYRO A 0 A_SpawnItemEx("CrocGyroAttackPuff")
+GYRO A 0 A_CustomMissile("CrocGyroAttack2",0,0,25,2,0)
+GYRO A 0 A_CustomMissile("CrocGyroAttack2",0,0,-25,2,0)
 TNT1 A 1
 stop
 }
 }
 
-actor GyroAttackPuff : BasicExplosion
+actor CrocGyroAttackPuff : BasicExplosion
 {
     States
     {
@@ -174,13 +174,13 @@ actor GyroAttackPuff : BasicExplosion
     }
 }
 
-actor GyroAttackFunc : CustomInventory
+actor CrocGyroAttackFunc : CustomInventory
 {
     States
     {
     Pickup:
-        TNT1 A 0 A_GiveToTarget("GyroAttackExists", 1)
-        TNT1 A 0 A_JumpIfInTargetInventory("GyroAttackTrigger", 1, "Split")
+        TNT1 A 0 A_GiveToTarget("CrocGyroAttackExists", 1)
+        TNT1 A 0 A_JumpIfInTargetInventory("CrocGyroAttackTrigger", 1, "Split")
         stop
     Split:
         TNT1 A 0 A_Countdown
@@ -188,7 +188,7 @@ actor GyroAttackFunc : CustomInventory
     }
 }
 
-actor GyroAttack2 : GyroAttack
+actor CrocGyroAttack2 : GyroAttack
 {
 Radius 7
 Height 5
@@ -203,7 +203,7 @@ Spawn:
 GYRO A 0
 GYRO A 0 A_PlaySoundEx("weapons/mm5/gyroattackfly", "Auto", true)
 SpawnLoop:
-GYRO ABCD 1 A_SpawnItemEx("GyroRadius", 0, 0, 0)
+GYRO ABCD 1 A_SpawnItemEx("CrocGyroRadius", 0, 0, 0)
 loop
 Death:
 GYRO A 0 A_StopSoundEx("auto")
@@ -212,19 +212,19 @@ stop
 }
 }
 
-actor GyroAttack3 : GyroAttack2
+actor CrocGyroAttack3 : CrocGyroAttack2
 {
 Speed 35
 }
 
 
-actor GyroAttackProtect : PowerProtection
+actor CrocGyroAttackProtect : PowerProtection
 {
 Powerup.Duration 2
-DamageFactor "GyroAttack", 0.5
+DamageFactor "CrocGyroAttack", 0.5
 }
 
-actor GyroRadius : BasicProjectile
+actor CrocGyroRadius : BasicProjectile
 {
 damagetype "GyroChopper"
 Obituary "$OB_GYROATTACK"
@@ -240,4 +240,4 @@ stop
 }
 }
 
-actor GyroFlag : WeaponCharge {} // needed for bass boss
+actor CrocGyroFlag : WeaponCharge {} // needed for bass boss

@@ -1,4 +1,4 @@
-actor Item1 : BaseMM8BDMUseItem 10147
+actor CrocItem1 : BaseMM8BDMUseItem 10147
 {
 //$Category MM8BDM-Assists/Mobility
 //$Title Item-1
@@ -20,21 +20,21 @@ WEA2 A -1
 loop
 Use:
 WEA2 D 0 A_Jumpif(!CallACS("core_CheckFooting"), "Under")
-WEA2 D 0 A_SpawnItemEx("Item1Platform", 56, 0, 28, 1)
+WEA2 D 0 A_SpawnItemEx("CrocItem1Platform", 56, 0, 28, 1)
 stop
 Under:
-WEA2 D 0 A_SpawnItemEx("Item1PlatformUnder", 0, 0, 0, 1)
+WEA2 D 0 A_SpawnItemEx("CrocItem1PlatformUnder", 0, 0, 0, 1)
 WEA2 D 0 A_ChangeVelocity(momx, momy, 0, CVF_REPLACE)
 stop
 }
 }
 
-actor Item1_Respawn : 8BDMItemRespawn
+actor CrocItem1_Respawn : 8BDMItemRespawn
 {
 	translation "192:192=4:4", "198:198=42:42"
 	mass 210
 }
-actor Item1_RespawnShadow : 8BDMItemRespawnShadow
+actor CrocItem1_RespawnShadow : 8BDMItemRespawnShadow
 {
 	mass 210
 	States
@@ -45,7 +45,7 @@ actor Item1_RespawnShadow : 8BDMItemRespawnShadow
 	}
 }
 
-actor Item1Platform : ProjSpawnFuncActor
+actor CrocItem1Platform : ProjSpawnFuncActor
 {
 height 4
 radius 24
@@ -78,7 +78,7 @@ stop
 }
 }
 
-actor Item1PlatformUnder : Item1Platform
+actor CrocItem1PlatformUnder : Item1Platform
 {
     States
     {
@@ -86,17 +86,17 @@ actor Item1PlatformUnder : Item1Platform
         TNT1 A 0 A_CheckFlag(MISSILE, "DeathRetry")
         goto Super::Death
     DeathRetry:
-        TNT1 A 0 A_SpawnItemEx("Item1PlatformUnderWall")
+        TNT1 A 0 A_SpawnItemEx("CrocItem1PlatformUnderWall")
         stop
     }
 }
 
-actor Item1PlatformUnderWall : Item1Platform
+actor CrocItem1PlatformUnderWall : Item1Platform
 {
     radius 16
 }
 
-actor Item2 : BaseMM8BDMUseItem 10148
+actor CrocItem2 : BaseMM8BDMUseItem 10148
 {
 //$Category MM8BDM-Assists/Mobility
 //$Title Item-2
@@ -118,21 +118,21 @@ WEA2 D -1
 loop
 Use:
 WEA2 D 0 A_Jumpif(floorz<z, "Under")
-WEA2 D 0 A_SpawnItemEx("Item2Platform", 56, 0, 28, 1)
+WEA2 D 0 A_SpawnItemEx("CrocItem2Platform", 56, 0, 28, 1)
 stop
 Under:
 WEA2 D 0 A_Stop
-WEA2 D 0 A_SpawnItemEx("Item2Platform", 0, 0, 0, 1)
+WEA2 D 0 A_SpawnItemEx("CrocItem2Platform", 0, 0, 0, 1)
 stop
 }
 }
 
-actor Item2_Respawn : 8BDMItemRespawn
+actor CrocItem2_Respawn : 8BDMItemRespawn
 {
 	translation "192:192=4:4", "198:198=42:42"
 	mass 210
 }
-actor Item2_RespawnShadow : 8BDMItemRespawnShadow
+actor CrocItem2_RespawnShadow : 8BDMItemRespawnShadow
 {
 	mass 210
 	States
@@ -143,7 +143,7 @@ actor Item2_RespawnShadow : 8BDMItemRespawnShadow
 	}
 }
 
-actor Item2Platform : ProjSpawnFuncActor
+actor CrocItem2Platform : ProjSpawnFuncActor
 {
 height 4
 radius 24
@@ -180,10 +180,10 @@ ITEM C 0 A_Stop
 ITEM C 0 A_ChangeFlag(RIPPER,1)
 ITEM C 0 A_Cleartarget
 Waiting:
-ITEM C 0 A_SpawnItemEx("Item2Detect", 0, 0, 32)
+ITEM C 0 A_SpawnItemEx("CrocItem2Detect", 0, 0, 32)
 ITEM C 3 A_SetUserVar("user_countdown", user_countdown + 1)
 ITEM C 0 A_JumpIf(user_countdown == 50, "Death")
-ITEM C 0 A_JumpIfInventory("Item2Flag", 1, "MoveStart")
+ITEM C 0 A_JumpIfInventory("CrocItem2Flag", 1, "MoveStart")
 Loop
 MoveStart:
 ITEM D 0 ACS_NamedExecuteAlways("core_stickyLifts",0,STICKYMODE_GUTSLIFT)
@@ -201,13 +201,13 @@ stop
 }
 }
 
-actor IsRidingPlatform : Inventory
+actor CrocIsRidingPlatform : Inventory
 {
 inventory.amount 1
 inventory.maxamount 999
 }
 
-actor Item2Detect
+actor CrocItem2Detect
 {
 PROJECTILE
 +LOOKALLAROUND
@@ -226,15 +226,15 @@ TNT1 A 3
 stop
 Death:
 TNT1 A 0 
-TNT1 A 0 A_GiveToTarget("Item2Flag", 1)
+TNT1 A 0 A_GiveToTarget("CrocItem2Flag", 1)
 stop
 }
 }
 
-Actor Item2Flag : Once {}
+Actor CrocItem2Flag : Once {}
 
 // ITEM 3
-actor Item3 : BaseMM8BDMUseItem 10161
+actor CrocItem3 : BaseMM8BDMUseItem 10161
 {
     //$Category MM8BDM-Assists/Mobility
     //$Title Item-3
@@ -255,20 +255,20 @@ actor Item3 : BaseMM8BDMUseItem 10161
         ITM3 A -1
         loop
     Use:
-        ITM3 A 0 A_SpawnItemEx("Item3StartCheck", 0, 1, 0, 1, 0, 0, 0, SXF_ABSOLUTEANGLE|SXF_MULTIPLYSPEED)
-        ITM3 A 0 A_SpawnItemEx("Item3StartCheck", 0, 1, 0, 1, 0, 0, 90, SXF_ABSOLUTEANGLE|SXF_MULTIPLYSPEED)
-        ITM3 A 0 A_SpawnItemEx("Item3StartCheck", 0, 1, 0, 1, 0, 0, 180, SXF_ABSOLUTEANGLE|SXF_MULTIPLYSPEED)
-        ITM3 A 0 A_SpawnItemEx("Item3StartCheck", 0, 1, 0, 1, 0, 0, 270, SXF_ABSOLUTEANGLE|SXF_MULTIPLYSPEED)
+        ITM3 A 0 A_SpawnItemEx("CrocItem3StartCheck", 0, 1, 0, 1, 0, 0, 0, SXF_ABSOLUTEANGLE|SXF_MULTIPLYSPEED)
+        ITM3 A 0 A_SpawnItemEx("CrocItem3StartCheck", 0, 1, 0, 1, 0, 0, 90, SXF_ABSOLUTEANGLE|SXF_MULTIPLYSPEED)
+        ITM3 A 0 A_SpawnItemEx("CrocItem3StartCheck", 0, 1, 0, 1, 0, 0, 180, SXF_ABSOLUTEANGLE|SXF_MULTIPLYSPEED)
+        ITM3 A 0 A_SpawnItemEx("CrocItem3StartCheck", 0, 1, 0, 1, 0, 0, 270, SXF_ABSOLUTEANGLE|SXF_MULTIPLYSPEED)
         fail
     }
 }
 
-actor Item3_Respawn : 8BDMItemRespawn
+actor CrocItem3_Respawn : 8BDMItemRespawn
 {
 	translation "192:192=4:4", "198:198=42:42"
 	mass 210
 }
-actor Item3_RespawnShadow : 8BDMItemRespawnShadow
+actor CrocItem3_RespawnShadow : 8BDMItemRespawnShadow
 {
 	mass 210
 	States
@@ -279,7 +279,7 @@ actor Item3_RespawnShadow : 8BDMItemRespawnShadow
 	}
 }
 
-actor Item3StartCheck
+actor CrocItem3StartCheck
 {
     PROJECTILE
     +THRUACTORS
@@ -298,22 +298,22 @@ actor Item3StartCheck
         stop
     Death:
         TNT1 A 0
-        TNT1 A 0 A_GiveToTarget("Item3Spawn", 1)
+        TNT1 A 0 A_GiveToTarget("CrocItem3Spawn", 1)
         stop
     }
 }
 
-actor Item3Spawn : CustomInventory
+actor CrocItem3Spawn : CustomInventory
 {
     inventory.maxamount 1
     States
     {
     Pickup:
-        TNT1 A 0 A_JumpIfInventory("Item3Delay", 1, "End")
-        TNT1 A 0 A_GiveInventory("Item3Delay", 1)
+        TNT1 A 0 A_JumpIfInventory("CrocItem3Delay", 1, "End")
+        TNT1 A 0 A_GiveInventory("CrocItem3Delay", 1)
         TNT1 A 0 A_ChangeVelocity(0.1, 0, momz, CVF_RELATIVE|CVF_REPLACE)
-        TNT1 A 0 A_SpawnItemEx("Item3Platform", 0, 0, 0, 0, 0, 1)
-        TNT1 A 0 A_TakeInventory("Item3", 1)
+        TNT1 A 0 A_SpawnItemEx("CrocItem3Platform", 0, 0, 0, 0, 0, 1)
+        TNT1 A 0 A_TakeInventory("CrocItem3", 1)
         stop
     End:
         TNT1 A 0
@@ -321,12 +321,12 @@ actor Item3Spawn : CustomInventory
     }
 }
 
-actor Item3Delay : PowerUp
+actor CrocItem3Delay : PowerUp
 {
     powerup.duration 5
 }
 
-actor Item3Platform : ProjSpawnFuncActor
+actor CrocItem3Platform : ProjSpawnFuncActor
 {
     height 4
     radius 16
@@ -360,19 +360,19 @@ actor Item3Platform : ProjSpawnFuncActor
         ITEM F 0 A_Stop
         ITEM F 0 A_Cleartarget
     SpawnLoop:
-        ITEM F 0 A_SpawnItemEx("Item3DetectE", 0, 1, 0, 1, 0, 0, 0, SXF_ABSOLUTEANGLE|SXF_MULTIPLYSPEED)
-        ITEM F 0 A_SpawnItemEx("Item3DetectN", 0, 1, 0, 1, 0, 0, 90, SXF_ABSOLUTEANGLE|SXF_MULTIPLYSPEED)
-        ITEM F 0 A_SpawnItemEx("Item3DetectW", 0, 1, 0, 1, 0, 0, 180, SXF_ABSOLUTEANGLE|SXF_MULTIPLYSPEED)
-        ITEM F 0 A_SpawnItemEx("Item3DetectS", 0, 1, 0, 1, 0, 0, 270, SXF_ABSOLUTEANGLE|SXF_MULTIPLYSPEED)
+        ITEM F 0 A_SpawnItemEx("CrocItem3DetectE", 0, 1, 0, 1, 0, 0, 0, SXF_ABSOLUTEANGLE|SXF_MULTIPLYSPEED)
+        ITEM F 0 A_SpawnItemEx("CrocItem3DetectN", 0, 1, 0, 1, 0, 0, 90, SXF_ABSOLUTEANGLE|SXF_MULTIPLYSPEED)
+        ITEM F 0 A_SpawnItemEx("CrocItem3DetectW", 0, 1, 0, 1, 0, 0, 180, SXF_ABSOLUTEANGLE|SXF_MULTIPLYSPEED)
+        ITEM F 0 A_SpawnItemEx("CrocItem3DetectS", 0, 1, 0, 1, 0, 0, 270, SXF_ABSOLUTEANGLE|SXF_MULTIPLYSPEED)
         ITEM F 4
-        ITEM F 0 A_JumpIfInventory("Item3Flag", 1, "RiseStart")
+        ITEM F 0 A_JumpIfInventory("CrocItem3Flag", 1, "RiseStart")
         ITEM G 1 A_JumpIf(true, "Death")
         wait
     RiseStart:
-        ITEM F 0 A_JumpIfInventory("Item3FlagN", 1, "RiseStartN")
-        ITEM F 0 A_JumpIfInventory("Item3FlagS", 1, "RiseStartS")
-        ITEM F 0 A_JumpIfInventory("Item3FlagW", 1, "RiseStartW")
-        ITEM F 0 A_JumpIfInventory("Item3FlagE", 1, "RiseStartE")
+        ITEM F 0 A_JumpIfInventory("CrocItem3FlagN", 1, "RiseStartN")
+        ITEM F 0 A_JumpIfInventory("CrocItem3FlagS", 1, "RiseStartS")
+        ITEM F 0 A_JumpIfInventory("CrocItem3FlagW", 1, "RiseStartW")
+        ITEM F 0 A_JumpIfInventory("CrocItem3FlagE", 1, "RiseStartE")
         ITEM F 1 A_JumpIf(true, "Death")
         wait
     RiseStartE:
@@ -382,8 +382,8 @@ actor Item3Platform : ProjSpawnFuncActor
         ITEM F 0 A_SetAngle(180)
         goto Rise1
     RiseStartN:
-        ITEM F 0 A_JumpIfInventory("Item3FlagW", 1, "RiseStartNW")
-        ITEM F 0 A_JumpIfInventory("Item3FlagE", 1, "RiseStartNE")
+        ITEM F 0 A_JumpIfInventory("CrocItem3FlagW", 1, "RiseStartNW")
+        ITEM F 0 A_JumpIfInventory("CrocItem3FlagE", 1, "RiseStartNE")
         ITEM F 0 A_SetAngle(90)
         ITEM F 1 A_JumpIf(true, "Rise1")
         wait
@@ -394,8 +394,8 @@ actor Item3Platform : ProjSpawnFuncActor
         ITEM F 0 A_SetAngle(45)
         goto Rise1
     RiseStartS:
-        ITEM F 0 A_JumpIfInventory("Item3FlagW", 1, "RiseStartSW")
-        ITEM F 0 A_JumpIfInventory("Item3FlagE", 1, "RiseStartSE")
+        ITEM F 0 A_JumpIfInventory("CrocItem3FlagW", 1, "RiseStartSW")
+        ITEM F 0 A_JumpIfInventory("CrocItem3FlagE", 1, "RiseStartSE")
         ITEM F 0 A_SetAngle(270)
         ITEM F 1 A_JumpIf(true, "Rise1")
         wait
@@ -410,38 +410,38 @@ actor Item3Platform : ProjSpawnFuncActor
         ITEM F 0 ThrustThingZ(0, 24, 0, 0)
     RiseF1:
         ITEM F 0 A_PlaySoundEx("item/item3climb", "voice")
-        ITEM F 0 A_TakeInventory("Item3Flag", 1)
-        ITEM F 2 A_SpawnItemEx("Item3Detect", 0, 1, 0, 1, 0, 0, 0, SXF_MULTIPLYSPEED)
+        ITEM F 0 A_TakeInventory("CrocItem3Flag", 1)
+        ITEM F 2 A_SpawnItemEx("CrocItem3Detect", 0, 1, 0, 1, 0, 0, 0, SXF_MULTIPLYSPEED)
         ITEM F 0 A_JumpIf(ceilingz-z < 128+height, "Halt")
-        ITEM F 0 A_JumpIfInventory("Item3Flag", 1, "RiseF2")
+        ITEM F 0 A_JumpIfInventory("CrocItem3Flag", 1, "RiseF2")
         ITEM F 1 A_JumpIf(true, "Halt")
         wait
     RiseF2:
-        ITEM F 0 A_TakeInventory("Item3Flag", 1)
-        ITEM F 2 A_SpawnItemEx("Item3Detect", 0, 1, 0, 1, 0, 0, 0, SXF_MULTIPLYSPEED)
+        ITEM F 0 A_TakeInventory("CrocItem3Flag", 1)
+        ITEM F 2 A_SpawnItemEx("CrocItem3Detect", 0, 1, 0, 1, 0, 0, 0, SXF_MULTIPLYSPEED)
         ITEM F 0 A_JumpIf(ceilingz-z < 128+height, "Halt")
-        ITEM F 0 A_JumpIfInventory("Item3Flag", 1, "RiseFG")
+        ITEM F 0 A_JumpIfInventory("CrocItem3Flag", 1, "RiseFG")
         ITEM F 1 A_JumpIf(true, "Halt")
         wait
     RiseFG:
-        ITEM F 0 A_TakeInventory("Item3Flag", 1)
-        ITEM FG 1 A_SpawnItemEx("Item3Detect", 0, 1, 0, 1, 0, 0, 0, SXF_MULTIPLYSPEED)
+        ITEM F 0 A_TakeInventory("CrocItem3Flag", 1)
+        ITEM FG 1 A_SpawnItemEx("CrocItem3Detect", 0, 1, 0, 1, 0, 0, 0, SXF_MULTIPLYSPEED)
         ITEM F 0 A_JumpIf(ceilingz-z < 128+height, "Halt")
-        ITEM F 0 A_JumpIfInventory("Item3Flag", 1, "RiseG1")
+        ITEM F 0 A_JumpIfInventory("CrocItem3Flag", 1, "RiseG1")
         ITEM F 1 A_JumpIf(true, "Halt")
         wait
     RiseG1:
-        ITEM F 0 A_TakeInventory("Item3Flag", 1)
-        ITEM G 2 A_SpawnItemEx("Item3Detect", 0, 1, 0, 1, 0, 0, 0, SXF_MULTIPLYSPEED)
+        ITEM F 0 A_TakeInventory("CrocItem3Flag", 1)
+        ITEM G 2 A_SpawnItemEx("CrocItem3Detect", 0, 1, 0, 1, 0, 0, 0, SXF_MULTIPLYSPEED)
         ITEM G 0 A_JumpIf(ceilingz-z < 128+height, "Halt")
-        ITEM G 0 A_JumpIfInventory("Item3Flag", 1, "RiseG2")
+        ITEM G 0 A_JumpIfInventory("CrocItem3Flag", 1, "RiseG2")
         ITEM F 1 A_JumpIf(true, "Halt")
         wait
     RiseG2:
-        ITEM F 0 A_TakeInventory("Item3Flag", 1)
-        ITEM G 2 A_SpawnItemEx("Item3Detect", 0, 1, 0, 1, 0, 0, 0, SXF_MULTIPLYSPEED)
+        ITEM F 0 A_TakeInventory("CrocItem3Flag", 1)
+        ITEM G 2 A_SpawnItemEx("CrocItem3Detect", 0, 1, 0, 1, 0, 0, 0, SXF_MULTIPLYSPEED)
         ITEM G 0 A_JumpIf(ceilingz-z < 128+height, "Halt")
-        ITEM G 0 A_JumpIfInventory("Item3Flag", 1, "RiseF1")
+        ITEM G 0 A_JumpIfInventory("CrocItem3Flag", 1, "RiseF1")
         ITEM F 1 A_JumpIf(true, "Halt")
         wait
     Halt:
@@ -456,7 +456,7 @@ actor Item3Platform : ProjSpawnFuncActor
     }
 }
 
-actor Item3Detect : Item3StartCheck
+actor CrocItem3Detect : CrocItem3StartCheck
 {
     States
     {
@@ -465,61 +465,61 @@ actor Item3Detect : Item3StartCheck
         stop
     Death:
         TNT1 A 0
-        TNT1 A 0 A_GiveToTarget("Item3Flag", 1)
+        TNT1 A 0 A_GiveToTarget("CrocItem3Flag", 1)
         stop
     }
 }
 
-actor Item3DetectE : Item3Detect
+actor CrocItem3DetectE : Item3Detect
 {
     States
     {
     Death:
         TNT1 A 0
-        TNT1 A 0 A_GiveToTarget("Item3Flag", 1)
-        TNT1 A 0 A_GiveToTarget("Item3FlagE", 1)
+        TNT1 A 0 A_GiveToTarget("CrocItem3Flag", 1)
+        TNT1 A 0 A_GiveToTarget("CrocItem3FlagE", 1)
         stop
     }
 }
 
-actor Item3DetectW : Item3Detect
+actor CrocItem3DetectW : Item3Detect
 {
     States
     {
     Death:
         TNT1 A 0
-        TNT1 A 0 A_GiveToTarget("Item3Flag", 1)
-        TNT1 A 0 A_GiveToTarget("Item3FlagW", 1)
+        TNT1 A 0 A_GiveToTarget("CrocItem3Flag", 1)
+        TNT1 A 0 A_GiveToTarget("CrocItem3FlagW", 1)
         stop
     }
 }
 
-actor Item3DetectS : Item3Detect
+actor CrocItem3DetectS : Item3Detect
 {
     States
     {
     Death:
         TNT1 A 0
-        TNT1 A 0 A_GiveToTarget("Item3Flag", 1)
-        TNT1 A 0 A_GiveToTarget("Item3FlagS", 1)
+        TNT1 A 0 A_GiveToTarget("CrocItem3Flag", 1)
+        TNT1 A 0 A_GiveToTarget("CrocItem3FlagS", 1)
         stop
     }
 }
 
-actor Item3DetectN : Item3Detect
+actor CrocItem3DetectN : Item3Detect
 {
     States
     {
     Death:
         TNT1 A 0
-        TNT1 A 0 A_GiveToTarget("Item3Flag", 1)
-        TNT1 A 0 A_GiveToTarget("Item3FlagN", 1)
+        TNT1 A 0 A_GiveToTarget("CrocItem3Flag", 1)
+        TNT1 A 0 A_GiveToTarget("CrocItem3FlagN", 1)
         stop
     }
 }
 
-Actor Item3Flag : Once {}
-Actor Item3FlagE : Item3Flag {}
-Actor Item3FlagW : Item3Flag {}
-Actor Item3FlagS : Item3Flag {}
-Actor Item3FlagN : Item3Flag {}
+Actor CrocItem3Flag : Once {}
+Actor CrocItem3FlagE : Item3Flag {}
+Actor CrocItem3FlagW : Item3Flag {}
+Actor CrocItem3FlagS : Item3Flag {}
+Actor CrocItem3FlagN : Item3Flag {}

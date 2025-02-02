@@ -1,7 +1,7 @@
-actor WheelCutterWep_NormalBar : NormalBar { args 4, 95 }
-actor WheelCutterWep_ScriptBar : ScriptBar {}
+actor CrocWheelCutterWep_NormalBar : NormalBar { args 4, 95 }
+actor CrocWheelCutterWep_ScriptBar : ScriptBar {}
 
-actor WheelCutterWep : BaseMM8BDMWep 10095
+actor CrocWheelCutterWep : BaseMM8BDMWep 10095
 {
     //$Category MM8BDM-Weapons/Close
     //$Title Wheel Cutter
@@ -12,7 +12,7 @@ actor WheelCutterWep : BaseMM8BDMWep 10095
     Obituary "$OB_WHEELCUTTER"
     Tag "$TAG_WHEELCUTTER"
     Inventory.Pickupmessage "$PU_WHEELCUTTER"
-    weapon.ammotype "WheelCutterAmmo"
+    weapon.ammotype "CrocWheelCutterAmmo"
     inventory.icon "WHEELI"
     States
     {
@@ -21,7 +21,7 @@ actor WheelCutterWep : BaseMM8BDMWep 10095
         loop 
     Ready:
         WHEE I 0 ACS_NamedExecuteWithResult("core_weaponcolor",CLR_WHEELCUTTER)
-        WHEE I 0 A_TakeInventory("WheelCutterCheck", 105)
+        WHEE I 0 A_TakeInventory("CrocWheelCutterCheck", 105)
         WHEE I 1 A_WeaponReady
         wait
     Deselect:
@@ -32,15 +32,15 @@ actor WheelCutterWep : BaseMM8BDMWep 10095
         goto SelectSwap
     Fire:
         WHEE I 0 A_JumpIfNoAmmo("NoAmmo")
-        WHEE J 0 A_TakeInventory("WheelCutterAmmo",2,TIF_NOTAKEINFINITE)
+        WHEE J 0 A_TakeInventory("CrocWheelCutterAmmo",2,TIF_NOTAKEINFINITE)
         WHEE J 0 A_PlaySoundEx("weapons/mm10/wheelcutteractivate","Weapon")
-        WHEE J 0 A_GiveInventory("WheelCutterCheck", 105)
+        WHEE J 0 A_GiveInventory("CrocWheelCutterCheck", 105)
         WHEE J 1
-        WHEE J 0 A_GiveInventory("FireWheelSaw", 1)
+        WHEE J 0 A_GiveInventory("CrocFireWheelSaw", 1)
         WHEE I 0 A_Refire
         goto Throw
     Hold:
-        WHEE J 0 A_JumpIfInventory("WheelCutterCheck", 1, "HoldLoop")
+        WHEE J 0 A_JumpIfInventory("CrocWheelCutterCheck", 1, "HoldLoop")
         goto Throw
     HoldLoop:
         WHEE J 1 
@@ -60,8 +60,8 @@ actor WheelCutterWep : BaseMM8BDMWep 10095
         goto Throw
     HoldLoop5:
         WHEE J 1
-        WHEE J 0 A_TakeInventory("WheelCutterCheck", 1)
-        WHEE J 0 A_JumpIfInventory("WheelCutterDestroy", 1, "End")
+        WHEE J 0 A_TakeInventory("CrocWheelCutterCheck", 1)
+        WHEE J 0 A_JumpIfInventory("CrocWheelCutterDestroy", 1, "End")
         WHEE J 0 A_JumpIfInventory("IsBot", 1, "Throw")
         WHEE J 0 A_Refire
         Goto Throw
@@ -70,20 +70,20 @@ actor WheelCutterWep : BaseMM8BDMWep 10095
         WHEE J 0 A_PlaySoundEx("weapons/mm10/wheelcutteractivate","Weapon")
         WHEE J 1
     Throw:
-        WHEE J 0 A_TakeInventory("WheelCutterCheck", 105)
-        WHEE J 0 A_TakeInventory("WheelCutterDestroy", 1)
+        WHEE J 0 A_TakeInventory("CrocWheelCutterCheck", 105)
+        WHEE J 0 A_TakeInventory("CrocWheelCutterDestroy", 1)
         WHEE J 0 A_PlaySoundEx("weapons/mm10/wheelcutterfire","weapon")
-        WHEE J 0 A_FireCustomMissile("WheelCutterLaunchPlacer", 0, 1, 8, -16)
+        WHEE J 0 A_FireCustomMissile("CrocWheelCutterLaunchPlacer", 0, 1, 8, -16)
         WHEE JK 3
-        WHEE I 0 A_TakeInventory("WheelCutterCheck", 105)
+        WHEE I 0 A_TakeInventory("CrocWheelCutterCheck", 105)
         WHEE I 16
         WHEE I 0 A_ClearRefire
         goto Ready+1
     End:
         WHEE J 1
-        WHEE J 0 A_TakeInventory("WheelCutterDestroy", 1)
+        WHEE J 0 A_TakeInventory("CrocWheelCutterDestroy", 1)
         WHEE JK 3
-        WHEE J 0 A_TakeInventory("WheelCutterCheck", 105)
+        WHEE J 0 A_TakeInventory("CrocWheelCutterCheck", 105)
         WHEE I 10
         WHEE I 0 A_ClearRefire
         goto Ready+1
@@ -93,13 +93,13 @@ actor WheelCutterWep : BaseMM8BDMWep 10095
     }
 }
 
-actor WheelCutterCheck : Inventory
+actor CrocWheelCutterCheck : Inventory
 {
     inventory.amount 1
     inventory.maxamount 105
 }
 
-actor WheelCutterDestroy : WheelCutterCheck
+actor CrocWheelCutterDestroy : CrocWheelCutterCheck
 {
     inventory.maxamount 1
 }
@@ -108,22 +108,22 @@ actor WheelCutterDestroy : WheelCutterCheck
 const int WEPC_10WC_SAWRADIUS = 96;
 // check for commented instances of this to make sure updates match
 
-actor FireWheelSaw : CustomInventory
+actor CrocFireWheelSaw : CustomInventory
 {
     States
     {
     Pickup:
-        WHEE J 0 A_SpawnItemEx("WheelCutterSaw", WEPC_10WC_SAWRADIUS*cos(pitch), 8, 32+WEPC_10WC_SAWRADIUS*sin(-pitch), 0, 0, 0, 0, SXF_NOCHECKPOSITION, 0)
+        WHEE J 0 A_SpawnItemEx("CrocWheelCutterSaw", WEPC_10WC_SAWRADIUS*cos(pitch), 8, 32+WEPC_10WC_SAWRADIUS*sin(-pitch), 0, 0, 0, 0, SXF_NOCHECKPOSITION, 0)
         WHEE J 0 A_JumpIfInventory("PowerSpreadRune", 1, "PickupSpread")
         stop
     PickupSpread:
-        WHEE J 0 A_SpawnItemEx("WheelCutterSawL", WEPC_10WC_SAWRADIUS*cos(pitch), 8, 32+WEPC_10WC_SAWRADIUS*sin(-pitch), 0, 0, 0, -15, SXF_NOCHECKPOSITION,0)
-        WHEE J 0 A_SpawnItemEx("WheelCutterSawR", WEPC_10WC_SAWRADIUS*cos(pitch), 8, 32+WEPC_10WC_SAWRADIUS*sin(-pitch), 0, 0, 0, 15, SXF_NOCHECKPOSITION,0)
+        WHEE J 0 A_SpawnItemEx("CrocWheelCutterSawL", WEPC_10WC_SAWRADIUS*cos(pitch), 8, 32+WEPC_10WC_SAWRADIUS*sin(-pitch), 0, 0, 0, -15, SXF_NOCHECKPOSITION,0)
+        WHEE J 0 A_SpawnItemEx("CrocWheelCutterSawR", WEPC_10WC_SAWRADIUS*cos(pitch), 8, 32+WEPC_10WC_SAWRADIUS*sin(-pitch), 0, 0, 0, 15, SXF_NOCHECKPOSITION,0)
         stop
     }
 }
 
-actor WheelCutterSaw : BasicBouncer
+actor CrocWheelCutterSaw : BasicBouncer
 {
     +DONTSPLASH
     +NOINTERACTION
@@ -137,76 +137,76 @@ actor WheelCutterSaw : BasicBouncer
 	Spawn:
 		WHEE B 0
 	SpawnB1:
-		WHEE B 0 A_GiveToTarget("WheelCutterWallClimb", 1)
+		WHEE B 0 A_GiveToTarget("CrocWheelCutterWallClimb", 1)
         WHEE B 0 A_SetPitch(CallACS("core_GetPtrPitch", AAPTR_TARGET)) // if this was zscript i could just do target.pitch...
         WHEE B 1 A_Warp(AAPTR_TARGET, WEPC_10WC_SAWRADIUS*cos(pitch), 8, 32+WEPC_10WC_SAWRADIUS*sin(-pitch), mass-30, WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
-        WHEE B 0 A_JumpIfInTargetInventory("WheelCutterDestroy", 1, "Death")
+        WHEE B 0 A_JumpIfInTargetInventory("CrocWheelCutterDestroy", 1, "Death")
         WHEE B 0 A_JumpIfInTargetInventory("IsDead", 1, "End")
-		WHEE B 0 A_JumpIfInTargetInventory("WheelCutterCheck", 1, "SpawnB2")
+		WHEE B 0 A_JumpIfInTargetInventory("CrocWheelCutterCheck", 1, "SpawnB2")
 		WHEE B 1 A_JumpIf(true, "End")
 		wait
 	SpawnB2:
-		WHEE B 0 //A_GiveToTarget("WheelCutterWallClimb", 1)
+		WHEE B 0 //A_GiveToTarget("CrocWheelCutterWallClimb", 1)
         WHEE B 0 A_SetPitch(CallACS("core_GetPtrPitch", AAPTR_TARGET))
         WHEE B 1 A_Warp(AAPTR_TARGET, WEPC_10WC_SAWRADIUS*cos(pitch), 8, 32+WEPC_10WC_SAWRADIUS*sin(-pitch), mass-30, WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
-        WHEE B 0 A_JumpIfInTargetInventory("WheelCutterDestroy", 1, "Death")
+        WHEE B 0 A_JumpIfInTargetInventory("CrocWheelCutterDestroy", 1, "Death")
         WHEE B 0 A_JumpIfInTargetInventory("IsDead", 1, "End")
-		WHEE B 0 A_JumpIfInTargetInventory("WheelCutterCheck", 1, "SpawnC1")
+		WHEE B 0 A_JumpIfInTargetInventory("CrocWheelCutterCheck", 1, "SpawnC1")
 		WHEE B 1 A_JumpIf(true, "End")
 		wait
 	SpawnC1:
-		WHEE B 0 A_GiveToTarget("WheelCutterWallClimb", 1)
+		WHEE B 0 A_GiveToTarget("CrocWheelCutterWallClimb", 1)
         WHEE B 0 A_SetPitch(CallACS("core_GetPtrPitch", AAPTR_TARGET))
         WHEE C 1 A_Warp(AAPTR_TARGET, WEPC_10WC_SAWRADIUS*cos(pitch), 8, 32+WEPC_10WC_SAWRADIUS*sin(-pitch), mass-30, WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
-        WHEE B 0 A_JumpIfInTargetInventory("WheelCutterDestroy", 1, "Death")
+        WHEE B 0 A_JumpIfInTargetInventory("CrocWheelCutterDestroy", 1, "Death")
         WHEE B 0 A_JumpIfInTargetInventory("IsDead", 1, "End")
-		WHEE B 0 A_JumpIfInTargetInventory("WheelCutterCheck", 1, "SpawnC2")
+		WHEE B 0 A_JumpIfInTargetInventory("CrocWheelCutterCheck", 1, "SpawnC2")
 		WHEE C 1 A_JumpIf(true, "End")
 		wait
 	SpawnC2:
-		WHEE B 0 //A_GiveToTarget("WheelCutterWallClimb", 1)
+		WHEE B 0 //A_GiveToTarget("CrocWheelCutterWallClimb", 1)
         WHEE B 0 A_SetPitch(CallACS("core_GetPtrPitch", AAPTR_TARGET))
         WHEE C 1 A_Warp(AAPTR_TARGET, WEPC_10WC_SAWRADIUS*cos(pitch), 8, 32+WEPC_10WC_SAWRADIUS*sin(-pitch), mass-30, WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
-        WHEE B 0 A_JumpIfInTargetInventory("WheelCutterDestroy", 1, "Death")
+        WHEE B 0 A_JumpIfInTargetInventory("CrocWheelCutterDestroy", 1, "Death")
         WHEE B 0 A_JumpIfInTargetInventory("IsDead", 1, "End")
-		WHEE B 0 A_JumpIfInTargetInventory("WheelCutterCheck", 1, "SpawnB1")
+		WHEE B 0 A_JumpIfInTargetInventory("CrocWheelCutterCheck", 1, "SpawnB1")
 		WHEE C 1 A_JumpIf(true, "End")
 		wait
     End:
-		WHEE B 0 A_TakeFromTarget("WheelCutterDestroy", 1)
-		WHEE B 0 A_TakeFromTarget("WheelCutterCheck", 105)
+		WHEE B 0 A_TakeFromTarget("CrocWheelCutterDestroy", 1)
+		WHEE B 0 A_TakeFromTarget("CrocWheelCutterCheck", 105)
         WHEE B 1
 		stop
 	Death:
-        WHEE B 0 A_GiveToTarget("WheelCutterDestroy", 1)
+        WHEE B 0 A_GiveToTarget("CrocWheelCutterDestroy", 1)
 		TNT1 A 0 A_SpawnItemEx("ExplosionEffect1")
 		stop
 	}
 }
 
-actor WheelCutterSawL : WheelCutterSaw
+actor CrocWheelCutterSawL : WheelCutterSaw
 {
     mass 15
 }
 
-actor WheelCutterSawR : WheelCutterSaw
+actor CrocWheelCutterSawR : WheelCutterSaw
 {
     mass 45
 }
 
-actor WheelCutterWallClimb : CustomInventory
+actor CrocWheelCutterWallClimb : CustomInventory
 {
 	+INVENTORY.AUTOACTIVATE
 	States
 	{
 	Use:
-        TNT1 A 0 A_FireCustomMissile("WheelCutterWallCheck", 0, 0, 8, 0) // A_SpawnItemEx("WheelCutterWallCheck", 0, 0, 24, 64)
-        TNT1 A 0 A_FireCustomMissile("WheelCutterSawDamage", 0, 0, 8, 0)
+        TNT1 A 0 A_FireCustomMissile("CrocWheelCutterWallCheck", 0, 0, 8, 0) // A_SpawnItemEx("CrocWheelCutterWallCheck", 0, 0, 24, 64)
+        TNT1 A 0 A_FireCustomMissile("CrocWheelCutterSawDamage", 0, 0, 8, 0)
 		stop
 	}
 }
 
-actor WheelCutterWallCheck : BasicFastProjectile
+actor CrocWheelCutterWallCheck : BasicFastProjectile
 {
     +THRUACTORS
     +DONTREFLECT
@@ -224,31 +224,31 @@ actor WheelCutterWallCheck : BasicFastProjectile
         stop
     Death:
         TNT1 A 0 A_JumpIf(ceilingz-z <= 56, "End")
-        TNT1 A 0 A_SpawnItemEx("WheelCutterClimbFX", 16, 0, frandom(-16, 16), 5, 0, 1, 180+frandom(-8, 8), SXF_WEPFXCOLOR)
+        TNT1 A 0 A_SpawnItemEx("CrocWheelCutterClimbFX", 16, 0, frandom(-16, 16), 5, 0, 1, 180+frandom(-8, 8), SXF_WEPFXCOLOR)
         TNT1 A 0 A_PlaySoundEx("weapons/mm10/wheelcutterclimb", "body")
         TNT1 A 0 A_JumpIf(z-floorz < 8, "Floor")
-        TNT1 A 0 A_GiveToTarget("WheelThruster",1)
+        TNT1 A 0 A_GiveToTarget("CrocWheelThruster",1)
         TNT1 A 10
         stop
     End:
         TNT1 A 0
         stop
     Floor:
-        TNT1 A 0 A_GiveToTarget("WheelFloorThruster",1)
+        TNT1 A 0 A_GiveToTarget("CrocWheelFloorThruster",1)
         TNT1 A 10
         stop
     }
 }
 
-actor WheelThruster : CustomInventory
+actor CrocWheelThruster : CustomInventory
 {
     +INVENTORY.AUTOACTIVATE
     States
     {
     Pickup:
         TNT1 A 0 A_TakeInventory("JumpCancler", 1)
-        TNT1 A 0 A_TakeInventory("WheelCutterCheck", 3)
-        TNT1 A 0 A_JumpIfInventory("WheelFloorRolled", 1, "Rebound")
+        TNT1 A 0 A_TakeInventory("CrocWheelCutterCheck", 3)
+        TNT1 A 0 A_JumpIfInventory("CrocWheelFloorRolled", 1, "Rebound")
         TNT1 A 0 A_JumpIf(momz < -8.24, "MinSpeed")
         TNT1 A 0 A_JumpIf(momz > 20, "MaxSpeed")
         TNT1 A 1 A_ChangeVelocity(0, 0, 2.5)
@@ -260,28 +260,28 @@ actor WheelThruster : CustomInventory
         TNT1 A 1 A_ChangeVelocity(momx, momy, 20, CVF_REPLACE)
         stop
     Rebound:
-        TNT1 A 0 A_TakeInventory("WheelFloorRolled", 1)
+        TNT1 A 0 A_TakeInventory("CrocWheelFloorRolled", 1)
         TNT1 A 0 A_ChangeVelocity(momx, momy, sqrt(momx*momx+momy*momy)/2, CVF_REPLACE)
         stop
     }
 }
 
-actor WheelFloorThruster : CustomInventory
+actor CrocWheelFloorThruster : CustomInventory
 {
     +INVENTORY.AUTOACTIVATE
     States
     {
     Pickup:
-        TNT1 A 0 A_TakeInventory("WheelCutterCheck", 3)
-        TNT1 A 0 A_GiveInventory("WheelFloorRolled", 1)
+        TNT1 A 0 A_TakeInventory("CrocWheelCutterCheck", 3)
+        TNT1 A 0 A_GiveInventory("CrocWheelFloorRolled", 1)
         TNT1 A 0 A_ChangeVelocity(1.8, 0, 0, CVF_RELATIVE)
         stop
     }
 }
 
-actor WheelFloorRolled : Powerup { powerup.duration 10 }
+actor CrocWheelFloorRolled : Powerup { powerup.duration 10 }
 
-actor WheelCutterClimbFX : BasicGraphicEffect
+actor CrocWheelCutterClimbFX : BasicGraphicEffect
 {
     +BRIGHT
     States
@@ -292,11 +292,11 @@ actor WheelCutterClimbFX : BasicGraphicEffect
     }
 }
 
-actor WheelCutterSawDamage : BasicFastProjectile
+actor CrocWheelCutterSawDamage : BasicFastProjectile
 {
     +DONTSPLASH
 	Obituary "$OB_WHEELCUTTER"
-	damagetype "WheelCutterSaw"
+	damagetype "CrocWheelCutterSaw"
 	Height 10
     Radius 20
     Damage (3)
@@ -311,18 +311,18 @@ actor WheelCutterSawDamage : BasicFastProjectile
         TNT1 A 0
         stop
     XDeath:
-        WHEE B 0 A_GiveToTarget("WheelFloorThruster", 1)
-        WHEE B 0 // A_GiveToTarget("WheelCutterDestroy", 1)
+        WHEE B 0 A_GiveToTarget("CrocWheelFloorThruster", 1)
+        WHEE B 0 // A_GiveToTarget("CrocWheelCutterDestroy", 1)
         stop
     }
 }
 
 // Projectile stuff
-actor WheelCutterMaster : ProjSpawnFuncActor
+actor CrocWheelCutterMaster : ProjSpawnFuncActor
 {
     PROJECTILE
     Obituary "$OB_WHEELCUTTER"
-    Damagetype "WheelCutter"
+    Damagetype "CrocWheelCutter"
     scale 2.5
     -NOGRAVITY
     +BOUNCEONCEILINGS
@@ -338,11 +338,11 @@ actor WheelCutterMaster : ProjSpawnFuncActor
     }
 }
 
-actor WheelCutterMasterFast : ProjSpawnFuncActorFast
+actor CrocWheelCutterMasterFast : ProjSpawnFuncActorFast
 {
     PROJECTILE
     Obituary "$OB_WHEELCUTTER"
-    Damagetype "WheelCutter"
+    Damagetype "CrocWheelCutter"
     scale 2.5
     Radius 10
     Height 10
@@ -356,17 +356,17 @@ actor WheelCutterMasterFast : ProjSpawnFuncActorFast
     }
 }
 
-actor WheelCutterLaunchPlacer : WheelCutterMasterFast
+actor CrocWheelCutterLaunchPlacer : CrocWheelCutterMasterFast
 {
     Speed 96 // WEPC_10WC_SAWRADIUS
     States
     {
     Spawn:
         TNT1 A 0
-        TNT1 A 0 A_SpawnItemEx("WheelCutterLauncher", 0, 0, 0, momx/WEPC_10WC_SAWRADIUS, momy/WEPC_10WC_SAWRADIUS, momz/WEPC_10WC_SAWRADIUS, 0, SXF_ABSOLUTEMOMENTUM|SXF_MULTIPLYSPEED)
+        TNT1 A 0 A_SpawnItemEx("CrocWheelCutterLauncher", 0, 0, 0, momx/WEPC_10WC_SAWRADIUS, momy/WEPC_10WC_SAWRADIUS, momz/WEPC_10WC_SAWRADIUS, 0, SXF_ABSOLUTEMOMENTUM|SXF_MULTIPLYSPEED)
         stop
     Death:
-        TNT1 A 0 A_SpawnItemEx("WheelCutter", 0, 0, 0, 1.0, 0, 0, 0, SXF_MULTIPLYSPEED)
+        TNT1 A 0 A_SpawnItemEx("CrocWheelCutter", 0, 0, 0, 1.0, 0, 0, 0, SXF_MULTIPLYSPEED)
         TNT1 A 10
         stop
     XDeath:
@@ -375,7 +375,7 @@ actor WheelCutterLaunchPlacer : WheelCutterMasterFast
     }
 }
 
-actor WheelCutterLauncher : WheelCutterMaster
+actor CrocWheelCutterLauncher : CrocWheelCutterMaster
 {
     Speed 15
     States
@@ -384,7 +384,7 @@ actor WheelCutterLauncher : WheelCutterMaster
         WHEE DE 2
         loop
     Death:
-        TNT1 A 0 A_SpawnItemEx("WheelCutter", 0, 0, 0, 1.0, 0, 0, 0, SXF_MULTIPLYSPEED)
+        TNT1 A 0 A_SpawnItemEx("CrocWheelCutter", 0, 0, 0, 1.0, 0, 0, 0, SXF_MULTIPLYSPEED)
         TNT1 A 10
         stop
     XDeath:
@@ -393,9 +393,9 @@ actor WheelCutterLauncher : WheelCutterMaster
     }
 }
 
-actor WheelCutterGround : Once {}
+actor CrocWheelCutterGround : Once {}
 
-actor WheelCutter : WheelCutterMaster
+actor WheelCutter : CrocWheelCutterMaster
 {
     +NOEXPLODEFLOOR
     +STEPMISSILE
@@ -408,43 +408,43 @@ actor WheelCutter : WheelCutterMaster
     Spawn:
         WHEE D 0
         WHEE E 2 A_ScaleVelocity(0.0625) // 0.0625
-        WHEE D 0 A_GiveInventory("WheelCutterFunc", 1)
+        WHEE D 0 A_GiveInventory("CrocWheelCutterFunc", 1)
         WHEE D 0 A_ChangeVelocity(0, 0, 0.0625 * 40)
         WHEE D 2 A_ChangeVelocity(2.00 * momx, 2.00 * momy, momz, CVF_REPLACE) // 0.125
         WHEE E 2 A_ChangeVelocity(2.00 * momx, 2.00 * momy, momz, CVF_REPLACE) // 0.25
         WHEE D 2 A_ChangeVelocity(2.00 * momx, 2.00 * momy, momz, CVF_REPLACE) // 0.5
         WHEE E 2 A_ChangeVelocity(2.00 * momx, 2.00 * momy, momz, CVF_REPLACE) // 1.0
     SpawnLoop:
-        WHEE DDEE 1 A_GiveInventory("WheelCutterFunc", 1)
+        WHEE DDEE 1 A_GiveInventory("CrocWheelCutterFunc", 1)
         loop
     }
 }
 
-actor WheelCutterFunc : CustomInventory
+actor CrocWheelCutterFunc : CustomInventory
 {
     States
     {
     Pickup:
         TNT1 A 0 A_CountDown
-        TNT1 A 0 A_JumpIfInventory("WheelCutterGround", 1, "GroundCheck")
+        TNT1 A 0 A_JumpIfInventory("CrocWheelCutterGround", 1, "GroundCheck")
     AirCheck:
         TNT1 A 0 A_CheckFloor("Landed")
         stop
     Landed:
-        TNT1 A 0 A_GiveInventory("WheelCutterGround", 1)
+        TNT1 A 0 A_GiveInventory("CrocWheelCutterGround", 1)
         TNT1 A 0 A_PlaySoundEx("weapons/mm10/wheelcutterroll", "Body")
-        TNT1 A 0 A_SpawnItemEx("WheelCutterRollFXSpawn")
+        TNT1 A 0 A_SpawnItemEx("CrocWheelCutterRollFXSpawn")
         stop
     GroundCheck:
         TNT1 A 0 A_JumpIf(z-floorz > 0, "Air")
         stop
     Air:
-        TNT1 A 0 A_TakeInventory("WheelCutterGround", 1)
+        TNT1 A 0 A_TakeInventory("CrocWheelCutterGround", 1)
         stop
     }
 }
 
-actor WheelCutterRollFXSpawn : BasicWatcher
+actor CrocWheelCutterRollFXSpawn : BasicWatcher
 {
     +USESPAWNEVENTSCRIPT
     var int user_UseProjSpawnFunc;
@@ -452,12 +452,12 @@ actor WheelCutterRollFXSpawn : BasicWatcher
     {
     Spawn:
         TNT1 A 0
-        TNT1 AAAAA 0 A_SpawnItemEx("WheelCutterRollFX", 16, 0, frandom(-16, 16), 5, 0, 1, 180+frandom(-8, 8), SXF_WEPFXCOLOR)
+        TNT1 AAAAA 0 A_SpawnItemEx("CrocWheelCutterRollFX", 16, 0, frandom(-16, 16), 5, 0, 1, 180+frandom(-8, 8), SXF_WEPFXCOLOR)
         stop
     }
 }
 
-actor WheelCutterRollFX : BasicGraphicEffect
+actor CrocWheelCutterRollFX : BasicGraphicEffect
 {
     +BRIGHT
     States
@@ -468,7 +468,7 @@ actor WheelCutterRollFX : BasicGraphicEffect
     }
 }
 
-actor WheelCutterAmmo : Ammo
+actor CrocWheelCutterAmmo : Ammo
 {
     inventory.amount 1
     inventory.maxamount 28

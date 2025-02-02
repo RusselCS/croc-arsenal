@@ -1,6 +1,6 @@
-actor ScrewCrusherWep_NormalBar : NormalBar { args 54, 42 }
+actor CrocScrewCrusherWep_NormalBar : NormalBar { args 54, 42 }
 
-actor ScrewCrusherWep : BaseMM8BDMWep 10077
+actor CrocScrewCrusherWep : BaseMM8BDMWep 10077
 {
 //$Category MM8BDM-Weapons/Rapid
 //$Title Screw Crusher
@@ -11,7 +11,7 @@ Weapon.SlotNumber 3
 Inventory.Pickupmessage "$PU_SCREWCRUSHER"
 Obituary "$OB_SCREWCRUSHER"
 Tag "$TAG_SCREWCRUSHER"
-weapon.ammotype "ScrewCrusherAmmo"
+weapon.ammotype "CrocScrewCrusherAmmo"
 inventory.icon "SCRWSI"
 States
 {
@@ -36,7 +36,7 @@ goto SelectSwap
 Fire:
 SCRH A 0 A_JumpIfNoAmmo("NoAmmo")
 SCRH A 0 A_PlaySoundEx("weapons/mmk/screwcrusherfire","Weapon")
-SCRH A 0 A_FireCustomMissile("ScrewCrusherSpawner",0,1,8,0)
+SCRH A 0 A_FireCustomMissile("CrocScrewCrusherSpawner",0,1,8,0)
 SCRH BCDE 2
 SCRH F 0 A_JumpIfNoAmmo("NoAmmoRaise")
 SCRH F 0 A_Refire
@@ -55,14 +55,14 @@ Goto ReadyNoAmmo
 }
 }
 
-actor ScrewCrusherAmmo : Ammo
+actor CrocScrewCrusherAmmo : Ammo
 {
 inventory.amount 1
 inventory.maxamount 56
 +INVENTORY.IGNORESKILL
 }
 
-actor ScrewCrusherSpawner
+actor CrocScrewCrusherSpawner
 {
 PROJECTILE
 +NOINTERACTION
@@ -75,14 +75,14 @@ States
 {
 Spawn:
 TNT1 A 0
-TNT1 A 1 A_SpawnItemEx("ScrewCrusher", 0, 0, 0, momx*0.8, momy*0.8, 0.5+momz*1.0, 0, SXF_MULTIPLYSPEED|SXF_ABSOLUTEMOMENTUM)
+TNT1 A 1 A_SpawnItemEx("CrocScrewCrusher", 0, 0, 0, momx*0.8, momy*0.8, 0.5+momz*1.0, 0, SXF_MULTIPLYSPEED|SXF_ABSOLUTEMOMENTUM)
 stop
 }
 }
 
-actor ScrewCrusher : BasicProjectile
+actor CrocScrewCrusher : BasicProjectile
 {
-damagetype "ScrewCrusher"
+damagetype "CrocScrewCrusher"
 Obituary "$OB_SCREWCRUSHER"
 -NOGRAVITY
 +BOUNCEONWALLS

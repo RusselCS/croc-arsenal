@@ -1,7 +1,7 @@
-actor WaterShieldWep_NormalBar : NormalBar { args 201, 74 }
-actor WaterShieldWep_ScriptBar : ScriptBar {}
+actor CrocWaterShieldWep_NormalBar : NormalBar { args 201, 74 }
+actor CrocWaterShieldWep_ScriptBar : ScriptBar {}
 
-actor WaterShieldWep : BaseMM8BDMWep 10098
+actor CrocWaterShieldWep : BaseMM8BDMWep 10098
 {
 	//$Category MM8BDM-Weapons/Shield
 	//$Title Water Shield
@@ -12,7 +12,7 @@ actor WaterShieldWep : BaseMM8BDMWep 10098
 	Obituary "$OB_WATERSHIELD"
 	Tag "$TAG_WATERSHIELD"
 	Inventory.Pickupmessage "$PU_WATERSHIELD"
-	weapon.ammotype "WaterShieldAmmo"
+	weapon.ammotype "CrocWaterShieldAmmo"
 	inventory.icon "WATERI"
 	States
 	{
@@ -24,27 +24,27 @@ actor WaterShieldWep : BaseMM8BDMWep 10098
 		WSHD D 1 A_WeaponReady
 		Goto Ready+1
 	Deselect:
-		TNT1 A 0 A_TakeInventory("WaterShieldCheck", 24)
+		TNT1 A 0 A_TakeInventory("CrocWaterShieldCheck", 24)
 		WSHD D 0 A_TakeInventory("ShieldCheck", 1)
 		goto DeselectSwap
 	Select:
 		WSHD D 0
 		goto SelectSwap
 	Fire:
-		WSHD D 0 A_JumpIfInventory("WaterShieldCheck", 1, "BotCheck")
+		WSHD D 0 A_JumpIfInventory("CrocWaterShieldCheck", 1, "BotCheck")
 		WSHD D 0 A_JumpIfNoAmmo("NoAmmo")
-		WSHD D 0 A_TakeInventory("WaterShieldAmmo",7,TIF_NOTAKEINFINITE)
+		WSHD D 0 A_TakeInventory("CrocWaterShieldAmmo",7,TIF_NOTAKEINFINITE)
 		WSHD D 0 A_PlaySoundEx("weapons/mm10/watershieldactivate", "Weapon")
 		WSHD D 0 A_GiveInventory("ShieldCheck", 1)
-		WSHD E 0 A_GiveInventory("SpawnWaterShield", 1)
+		WSHD E 0 A_GiveInventory("CrocSpawnWaterShield", 1)
 		WSHD EEEFFEEEFFEEEFFEEEFF 1
 		WSHD EEEFFEEEFFEEEFFEEEFF 1
 		WSHD D 10
-		WSHD D 0 A_GiveInventory("WaterShieldExpand", 1)
+		WSHD D 0 A_GiveInventory("CrocWaterShieldExpand", 1)
 		Goto Ready+1
 	Active:
 		WSHD D 1 A_WeaponReady
-		WSHD D 0 A_JumpIfInventory("WaterShieldCheck", 1, "Active")
+		WSHD D 0 A_JumpIfInventory("CrocWaterShieldCheck", 1, "Active")
 		WSHD D 1 A_Jump(256, "ClearReady")
 		wait
 	ClearReady:
@@ -55,13 +55,13 @@ actor WaterShieldWep : BaseMM8BDMWep 10098
 		goto ShieldFire
 	ShieldFire:
 		WSHD D 0 A_PlaySoundEx("weapons/mm10/watershieldfire", "Weapon")
-		WSHD D 0 A_GiveInventory("WaterShieldShoot", 1)
+		WSHD D 0 A_GiveInventory("CrocWaterShieldShoot", 1)
 		WSHD D 1
-		WSHD E 0 A_TakeInventory("WaterShieldCheck",24)
-		WSHD E 0 A_TakeInventory("WaterShieldSpread",1)
+		WSHD E 0 A_TakeInventory("CrocWaterShieldCheck",24)
+		WSHD E 0 A_TakeInventory("CrocWaterShieldSpread",1)
 		WSHD E 0 A_TakeInventory("ShieldCheck", 1)
 		WSHD D 35
-		WSHD D 0 A_TakeInventory("WaterShieldShoot", 1)
+		WSHD D 0 A_TakeInventory("CrocWaterShieldShoot", 1)
 		Goto Ready+1
 	BotBullrun:
 		WSHD D 5 A_ChangeVelocity(5, 0, momz, CVF_RELATIVE|CVF_REPLACE)
@@ -69,48 +69,48 @@ actor WaterShieldWep : BaseMM8BDMWep 10098
 		WSHD D 0 A_Refire("Fire")
 		goto ShieldFire
 	NoAmmo:
-		WOOD J 0 A_TakeInventory("WaterShieldCheck",999)
+		WOOD J 0 A_TakeInventory("CrocWaterShieldCheck",999)
 		WSHD D 1 ACS_NamedExecuteAlways("core_noammo",0)
 		goto Ready+1
 	}
 }
 
-actor WaterShieldAmmo : Ammo
+actor CrocWaterShieldAmmo : Ammo
 {
 	inventory.amount 1
 	inventory.maxamount 28
 	+INVENTORY.IGNORESKILL
 }
 
-actor WaterShieldShoot : ShieldCheck {}
-actor WaterShieldCheck : ShieldCheck
+actor CrocWaterShieldShoot : ShieldCheck {}
+actor CrocWaterShieldCheck : ShieldCheck
 {
 	inventory.maxamount 24
 }
-actor WaterShieldStop : Once {} // This gets given by Possession Circuit Board
+actor CrocWaterShieldStop : Once {} // This gets given by Possession Circuit Board
 
-actor WaterShieldExpand : PowerUp {powerup.duration 4}
+actor CrocWaterShieldExpand : PowerUp {powerup.duration 4}
 
-actor SpawnWaterShield : Custominventory
+actor CrocSpawnWaterShield : Custominventory
 {
     States
     {
     Pickup:
         TNT1 A 0 A_JumpIfInventory("PowerSpreadRune", 1, "PickupSpread")
-        TNT1 A 0 A_SpawnItemEx("WaterShieldSpawner", 0, 0, 0, 0, 0, 0, 0)
+        TNT1 A 0 A_SpawnItemEx("CrocWaterShieldSpawner", 0, 0, 0, 0, 0, 0, 0)
         stop
     PickupSpread:
-		TNT1 A 0 A_GiveInventory("WaterShieldSpread", 1)
-		TNT1 A 0 A_SpawnItemEx("WaterShieldSpawner", 0, 0, 0, 0, 0, 0, 0)
-        TNT1 A 0 A_SpawnItemEx("WaterShieldSpawnerS1", 0, 0, 0, 0, 0, 0, 376)
-        TNT1 A 0 A_SpawnItemEx("WaterShieldSpawnerS2", 0, 0, 0, 0, 0, 0, 344)
+		TNT1 A 0 A_GiveInventory("CrocWaterShieldSpread", 1)
+		TNT1 A 0 A_SpawnItemEx("CrocWaterShieldSpawner", 0, 0, 0, 0, 0, 0, 0)
+        TNT1 A 0 A_SpawnItemEx("CrocWaterShieldSpawnerS1", 0, 0, 0, 0, 0, 0, 376)
+        TNT1 A 0 A_SpawnItemEx("CrocWaterShieldSpawnerS2", 0, 0, 0, 0, 0, 0, 344)
         stop
     }
 }
 
-actor WaterShieldSpread : Once {}
+actor CrocWaterShieldSpread : Once {}
 
-actor WaterShieldSpawner : ProjSpawnFuncActor
+actor CrocWaterShieldSpawner : ProjSpawnFuncActor
 {
 	PROJECTILE
 	+NOINTERACTION
@@ -122,56 +122,56 @@ actor WaterShieldSpawner : ProjSpawnFuncActor
 	{
 	Spawn:
 		WATS C 0
-		WATS C 0 A_JumpIfInTargetInventory("WaterShieldStop",1,"End")
+		WATS C 0 A_JumpIfInTargetInventory("CrocWaterShieldStop",1,"End")
 		WATS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists")==0, "End")
-		WATS C 0 A_GiveToTarget("WaterShieldCheck", 1)
+		WATS C 0 A_GiveToTarget("CrocWaterShieldCheck", 1)
 		// Spawned blobs sometimes bounce on walls, resetting their angle.
 		// By manipulating the scale in this manner, the angle can be synced again by transferring it to the blob.
 		WATS C 0 A_SetScale(angle, ScaleY)
-		WATS C 0 A_SpawnItemEx("WaterShield", 0, 0, 8, 0, 0, 0, 0, SXF_TRANSFERSCALE)
-		WATS C 0 A_SpawnItemEx("WaterShieldSpawn", 64, 0, 40, 0, 0, 0, 0, SXF_WEPFXCOLOR)
+		WATS C 0 A_SpawnItemEx("CrocWaterShield", 0, 0, 8, 0, 0, 0, 0, SXF_TRANSFERSCALE)
+		WATS C 0 A_SpawnItemEx("CrocWaterShieldSpawn", 64, 0, 40, 0, 0, 0, 0, SXF_WEPFXCOLOR)
 		WATS ZZZZZ 1 A_Warp(AAPTR_TARGET, 0, 0, 0, angle+mass, WARPF_ABSOLUTEANGLE|WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
-		WATS C 0 A_JumpIfInTargetInventory("WaterShieldStop",1,"End")
+		WATS C 0 A_JumpIfInTargetInventory("CrocWaterShieldStop",1,"End")
 		WATS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists")==0, "End")
-		WATS C 0 A_GiveToTarget("WaterShieldCheck", 1)
-		WATS C 0 A_SpawnItemEx("WaterShieldSpawn", 64, 0, 40, 0, 0, 0, 0, SXF_WEPFXCOLOR)
-		WATS C 0 A_SpawnItemEx("WaterShield", 0, 0, 8, 0, 0, 0, 0, SXF_TRANSFERSCALE)
+		WATS C 0 A_GiveToTarget("CrocWaterShieldCheck", 1)
+		WATS C 0 A_SpawnItemEx("CrocWaterShieldSpawn", 64, 0, 40, 0, 0, 0, 0, SXF_WEPFXCOLOR)
+		WATS C 0 A_SpawnItemEx("CrocWaterShield", 0, 0, 8, 0, 0, 0, 0, SXF_TRANSFERSCALE)
 		WATS ZZZZZ 1 A_Warp(AAPTR_TARGET, 0, 0, 0, angle+mass, WARPF_ABSOLUTEANGLE|WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
-		WATS C 0 A_JumpIfInTargetInventory("WaterShieldStop",1,"End")
+		WATS C 0 A_JumpIfInTargetInventory("CrocWaterShieldStop",1,"End")
 		WATS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists")==0, "End")
-		WATS C 0 A_GiveToTarget("WaterShieldCheck", 1)
-		WATS C 0 A_SpawnItemEx("WaterShieldSpawn", 64, 0, 40, 0, 0, 0, 0, SXF_WEPFXCOLOR)
-		WATS C 0 A_SpawnItemEx("WaterShield", 0, 0, 8, 0, 0, 0, 0, SXF_TRANSFERSCALE)
+		WATS C 0 A_GiveToTarget("CrocWaterShieldCheck", 1)
+		WATS C 0 A_SpawnItemEx("CrocWaterShieldSpawn", 64, 0, 40, 0, 0, 0, 0, SXF_WEPFXCOLOR)
+		WATS C 0 A_SpawnItemEx("CrocWaterShield", 0, 0, 8, 0, 0, 0, 0, SXF_TRANSFERSCALE)
 		WATS ZZZZZ 1 A_Warp(AAPTR_TARGET, 0, 0, 0, angle+mass, WARPF_ABSOLUTEANGLE|WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
-		WATS C 0 A_JumpIfInTargetInventory("WaterShieldStop",1,"End")
+		WATS C 0 A_JumpIfInTargetInventory("CrocWaterShieldStop",1,"End")
 		WATS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists")==0, "End")
-		WATS C 0 A_GiveToTarget("WaterShieldCheck", 1)
-		WATS C 0 A_SpawnItemEx("WaterShieldSpawn", 64, 0, 40, 0, 0, 0, 0, SXF_WEPFXCOLOR)
-		WATS C 0 A_SpawnItemEx("WaterShield", 0, 0, 8, 0, 0, 0, 0, SXF_TRANSFERSCALE)
+		WATS C 0 A_GiveToTarget("CrocWaterShieldCheck", 1)
+		WATS C 0 A_SpawnItemEx("CrocWaterShieldSpawn", 64, 0, 40, 0, 0, 0, 0, SXF_WEPFXCOLOR)
+		WATS C 0 A_SpawnItemEx("CrocWaterShield", 0, 0, 8, 0, 0, 0, 0, SXF_TRANSFERSCALE)
 		WATS ZZZZZ 1 A_Warp(AAPTR_TARGET, 0, 0, 0, angle+mass, WARPF_ABSOLUTEANGLE|WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
-		WATS C 0 A_JumpIfInTargetInventory("WaterShieldStop",1,"End")
+		WATS C 0 A_JumpIfInTargetInventory("CrocWaterShieldStop",1,"End")
 		WATS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists")==0, "End")
-		WATS C 0 A_GiveToTarget("WaterShieldCheck", 1)
-		WATS C 0 A_SpawnItemEx("WaterShieldSpawn", 64, 0, 40, 0, 0, 0, 0, SXF_WEPFXCOLOR)
-		WATS C 0 A_SpawnItemEx("WaterShield", 0, 0, 8, 0, 0, 0, 0, SXF_TRANSFERSCALE)
+		WATS C 0 A_GiveToTarget("CrocWaterShieldCheck", 1)
+		WATS C 0 A_SpawnItemEx("CrocWaterShieldSpawn", 64, 0, 40, 0, 0, 0, 0, SXF_WEPFXCOLOR)
+		WATS C 0 A_SpawnItemEx("CrocWaterShield", 0, 0, 8, 0, 0, 0, 0, SXF_TRANSFERSCALE)
 		WATS ZZZZZ 1 A_Warp(AAPTR_TARGET, 0, 0, 0, angle+mass, WARPF_ABSOLUTEANGLE|WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
-		WATS C 0 A_JumpIfInTargetInventory("WaterShieldStop",1,"End")
+		WATS C 0 A_JumpIfInTargetInventory("CrocWaterShieldStop",1,"End")
 		WATS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists")==0, "End")
-		WATS C 0 A_GiveToTarget("WaterShieldCheck", 1)
-		WATS C 0 A_SpawnItemEx("WaterShieldSpawn", 64, 0, 40, 0, 0, 0, 0, SXF_WEPFXCOLOR)
-		WATS C 0 A_SpawnItemEx("WaterShield", 0, 0, 8, 0, 0, 0, 0, SXF_TRANSFERSCALE)
+		WATS C 0 A_GiveToTarget("CrocWaterShieldCheck", 1)
+		WATS C 0 A_SpawnItemEx("CrocWaterShieldSpawn", 64, 0, 40, 0, 0, 0, 0, SXF_WEPFXCOLOR)
+		WATS C 0 A_SpawnItemEx("CrocWaterShield", 0, 0, 8, 0, 0, 0, 0, SXF_TRANSFERSCALE)
 		WATS ZZZZZ 1 A_Warp(AAPTR_TARGET, 0, 0, 0, angle+mass, WARPF_ABSOLUTEANGLE|WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
-		WATS C 0 A_JumpIfInTargetInventory("WaterShieldStop",1,"End")
+		WATS C 0 A_JumpIfInTargetInventory("CrocWaterShieldStop",1,"End")
 		WATS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists")==0, "End")
-		WATS C 0 A_GiveToTarget("WaterShieldCheck", 1)
-		WATS C 0 A_SpawnItemEx("WaterShieldSpawn", 64, 0, 40, 0, 0, 0, 0, SXF_WEPFXCOLOR)
-		WATS C 0 A_SpawnItemEx("WaterShield", 0, 0, 8, 0, 0, 0, 0, SXF_TRANSFERSCALE)
+		WATS C 0 A_GiveToTarget("CrocWaterShieldCheck", 1)
+		WATS C 0 A_SpawnItemEx("CrocWaterShieldSpawn", 64, 0, 40, 0, 0, 0, 0, SXF_WEPFXCOLOR)
+		WATS C 0 A_SpawnItemEx("CrocWaterShield", 0, 0, 8, 0, 0, 0, 0, SXF_TRANSFERSCALE)
 		WATS ZZZZZ 1 A_Warp(AAPTR_TARGET, 0, 0, 0, angle+mass, WARPF_ABSOLUTEANGLE|WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
-		WATS C 0 A_JumpIfInTargetInventory("WaterShieldStop",1,"End")
+		WATS C 0 A_JumpIfInTargetInventory("CrocWaterShieldStop",1,"End")
 		WATS C 0 A_JumpIf(ACS_NamedExecuteWithResult("core_targetexists")==0, "End")
-		WATS C 0 A_GiveToTarget("WaterShieldCheck", 1)
-		WATS C 0 A_SpawnItemEx("WaterShieldSpawn", 64, 0, 40, 0, 0, 0, 0, SXF_WEPFXCOLOR)
-		WATS C 0 A_SpawnItemEx("WaterShield", 0, 0, 8, 0, 0, 0, 0, SXF_TRANSFERSCALE)
+		WATS C 0 A_GiveToTarget("CrocWaterShieldCheck", 1)
+		WATS C 0 A_SpawnItemEx("CrocWaterShieldSpawn", 64, 0, 40, 0, 0, 0, 0, SXF_WEPFXCOLOR)
+		WATS C 0 A_SpawnItemEx("CrocWaterShield", 0, 0, 8, 0, 0, 0, 0, SXF_TRANSFERSCALE)
 		stop
 	End:
 		TNT1 A 0
@@ -179,12 +179,12 @@ actor WaterShieldSpawner : ProjSpawnFuncActor
 	}
 }
 
-actor WaterShieldSpawnerS1 : WaterShieldSpawner { mass 376 }
-actor WaterShieldSpawnerS2 : WaterShieldSpawner { mass 344 }
+actor CrocWaterShieldSpawnerS1 : WaterShieldSpawner { mass 376 }
+actor CrocWaterShieldSpawnerS2 : WaterShieldSpawner { mass 344 }
 
 // Item to conditionally give Water Shield NOINTERACTION and remove bouncing
 // if the game is a network game. (Given by a clientside script.)
-actor WaterShieldInteract : Custominventory
+actor CrocWaterShieldInteract : Custominventory
 {
 	States
 	{
@@ -200,11 +200,11 @@ actor WaterShieldInteract : Custominventory
 	}
 }
 
-actor WaterShield : BasicProjectile // "Basic"
+actor CrocWaterShield : BasicProjectile // "Basic"
 {
 	+FORCEXYBILLBOARD
 	Obituary "$OB_WATERSHIELD"
-	Damagetype "WaterShield"
+	Damagetype "CrocWaterShield"
 	bouncetype hexen
     -ALLOWBOUNCEONACTORS
 	+THRUSPECIES
@@ -255,10 +255,10 @@ actor WaterShield : BasicProjectile // "Basic"
 		WATS B 0 A_SetUserVar(user_angle, user_angle-user_angleadd)
 		WATS B 0 A_Warp(AAPTR_TARGET, cos(-user_angle)*user_radius, sin(-user_angle)*user_radius, 8, 0, WARPF_ABSOLUTEANGLE|WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
 		WATS B 0 A_JumpIfInTargetInventory("IsDead", 1, "Death")
-		WATS B 0 A_JumpIfInTargetInventory("WaterShieldExpand", 1, "Expand")
-		WATS B 0 A_JumpIfInTargetInventory("WaterShieldShoot", 1, "Shoot")
+		WATS B 0 A_JumpIfInTargetInventory("CrocWaterShieldExpand", 1, "Expand")
+		WATS B 0 A_JumpIfInTargetInventory("CrocWaterShieldShoot", 1, "Shoot")
 		WATS B 1
-		WATS B 0 A_JumpIfInTargetInventory("WaterShieldCheck", 1, "SpawnLoop")
+		WATS B 0 A_JumpIfInTargetInventory("CrocWaterShieldCheck", 1, "SpawnLoop")
 		WATS B 0 A_JumpIf(true, "Death")
 		WATS B 70
 		goto Death
@@ -273,8 +273,8 @@ actor WaterShield : BasicProjectile // "Basic"
 		WATS B 0 A_Warp(AAPTR_TARGET, cos(-user_angle)*user_radius, sin(-user_angle)*user_radius, 8, 0, WARPF_ABSOLUTEANGLE|WARPF_INTERPOLATE|WARPF_NOCHECKPOSITION)
 		WATS B 0 A_JumpIf(user_expandtime <= 0, "ExpandEnd")
 		WATS B 0 A_JumpIfInTargetInventory("IsDead", 1, "Death")
-		WATS B 0 A_JumpIfInTargetInventory("WaterShieldShoot", 1, "Shoot")
-		WATS B 0 A_JumpIfInTargetInventory("WaterShieldCheck", 1, "ExpandLoop")
+		WATS B 0 A_JumpIfInTargetInventory("CrocWaterShieldShoot", 1, "Shoot")
+		WATS B 0 A_JumpIfInTargetInventory("CrocWaterShieldCheck", 1, "ExpandLoop")
 		WATS B 0 A_JumpIf(true, "Death")
 		WATS B 10
 		goto Death
@@ -283,7 +283,7 @@ actor WaterShield : BasicProjectile // "Basic"
 		WATS B 0 //A_ChangeFlag(THRUSPECIES, false)
 		goto SpawnLoop
 	Shoot:
-		WATS B 0 A_GiveInventory("WaterShieldShoot", 1)
+		WATS B 0 A_GiveInventory("CrocWaterShieldShoot", 1)
 		// stolen from Power Stone
 		WATS B 0 ACS_NamedExecuteWithResult("core_changeClientProperty", APROP_Alpha, 65536, AAPTR_TARGET) // 1.0
 		WATS B 0 ACS_NamedExecuteWithResult("core_changeClientProperty", APROP_RenderStyle, STYLE_Translucent, AAPTR_TARGET)
@@ -334,17 +334,17 @@ actor WaterShield : BasicProjectile // "Basic"
 	Death:
 		WATS C 0 A_Stop
 		WATS C 0 A_SpawnItemEx("SoakifyEffect")
-		WATS C 0 A_JumpIfInventory("WaterShieldShoot", 1, "DeathPop")
-		WATS C 0 A_TakeFromTarget("WaterShieldCheck", 1)
-		WATS C 0 A_JumpIfInTargetInventory("WaterShieldCheck", 1, "DeathPop")
-		WATS C 0 A_TakeFromTarget("WaterShieldSpread", 1)
+		WATS C 0 A_JumpIfInventory("CrocWaterShieldShoot", 1, "DeathPop")
+		WATS C 0 A_TakeFromTarget("CrocWaterShieldCheck", 1)
+		WATS C 0 A_JumpIfInTargetInventory("CrocWaterShieldCheck", 1, "DeathPop")
+		WATS C 0 A_TakeFromTarget("CrocWaterShieldSpread", 1)
 	DeathPop:
-		WATS C 0 A_SpawnItemEx("WatershieldPop", 0, 0, 32, 0, 0, 0, 0, SXF_WEPFXCOLOR)
+		WATS C 0 A_SpawnItemEx("CrocWatershieldPop", 0, 0, 32, 0, 0, 0, 0, SXF_WEPFXCOLOR)
 		stop
 	}
 }
 
-actor WatershieldPop : BasicGraphicEffect
+actor CrocWatershieldPop : BasicGraphicEffect
 {
 	scale 4.0
 	height 0
@@ -362,7 +362,7 @@ actor WatershieldPop : BasicGraphicEffect
 	}
 }
 
-actor WaterShieldSpawn : WaterShieldPop
+actor CrocWaterShieldSpawn : WaterShieldPop
 {
 	+MISSILE
 	States

@@ -1,6 +1,6 @@
-actor BubbleLeadWep_NormalBar : NormalBar { args 4, 93 }
+actor CrocBubbleLeadWep_NormalBar : NormalBar { args 4, 93 }
 
-actor BubbleLeadWep : BaseMM8BDMWep 10007
+actor CrocBubbleLeadWep : BaseMM8BDMWep 10007
 {
 //$Category MM8BDM-Weapons/Close
 //$Title Bubble Lead
@@ -11,7 +11,7 @@ Weapon.SlotNumber 4
 Inventory.Pickupmessage "$PU_BUBBLELEAD"
 Obituary "$OB_BUBBLELEAD"
 Tag "$TAG_BUBBLELEAD"
-weapon.ammotype "BubbleLeadAmmo"
+weapon.ammotype "CrocBubbleLeadAmmo"
 inventory.icon "BUBBI"
 States
 {
@@ -32,7 +32,7 @@ Fire:
 BUBB D 0 A_JumpIfNoAmmo("NoAmmo")
 BUBB D 0 A_PlaySoundEx("weapons/mm2/bubbleleadfire","Weapon")
 BUBB D 0 
-BUBB D 0 A_FireCustomMissile("BubbleLeadSpawner",0,1,8,0)//A_SpawnItemEx("BubbleLeadStart",6,0,0,8,0,8,0,0,0)
+BUBB D 0 A_FireCustomMissile("CrocBubbleLeadSpawner",0,1,8,0)//A_SpawnItemEx("CrocBubbleLeadStart",6,0,0,8,0,8,0,0,0)
 BUBB EFD 4
 BUBB D 0 A_Refire
 goto Ready+1
@@ -42,14 +42,14 @@ Goto Ready+1
 }
 }
 
-actor BubbleLeadAmmo : Ammo
+actor CrocBubbleLeadAmmo : Ammo
 {
 inventory.amount 1
 inventory.maxamount 28
 +INVENTORY.IGNORESKILL
 }
 
-actor BubbleLeadSpawner
+actor CrocBubbleLeadSpawner
 {
 PROJECTILE
 +NOINTERACTION
@@ -62,17 +62,17 @@ States
 {
 Spawn:
 TNT1 A 1
-TNT1 A 0 A_SpawnItemEx("BubbleLeadStart",8,0,-16,8,0,5,0,0,0)
+TNT1 A 0 A_SpawnItemEx("CrocBubbleLeadStart",8,0,-16,8,0,5,0,0,0)
 stop
 }
 }
 
-actor BubbleLeadStart : BasicProjectile
+actor CrocBubbleLeadStart : BasicProjectile
 {
 -NOGRAVITY
 +FORCEXYBILLBOARD
 Damage (47)
-DamageType "BubbleLead"
+DamageType "CrocBubbleLead"
 Obituary "$OB_BUBBLELEAD"
 Height 16
 Radius 20
@@ -89,12 +89,12 @@ XDeath:
 TNT1 A 1 A_SpawnItemEx("SoakifyEffect")
 stop
 Death2:
-TNT1 A 1 A_SpawnItemEx("BubbleLead",0,0,0,22,0,0,0,0,0)
+TNT1 A 1 A_SpawnItemEx("CrocBubbleLead",0,0,0,22,0,0,0,0,0)
 stop
 }
 }
 
-actor BubbleLead : BasicProjectile
+actor CrocBubbleLead : BasicProjectile
 {
 -NOGRAVITY
 +NOEXPLODEFLOOR
@@ -104,7 +104,7 @@ maxstepheight 24
 +FORCEXYBILLBOARD
 BounceCount 1
 Damage (47)
-DamageType "BubbleLead"
+DamageType "CrocBubbleLead"
 Obituary "$OB_BUBBLELEAD"
 Height 16
 Radius 20

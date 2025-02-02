@@ -1,6 +1,6 @@
-actor NapalmBombWep_NormalBar : NormalBar { args 216, 75 }
+actor CrocNapalmBombWep_NormalBar : NormalBar { args 216, 75 }
 
-actor NapalmBombWep : BaseMM8BDMWep 10035
+actor CrocNapalmBombWep : BaseMM8BDMWep 10035
 {
 //$Category MM8BDM-Weapons/Power
 //$Title Napalm Bomb
@@ -11,7 +11,7 @@ Weapon.SlotNumber 5
 Inventory.Pickupmessage "$PU_NAPALMBOMB"
 Obituary "$OB_NAPALMBOMB"
 Tag "$TAG_NAPALMBOMB"
-weapon.ammotype "NapalmBombAmmo"
+weapon.ammotype "CrocNapalmBombAmmo"
 inventory.icon "NAPAI"
 States
 {
@@ -31,7 +31,7 @@ goto SelectSwap
 Fire:
 NAPA T 0 A_JumpIfNoAmmo("NoAmmo")
 NAPA T 0 A_PlaySoundEx("weapons/mm5/napalmbombfire","Weapon")
-NAPA T 0 A_FireCustomMissile("NapalmBomb",0,1,8,0)
+NAPA T 0 A_FireCustomMissile("CrocNapalmBomb",0,1,8,0)
 NAPA VU 3
 NAPA T 19
 NAPA T 0 A_Refire
@@ -42,7 +42,7 @@ Goto Ready+1
 }
 }
 
-actor NapalmBombAmmo : Ammo
+actor CrocNapalmBombAmmo : Ammo
 {
 inventory.amount 1
 inventory.maxamount 28
@@ -50,10 +50,10 @@ inventory.maxamount 28
 }
 
 
-actor NapalmBomb : BasicProjectile
+actor CrocNapalmBomb : BasicProjectile
 {
 PROJECTILE
-damagetype "NapalmBomb"
+damagetype "CrocNapalmBomb"
 Obituary "$OB_NAPALMBOMB"
 Radius 6
 Height 7

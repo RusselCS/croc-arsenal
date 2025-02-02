@@ -1,4 +1,4 @@
-actor ETank : BaseMM8BDMUseItem 10091
+actor CrocETank : BaseMM8BDMUseItem 10091
 {
 //$Category MM8BDM-Assists/Tanks
 //$Title E-Tank
@@ -28,10 +28,10 @@ fail
 Success:
 EBAL E 0 A_PlaySound("item/energyup")
 EBAL E 0 A_PlaySoundEx("item/refill","Voice")
-EBAL E 0 A_SpawnItemEx("ETankUse",  0, 0, 0, momx, momy, 20, 0, SXF_WEPFXCOLOR|SXF_ABSOLUTEMOMENTUM)
-EBAL E 0 A_SpawnItemEx("ETankUse2", 0, 0, 0, momx, momy,  0, 0, SXF_WEPFXCOLOR|SXF_ABSOLUTEMOMENTUM)
-EBAL E 0 A_GiveInventory("ETankHeal",1)
-EBAL E 0 A_TakeInventory("ETank",1)
+EBAL E 0 A_SpawnItemEx("CrocETankUse",  0, 0, 0, momx, momy, 20, 0, SXF_WEPFXCOLOR|SXF_ABSOLUTEMOMENTUM)
+EBAL E 0 A_SpawnItemEx("CrocETankUse2", 0, 0, 0, momx, momy,  0, 0, SXF_WEPFXCOLOR|SXF_ABSOLUTEMOMENTUM)
+EBAL E 0 A_GiveInventory("CrocETankHeal",1)
+EBAL E 0 A_TakeInventory("CrocETank",1)
 fail
 Death:
 TNT1 A 0
@@ -39,7 +39,7 @@ stop
 }
 }
 
-actor ETankHeal : CustomInventory
+actor CrocETankHeal : CustomInventory
 {
 states
 {
@@ -50,8 +50,8 @@ stop
 }
 }
 
-actor ETank_Respawn : 8BDMColoredItemRespawn { mass 1050 }
-actor ETank_RespawnShadow : 8BDMItemRespawnShadow
+actor CrocETank_Respawn : 8BDMColoredItemRespawn { mass 1050 }
+actor CrocETank_RespawnShadow : 8BDMItemRespawnShadow
 {
 	mass 1050
 	States
@@ -62,7 +62,7 @@ actor ETank_RespawnShadow : 8BDMItemRespawnShadow
 	}
 }
 
-actor LTank : ETank
+actor CrocLTank : CrocETank
 {
 inventory.pickupmessage "$PU_LTANK"
 +INVENTORY.AUTOACTIVATE
@@ -79,10 +79,10 @@ Use:
 Success:
 EBAL E 0 A_PlaySound("item/energyup")
 EBAL E 0 A_PlaySoundEx("item/refill","Voice")
-EBAL E 0 A_SpawnItemEx("ETankUse",  0, 0, 0, momx, momy, 20, 0, SXF_WEPFXCOLOR|SXF_ABSOLUTEMOMENTUM)
-EBAL E 0 A_SpawnItemEx("ETankUse2", 0, 0, 0, momx, momy,  0, 0, SXF_WEPFXCOLOR|SXF_ABSOLUTEMOMENTUM)
-EBAL E 0 A_GiveInventory("ETankHeal",1)
-EBAL E 0 A_TakeInventory("LTank",1)
+EBAL E 0 A_SpawnItemEx("CrocETankUse",  0, 0, 0, momx, momy, 20, 0, SXF_WEPFXCOLOR|SXF_ABSOLUTEMOMENTUM)
+EBAL E 0 A_SpawnItemEx("CrocETankUse2", 0, 0, 0, momx, momy,  0, 0, SXF_WEPFXCOLOR|SXF_ABSOLUTEMOMENTUM)
+EBAL E 0 A_GiveInventory("CrocETankHeal",1)
+EBAL E 0 A_TakeInventory("CrocLTank",1)
 fail
 Death:
 TNT1 A 0
@@ -90,7 +90,7 @@ stop
 }
 }
 
-actor ETankUse : BasicWatcher
+actor CrocETankUse : BasicWatcher
 {
 -CLIENTSIDEONLY
 reactiontime 4
@@ -98,19 +98,19 @@ States
 {
 Spawn:
 TNT1 A 0
-TNT1 A 0 A_SpawnItemEx("ETankParticle2", random( 48,  64), random( 48,  64), random(32, 64), momx, momy, 0, random(0, 360), SXF_ABSOLUTEMOMENTUM|SXF_WEPFXCOLOR)
-TNT1 A 0 A_SpawnItemEx("ETankParticle2", random( 48,  64), random(-64, -48), random(16, 32), momx, momy, 0, random(0, 360), SXF_ABSOLUTEMOMENTUM|SXF_WEPFXCOLOR)
-TNT1 A 0 A_SpawnItemEx("ETankParticle2", random(-64, -48), random( 48,  64), random(32, 64), momx, momy, 0, random(0, 360), SXF_ABSOLUTEMOMENTUM|SXF_WEPFXCOLOR)
-TNT1 A 0 A_SpawnItemEx("ETankParticle2", random(-64, -48), random(-64, -48), random(16, 32), momx, momy, 0, random(0, 360), SXF_ABSOLUTEMOMENTUM|SXF_WEPFXCOLOR)
+TNT1 A 0 A_SpawnItemEx("CrocETankParticle2", random( 48,  64), random( 48,  64), random(32, 64), momx, momy, 0, random(0, 360), SXF_ABSOLUTEMOMENTUM|SXF_WEPFXCOLOR)
+TNT1 A 0 A_SpawnItemEx("CrocETankParticle2", random( 48,  64), random(-64, -48), random(16, 32), momx, momy, 0, random(0, 360), SXF_ABSOLUTEMOMENTUM|SXF_WEPFXCOLOR)
+TNT1 A 0 A_SpawnItemEx("CrocETankParticle2", random(-64, -48), random( 48,  64), random(32, 64), momx, momy, 0, random(0, 360), SXF_ABSOLUTEMOMENTUM|SXF_WEPFXCOLOR)
+TNT1 A 0 A_SpawnItemEx("CrocETankParticle2", random(-64, -48), random(-64, -48), random(16, 32), momx, momy, 0, random(0, 360), SXF_ABSOLUTEMOMENTUM|SXF_WEPFXCOLOR)
 SpawnLoop:
-TNT1 A 0 A_SpawnItemEx("ETankParticle1",50,0,0,momx,momy,0,0,   SXF_ABSOLUTEMOMENTUM|SXF_WEPFXCOLOR)
-TNT1 A 0 A_SpawnItemEx("ETankParticle1",50,0,0,momx,momy,0,1*45,SXF_ABSOLUTEMOMENTUM|SXF_WEPFXCOLOR)
-TNT1 A 0 A_SpawnItemEx("ETankParticle1",50,0,0,momx,momy,0,2*45,SXF_ABSOLUTEMOMENTUM|SXF_WEPFXCOLOR)
-TNT1 A 0 A_SpawnItemEx("ETankParticle1",50,0,0,momx,momy,0,3*45,SXF_ABSOLUTEMOMENTUM|SXF_WEPFXCOLOR)
-TNT1 A 0 A_SpawnItemEx("ETankParticle1",50,0,0,momx,momy,0,4*45,SXF_ABSOLUTEMOMENTUM|SXF_WEPFXCOLOR)
-TNT1 A 0 A_SpawnItemEx("ETankParticle1",50,0,0,momx,momy,0,5*45,SXF_ABSOLUTEMOMENTUM|SXF_WEPFXCOLOR)
-TNT1 A 0 A_SpawnItemEx("ETankParticle1",50,0,0,momx,momy,0,6*45,SXF_ABSOLUTEMOMENTUM|SXF_WEPFXCOLOR)
-TNT1 A 0 A_SpawnItemEx("ETankParticle1",50,0,0,momx,momy,0,7*45,SXF_ABSOLUTEMOMENTUM|SXF_WEPFXCOLOR)
+TNT1 A 0 A_SpawnItemEx("CrocETankParticle1",50,0,0,momx,momy,0,0,   SXF_ABSOLUTEMOMENTUM|SXF_WEPFXCOLOR)
+TNT1 A 0 A_SpawnItemEx("CrocETankParticle1",50,0,0,momx,momy,0,1*45,SXF_ABSOLUTEMOMENTUM|SXF_WEPFXCOLOR)
+TNT1 A 0 A_SpawnItemEx("CrocETankParticle1",50,0,0,momx,momy,0,2*45,SXF_ABSOLUTEMOMENTUM|SXF_WEPFXCOLOR)
+TNT1 A 0 A_SpawnItemEx("CrocETankParticle1",50,0,0,momx,momy,0,3*45,SXF_ABSOLUTEMOMENTUM|SXF_WEPFXCOLOR)
+TNT1 A 0 A_SpawnItemEx("CrocETankParticle1",50,0,0,momx,momy,0,4*45,SXF_ABSOLUTEMOMENTUM|SXF_WEPFXCOLOR)
+TNT1 A 0 A_SpawnItemEx("CrocETankParticle1",50,0,0,momx,momy,0,5*45,SXF_ABSOLUTEMOMENTUM|SXF_WEPFXCOLOR)
+TNT1 A 0 A_SpawnItemEx("CrocETankParticle1",50,0,0,momx,momy,0,6*45,SXF_ABSOLUTEMOMENTUM|SXF_WEPFXCOLOR)
+TNT1 A 0 A_SpawnItemEx("CrocETankParticle1",50,0,0,momx,momy,0,7*45,SXF_ABSOLUTEMOMENTUM|SXF_WEPFXCOLOR)
 TNT1 A 1
 TNT1 A 0 A_SetAngle(angle+10)
 TNT1 A 0 A_CountDown
@@ -121,7 +121,7 @@ stop
 }
 }
 
-actor ETankUse2 : ETankUse
+actor CrocETankUse2 : ETankUse
 {
 	States
 	{
@@ -130,7 +130,7 @@ actor ETankUse2 : ETankUse
 	}
 }
 
-actor ETankParticle1 : BasicGraphicEffect
+actor CrocETankParticle1 : BasicGraphicEffect
 {
 States
 {
@@ -140,7 +140,7 @@ stop
 }
 }
 
-actor ETankParticle2 : BasicGraphicEffect
+actor CrocETankParticle2 : BasicGraphicEffect
 {
 States
 {
@@ -150,9 +150,9 @@ stop
 }
 }
 
-actor CustWepCanHoldWTank : Once {}
+actor CrocCustWepCanHoldWTank : Once {}
 
-actor WTank : BaseMM8BDMUseItem 10151
+actor CrocWTank : BaseMM8BDMUseItem 10151
 {
 //$Category MM8BDM-Assists/Tanks
 //$Title W-Tank
@@ -183,14 +183,14 @@ fail
 Success:
 EBAL E 0 A_PlaySound("item/energyup")
 EBAL E 0 A_PlaySoundEx("item/refill","Voice")
-EBAL E 0 A_SpawnItemEx("WTankUse", 0, 0, 0, momx, momy, 0, 0, SXF_WEPFXCOLOR|SXF_ABSOLUTEMOMENTUM)
-EBAL E 0 A_GiveInventory("WTankAmmo",1)
-EBAL E 0 A_TakeInventory("WTank",1)
+EBAL E 0 A_SpawnItemEx("CrocWTankUse", 0, 0, 0, momx, momy, 0, 0, SXF_WEPFXCOLOR|SXF_ABSOLUTEMOMENTUM)
+EBAL E 0 A_GiveInventory("CrocWTankAmmo",1)
+EBAL E 0 A_TakeInventory("CrocWTank",1)
 fail
 
 Pickup:
 TNT1 A 0 A_JumpIf(!CheckClass("CustWepClassBase",AAPTR_DEFAULT,true),"PickupHold")
-TNT1 A 0 A_JumpIfInventory("CustWepCanHoldWTank",1,"PickupHold")
+TNT1 A 0 A_JumpIfInventory("CrocCustWepCanHoldWTank",1,"PickupHold")
 PickupUse:
 //TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("core_ammocheck",0),"PickupUseSuccess")
 TNT1 A 0 A_JumpIf(CallACS("core_CanGainAmmo"),"PickupUseSuccess")
@@ -199,13 +199,13 @@ PickupHold:
 TNT1 A 0 A_RailWait
 stop
 PickupUseSuccess:
-EBAL E 0 A_GiveInventory("WTankAmmo",1)
-TNT1 A 0 A_SpawnItemEx("TakeWTank")
+EBAL E 0 A_GiveInventory("CrocWTankAmmo",1)
+TNT1 A 0 A_SpawnItemEx("CrocTakeWTank")
 stop
 }
 }
 
-actor WTankAmmo : CustomInventory
+actor CrocWTankAmmo : CustomInventory
 {
 states
 {
@@ -215,7 +215,7 @@ stop
 }
 }
 
-actor TakeWTank
+actor CrocTakeWTank
 {
 -SOLID
 +NOINTERACTION
@@ -227,14 +227,14 @@ States
 {
 Spawn:
 TNT1 A 0
-TNT1 A 1 A_TakeFromTarget("WTank",1)
+TNT1 A 1 A_TakeFromTarget("CrocWTank",1)
 Death:
 TNT1 A 0
 stop
 }
 }
 
-actor WTankUse : ETankUse
+actor CrocWTankUse : CrocETankUse
 {
 reactiontime 8
 States
@@ -243,26 +243,26 @@ Spawn:
 TNT1 A 0
 Spawn2:
 TNT1 A 0 A_SetScale(2.5, random(2.5, 3.5))
-TNT1 A 0 A_SpawnItemEx("WTankParticle",48,0,0,momx,momy,0,0*45,SXF_ABSOLUTEMOMENTUM|SXF_TRANSFERSCALE|SXF_WEPFXCOLOR)
+TNT1 A 0 A_SpawnItemEx("CrocWTankParticle",48,0,0,momx,momy,0,0*45,SXF_ABSOLUTEMOMENTUM|SXF_TRANSFERSCALE|SXF_WEPFXCOLOR)
 TNT1 A 0 A_SetScale(2.5, random(2.5, 3.5))
-TNT1 A 0 A_SpawnItemEx("WTankParticle",48,0,0,momx,momy,0,1*45,SXF_ABSOLUTEMOMENTUM|SXF_TRANSFERSCALE|SXF_WEPFXCOLOR)
+TNT1 A 0 A_SpawnItemEx("CrocWTankParticle",48,0,0,momx,momy,0,1*45,SXF_ABSOLUTEMOMENTUM|SXF_TRANSFERSCALE|SXF_WEPFXCOLOR)
 TNT1 A 0 A_SetScale(2.5, random(2.5, 3.5))
-TNT1 A 0 A_SpawnItemEx("WTankParticle",48,0,0,momx,momy,0,2*45,SXF_ABSOLUTEMOMENTUM|SXF_TRANSFERSCALE|SXF_WEPFXCOLOR)
+TNT1 A 0 A_SpawnItemEx("CrocWTankParticle",48,0,0,momx,momy,0,2*45,SXF_ABSOLUTEMOMENTUM|SXF_TRANSFERSCALE|SXF_WEPFXCOLOR)
 TNT1 A 0 A_SetScale(2.5, random(2.5, 3.5))
-TNT1 A 0 A_SpawnItemEx("WTankParticle",48,0,0,momx,momy,0,3*45,SXF_ABSOLUTEMOMENTUM|SXF_TRANSFERSCALE|SXF_WEPFXCOLOR)
+TNT1 A 0 A_SpawnItemEx("CrocWTankParticle",48,0,0,momx,momy,0,3*45,SXF_ABSOLUTEMOMENTUM|SXF_TRANSFERSCALE|SXF_WEPFXCOLOR)
 TNT1 A 0 A_SetScale(2.5, random(2.5, 3.5))
-TNT1 A 0 A_SpawnItemEx("WTankParticle",48,0,0,momx,momy,0,4*45,SXF_ABSOLUTEMOMENTUM|SXF_TRANSFERSCALE|SXF_WEPFXCOLOR)
+TNT1 A 0 A_SpawnItemEx("CrocWTankParticle",48,0,0,momx,momy,0,4*45,SXF_ABSOLUTEMOMENTUM|SXF_TRANSFERSCALE|SXF_WEPFXCOLOR)
 TNT1 A 0 A_SetScale(2.5, random(2.5, 3.5))
-TNT1 A 0 A_SpawnItemEx("WTankParticle",48,0,0,momx,momy,0,5*45,SXF_ABSOLUTEMOMENTUM|SXF_TRANSFERSCALE|SXF_WEPFXCOLOR)
+TNT1 A 0 A_SpawnItemEx("CrocWTankParticle",48,0,0,momx,momy,0,5*45,SXF_ABSOLUTEMOMENTUM|SXF_TRANSFERSCALE|SXF_WEPFXCOLOR)
 TNT1 A 0 A_SetScale(2.5, random(2.5, 3.5))
-TNT1 A 0 A_SpawnItemEx("WTankParticle",48,0,0,momx,momy,0,6*45,SXF_ABSOLUTEMOMENTUM|SXF_TRANSFERSCALE|SXF_WEPFXCOLOR)
+TNT1 A 0 A_SpawnItemEx("CrocWTankParticle",48,0,0,momx,momy,0,6*45,SXF_ABSOLUTEMOMENTUM|SXF_TRANSFERSCALE|SXF_WEPFXCOLOR)
 TNT1 A 0 A_SetScale(2.5, random(2.5, 3.5))
-TNT1 A 0 A_SpawnItemEx("WTankParticle",48,0,0,momx,momy,0,7*45,SXF_ABSOLUTEMOMENTUM|SXF_TRANSFERSCALE|SXF_WEPFXCOLOR)
+TNT1 A 0 A_SpawnItemEx("CrocWTankParticle",48,0,0,momx,momy,0,7*45,SXF_ABSOLUTEMOMENTUM|SXF_TRANSFERSCALE|SXF_WEPFXCOLOR)
 stop
 }
 }
 
-actor WTankParticle : BasicGraphicEffect
+actor CrocWTankParticle : BasicGraphicEffect
 {
 +FORCEYBILLBOARD
 States
@@ -273,11 +273,11 @@ stop
 }
 }
 
-actor WTank_Respawn : 8BDMColoredItemRespawn { 
+actor CrocWTank_Respawn : 8BDMColoredItemRespawn { 
 	translation "192:192=170:170", "198:198=41:41"
 	mass 1050 
 }
-actor WTank_RespawnShadow : 8BDMItemRespawnShadow
+actor CrocWTank_RespawnShadow : 8BDMItemRespawnShadow
 {
 	mass 1050
 	States
@@ -288,7 +288,7 @@ actor WTank_RespawnShadow : 8BDMItemRespawnShadow
 	}
 }
 
-actor MTank : BaseMM8BDMUseItem 10154
+actor CrocMTank : BaseMM8BDMUseItem 10154
 {
 //$Category MM8BDM-Assists/Tanks
 //$Title M-Tank
@@ -318,43 +318,43 @@ fail
 Success:
 EBAL E 0 A_PlaySound("item/energyup")
 EBAL E 0 A_PlaySoundEx("item/refill","Voice")
-EBAL E 0 A_SpawnItemEx("ETankUse",  0, 0, 0, momx, momy, 20,    0, SXF_WEPFXCOLOR|SXF_ABSOLUTEMOMENTUM)
-EBAL E 0 A_SpawnItemEx("ETankUse2", 0, 0, 0, momx, momy,  0,    0, SXF_WEPFXCOLOR|SXF_ABSOLUTEMOMENTUM)
-EBAL E 0 A_SpawnItemEx("WTankUse",  0, 0, 0, momx, momy,  0,    0, SXF_WEPFXCOLOR|SXF_ABSOLUTEMOMENTUM)
-EBAL E 0 A_SpawnItemEx("WTankUse",  0, 0, 0, momx, momy,  0, 22.5, SXF_WEPFXCOLOR|SXF_ABSOLUTEMOMENTUM)
-EBAL E 0 A_GiveInventory("MTankHealAndAmmo",1)
+EBAL E 0 A_SpawnItemEx("CrocETankUse",  0, 0, 0, momx, momy, 20,    0, SXF_WEPFXCOLOR|SXF_ABSOLUTEMOMENTUM)
+EBAL E 0 A_SpawnItemEx("CrocETankUse2", 0, 0, 0, momx, momy,  0,    0, SXF_WEPFXCOLOR|SXF_ABSOLUTEMOMENTUM)
+EBAL E 0 A_SpawnItemEx("CrocWTankUse",  0, 0, 0, momx, momy,  0,    0, SXF_WEPFXCOLOR|SXF_ABSOLUTEMOMENTUM)
+EBAL E 0 A_SpawnItemEx("CrocWTankUse",  0, 0, 0, momx, momy,  0, 22.5, SXF_WEPFXCOLOR|SXF_ABSOLUTEMOMENTUM)
+EBAL E 0 A_GiveInventory("CrocMTankHealAndAmmo",1)
 Death:
 TNT1 A 0
 stop
 }
 }
 
-actor MTankHealAndAmmo : CustomInventory
+actor CrocMTankHealAndAmmo : CustomInventory
 {
 states
 {
 Pickup:
-TNT1 A 0 A_GiveInventory("ETankHeal",1)
-TNT1 A 0 A_GiveInventory("MTankAmmo",1)
+TNT1 A 0 A_GiveInventory("CrocETankHeal",1)
+TNT1 A 0 A_GiveInventory("CrocMTankAmmo",1)
 stop
 }
 }
 
-actor MTankAmmo : CustomInventory
+actor CrocMTankAmmo : CustomInventory
 {
 states
 {
 Pickup:
-TNT1 A 0 ACS_NamedExecuteAlways("core_AmmoScript_MTank",0)
+TNT1 A 0 ACS_NamedExecuteAlways("core_AmmoScript_CrocMTank",0)
 stop
 }
 }
 
-actor MTank_Respawn : 8BDMColoredItemRespawn { 
+actor CrocMTank_Respawn : 8BDMColoredItemRespawn { 
 	translation "192:192=214:214", "198:198=229:229"
 	mass 1050 
 }
-actor MTank_RespawnShadow : 8BDMItemRespawnShadow
+actor CrocMTank_RespawnShadow : 8BDMItemRespawnShadow
 {
 	mass 1050
 	States
@@ -365,7 +365,7 @@ actor MTank_RespawnShadow : 8BDMItemRespawnShadow
 	}
 }
 
-actor PartyBall 11104
+actor CrocPartyBall 11104
 {
 //$Category MM8BDM-Energy
 +NOGRAVITY
@@ -386,7 +386,7 @@ Spawn:
 PRTB A 0
 PRTB A 0 A_JumpIf(ACS_NamedExecuteWithResult("core_checkmode",0)==2 || ACS_NamedExecuteWithResult("core_checkmode",2)>0, "End")
 PRTB A 0 A_ChangeFlag("FLOATBOB", true)
-PRTB A 0 A_GiveInventory("PartyBallSpawnFunc",1)
+PRTB A 0 A_GiveInventory("CrocPartyBallSpawnFunc",1)
 goto Spawn2
 Spawn2:
 PRTB AB 1
@@ -395,10 +395,10 @@ Death:
 PRTB C 0 A_PlaySoundEx("misc/partyball", "Auto")
 PRTB C 0 A_ChangeFlag("NOGRAVITY", 1)
 PRTB C 0 A_ChangeFlag("FLOATBOB", false)
-PRTB C 0 A_SpawnItemEx("PartyBallRespawner",0,0,0,0,0,0)
+PRTB C 0 A_SpawnItemEx("CrocPartyBallRespawner",0,0,0,0,0,0)
 PRTB C 1 ThrustThingZ(0, 20, 0, 0)
-PRTB C 0 A_SpawnItemEx("ConfettiSpawner",0,0,48,random(-3,3),random(-3,3))
-PRTB C 1 A_SpawnItemEx("RandomItem",0,0,48,random(-3,3),random(-3,3))
+PRTB C 0 A_SpawnItemEx("CrocConfettiSpawner",0,0,48,random(-3,3),random(-3,3))
+PRTB C 1 A_SpawnItemEx("CrocRandomItem",0,0,48,random(-3,3),random(-3,3))
 PRTB CDCD 2
 Explode:
 PRTB C 0 A_Stop
@@ -413,7 +413,7 @@ stop
 }
 }
 
-actor PartyBallRespawner
+actor CrocPartyBallRespawner
 {
 -SOLID
 +NOINTERACTION
@@ -426,12 +426,12 @@ TNT1 A 0
 TNT1 AA 500
 TNT1 A 0 A_SpawnItemEx("ItemFog")
 TNT1 A 6
-TNT1 A 0 A_SpawnItemEx("PartyBall",0,0,0)
+TNT1 A 0 A_SpawnItemEx("CrocPartyBall",0,0,0)
 stop
 }
 }
 
-actor ConfettiSpawner 
+actor CrocConfettiSpawner 
 {
 //+CLIENTSIDEONLY
 +NOINTERACTION
@@ -443,15 +443,15 @@ ReactionTime 10
 States
 {
 Spawn:
-TNT1 A 1 A_SpawnItemEx("Confetti",random(-16, 16),random(-16, 16),Random(8, 16),random(-3,3), random(-3,3), random(1,-1),0)
-TNT1 A 0 A_SpawnItemEx("Confetti",random(-16, 16),random(-16, 16),Random(8, 16),random(-3,3), random(-3,3), random(1,-1),0)
-TNT1 A 0 A_SpawnItemEx("Confetti",random(-16, 16),random(-16, 16),Random(8, 16),random(-3,3), random(-3,3), random(1,-1),0)
+TNT1 A 1 A_SpawnItemEx("CrocConfetti",random(-16, 16),random(-16, 16),Random(8, 16),random(-3,3), random(-3,3), random(1,-1),0)
+TNT1 A 0 A_SpawnItemEx("CrocConfetti",random(-16, 16),random(-16, 16),Random(8, 16),random(-3,3), random(-3,3), random(1,-1),0)
+TNT1 A 0 A_SpawnItemEx("CrocConfetti",random(-16, 16),random(-16, 16),Random(8, 16),random(-3,3), random(-3,3), random(1,-1),0)
 TNT1 A 0 A_CountDown
 Loop
 }
 }
 
-actor Confetti
+actor CrocConfetti
 {
 +MISSILE
 +DONTBLAST
@@ -490,7 +490,7 @@ stop
 }
 }
 
-actor RandomItem
+actor CrocRandomItem
 {
 +NOINTERACTION
 +NOGRAVITY
@@ -505,13 +505,13 @@ TNT1 A 1 A_Jump(256, "Pickups")
 stop
 
 Tanks:
-TNT1 A 1 A_Jump(128, "METanks")
-TNT1 A 1 A_Jump(256, "WTank")
+TNT1 A 1 A_Jump(128, "MCrocETanks")
+TNT1 A 1 A_Jump(256, "CrocWTank")
 stop
 
-	METanks:
-	TNT1 A 1 A_Jump(192, "ETank")
-	TNT1 A 1 A_Jump(40, "MTank")
+	MCrocETanks:
+	TNT1 A 1 A_Jump(192, "CrocETank")
+	TNT1 A 1 A_Jump(40, "CrocMTank")
 	TNT1 A 1 A_Jump(256, "Pickups")
 	stop
 
@@ -522,19 +522,19 @@ TNT1 A 1 A_Jump(256, "Pickups")
 stop
 
 AssistWeps:
-TNT1 A 1 A_Jump(128, "TrebleBeat", "EddieBomber")
-TNT1 A 1 A_Jump(256, "TangoSummon")
+TNT1 A 1 A_Jump(128, "CrocTrebleBeat", "CrocEddieBomber")
+TNT1 A 1 A_Jump(256, "CrocTangoSummon")
 stop
 
-	TrebleBeat:
-	TNT1 A 1 A_Jump(192, "TrebleSentry")
-	TNT1 A 1 A_Jump(192, "BeatSupport")
-	TNT1 A 1 A_Jump(256, "EnergyBalancer")
+	CrocTrebleBeat:
+	TNT1 A 1 A_Jump(192, "CrocTrebleSentry")
+	TNT1 A 1 A_Jump(192, "CrocBeatSupport")
+	TNT1 A 1 A_Jump(256, "CrocEnergyBalancer")
 	stop
 	
 AssistOther:
-TNT1 A 1 A_Jump(128, "ReggaeCall")
-TNT1 A 1 A_Jump(256, "EnergyBalancer")
+TNT1 A 1 A_Jump(128, "CrocReggaeCall")
+TNT1 A 1 A_Jump(256, "CrocEnergyBalancer")
 stop
 
 Pickups:
@@ -548,33 +548,33 @@ TNT1 A 1 A_Jump(256,
 )
 stop
 
-ETank:
-TNT1 A 1 A_SpawnItemEx("ETank")
+CrocETank:
+TNT1 A 1 A_SpawnItemEx("CrocETank")
 stop
-WTank:
-TNT1 A 1 A_SpawnItemEx("WTank")
+CrocWTank:
+TNT1 A 1 A_SpawnItemEx("CrocWTank")
 stop
-MTank:
-TNT1 A 1 A_SpawnItemEx("MTank")
+CrocMTank:
+TNT1 A 1 A_SpawnItemEx("CrocMTank")
 PRTB C 0 A_SpawnItemEx("DoveSpawner",0,0,0,random(-3,3),random(-3,3))
 stop
-TangoSummon:
-TNT1 A 1 A_SpawnItemEx("TangoSummon")
+CrocTangoSummon:
+TNT1 A 1 A_SpawnItemEx("CrocTangoSummon")
 stop
-TrebleSentry:
-TNT1 A 1 A_SpawnItemEx("TrebleSentry")
+CrocTrebleSentry:
+TNT1 A 1 A_SpawnItemEx("CrocTrebleSentry")
 stop
-EddieBomber:
-TNT1 A 1 A_SpawnItemEx("EddieBomber")
+CrocEddieBomber:
+TNT1 A 1 A_SpawnItemEx("CrocEddieBomber")
 stop
-BeatSupport:
-TNT1 A 1 A_SpawnItemEx("BeatSupport")
+CrocBeatSupport:
+TNT1 A 1 A_SpawnItemEx("CrocBeatSupport")
 stop
-ReggaeCall:
-TNT1 A 1 A_SpawnItemEx("ReggaeCall")
+CrocReggaeCall:
+TNT1 A 1 A_SpawnItemEx("CrocReggaeCall")
 stop
-EnergyBalancer:
-TNT1 A 1 A_SpawnItemEx("EnergyBalancer")
+CrocEnergyBalancer:
+TNT1 A 1 A_SpawnItemEx("CrocEnergyBalancer")
 stop
 SmallHealth:
 TNT1 A 1 A_SpawnItemEx("SmallHealth")

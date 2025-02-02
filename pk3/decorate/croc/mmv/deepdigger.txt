@@ -1,7 +1,7 @@
-actor DeepDiggerWep_NormalBar : NormalBar { args 4, 227 }
-actor DeepDiggerWep_ScriptBar : ScriptBar {}
+actor CrocDeepDiggerWep_NormalBar : NormalBar { args 4, 227 }
+actor CrocDeepDiggerWep_ScriptBar : ScriptBar {}
 
-actor DeepDiggerWep : BaseMM8BDMWep 10108
+actor CrocDeepDiggerWep : BaseMM8BDMWep 10108
 {
     //$Category MM8BDM-Weapons/Ranged
     //$Title Deep Digger
@@ -12,7 +12,7 @@ actor DeepDiggerWep : BaseMM8BDMWep 10108
     Inventory.Pickupmessage "$PU_DEEPDIGGER"
     Obituary "$OB_DEEPDIGGER"
     Tag "$TAG_DEEPDIGGER"
-    weapon.ammotype "DeepDiggerAmmo"
+    weapon.ammotype "CrocDeepDiggerAmmo"
     inventory.icon "DDIGWI"
     States
     {
@@ -25,11 +25,11 @@ actor DeepDiggerWep : BaseMM8BDMWep 10108
         Goto Ready+1
     Deselect:
         DDIG D 0 A_JumpIfHealthLower(1, "FireCheck") // Don't throw rocks if you're dead
-        DDIG D 0 A_JumpIfInventory("DeepDiggerFlagL", 1, "FireCheck")
-        DDIG D 0 A_JumpIfInventory("DeepDiggerFlagR", 1, "FireCheck")
+        DDIG D 0 A_JumpIfInventory("CrocDeepDiggerFlagL", 1, "FireCheck")
+        DDIG D 0 A_JumpIfInventory("CrocDeepDiggerFlagR", 1, "FireCheck")
     DeselectSkip:
-        DDIG D 0 A_TakeInventory("DeepDiggerFlagL", 1)
-        DDIG D 0 A_TakeInventory("DeepDiggerFlagR", 1)
+        DDIG D 0 A_TakeInventory("CrocDeepDiggerFlagL", 1)
+        DDIG D 0 A_TakeInventory("CrocDeepDiggerFlagR", 1)
         goto DeselectSwap
     FireCheck:
         TNT1 A 0 A_JumpIfHealthLower(1,"DeselectSkip")
@@ -39,13 +39,13 @@ actor DeepDiggerWep : BaseMM8BDMWep 10108
         DDIG D 0
         goto SelectSwap
     Altfire:
-        "####" "#" 0 A_JumpIfInventory("DeepDiggerFlagL", 1, "CheckLeft")
-        "####" "#" 0 A_JumpIfInventory("DeepDiggerFlagR", 1, "CheckLeft")
+        "####" "#" 0 A_JumpIfInventory("CrocDeepDiggerFlagL", 1, "CheckLeft")
+        "####" "#" 0 A_JumpIfInventory("CrocDeepDiggerFlagR", 1, "CheckLeft")
         "####" "#" 1 A_JumpIf(true, "FireCont")
         wait
     Fire:
-        "####" "#" 0 A_JumpIfInventory("DeepDiggerFlagR", 1, "CheckRight")
-        "####" "#" 0 A_JumpIfInventory("DeepDiggerFlagL", 1, "CheckRight")
+        "####" "#" 0 A_JumpIfInventory("CrocDeepDiggerFlagR", 1, "CheckRight")
+        "####" "#" 0 A_JumpIfInventory("CrocDeepDiggerFlagL", 1, "CheckRight")
         "####" "#" 1 A_JumpIf(true, "FireCont")
         wait
    FireCont:
@@ -53,40 +53,40 @@ actor DeepDiggerWep : BaseMM8BDMWep 10108
         DDIG E 1
         TNT1 A 1
         DDIG D 0 A_PlaySoundEx("weapons/mmv/deepdiggerload", "weapon")
-        DDIG D 0 A_GiveInventory("DeepDiggerFlagL", 1)
-        DDIG D 0 A_GiveInventory("DeepDiggerFlagR", 1)
+        DDIG D 0 A_GiveInventory("CrocDeepDiggerFlagL", 1)
+        DDIG D 0 A_GiveInventory("CrocDeepDiggerFlagR", 1)
         DDIG A 0 A_ChangeVelocity(0, 0, momz, CVF_REPLACE)
         DDIG D 0 A_Stop
-        DDIG A 0 A_SpawnItemEx("DeepDiggerWarper_R", 68,  17, 16)
-        DDIG A 0 A_SpawnItemEx("DeepDiggerWarper_L", 60, -17, 16)
+        DDIG A 0 A_SpawnItemEx("CrocDeepDiggerWarper_R", 68,  17, 16)
+        DDIG A 0 A_SpawnItemEx("CrocDeepDiggerWarper_L", 60, -17, 16)
         DDIG F 1
-        DDIG A 0 //A_SpawnItemEx("TempDeepDigger", 52,  16, 32)
-        DDIG A 0 //A_SpawnItemEx("TempDeepDigger", 44, -16, 32)
+        DDIG A 0 //A_SpawnItemEx("TempCrocDeepDigger", 52,  16, 32)
+        DDIG A 0 //A_SpawnItemEx("TempCrocDeepDigger", 44, -16, 32)
         DDIG F 1
-        DDIG A 0 //A_SpawnItemEx("TempDeepDigger", 36,  15, 48)
-        DDIG A 0 //A_SpawnItemEx("TempDeepDigger", 28, -15, 48)
+        DDIG A 0 //A_SpawnItemEx("TempCrocDeepDigger", 36,  15, 48)
+        DDIG A 0 //A_SpawnItemEx("TempCrocDeepDigger", 28, -15, 48)
         DDIG G 1
-        DDIG A 0 //A_SpawnItemEx("TempDeepDigger", 20,  13, 64)
-        DDIG A 0 //A_SpawnItemEx("TempDeepDigger", 12, -13, 64)
+        DDIG A 0 //A_SpawnItemEx("TempCrocDeepDigger", 20,  13, 64)
+        DDIG A 0 //A_SpawnItemEx("TempCrocDeepDigger", 12, -13, 64)
         DDIG G 1
-        DDIG A 0 //A_SpawnItemEx("TempDeepDigger",  4,  10, 74)
-        DDIG A 0 //A_SpawnItemEx("TempDeepDigger", -4, -10, 74)
+        DDIG A 0 //A_SpawnItemEx("TempCrocDeepDigger",  4,  10, 74)
+        DDIG A 0 //A_SpawnItemEx("TempCrocDeepDigger", -4, -10, 74)
         DDIG H 1
-        DDIG H 1 //A_GiveInventory("SpawnTempDeepDigger", 1)
-        TNT1 AAAAAAAAAA 1 //A_GiveInventory("SpawnTempDeepDigger", 1)
+        DDIG H 1 //A_GiveInventory("SpawnTempCrocDeepDigger", 1)
+        TNT1 AAAAAAAAAA 1 //A_GiveInventory("SpawnTempCrocDeepDigger", 1)
         goto Carry
     Carry:
-        TNT1 A 0 //A_GiveInventory("SpawnTempDeepDigger", 1)
+        TNT1 A 0 //A_GiveInventory("SpawnTempCrocDeepDigger", 1)
         TNT1 A 1 A_WeaponReady
-        TNT1 A 0 A_JumpIfInventory("DeepDiggerFlagR", 1, "Carry")
-        TNT1 A 0 A_JumpIfInventory("DeepDiggerFlagL", 1, "Carry")
+        TNT1 A 0 A_JumpIfInventory("CrocDeepDiggerFlagR", 1, "Carry")
+        TNT1 A 0 A_JumpIfInventory("CrocDeepDiggerFlagL", 1, "Carry")
         TNT1 A 0 A_JumpIf(true, "FireEnd")
         loop
 
     FireEnd:
         TNT1 A 1 A_RailWait
-        TNT1 A 0 A_JumpIfInventory("DeepDiggerAltFrames", 1, "FireEnd")
-        TNT1 A 0 A_JumpIfInventory("DeepDiggerMainFrames", 1, "FireEnd")
+        TNT1 A 0 A_JumpIfInventory("CrocDeepDiggerAltFrames", 1, "FireEnd")
+        TNT1 A 0 A_JumpIfInventory("CrocDeepDiggerMainFrames", 1, "FireEnd")
         TNT1 A 0 A_JumpIf(true, "FireEndReal")
         loop
     FireEndReal:
@@ -96,51 +96,51 @@ actor DeepDiggerWep : BaseMM8BDMWep 10108
         Goto Ready+1
 
     CheckRight:
-        TNT1 A 0 A_JumpIfInventory("DeepDiggerMainFrames", 1, "FireLeft")
-        TNT1 A 0 A_JumpIfInventory("DeepDiggerAltFrames", 1, "FireRight")
+        TNT1 A 0 A_JumpIfInventory("CrocDeepDiggerMainFrames", 1, "FireLeft")
+        TNT1 A 0 A_JumpIfInventory("CrocDeepDiggerAltFrames", 1, "FireRight")
         TNT1 A 0 A_GunFlash("FlashFireRight")
-        TNT1 A 0 A_JumpIfInventory("DeepDiggerFlagR", 1, "RightWait")
-        TNT1 A 0 A_JumpIfInventory("DeepDiggerFlagL", 1, "RightWait")
+        TNT1 A 0 A_JumpIfInventory("CrocDeepDiggerFlagR", 1, "RightWait")
+        TNT1 A 0 A_JumpIfInventory("CrocDeepDiggerFlagL", 1, "RightWait")
         TNT1 A 1 A_JumpIf(true, "FireEnd")
         loop
     RightWait:
-        TNT1 AAAAAA 1 //A_GiveInventory("SpawnTempDeepDigger", 1)
+        TNT1 AAAAAA 1 //A_GiveInventory("SpawnTempCrocDeepDigger", 1)
         goto Carry
     CheckLeft:
-        TNT1 A 0 A_JumpIfInventory("DeepDiggerMainFrames", 1, "FireLeft")
-        TNT1 A 0 A_JumpIfInventory("DeepDiggerAltFrames", 1, "FireRight")
+        TNT1 A 0 A_JumpIfInventory("CrocDeepDiggerMainFrames", 1, "FireLeft")
+        TNT1 A 0 A_JumpIfInventory("CrocDeepDiggerAltFrames", 1, "FireRight")
         TNT1 A 0 A_GunFlash("FlashFireLeft")
-        TNT1 A 0 A_JumpIfInventory("DeepDiggerFlagR", 1, "LeftWait")
-        TNT1 A 0 A_JumpIfInventory("DeepDiggerFlagL", 1, "LeftWait")
+        TNT1 A 0 A_JumpIfInventory("CrocDeepDiggerFlagR", 1, "LeftWait")
+        TNT1 A 0 A_JumpIfInventory("CrocDeepDiggerFlagL", 1, "LeftWait")
         TNT1 A 1 A_JumpIf(true, "FireEnd")
         loop
     LeftWait:
-        TNT1 AAAAAA 1 //A_GiveInventory("SpawnTempDeepDigger", 1)
+        TNT1 AAAAAA 1 //A_GiveInventory("SpawnTempCrocDeepDigger", 1)
         goto Carry
 
     FireLeft:
         TNT1 A 0 A_PlaySoundEx("weapons/mmv/deepdiggerfire","Weapon")
-        TNT1 A 0 A_FireCustomMissile("DeepDigger",0,1,-10,4)
-        TNT1 A 0 A_GiveInventory("DeepDiggerTakeLeft", 1)
-        DDIG QRSTUV 1 //A_GiveInventory("SpawnTempDeepDigger", 1)
+        TNT1 A 0 A_FireCustomMissile("CrocDeepDigger",0,1,-10,4)
+        TNT1 A 0 A_GiveInventory("CrocDeepDiggerTakeLeft", 1)
+        DDIG QRSTUV 1 //A_GiveInventory("SpawnTempCrocDeepDigger", 1)
         goto FireEnd
     FireRight:
         TNT1 A 0 A_PlaySoundEx("weapons/mmv/deepdiggerfire","Weapon")
-        TNT1 A 0 A_FireCustomMissile("DeepDigger",0,1,10,-4)
-        TNT1 A 0 A_GiveInventory("DeepDiggerTakeRight", 1)
-        DDIG IJKLMN 1 //A_GiveInventory("SpawnTempDeepDigger", 1)
+        TNT1 A 0 A_FireCustomMissile("CrocDeepDigger",0,1,10,-4)
+        TNT1 A 0 A_GiveInventory("CrocDeepDiggerTakeRight", 1)
+        DDIG IJKLMN 1 //A_GiveInventory("SpawnTempCrocDeepDigger", 1)
         goto FireEnd
 
     FlashFireLeft:
         DDIG F 0 A_PlaySoundEx("weapons/mmv/deepdiggerfire","Weapon")
-        DDIG F 0 A_FireCustomMissile("DeepDigger",0,1,-10,4)
-        DDIG F 0 A_GiveInventory("DeepDiggerTakeLeft", 1)
+        DDIG F 0 A_FireCustomMissile("CrocDeepDigger",0,1,-10,4)
+        DDIG F 0 A_GiveInventory("CrocDeepDiggerTakeLeft", 1)
         DDIG QRSTUV 1
         stop
     FlashFireRight:
         DDIG F 0 A_PlaySoundEx("weapons/mmv/deepdiggerfire","Weapon")
-        DDIG F 0 A_FireCustomMissile("DeepDigger",0,1,10,-4)
-        DDIG F 0 A_GiveInventory("DeepDiggerTakeRight", 1)
+        DDIG F 0 A_FireCustomMissile("CrocDeepDigger",0,1,10,-4)
+        DDIG F 0 A_GiveInventory("CrocDeepDiggerTakeRight", 1)
         DDIG IJKLMN 1
         stop
 
@@ -150,7 +150,7 @@ actor DeepDiggerWep : BaseMM8BDMWep 10108
     }
 }
 
-actor DeepDiggerWarper_R : BasicShieldWarper
+actor CrocDeepDiggerWarper_R : BasicShieldWarper
 {
 	States
 	{
@@ -172,7 +172,7 @@ actor DeepDiggerWarper_R : BasicShieldWarper
 	}
 }
 
-actor DeepDiggerWarper_L : BasicShieldWarper
+actor CrocDeepDiggerWarper_L : BasicShieldWarper
 {
 	States
 	{
@@ -194,22 +194,22 @@ actor DeepDiggerWarper_L : BasicShieldWarper
 	}
 }
 
-actor DeepDiggerTakeRight : CustomInventory
+actor CrocDeepDiggerTakeRight : CustomInventory
 {
     States
     {
     Pickup:
         TNT1 A 0
-        TNT1 A 0 A_GiveInventory("DeepDiggerMainFrames", 1)
-        TNT1 A 0 A_JumpIfInventory("DeepDiggerFlagR", 1, "TakeRight")
-        TNT1 A 0 A_JumpIfInventory("DeepDiggerFlagL", 1, "TakeLeft")
+        TNT1 A 0 A_GiveInventory("CrocDeepDiggerMainFrames", 1)
+        TNT1 A 0 A_JumpIfInventory("CrocDeepDiggerFlagR", 1, "TakeRight")
+        TNT1 A 0 A_JumpIfInventory("CrocDeepDiggerFlagL", 1, "TakeLeft")
         TNT1 A 1 A_JumpIf(true, "End")
         wait
     TakeRight:
-        TNT1 A 0 A_TakeInventory("DeepDiggerFlagR", 1)
+        TNT1 A 0 A_TakeInventory("CrocDeepDiggerFlagR", 1)
         goto End
     TakeLeft:
-        TNT1 A 0 A_TakeInventory("DeepDiggerFlagL", 1)
+        TNT1 A 0 A_TakeInventory("CrocDeepDiggerFlagL", 1)
         goto End
     End:
         TNT1 A 0
@@ -217,51 +217,51 @@ actor DeepDiggerTakeRight : CustomInventory
     }
 }
 
-actor DeepDiggerTakeLeft : DeepDiggerTakeRight
+actor CrocDeepDiggerTakeLeft : CrocDeepDiggerTakeRight
 {
     States
     {
     Pickup:
         TNT1 A 0
-        TNT1 A 0 A_GiveInventory("DeepDiggerAltFrames", 1)
-        TNT1 A 0 A_JumpIfInventory("DeepDiggerFlagL", 1, "TakeLeft")
-        TNT1 A 0 A_JumpIfInventory("DeepDiggerFlagR", 1, "TakeRight")
+        TNT1 A 0 A_GiveInventory("CrocDeepDiggerAltFrames", 1)
+        TNT1 A 0 A_JumpIfInventory("CrocDeepDiggerFlagL", 1, "TakeLeft")
+        TNT1 A 0 A_JumpIfInventory("CrocDeepDiggerFlagR", 1, "TakeRight")
         TNT1 A 1 A_JumpIf(true, "End")
         wait
     }
 }
 
-actor DeepDiggerAltFrames : Powerup
+actor CrocDeepDiggerAltFrames : Powerup
 {
     powerup.duration 12
 }
 
-actor DeepDiggerMainFrames : Powerup
+actor CrocDeepDiggerMainFrames : Powerup
 {
     powerup.duration 12
 }
 
-actor DeepDiggerAmmo : Ammo
+actor CrocDeepDiggerAmmo : Ammo
 {
 inventory.amount 1
 inventory.maxamount 28
 +INVENTORY.IGNORESKILL
 }
 
-actor DeepDiggerFlagL : Inventory
+actor CrocDeepDiggerFlagL : Inventory
 {
     inventory.amount 1
     inventory.maxamount 2
 }
-actor DeepDiggerFlagR : DeepDiggerFlagL {}
+actor CrocDeepDiggerFlagR : CrocDeepDiggerFlagL {}
 
-actor DeepDigger : BasicFastProjectile
+actor CrocDeepDigger : BasicFastProjectile
 {
     Radius 10
     Height 10
     damage (34)
     speed 60
-    damagetype "DeepDigger"
+    damagetype "CrocDeepDigger"
     Obituary "$OB_DEEPDIGGER"
     States
     {
@@ -271,22 +271,22 @@ actor DeepDigger : BasicFastProjectile
         wait
     XDeath:
         DDIG B 0 A_PlaySoundEx("weapons/mmv/deepdiggersplit", "auto")
-        DDIG BBBB 0 A_SpawnItemEx("DeepDiggerBreakFX",0,0,0,random(-10,10),random(-10,10),random(5,10),random(0,360), SXF_WEPFXCOLOR)
+        DDIG BBBB 0 A_SpawnItemEx("CrocDeepDiggerBreakFX",0,0,0,random(-10,10),random(-10,10),random(5,10),random(0,360), SXF_WEPFXCOLOR)
         TNT1 A 2
         stop
     Death:
         DDIG B 0 A_PlaySoundEx("weapons/mmv/deepdiggersplit", "auto")
-        DDIG B 0 A_SpawnItemEx("DeepDiggerPuffFX",0,0,0,0,0,0,0,SXF_WEPFXCOLOR)
-        DDIG B 0 A_SpawnItemEx("DeepDiggerBit", 0, 0, 0, 1, 0, 0,  67.5, SXF_MULTIPLYSPEED)
-        DDIG B 0 A_SpawnItemEx("DeepDiggerBit", 0, 0, 0, 1, 0, 0,  22.5, SXF_MULTIPLYSPEED)
-        DDIG B 0 A_SpawnItemEx("DeepDiggerBit", 0, 0, 0, 1, 0, 0, -22.5, SXF_MULTIPLYSPEED)
-        DDIG B 0 A_SpawnItemEx("DeepDiggerBit", 0, 0, 0, 1, 0, 0, -67.5, SXF_MULTIPLYSPEED)
+        DDIG B 0 A_SpawnItemEx("CrocDeepDiggerPuffFX",0,0,0,0,0,0,0,SXF_WEPFXCOLOR)
+        DDIG B 0 A_SpawnItemEx("CrocDeepDiggerBit", 0, 0, 0, 1, 0, 0,  67.5, SXF_MULTIPLYSPEED)
+        DDIG B 0 A_SpawnItemEx("CrocDeepDiggerBit", 0, 0, 0, 1, 0, 0,  22.5, SXF_MULTIPLYSPEED)
+        DDIG B 0 A_SpawnItemEx("CrocDeepDiggerBit", 0, 0, 0, 1, 0, 0, -22.5, SXF_MULTIPLYSPEED)
+        DDIG B 0 A_SpawnItemEx("CrocDeepDiggerBit", 0, 0, 0, 1, 0, 0, -67.5, SXF_MULTIPLYSPEED)
         TNT1 A 2
         stop
     }
 }
 
-actor DeepDiggerPuffFX : BasicGraphicEffect
+actor CrocDeepDiggerPuffFX : BasicGraphicEffect
 {
     +FORCEXYBILLBOARD
     speed 60
@@ -298,7 +298,7 @@ actor DeepDiggerPuffFX : BasicGraphicEffect
     }
 }
 
-actor DeepDiggerBreakFX : BasicGraphicEffect
+actor CrocDeepDiggerBreakFX : BasicGraphicEffect
 {
 -NOINTERACTION
 -NOGRAVITY
@@ -320,12 +320,12 @@ stop
 }
 }
 
-actor DeepDiggerBit : BasicProjectile
+actor CrocDeepDiggerBit : BasicProjectile
 {
     +HEXENBOUNCE
     -ALLOWBOUNCEONACTORS
     Obituary "$OB_DEEPDIGGER"
-    damagetype "DeepDigger"
+    damagetype "CrocDeepDigger"
     Radius 5
     Height 5
     damage (10)

@@ -1,6 +1,6 @@
-actor QuickBoomerangWep_NormalBar : NormalBar { args 34, 39 }
+actor CrocQuickBoomerangWep_NormalBar : NormalBar { args 34, 39 }
 
-actor QuickBoomerangWep : BaseMM8BDMWep 10053
+actor CrocQuickBoomerangWep : BaseMM8BDMWep 10053
 {
 //$Category MM8BDM-Weapons/Rapid
 //$Title Quick Boomerang
@@ -11,7 +11,7 @@ Weapon.SlotNumber 3
 Inventory.Pickupmessage "$PU_QUICKBOOMERANG"
 Obituary "$OB_QUICKBOOMERANG"
 Tag "$TAG_QUICKBOOMERANG"
-weapon.ammotype "QuickBoomerangAmmo"
+weapon.ammotype "CrocQuickBoomerangAmmo"
 inventory.icon "QUICKSI"
 States
 {
@@ -31,14 +31,14 @@ goto SelectSwap
 Fire:
 QUIC E 0 A_JumpIfNoAmmo("NoAmmo")
 QUIC E 0 A_PlaySoundEx("weapons/mm2/quickboomerangfire","Weapon")
-QUIC E 2 A_FireCustomMissile("QuickBoomerang",0,1,8,0)
+QUIC E 2 A_FireCustomMissile("CrocQuickBoomerang",0,1,8,0)
 QUIC F 2
 QUIC E 0 A_Refire
 Goto Ready+1
 Hold:
 QUIC E 0 A_JumpIfNoAmmo("NoAmmo")
 QUIC E 0 A_PlaySoundEx("weapons/mm2/quickboomerangfire","Weapon")
-QUIC E 2 A_FireCustomMissile("QuickBoomerang",0,1,8,0)
+QUIC E 2 A_FireCustomMissile("CrocQuickBoomerang",0,1,8,0)
 QUIC F 2
 QUIC E 0 A_Refire
 Goto Ready+1
@@ -48,7 +48,7 @@ Goto Ready+1
 }
 }
 
-actor QuickBoomerangAmmo : Ammo
+actor CrocQuickBoomerangAmmo : Ammo
 {
 inventory.amount 1
 inventory.maxamount 112
@@ -56,9 +56,9 @@ inventory.maxamount 112
 }
 
 
-actor QuickBoomerang : BasicProjectile
+actor CrocQuickBoomerang : BasicProjectile
 {
-damagetype "QuickBoomerang"
+damagetype "CrocQuickBoomerang"
 Obituary "$OB_QUICKBOOMERANG"
 Radius 6
 Height 7

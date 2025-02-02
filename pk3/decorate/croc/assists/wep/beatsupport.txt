@@ -1,4 +1,4 @@
-actor BeatSupport : BaseMM8BDMUseItem 11105
+actor CrocBeatSupport : BaseMM8BDMUseItem 11105
 {
 //$Category MM8BDM-Assists/Weapon
 //$Title Beat Support
@@ -20,11 +20,11 @@ SpawnLoop:
 WEA4 O -1
 loop
 Use:
-WEAP B 0 A_JumpIfInventory("BeatSupportActivated", 1, "Failed")
+WEAP B 0 A_JumpIfInventory("CrocBeatSupportActivated", 1, "Failed")
 WEAP B 0 A_PlaySoundEx("item/refill","Voice")
-WEAP B 0 A_GiveInventory("BeatSupportCounter",984)
-WEAP B 0 A_SpawnItemEx("BeatSupportChecker")
-WEAP B 0 A_SpawnItemEx("BeatSupportWarper")
+WEAP B 0 A_GiveInventory("CrocBeatSupportCounter",984)
+WEAP B 0 A_SpawnItemEx("CrocBeatSupportChecker")
+WEAP B 0 A_SpawnItemEx("CrocBeatSupportWarper")
 WEAP B 0 ACS_NamedExecuteAlways("core_beatattack",0,0)
 stop
 Failed:
@@ -33,11 +33,11 @@ fail
 }
 }
 
-actor BeatSupport_Respawn : 8BDMItemRespawn
+actor CrocBeatSupport_Respawn : 8BDMItemRespawn
 {
 	mass 1050
 }
-actor BeatSupport_RespawnShadow : 8BDMItemRespawnShadow
+actor CrocBeatSupport_RespawnShadow : 8BDMItemRespawnShadow
 {
 	mass 1050
 	States
@@ -48,13 +48,13 @@ actor BeatSupport_RespawnShadow : 8BDMItemRespawnShadow
 	}
 }
 
-actor BeatSupportCounter : Inventory
+actor CrocBeatSupportCounter : Inventory
 {
 inventory.amount 1
 inventory.maxamount 984
 }
 
-actor BeatSupportChecker
+actor CrocBeatSupportChecker
 {
 +MISSILE
 +NOINTERACTION
@@ -64,26 +64,26 @@ states
 Spawn:
 TNT1 A 0 //A_Countdown
 TNT1 A 1 A_JumpIfInTargetInventory("IsDead", 1, "Death")
-TNT1 A 0 A_JumpIfInTargetInventory("BeatSupportFired",1,"Skip")
-TNT1 A 0 A_JumpIfInTargetInventory("BeatSupportRefresh",1,"Skip")
-TNT1 A 0 A_GiveToTarget("BeatSupportRefresher",1)
-TNT1 A 0 A_TakeFromTarget("BeatSupportCounter",1)
-TNT1 A 5 A_JumpIfInTargetInventory("BeatSupportCounter",1,"Spawn")
+TNT1 A 0 A_JumpIfInTargetInventory("CrocBeatSupportFired",1,"Skip")
+TNT1 A 0 A_JumpIfInTargetInventory("CrocBeatSupportRefresh",1,"Skip")
+TNT1 A 0 A_GiveToTarget("CrocBeatSupportRefresher",1)
+TNT1 A 0 A_TakeFromTarget("CrocBeatSupportCounter",1)
+TNT1 A 5 A_JumpIfInTargetInventory("CrocBeatSupportCounter",1,"Spawn")
 goto Death
 Skip:
-TNT1 A 0 A_TakeFromTarget("BeatSupportCounter",1)
-TNT1 A 5 A_JumpIfInTargetInventory("BeatSupportCounter",1,"Spawn")
+TNT1 A 0 A_TakeFromTarget("CrocBeatSupportCounter",1)
+TNT1 A 5 A_JumpIfInTargetInventory("CrocBeatSupportCounter",1,"Spawn")
 goto Death
 Death:
-TNT1 A 0 A_TakeFromTarget("BeatSupportActivated")
-TNT1 A 0 A_TakeFromTarget("BeatSupportFired")
-TNT1 A 0 A_TakeFromTarget("BeatSupportRefresh")
-TNT1 A 0 A_TakeFromTarget("BeatSupportCounter",999)
+TNT1 A 0 A_TakeFromTarget("CrocBeatSupportActivated")
+TNT1 A 0 A_TakeFromTarget("CrocBeatSupportFired")
+TNT1 A 0 A_TakeFromTarget("CrocBeatSupportRefresh")
+TNT1 A 0 A_TakeFromTarget("CrocBeatSupportCounter",999)
 stop
 }
 }
 
-actor BeatSupportWarper : BasicGraphicEffect
+actor CrocBeatSupportWarper : BasicGraphicEffect
 {
 	+DONTBLAST
 	States
@@ -92,21 +92,21 @@ actor BeatSupportWarper : BasicGraphicEffect
 		TNT1 A 1
 		Goto SpawnA
 	SpawnA:
-		BEAT A 0 A_JumpIfInTargetInventory("BeatSupportFired", 1, "Firing")
+		BEAT A 0 A_JumpIfInTargetInventory("CrocBeatSupportFired", 1, "Firing")
 		BEAT AA 1 A_Warp(AAPTR_TARGET, -32, -32, 52, 0, WARPF_COPYINTERPOLATION|WARPF_NOCHECKPOSITION)
-		BEAT A 0 A_JumpIfInTargetInventory("BeatSupportActivated", 1, "SpawnB")
+		BEAT A 0 A_JumpIfInTargetInventory("CrocBeatSupportActivated", 1, "SpawnB")
 		BEAT A 1 A_JumpIf(true, "Death")
 		wait
 	SpawnB:
-		BEAT A 0 A_JumpIfInTargetInventory("BeatSupportFired", 1, "Firing")
+		BEAT A 0 A_JumpIfInTargetInventory("CrocBeatSupportFired", 1, "Firing")
 		BEAT BB 1 A_Warp(AAPTR_TARGET, -32, -32, 52, 0, WARPF_COPYINTERPOLATION|WARPF_NOCHECKPOSITION)
-		BEAT A 0 A_JumpIfInTargetInventory("BeatSupportActivated", 1, "SpawnC")
+		BEAT A 0 A_JumpIfInTargetInventory("CrocBeatSupportActivated", 1, "SpawnC")
 		BEAT B 1 A_JumpIf(true, "Death")
 		wait
 	SpawnC:
-		BEAT A 0 A_JumpIfInTargetInventory("BeatSupportFired", 1, "Firing")
+		BEAT A 0 A_JumpIfInTargetInventory("CrocBeatSupportFired", 1, "Firing")
 		BEAT CC 1 A_Warp(AAPTR_TARGET, -32, -32, 52, 0, WARPF_COPYINTERPOLATION|WARPF_NOCHECKPOSITION)
-		BEAT A 0 A_JumpIfInTargetInventory("BeatSupportActivated", 1, "SpawnA")
+		BEAT A 0 A_JumpIfInTargetInventory("CrocBeatSupportActivated", 1, "SpawnA")
 		BEAT C 1 A_JumpIf(true, "Death")
 		wait
 	Firing:
@@ -128,7 +128,7 @@ actor BeatSupportWarper : BasicGraphicEffect
 	}
 }
 /*
-actor BeatSupportGFX1
+actor CrocBeatSupportGFX1
 {
 +NOINTERACTION
 Scale 2.5
@@ -140,7 +140,7 @@ stop
 }
 }
 
-actor BeatSupportGFX2 : BeatSupportGFX1
+actor CrocBeatSupportGFX2 : CrocBeatSupportGFX1
 {
 states
 {
@@ -150,7 +150,7 @@ stop
 }
 }
 
-actor BeatSupportGFX3 : BeatSupportGFX1
+actor CrocBeatSupportGFX3 : CrocBeatSupportGFX1
 {
 states
 {
@@ -160,39 +160,39 @@ stop
 }
 }
 */
-actor BeatSupportActivated : Once {}
+actor CrocBeatSupportActivated : Once {}
 
-actor BeatSupportFired : Powerup 
+actor CrocBeatSupportFired : Powerup 
 {
 powerup.duration 45
 }
 
 
-actor BeatSupportRefresh : Once {}
+actor CrocBeatSupportRefresh : Once {}
 
-actor BeatSupportRefresher : CustomInventory
+actor CrocBeatSupportRefresher : CustomInventory
 {
 states
 {
 Pickup:
-TNT1 A 0 A_GiveInventory("BeatSupportRefresh",1)
+TNT1 A 0 A_GiveInventory("CrocBeatSupportRefresh",1)
 WEAP B 0 A_PlaySound("item/beat")
 stop
 }
 }
 
-actor BeatSupportFire : CustomInventory
+actor CrocBeatSupportFire : CustomInventory
 {
 states
 {
 Pickup:
-WEAP B 0 A_FireCustomMissile("BeatSupportProjectile",0,0,8,0)
-WEAP B 0 A_GiveInventory("BeatSupportFired",1)
+WEAP B 0 A_FireCustomMissile("CrocBeatSupportProjectile",0,0,8,0)
+WEAP B 0 A_GiveInventory("CrocBeatSupportFired",1)
 stop
 }
 }
 
-actor BeatSupportProjectile : BasicProjectile
+actor CrocBeatSupportProjectile : BasicProjectile
 {
 Radius 16
 Height 16
@@ -205,15 +205,15 @@ speed 44
 States
 {
 Spawn:
-BEAT ABCABCABCABC 2 A_SpawnItemEx("BeatSupportTrailFX",0,0,0,0,0,0,0,SXF_WEPFXCOLOR)
+BEAT ABCABCABCABC 2 A_SpawnItemEx("CrocBeatSupportTrailFX",0,0,0,0,0,0,0,SXF_WEPFXCOLOR)
 goto Death
 Death:
-BEAT A 0 A_CustomMissile("BeatSupportReturn",0,0,0,0)
+BEAT A 0 A_CustomMissile("CrocBeatSupportReturn",0,0,0,0)
 stop
 }
 }
 
-actor BeatSupportTrailFX : BasicGraphicEffect
+actor CrocBeatSupportTrailFX : BasicGraphicEffect
 {
 states
 {
@@ -232,7 +232,7 @@ loop
 }
 }
 
-actor BeatSupportReturn : BasicProjectile
+actor CrocBeatSupportReturn : BasicProjectile
 {
 Radius 5
 Height 5
@@ -246,12 +246,12 @@ States
 {
 Spawn:
 BEAT AABBCC 1 A_JumpIfCloser(64,"Returned")
-BEAT A 0 A_CustomMissile("BeatSupportReturn",0,0,0,0)
+BEAT A 0 A_CustomMissile("CrocBeatSupportReturn",0,0,0,0)
 stop
 Death:
 XDeath:
 Returned:
-BEAT A 0 //A_TakeFromTarget("BeatSupportFired",1)
+BEAT A 0 //A_TakeFromTarget("CrocBeatSupportFired",1)
 stop
 }
 }
