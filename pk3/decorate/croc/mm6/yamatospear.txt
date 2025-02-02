@@ -68,7 +68,7 @@ Radius 5
 Height 5
 +RIPPER
 damage (9)
-damagetype "CrocYamatoSpear"
+damagetype "YamatoSpear"
 Obituary "$OB_YAMATOSPEAR"
 speed 35
 States

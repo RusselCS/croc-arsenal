@@ -55,7 +55,7 @@ actor CrocPlugBallStart : BasicProjectile
 +BRIGHT
 Obituary "$OB_PLUGBALL"
 Damage (20)
-damagetype "CrocPlugBall"
+damagetype "PlugBall"
 Height 5
 Radius 6
 speed 0
@@ -84,7 +84,7 @@ actor CrocPlugBall : BasicProjectile // "Basic"
 {
 var int user_x;
 var int user_y;
-damagetype "CrocPlugBall"
+damagetype "PlugBall"
 Obituary "$OB_PLUGBALL"
 -NOGRAVITY
 -BOUNCEONFLOORS

@@ -261,7 +261,7 @@ actor CrocDeepDigger : BasicFastProjectile
     Height 10
     damage (34)
     speed 60
-    damagetype "CrocDeepDigger"
+    damagetype "DeepDigger"
     Obituary "$OB_DEEPDIGGER"
     States
     {
@@ -325,7 +325,7 @@ actor CrocDeepDiggerBit : BasicProjectile
     +HEXENBOUNCE
     -ALLOWBOUNCEONACTORS
     Obituary "$OB_DEEPDIGGER"
-    damagetype "CrocDeepDigger"
+    damagetype "DeepDigger"
     Radius 5
     Height 5
     damage (10)

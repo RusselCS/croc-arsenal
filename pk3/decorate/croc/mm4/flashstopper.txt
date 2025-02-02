@@ -126,7 +126,7 @@ fail
 
 actor CrocFlashStopper : BasicExplosion
 {
-damagetype "CrocFlashStopper"
+damagetype "FlashStopper"
 Obituary "$OB_FLASHSTOPPER"
 States
 {

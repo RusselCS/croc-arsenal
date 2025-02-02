@@ -55,7 +55,7 @@ Radius 12
 Height 12
 damage (18)
 +RIPPER
-damagetype "CrocRingBoomerang"
+damagetype "RingBoomerang"
 Obituary "$OB_RINGBOOMERANG"
 speed 65
 args 65 //return speed

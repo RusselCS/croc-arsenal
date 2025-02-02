@@ -125,7 +125,7 @@ actor CrocPlantBarrier : BasicProjectile
 {
 +DONTSPLASH
 Damage (33)
-damagetype "CrocPlantBarrier"
+damagetype "PlantBarrier"
 Obituary "$OB_PLANTBARRIER"
 Speed 32
 Radius 12

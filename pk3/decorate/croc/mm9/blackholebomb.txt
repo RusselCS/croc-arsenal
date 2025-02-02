@@ -96,7 +96,7 @@ actor CrocBlackHoleBomb : BasicProjectile
 +RIPPER
 +BRIGHT
 Obituary "$OB_BLACKHOLEBOMB"
-damagetype "CrocBlackHoleBomb"
+damagetype "BlackHoleBomb"
 Radius 15
 Height 8
 damage (0)
@@ -183,7 +183,7 @@ goto CrocBlackHoleBombFlyFunc::Pickup+1
 actor CrocBlackHoleBombExplosion : BasicExplosion
 {
 Obituary "$OB_BLACKHOLEBOMB"
-damagetype "CrocBlackHoleBomb"
+damagetype "BlackHoleBomb"
 reactiontime 5
 Scale 3.0
 States

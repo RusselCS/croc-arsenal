@@ -70,7 +70,7 @@ actor CrocPowerStone : BasicProjectile
 Radius 38
 Height 10
 damage (48)
-damagetype "CrocPowerStone"
+damagetype "PowerStone"
 Obituary "$OB_POWERSTONE"
 speed 0
 var int user_speed;

@@ -63,7 +63,7 @@ actor CrocAstroCrush : BasicProjectile
 +DONTBLAST
 +BRIGHT
 +DONTREFLECT
-Damagetype "CrocAstroCrush"
+Damagetype "AstroCrush"
 Obituary "$OB_ASTROCRUSH"
 damage (0)
 height 8

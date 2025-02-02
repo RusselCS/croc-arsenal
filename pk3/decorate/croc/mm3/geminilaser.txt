@@ -78,7 +78,7 @@ actor CrocGeminiLaserFast : BasicProjectile
 	WALLBOUNCEFACTOR 0.91
 	BOUNCEFACTOR 0.91
 	Obituary "$OB_GEMINILASER"
-	damagetype "CrocGeminiLaser"
+	damagetype "GeminiLaser"
 	damage (30)
 	speed 50
 	Radius 5
@@ -130,7 +130,7 @@ actor CrocGeminiLaser : BasicBouncer
 	speed 22
 	Radius 5
 	Height 5
-	damagetype "CrocGeminiLaser"
+	damagetype "GeminiLaser"
 	damage (30)
 	+FORCEXYBILLBOARD
 	+USEBOUNCESTATE

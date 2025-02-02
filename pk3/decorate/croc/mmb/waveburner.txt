@@ -148,7 +148,7 @@ goto Ready+1
 actor CrocWaveBurn : BasicProjectile
 {
 +BRIGHT
-damagetype "CrocWaveBurner"
+damagetype "WaveBurner"
 Obituary "$OB_WAVEBURNER"
 Speed 26
 Damage (9)
@@ -169,7 +169,7 @@ stop
 actor CrocWaveBurnUW : WaveBurn
 {
 -BRIGHT
-damagetype "CrocWaveBurnerUW"
+damagetype "WaveBurnerUW"
 Obituary "$OB_WAVEBURNER2"
 States
 {

@@ -54,7 +54,7 @@ actor CrocWindStormStart : BasicProjectile
 -NOGRAVITY
 +RIPPER
 Damage (15)
-damagetype "CrocWindStorm"
+damagetype "WindStorm"
 Obituary "$OB_WINDSTORM"
 Height 8
 Radius 16
@@ -85,7 +85,7 @@ actor CrocWindStorm : BasicProjectile
 -NOGRAVITY
 +RIPPER
 Damage (0)
-damagetype "CrocWindStorm"
+damagetype "WindStorm"
 Obituary "$OB_WINDSTORM"
 Height 16
 Radius 16

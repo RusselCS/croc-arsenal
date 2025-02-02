@@ -79,7 +79,7 @@ actor CrocKnightCrushBase : BasicProjectile
 Radius 10
 Height 10
 damage (9)
-damagetype "CrocKnightCrush"
+damagetype "KnightCrush"
 Obituary "$OB_KNIGHTCRUSH"
 +DONTSPLASH
 +RIPPER

@@ -155,7 +155,7 @@ actor CrocHomingSniper : BasicProjectile
 +SEEKERMISSILE
 +SCREENSEEKER
 +HITTARGET
-Damagetype "CrocHomingSniper"
+Damagetype "HomingSniper"
 Obituary "$OB_HOMINGSNIPER"
 Radius 5
 Height 5

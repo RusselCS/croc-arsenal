@@ -141,7 +141,7 @@ Damage (33)
 scale 2.0
 -NOGRAVITY
 +DOOMBOUNCE
-DamageType "CrocReggae"
+DamageType "Reggae"
 Obituary "$OB_REGGAE"
 wallbouncefactor 0.0
 bouncefactor 0.0

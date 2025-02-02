@@ -71,7 +71,7 @@ stop
 actor CrocHardKnuckle : BasicProjectile
 {
 scale 2.5
-damagetype "CrocHardKnuckle"
+damagetype "HardKnuckle"
 Obituary "$OB_HARDKNUCKLE"
 Speed 38
 Radius 12

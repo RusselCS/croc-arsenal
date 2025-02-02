@@ -67,7 +67,7 @@ actor CrocReboundStriker : BasicBouncer
 +USEBOUNCESTATE
 +FORCEXYBILLBOARD
 Obituary "$OB_REBOUNDSTRIKER"
-damagetype "CrocReboundStriker"
+damagetype "ReboundStriker"
 bouncesound "weapons/mm10/reboundstrikerbounce"
 Radius 10
 Height 20

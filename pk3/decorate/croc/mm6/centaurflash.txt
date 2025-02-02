@@ -130,7 +130,7 @@ stop
 
 actor CrocCentaurFlash : BasicExplosion
 {
-damagetype "CrocCentaurFlash"
+damagetype "CentaurFlash"
 Obituary "$OB_CENTAURFLASH"
 States
 {

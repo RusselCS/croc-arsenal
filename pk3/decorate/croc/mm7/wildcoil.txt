@@ -137,7 +137,7 @@ Damage (20)
 height 16
 radius 12
 speed 20
-damagetype "CrocWildCoil"
+damagetype "WildCoil"
 Obituary "$OB_WILDCOIL"
 bouncefactor 1.0
 wallbouncefactor 1.0
@@ -181,7 +181,7 @@ actor CrocWildCoil2 : WildCoil
 BounceSound "weapons/mm7/wildcoilbounce2"
 Damage (40)
 speed 25
-damagetype "CrocWildCoil2"
+damagetype "WildCoil2"
 States
 {
 Spawn:

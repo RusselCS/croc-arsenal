@@ -58,7 +58,7 @@ height 6
 radius 9
 damage (5)
 speed 45
-damagetype "CrocWaterBalloon"
+damagetype "WaterBalloon"
 Obituary "$OB_WATERBALLOON"
 States
 {

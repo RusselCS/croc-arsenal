@@ -58,7 +58,7 @@ actor CrocBlizzardAttack : BasicProjectile
 {
 +FORCEXYBILLBOARD
 Damage (17)
-damagetype "CrocBlizzardAttack"
+damagetype "BlizzardAttack"
 Obituary "$OB_BLIZZARDATTACK"
 Height 12
 Radius 12

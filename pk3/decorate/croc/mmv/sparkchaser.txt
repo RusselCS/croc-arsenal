@@ -78,7 +78,7 @@ actor CrocSparkChaser : BasicProjectile
     speed 1
     reactiontime 30
     Obituary "$OB_SPARKCHASER"
-    damagetype "CrocSparkChaser"
+    damagetype "SparkChaser"
     States
     {
     Spawn:
@@ -196,7 +196,7 @@ scale 2.5
 damage ((momx!=0 || momy!=0 || momz!=0)*6)
 speed 1
 Obituary "$OB_SPARKCHASER"
-damagetype "CrocSparkChaser"
+damagetype "SparkChaser"
 var int user_speed;
 var int user_frames;
 var int user_frameMax;

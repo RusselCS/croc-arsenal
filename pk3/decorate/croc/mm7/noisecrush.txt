@@ -87,7 +87,7 @@ actor CrocNoiseCrush : BasicBouncer
 Radius 5
 Height 5
 damage (27)
-damagetype "CrocNoiseCrush1"
+damagetype "NoiseCrush1"
 Obituary "$OB_NOISECRUSH"
 speed 28
 +FORCEXYBILLBOARD

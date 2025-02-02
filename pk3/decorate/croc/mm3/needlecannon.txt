@@ -60,7 +60,7 @@ actor CrocNeedle : BasicProjectile
 {
 Radius 6
 Height 7
-damagetype "CrocNeedleCannon"
+damagetype "NeedleCannon"
 Obituary "$OB_NEEDLECANNON"
 damage (16)
 speed 38

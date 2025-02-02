@@ -72,7 +72,7 @@ actor CrocBubbleLeadStart : BasicProjectile
 -NOGRAVITY
 +FORCEXYBILLBOARD
 Damage (47)
-DamageType "CrocBubbleLead"
+DamageType "BubbleLead"
 Obituary "$OB_BUBBLELEAD"
 Height 16
 Radius 20
@@ -104,7 +104,7 @@ maxstepheight 24
 +FORCEXYBILLBOARD
 BounceCount 1
 Damage (47)
-DamageType "CrocBubbleLead"
+DamageType "BubbleLead"
 Obituary "$OB_BUBBLELEAD"
 Height 16
 Radius 20

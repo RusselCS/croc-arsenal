@@ -74,7 +74,7 @@ inventory.maxamount 28
 actor CrocThunderBeam : BasicProjectile
 {
 +BRIGHT
-damagetype "CrocThunderBeam"
+damagetype "ThunderBeam"
 Obituary "$OB_THUNDERBEAM"
 +RIPPER
 Speed 30

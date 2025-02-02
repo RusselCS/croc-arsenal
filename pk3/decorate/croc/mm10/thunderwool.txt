@@ -60,7 +60,7 @@ Height 7
 +SKYEXPLODE
 +RIPPER
 Obituary "$OB_THUNDERWOOL"
-Damagetype "CrocThunderWool"
+Damagetype "ThunderWool"
 bouncecount 9999
 bouncefactor 0.9
 wallbouncefactor 0.9
@@ -117,7 +117,7 @@ actor CrocThunderWoolLightning : BasicProjectile
 	+THRUSPECIES
 	species "MovingPlatform"
     Obituary "$OB_THUNDERWOOL"
-	Damagetype "CrocThunderWool"
+	Damagetype "ThunderWool"
 	speed 0
 	height 32
 	radius 16
@@ -149,7 +149,7 @@ const int WEPC_10TW_RADIUS = 128;
 actor CrocThunderWoolRadius : BasicExplosion
 {
 	Obituary "$OB_THUNDERWOOL"
-	Damagetype "CrocThunderWool"
+	Damagetype "ThunderWool"
 	var int user_angle;
 	var int user_arcnum;
 	States

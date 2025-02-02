@@ -128,7 +128,7 @@ actor CrocMagmaBazooka1 : BasicProjectile
 Damage (15)
 Speed 26
 Obituary "$OB_MAGMABAZOOKA"
-damagetype "CrocMagmaBazooka1"
+damagetype "MagmaBazooka1"
 Radius 4
 Height 8
 States
@@ -145,7 +145,7 @@ stop
 actor CrocMagmaBazooka2 : CrocMagmaBazooka1
 {
 Damage (33)
-damagetype "CrocMagmaBazooka2"
+damagetype "MagmaBazooka2"
 Radius 24
 Height 16
 States

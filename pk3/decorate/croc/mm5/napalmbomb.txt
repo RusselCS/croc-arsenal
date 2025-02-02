@@ -53,7 +53,7 @@ inventory.maxamount 28
 actor CrocNapalmBomb : BasicProjectile
 {
 PROJECTILE
-damagetype "CrocNapalmBomb"
+damagetype "NapalmBomb"
 Obituary "$OB_NAPALMBOMB"
 Radius 6
 Height 7

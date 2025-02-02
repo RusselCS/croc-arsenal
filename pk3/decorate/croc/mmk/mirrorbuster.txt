@@ -318,7 +318,7 @@ actor CrocMirrorShotSmall : BasicProjectile
 Radius 10
 Height 8
 damage (20)
-damagetype "CrocMirrorBuster1"
+damagetype "MirrorBuster1"
 Obituary "$OB_MIRRORBUSTER"
 speed 40
 States
@@ -340,7 +340,7 @@ actor CrocMirrorShotMedium : CrocMirrorShotSmall
 damage (45)
 Radius 12
 Height 11
-damagetype "CrocMirrorBuster2"
+damagetype "MirrorBuster2"
 States
 {
 Spawn:

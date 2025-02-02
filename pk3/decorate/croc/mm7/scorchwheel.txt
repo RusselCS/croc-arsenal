@@ -93,7 +93,7 @@ Height 40
 scale 2.5
 speed 16
 damage 0
-damagetype "CrocScorchWheel"
+damagetype "ScorchWheel"
 Obituary "$OB_SCORCHWHEEL"
 maxstepheight 24
 -NOGRAVITY
@@ -116,7 +116,7 @@ stop
 
 actor CrocScorchWheel2 : ProjSpawnFuncActor
 {
-damagetype "CrocScorchWheel"
+damagetype "ScorchWheel"
 Obituary "$OB_SCORCHWHEEL"
 +MISSILE
 -NOGRAVITY

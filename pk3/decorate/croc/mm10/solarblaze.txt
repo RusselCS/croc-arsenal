@@ -92,7 +92,7 @@ actor CrocSolarBlaze : BasicBouncer
 +FORCEXYBILLBOARD
 +BRIGHT
 Obituary "$OB_SOLARBLAZE"
-DamageType "CrocSolarBlaze"
+DamageType "SolarBlaze"
 bouncefactor 0.75
 wallbouncefactor 0.75
 bouncecount 9999
@@ -138,7 +138,7 @@ actor CrocSolarWave : BasicProjectile
 +THRUACTORS
 +BRIGHT
 Obituary "$OB_SOLARBLAZE"
-DamageType "CrocSolarBlaze"
+DamageType "SolarBlaze"
 Radius 8
 Height 32
 damage (17)

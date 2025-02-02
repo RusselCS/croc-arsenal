@@ -128,7 +128,7 @@ actor CrocBubbleBomb : BasicProjectile
 {
     +FORCEXYBILLBOARD
     +DONTREFLECT
-    damagetype "CrocBubbleBomb"
+    damagetype "BubbleBomb"
     Obituary "$OB_BUBBLEBOMB"
     Radius 10
     Height 10
@@ -183,7 +183,7 @@ actor CrocBubbleBomb
 {
     PROJECTILE
     +FORCEXYBILLBOARD
-    damagetype "CrocBubbleBomb"
+    damagetype "BubbleBomb"
     Obituary "$OB_BUBBLEBOMB"
     Radius 10
     Height 10

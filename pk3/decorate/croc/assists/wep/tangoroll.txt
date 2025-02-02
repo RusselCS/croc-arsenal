@@ -115,7 +115,7 @@ Bouncetype Classic
 +RIPPER
 Damage (20)
 Obituary "$OB_TANGOROLL"
-damagetype "CrocTango"
+damagetype "Tango"
 Height 16
 Radius 16
 speed 30

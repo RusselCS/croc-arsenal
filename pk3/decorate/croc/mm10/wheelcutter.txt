@@ -296,7 +296,7 @@ actor CrocWheelCutterSawDamage : BasicFastProjectile
 {
     +DONTSPLASH
 	Obituary "$OB_WHEELCUTTER"
-	damagetype "CrocWheelCutterSaw"
+	damagetype "WheelCutterSaw"
 	Height 10
     Radius 20
     Damage (3)
@@ -322,7 +322,7 @@ actor CrocWheelCutterMaster : ProjSpawnFuncActor
 {
     PROJECTILE
     Obituary "$OB_WHEELCUTTER"
-    Damagetype "CrocWheelCutter"
+    Damagetype "WheelCutter"
     scale 2.5
     -NOGRAVITY
     +BOUNCEONCEILINGS
@@ -342,7 +342,7 @@ actor CrocWheelCutterMasterFast : ProjSpawnFuncActorFast
 {
     PROJECTILE
     Obituary "$OB_WHEELCUTTER"
-    Damagetype "CrocWheelCutter"
+    Damagetype "WheelCutter"
     scale 2.5
     Radius 10
     Height 10

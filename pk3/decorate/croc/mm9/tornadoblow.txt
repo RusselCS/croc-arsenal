@@ -149,7 +149,7 @@ actor CrocTornadoBlow : BasicProjectile
 +NOINTERACTION
 +DONTREFLECT
 Obituary "$OB_TORNADOBLOW"
-damagetype "CrocTornadoBlow"
+damagetype "TornadoBlow"
 damage (0)
 radius 1
 height 1
@@ -185,7 +185,7 @@ stop
 actor CrocTornadoDamager : BasicExplosion
 {
 Obituary "$OB_TORNADOBLOW"
-damagetype "CrocTornadoBlow"
+damagetype "TornadoBlow"
 States
 {
 Spawn:

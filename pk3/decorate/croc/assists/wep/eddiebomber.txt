@@ -137,7 +137,7 @@ actor CrocEddieBomberBomb : BasicBouncer
 +FORCEXYBILLBOARD
 +DONTREFLECT
 damage (1)
-damagetype "CrocEddieBomber"
+damagetype "EddieBomber"
 Obituary "$OB_EDDIEBOMBER"
 gravity 3.0
 reactiontime 10

@@ -78,7 +78,7 @@ inventory.maxamount 28
 actor CrocFireStorm : BasicProjectile
 {
 +BRIGHT
-damagetype "CrocFireStorm"
+damagetype "FireStorm"
 Obituary "$OB_FIRESTORM"
 Radius 6
 Height 7

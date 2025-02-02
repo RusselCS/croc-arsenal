@@ -64,7 +64,7 @@ actor CrocBalladeCracker : BasicProjectile
 {
 Radius 6
 Height 7
-damagetype "CrocBalladeCracker"
+damagetype "BalladeCracker"
 Obituary "$OB_BALLADECRACKER"
 damage (1)
 speed 50

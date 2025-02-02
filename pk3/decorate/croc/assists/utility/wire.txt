@@ -90,7 +90,7 @@ Translation "199:199=193:193"
 var int user_PTID;
 var int user_CountDown;
 obituary "%o was grappled by %k's Wire Adaptor."
-damagetype "CrocWireAdaptor"
+damagetype "WireAdaptor"
 +DONTBLAST
 +DONTREFLECT
 +THRUGHOST

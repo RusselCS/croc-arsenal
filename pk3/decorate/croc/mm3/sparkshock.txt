@@ -92,7 +92,7 @@ Height 6
 scale 2.5
 damage (1)
 speed 45
-damagetype "CrocSparkShock"
+damagetype "SparkShock"
 Obituary "$OB_SPARKSHOCK"
 States
 {
@@ -109,7 +109,7 @@ stop
 
 actor CrocSparkShockExplode : BasicExplosion
 {
-    damagetype "CrocSparkShock"
+    damagetype "SparkShock"
     Obituary "$OB_SPARKSHOCK"
     scale 3.6
     States

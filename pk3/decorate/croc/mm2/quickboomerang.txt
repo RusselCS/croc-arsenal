@@ -58,7 +58,7 @@ inventory.maxamount 112
 
 actor CrocQuickBoomerang : BasicProjectile
 {
-damagetype "CrocQuickBoomerang"
+damagetype "QuickBoomerang"
 Obituary "$OB_QUICKBOOMERANG"
 Radius 6
 Height 7

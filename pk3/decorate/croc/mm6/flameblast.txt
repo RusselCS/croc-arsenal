@@ -54,7 +54,7 @@ actor CrocFlameBlast : BasicProjectile
 Damage (40)
 Height 5
 Radius 6
-damagetype "CrocFlameBlast"
+damagetype "FlameBlast"
 Obituary "$OB_FLAMEBLAST"
 -NOGRAVITY
 speed 28
@@ -106,7 +106,7 @@ actor CrocFlameWallPillar : BasicProjectile
 {
 +BRIGHT
 Height 5
-damagetype "CrocFlameBlast"
+damagetype "FlameBlast"
 Obituary "$OB_FLAMEBLAST"
 Speed 0
 Radius 16
@@ -133,7 +133,7 @@ actor CrocFlamePillar : BasicProjectile
 -NOGRAVITY
 +NOEXPLODEFLOOR
 Height 48
-damagetype "CrocFlameBlast"
+damagetype "FlameBlast"
 Obituary "$OB_FLAMEBLAST"
 Speed 0
 Radius 5

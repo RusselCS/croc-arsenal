@@ -67,7 +67,7 @@ actor CrocHyperBomb : BasicBouncer
 +RIPPER
 +DONTREFLECT
 damage (0)
-damagetype "CrocHyperBomb"
+damagetype "HyperBomb"
 Obituary "$OB_HYPERBOMB"
 Radius 6
 Height 7

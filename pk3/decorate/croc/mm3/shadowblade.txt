@@ -65,7 +65,7 @@ actor CrocShadowBlade : BasicProjectile
 {
 Speed 31
 Damage (20)
-damagetype "CrocShadowBlade"
+damagetype "ShadowBlade"
 Obituary "$OB_SHADOWBLADE"
 +RIPPER
 Radius 7

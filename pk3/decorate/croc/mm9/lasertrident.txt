@@ -61,7 +61,7 @@ Speed 20
 Damage (35)
 Radius 10
 Height 20
-damagetype "CrocLaserTrident"
+damagetype "LaserTrident"
 States
 {
 Spawn:

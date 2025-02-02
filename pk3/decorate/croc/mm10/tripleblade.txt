@@ -73,7 +73,7 @@ actor CrocTripleBlade : BasicBouncer
 +USEBOUNCESTATE
 bouncecount 2
 Obituary "$OB_TRIPLEBLADE"
-damagetype "CrocTripleBlade"
+damagetype "TripleBlade"
 Radius 16
 Height 5
 Damage (5)

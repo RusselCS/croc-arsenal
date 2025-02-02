@@ -190,7 +190,7 @@ Bouncetype Classic
 WALLBOUNCEFACTOR 0.91
 BOUNCEFACTOR 0.91
 BOUNCECOUNT 6
-damagetype "CrocTenguBlade"
+damagetype "TenguBlade"
 Obituary "$OB_TENGUBLADE"
 speed 30
 States

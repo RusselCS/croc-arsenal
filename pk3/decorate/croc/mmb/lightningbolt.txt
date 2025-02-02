@@ -150,7 +150,7 @@ actor CrocLightningBolt : BasicExplosion
     +FLOORHUGGER
     +DONTBLAST
     +BRIGHT
-    DamageType "CrocLightningBolt"
+    DamageType "LightningBolt"
     Obituary "$OB_LIGHTNINGBOLT"
     height 32
     radius 16

@@ -64,7 +64,7 @@ Speed 40
 Radius 3
 Height 4
 Damage (16)
-damagetype "CrocMetalBlade"
+damagetype "MetalBlade"
 Obituary "$OB_METALBLADE"
 var int user_TranslateWhiteColors;
 States

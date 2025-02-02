@@ -120,7 +120,7 @@ Inventory.maxamount 999
 actor CrocMegaBallStart : FastProjectile
 {
 +MISSILE
-damagetype "CrocMegaBall"
+damagetype "MegaBall"
 Obituary "$OB_MEGABALL"
 +DONTREFLECT
 +STEPMISSILE
@@ -157,7 +157,7 @@ stop
 
 actor CrocMegaBall : BasicBouncer
 {
-damagetype "CrocMegaBall"
+damagetype "MegaBall"
 Obituary "$OB_MEGABALL"
 -NOGRAVITY
 +NOBLOOD
@@ -296,7 +296,7 @@ wait
 actor CrocMegaBallKicked : BasicBouncer
 {
 bouncesound "weapons/mm8/megaballbounce"
-damagetype "CrocMegaBall"
+damagetype "MegaBall"
 Obituary "$OB_MEGABALL"
 -NOGRAVITY
 +FORCEXYBILLBOARD

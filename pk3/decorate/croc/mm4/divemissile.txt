@@ -60,7 +60,7 @@ actor CrocDiveMissile : BasicProjectile
 Radius 5
 Height 5
 damage (12)
-damagetype "CrocDiveMissile"
+damagetype "DiveMissile"
 Obituary "$OB_DIVEMISSILE"
 speed 35
 ReactionTime 85

@@ -70,7 +70,7 @@ stop
 actor CrocIceWaveSpawner : BasicProjectile
 {
 -NOGRAVITY
-Damagetype "CrocIceWave"
+Damagetype "IceWave"
 Obituary "$OB_ICEWAVE"
 Damage(20)
 Scale 3.0
@@ -94,7 +94,7 @@ actor CrocIceWave : BasicProjectile
 {
 +RIPPER
 +DONTREFLECT
-Damagetype "CrocIceWave"
+Damagetype "IceWave"
 Obituary "$OB_ICEWAVE"
 Damage (0)
 Speed 20

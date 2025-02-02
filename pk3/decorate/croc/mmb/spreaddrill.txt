@@ -154,7 +154,7 @@ actor CrocSpreadDrill : BasicProjectile
 radius 32
 height 16
 speed 13
-DamageType "CrocSpreadDrill"
+DamageType "SpreadDrill"
 Obituary "$OB_SPREADDRILL"
 damage (30)
 Gravity 0.25
@@ -199,7 +199,7 @@ actor CrocMediumDrill1 : CrocSpreadDrill
 +NOGRAVITY
 radius 20
 damage (13)
-DamageType "CrocSpreadDrill2"
+DamageType "SpreadDrill2"
 states
 {
 Spawn:
@@ -217,7 +217,7 @@ actor CrocMediumDrill2 : CrocSpreadDrill
 +NOGRAVITY
 radius 16
 Speed 20
-DamageType "CrocSpreadDrill2"
+DamageType "SpreadDrill2"
 damage (13)
 states
 {
@@ -242,7 +242,7 @@ actor CrocSmallDrill1 : CrocMediumDrill1
 radius 12
 height 8
 damage (11)
-DamageType "CrocSpreadDrill3"
+DamageType "SpreadDrill3"
 states
 {
 Spawn:
@@ -261,7 +261,7 @@ radius 8
 height 8
 damage (11)
 Speed 28
-DamageType "CrocSpreadDrill3"
+DamageType "SpreadDrill3"
 states
 {
 Spawn:

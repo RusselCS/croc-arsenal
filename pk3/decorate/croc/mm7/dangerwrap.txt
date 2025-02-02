@@ -86,7 +86,7 @@ stop
 
 actor CrocWrapExplosion : BasicExplosion
 {
-damagetype "CrocDangerWrap"
+damagetype "DangerWrap"
 Obituary "$OB_DANGERWRAP"
 States
 {
@@ -106,7 +106,7 @@ actor CrocDangerWrapMine : BasicProjectile
 Radius 32
 Height 12
 damage (1)
-damagetype "CrocDangerWrap"
+damagetype "DangerWrap"
 Obituary "$OB_DANGERWRAP"
 speed 0
 reactiontime 200

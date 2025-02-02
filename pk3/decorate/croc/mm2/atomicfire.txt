@@ -161,7 +161,7 @@ actor CrocAtomicFire1 : BasicProjectile
 Radius 4
 Height 4
 Damage (16)
-damagetype "CrocAtomicFire1"
+damagetype "AtomicFire1"
 Obituary "$OB_ATOMICFIRE"
 Speed 24
 States
@@ -181,7 +181,7 @@ actor CrocAtomicFire2 : CrocAtomicFire1
 Radius 10
 Height 10
 Damage (67)
-damagetype "CrocAtomicFire2"
+damagetype "AtomicFire2"
 +DONTBLAST
 speed 30
 States
@@ -202,7 +202,7 @@ Radius 15
 Height 15
 +RIPPER
 +DONTBLAST
-damagetype "CrocAtomicFire3"
+damagetype "AtomicFire3"
 Damage (100)
 speed 10
 States

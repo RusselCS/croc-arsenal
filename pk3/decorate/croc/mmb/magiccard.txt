@@ -157,7 +157,7 @@ actor CrocMagicCardDamager : BasicProjectile
 +DONTBLAST
 +THRUGHOST
 +DONTREFLECT
-Damagetype "CrocMagicCard" 
+Damagetype "MagicCard" 
 Obituary "$OB_MAGICCARD"
 radius 16
 height 8

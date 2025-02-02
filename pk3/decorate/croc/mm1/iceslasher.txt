@@ -53,7 +53,7 @@ actor CrocIceSlasher : BasicProjectile
 {
 Radius 5
 Height 5
-damagetype "CrocIceSlasher"
+damagetype "IceSlasher"
 Obituary "$OB_ICESLASHER"
 damage (15)
 +RIPPER

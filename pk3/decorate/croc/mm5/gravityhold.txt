@@ -48,7 +48,7 @@ stop
 
 actor CrocGravityHold : BasicExplosion
 {
-damagetype "CrocGravityHold"
+damagetype "GravityHold"
 Obituary "$OB_GRAVITYHOLD"
 States
 {

@@ -63,7 +63,7 @@ actor CrocSaltWater : BasicProjectile
     -NOGRAVITY
     Damage (33)
     Obituary "$OB_SALTWATER"
-    damagetype "CrocSaltWater"
+    damagetype "SaltWater"
     gravity 1.2
     Speed 24
     Height 10
@@ -133,7 +133,7 @@ actor CrocSaltWaterBit : BasicProjectile
     -NOGRAVITY
     +HEXENBOUNCE
     Obituary "$OB_SALTWATER"
-    damagetype "CrocSaltWater"
+    damagetype "SaltWater"
     bouncecount 2
     Damage (11)
     Speed 20

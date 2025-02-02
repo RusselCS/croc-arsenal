@@ -179,7 +179,7 @@ stop
 actor CrocTrebleShot : BasicFastProjectile
 {
 +FORCEXYBILLBOARD
-Damagetype "CrocTreble"
+Damagetype "Treble"
 Obituary "$OB_TREBLESENTRY"
 Damage (8)
 Height 12

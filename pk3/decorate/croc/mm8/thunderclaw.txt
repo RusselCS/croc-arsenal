@@ -103,7 +103,7 @@ actor CrocThunderClawDamager : BasicFastProjectile
     +DONTSPLASH
     +HITTRACER
     Obituary "$OB_THUNDERCLAW"
-    Damagetype "CrocThunderClaw"
+    Damagetype "ThunderClaw"
     Damage (30)
     Radius 10
     Height 10

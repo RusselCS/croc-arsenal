@@ -78,7 +78,7 @@ actor CrocRollingCutterBase : BasicProjectile
 Radius 16
 Height 16
 damage (15)
-damagetype "CrocRollingCutter"
+damagetype "RollingCutter"
 Obituary "$OB_ROLLINGCUTTER"
 +DONTSPLASH
 +RIPPER

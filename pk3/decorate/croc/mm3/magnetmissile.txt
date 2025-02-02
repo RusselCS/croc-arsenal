@@ -53,7 +53,7 @@ actor CrocMagnetMissile : BasicProjectile
 {
 Radius 8
 Height 5
-damagetype "CrocMagnetMissile"
+damagetype "MagnetMissile"
 Obituary "$OB_MAGNETMISSILE"
 damage (30)
 speed 47

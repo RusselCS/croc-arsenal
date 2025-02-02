@@ -98,7 +98,7 @@ Bouncefactor 0.01
 WallBounceFactor 0.01
 Damage (13)
 Obituary "$OB_TORNADOHOLD"
-damagetype "CrocTornadoHoldPod"
+damagetype "TornadoHoldPod"
 Height 5
 Radius 5
 speed 33
@@ -162,7 +162,7 @@ actor CrocHoldingTornado : BasicProjectile
 damage (13) 
 +DONTREFLECT
 +RIPPER
-damagetype "CrocTornadoHold"
+damagetype "TornadoHold"
 Obituary "$OB_TORNADOHOLD"
 height 6
 radius 5

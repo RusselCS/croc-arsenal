@@ -82,7 +82,7 @@ stop
 
 actor CrocScrewCrusher : BasicProjectile
 {
-damagetype "CrocScrewCrusher"
+damagetype "ScrewCrusher"
 Obituary "$OB_SCREWCRUSHER"
 -NOGRAVITY
 +BOUNCEONWALLS

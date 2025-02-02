@@ -81,7 +81,7 @@ PROJECTILE
 +DONTREFLECT
 Speed 25
 Damage (0)
-damagetype "CrocDrillBomb"
+damagetype "DrillBomb"
 Obituary "$OB_DRILLBOMB"
 Height 6
 Radius 6

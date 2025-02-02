@@ -53,7 +53,7 @@ Radius 16
 Height 32
 damage (35)
 speed 25
-damagetype "CrocConcreteShot"
+damagetype "ConcreteShot"
 States
 {
 Spawn:

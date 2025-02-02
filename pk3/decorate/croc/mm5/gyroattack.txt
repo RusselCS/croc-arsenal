@@ -133,7 +133,7 @@ actor CrocGyroAttack : BasicProjectile
 Radius 15
 Height 8
 damage (30)
-damagetype "CrocGyroAttack"
+damagetype "GyroAttack"
 Obituary "$OB_GYROATTACK"
 speed 30
 +HITTRACER

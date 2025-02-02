@@ -187,7 +187,7 @@ actor CrocOilShot : BasicProjectile
 {
 +FORCEXYBILLBOARD
 Damage (27)
-damagetype "CrocOilSlider"
+damagetype "OilSlider"
 Obituary "$OB_OILSLIDER"
 Height 5
 Radius 8
@@ -228,7 +228,7 @@ Actor CrocOilBlob : ProjSpawnFuncActor
 +NOTAUTOAIMED
 +DONTDRAIN
 Damage (13)
-damagetype "CrocOilSlider"
+damagetype "OilSlider"
 Obituary "$OB_OILSLIDER"
 Height 10
 Radius 8
@@ -317,7 +317,7 @@ actor CrocOilSlider : BasicProjectile
 Radius 8
 Height 16
 damage (0)
-damagetype "CrocOilSlider"
+damagetype "OilSlider"
 speed 20
 States
 {
@@ -331,7 +331,7 @@ stop
 
 actor CrocSliderDamager : BasicExplosion
 {
-damagetype "CrocOilSlider"
+damagetype "OilSlider"
 Obituary "$OB_OILSLIDER"
 States
 {

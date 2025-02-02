@@ -204,7 +204,7 @@ actor CrocWaterShield : BasicProjectile // "Basic"
 {
 	+FORCEXYBILLBOARD
 	Obituary "$OB_WATERSHIELD"
-	Damagetype "CrocWaterShield"
+	Damagetype "WaterShield"
 	bouncetype hexen
     -ALLOWBOUNCEONACTORS
 	+THRUSPECIES

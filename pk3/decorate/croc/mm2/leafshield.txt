@@ -178,7 +178,7 @@ actor CrocLeafShield : BasicProjectile
 {
 Damage (27)
 Obituary "$OB_LEAFSHIELD"
-damagetype "CrocLeafShield"
+damagetype "LeafShield"
 Speed 25
 Radius 12
 Height 12
@@ -195,7 +195,7 @@ goto Spawn+2
 actor CrocLeafShieldCounterShot : BasicProjectile
 {
 	Obituary "$OB_LEAFSHIELD"
-	damagetype "CrocLeafShield"
+	damagetype "LeafShield"
 	height 12
 	radius 6
 	Speed 45

@@ -111,7 +111,7 @@ species "MovingPlatform"
 +DONTREFLECT
 maxstepheight 32
 Mass 9999999
-DamageType "CrocIceWall"
+DamageType "IceWall"
 Damage (0)
 Height 64
 Radius 24
@@ -162,7 +162,7 @@ Obituary "$OB_ICEWALL"
 +EXPLODEONDEATH
 Maxstepheight 24
 Mass 9999999
-DamageType "CrocIceWall"
+DamageType "IceWall"
 Health 200
 Damage (11)
 Radius 24

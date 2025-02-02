@@ -55,7 +55,7 @@ actor CrocWaterWaveSpawner : BasicProjectile
 +RIPPER
 +DONTBLAST
 Damage (0)
-damagetype "CrocWaterWave"
+damagetype "WaterWave"
 Height 1
 Radius 6
 gravity 15.0
@@ -81,7 +81,7 @@ actor CrocWaterWave : BasicProjectile
 {
 -NOGRAVITY
 Damage (11)
-damagetype "CrocWaterWave"
+damagetype "WaterWave"
 Obituary "$OB_WATERWAVE"
 Height 40
 Radius 6

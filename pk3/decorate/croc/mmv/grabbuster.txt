@@ -55,7 +55,7 @@ actor CrocGrabBuster : BasicProjectile
     +HITTRACER
     +BRIGHT
 	Obituary "$OB_GRABBUSTER"
-	Damagetype "CrocGrabBuster"
+	Damagetype "GrabBuster"
 	Damage (20)
 	height 10
 	radius 5

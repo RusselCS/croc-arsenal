@@ -87,7 +87,7 @@ actor CrocHornetChaser : BasicBouncer
 +SEEKERMISSILE
 +LOOKALLAROUND
 Obituary "$OB_HORNETCHASER"
-damagetype "CrocHornetChaser"
+damagetype "HornetChaser"
 Radius 5
 Height 5
 damage (20)

@@ -160,7 +160,7 @@ actor CrocStarCrash : BasicProjectile
 +DONTSPLASH
 +BRIGHT
 Damage (40)
-damagetype "CrocStarCrash"
+damagetype "StarCrash"
 Obituary "$OB_STARCRASH"
 Speed 30
 Radius 12
