@@ -1,22 +1,29 @@
-TODO:
-- Explosive weapons: DONTREFLECT sweep
+===== TODO =====
+Reworks:
 - Power Stone: Altfire to reverse direction
-- Water Shield: I don't like how the damage is currently handled, because the change is arbitrary-feeling.
-- Chill Spike: I've heard reports that it is possible to "permafreeze" players.
-- Wind Storm: Increase pull a bit
 - Break Dash: Change "uncharged" shot in a functional way. Thinking either a short-range punch using Pluto's "claw shot" graphic, or the weird homing energy blast.
+- Black Hole Bomb: Do something. Possible make it do what it does faster? (Suck in then explode quickly)
+- Bass Buster: Implement v6c changes.
+- Skull Barrier: [needs input from team.]
+
+Numbers:
 - Flash Bomb: Needs nerfs
+- Wind Storm: Increase pull a bit
 - Mirror Buster: Needs nerfs or is inherently broken.
 - Homing Sniper: Very strong, unsure if nerfs needed.
 - Gyro Attack: On the strong side, though not overbearing?
 - Photon Missile: Very strong, allegedly completely oppressive.
-- Black Hole Bomb: Do something. Possible make it do what it does faster? (Suck in then explode quickly)
-- Bass Buster: Implement v6c changes.
-- Skull Barrier: [needs input from team.]
-- Sweep: A_JumpIfInventory("MM8BDMPlayer", 1, "State", AAPTR_TRACER) -> A_JumpIf(IsPointerEqual(AAPTR_TRACER, AAPTR_NULL), "State")
-- Crystal Eye: Use composite hitbox to handle splits to cap its hits
+- Water Shield: I don't like how the damage is currently handled, because the change is arbitrary-feeling.
 
-DONE:
+Tech updates:
+- Crystal Eye: Use composite hitbox to handle splits to cap its hits
+- Sweep: A_JumpIfInventory("MM8BDMPlayer", 1, "State", AAPTR_TRACER) -> A_JumpIf(IsPointerEqual(AAPTR_TRACER, AAPTR_NULL), "State")
+- Explosive weapons: DONTREFLECT sweep
+
+Defects:
+- Chill Spike: I've heard reports that it is possible to "permafreeze" players.
+
+===== DONE =====
 - Reaim Tracer: -ACTIVATEIMPACT
 - Remote Mine: Has a tendency to aim behind a fleeing player.
 - Noise Crush: Catching has become less reliable after animation changes
