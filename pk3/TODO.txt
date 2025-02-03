@@ -13,6 +13,7 @@ Numbers:
 - Gyro Attack: On the strong side, though not overbearing?
 - Photon Missile: Very strong, allegedly completely oppressive.
 - Water Shield: I don't like how the damage is currently handled, because the change is arbitrary-feeling.
+- Silver Tomahawk: Make 3 hit.
 
 Tech updates:
 - Crystal Eye: Use composite hitbox to handle splits to cap its hits
@@ -20,7 +21,7 @@ Tech updates:
 - Explosive weapons: DONTREFLECT sweep
 
 Defects:
-- Chill Spike: I've heard reports that it is possible to "permafreeze" players.
+- Chill Spike: Give an "immunity" time to Chill Spike's freeze that lasts a 1/4th second longer than the freeze itself to keep from permafreezing.
 
 ===== DONE =====
 - Reaim Tracer: -ACTIVATEIMPACT
