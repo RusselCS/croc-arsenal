@@ -222,7 +222,7 @@ function void SpawnCompositeRipperHit(void) {
 // - Give it `var int user_DamageKill;`
 // - Give it a `reactiontime` equal to the number of times you want it to hit before dying.
 // Used for Chill Spike
-script "core_PierceExplode_Event" (int type, int dmg, int dmgtype) /*EVENT*/ {
+script "core_PierceExplode_Event" (int type, int dmg, int dmgtype) EVENT {
 	if(type==GAMEEVENT_ACTOR_DAMAGED_PREMOD) explodeDamagedEvent(dmg);
 }
 
