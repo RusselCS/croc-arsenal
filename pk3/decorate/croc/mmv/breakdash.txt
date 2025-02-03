@@ -1,13 +1,10 @@
-const int WEPC_VBD_RADIUS = 24;
-const int WEPC_VBD_HALFHEIGHT = 10;
-
 actor CrocBreakDashWep_ScriptBar : ScriptBar {}
 
-actor CrocBreakDashWep : BaseMM8BDMWep 10109
+actor CrocBreakDashWep : BaseMM8BDMWep
 {
     //$Category MM8BDM-Weapons/Close
     //$Title Break Dash
-    //$Sprite CBDSA0
+    //$Sprite BDASA0
     Weapon.AmmoUse 3
     Weapon.AmmoGive 28
     Weapon.SlotNumber 4
@@ -15,7 +12,7 @@ actor CrocBreakDashWep : BaseMM8BDMWep 10109
     Obituary "$OB_BREAKDASH"
     Tag "$TAG_BREAKDASH"
     weapon.ammotype "CrocBreakDashAmmo"
-    inventory.icon "CBDSWI"
+    inventory.icon "BDASWI"
     States
     {
     SpawnLoop:
@@ -102,10 +99,13 @@ actor CrocBreakDashWep : BaseMM8BDMWep 10109
         CBDS H 0 A_StopSoundEx ("SoundSlot5") 
         CBDS H 0 A_TakeInventory("WeaponCharge",500)
         CBDS H 0 A_ClearRefire
-        CBDS H 0 A_PlaySoundEx("weapons/mmv/breakdashbuster", "Weapon")
-        CBDS H 0 A_FireCustomMissile("MegaShot", 0, 0, 8, 0)
-        CBDS LM 3
-        CBDS H 2
+    Fire1F:
+        CBDS H 0 A_PlaySoundEx("weapons/mmv/crocbreakdashbuster", "Weapon")
+        CBDS H 0 A_FireCustomMissile("CrocBreakDashShot", 0, 0, 8, 0)
+        CBDS "LMXYZ]" 2 // forward
+        goto Fire1End
+    Fire1End:
+        CBDS ON 2
         goto Ready+1
     Fire2:
         CBDS G 0 A_TakeInventory("WeaponCharge",500)
@@ -113,50 +113,50 @@ actor CrocBreakDashWep : BaseMM8BDMWep 10109
         CBDS G 0 A_JumpIfNoAmmo("Fire1")
     DashBegin:
         CBDS B 0 ACS_NamedExecuteAlways("core_flyplayer",0,0,2)
-        CBDS H 0 ACS_NamedExecuteAlways("core_freezeplayer",0,0,1)
+        CBDS H 0 // ACS_NamedExecuteAlways("core_freezeplayer",0,0,1)
         CBDS H 0 A_TakeInventory("CrocBreakDashAmmo",3,TIF_NOTAKEINFINITE)
         CBDS N 1
         CBDS H 0 ACS_NamedExecuteWithResult("core_chargecolor",CLR_BREAKDASH,TCLR_NONE)
-        CBDS OZG 1
+        CBDS "O]G" 1
         CBDS H 0 A_SpawnItemEx("CrocBreakDashPuff")
         CBDS H 0 A_GiveInventory("CrocBreakDashCharge", 3)
     DashLoop:
         CBDS F 0 A_PlaySoundEx("weapons/mmv/breakdashfire", "Weapon")
         CBDS F 0 A_GiveInventory("CrocBreakDashSpeed", 1)
-        CBDS F 0 A_SpawnItemEx("CrocBreakDashFX", cos(pitch)*16+sin(-pitch)*12, 8, sin(-pitch)*16+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
+        CBDS F 0 A_SpawnItemEx("CrocBreakDashFX", cos(pitch)*16+sin(-pitch)*12, -8, sin(-pitch)*16+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
         CBDS F 0 A_SpawnItemEx("CrocBreakDashSparkFX", 0, 0, 0, momx, momy, -2, 0, SXF_ABSOLUTEMOMENTUM)
         CBDS F 1 A_SpawnItemEx("CrocBreakDashCheck", 0.75*WEPC_VBD_RADIUS*cos(pitch), 0, 0.75*WEPC_VBD_RADIUS*sin(-pitch)+(CallACS("core_getactorproperty", 0, APROP_Height, DATATYPE_INT)-WEPC_VBD_HALFHEIGHT*2)/2, cos(pitch), 0, sin(-pitch), 0, SXF_MULTIPLYSPEED)
         CBDS G 0 A_JumpIfInventory("CrocBreakDashRecoil", 1, "Recoil")
-        CBDS F 0 A_SpawnItemEx("CrocBreakDashFX", cos(pitch)*16+sin(-pitch)*12, 8, sin(-pitch)*16+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
+        CBDS F 0 A_SpawnItemEx("CrocBreakDashFX", cos(pitch)*16+sin(-pitch)*12, -8, sin(-pitch)*16+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
         CBDS F 0 A_SpawnItemEx("CrocBreakDashSparkFX", 0, 0, 0, momx, momy, -2, 0, SXF_ABSOLUTEMOMENTUM)
         CBDS F 1 A_SpawnItemEx("CrocBreakDashCheck", 0.75*WEPC_VBD_RADIUS*cos(pitch), 0, 0.75*WEPC_VBD_RADIUS*sin(-pitch)+(CallACS("core_getactorproperty", 0, APROP_Height, DATATYPE_INT)-WEPC_VBD_HALFHEIGHT*2)/2, cos(pitch), 0, sin(-pitch), 0, SXF_MULTIPLYSPEED)
         CBDS G 0 A_JumpIfInventory("CrocBreakDashRecoil", 1, "Recoil")
-        CBDS F 0 A_SpawnItemEx("CrocBreakDashFX", cos(pitch)*16+sin(-pitch)*12, 8, sin(-pitch)*16+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
+        CBDS F 0 A_SpawnItemEx("CrocBreakDashFX", cos(pitch)*16+sin(-pitch)*12, -8, sin(-pitch)*16+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
         CBDS F 0 A_SpawnItemEx("CrocBreakDashSparkFX", 0, 0, 0, momx, momy, -2, 0, SXF_ABSOLUTEMOMENTUM)
         CBDS F 1 A_SpawnItemEx("CrocBreakDashCheck", 0.75*WEPC_VBD_RADIUS*cos(pitch), 0, 0.75*WEPC_VBD_RADIUS*sin(-pitch)+(CallACS("core_getactorproperty", 0, APROP_Height, DATATYPE_INT)-WEPC_VBD_HALFHEIGHT*2)/2, cos(pitch), 0, sin(-pitch), 0, SXF_MULTIPLYSPEED)
         CBDS G 0 A_JumpIfInventory("CrocBreakDashRecoil", 1, "Recoil")
-        CBDS F 0 A_SpawnItemEx("CrocBreakDashFX", cos(pitch)*16+sin(-pitch)*12, 8, sin(-pitch)*16+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
+        CBDS F 0 A_SpawnItemEx("CrocBreakDashFX", cos(pitch)*16+sin(-pitch)*12, -8, sin(-pitch)*16+32, momx, momy, momz, 0, SXF_ABSOLUTEMOMENTUM)
         CBDS F 0 A_SpawnItemEx("CrocBreakDashSparkFX", 0, 0, 0, momx, momy, -2, 0, SXF_ABSOLUTEMOMENTUM)
         CBDS F 1 A_SpawnItemEx("CrocBreakDashCheck", 0.75*WEPC_VBD_RADIUS*cos(pitch), 0, 0.75*WEPC_VBD_RADIUS*sin(-pitch)+(CallACS("core_getactorproperty", 0, APROP_Height, DATATYPE_INT)-WEPC_VBD_HALFHEIGHT*2)/2, cos(pitch), 0, sin(-pitch), 0, SXF_MULTIPLYSPEED)
         CBDS G 0 A_JumpIfInventory("CrocBreakDashRecoil", 1, "Recoil")
         CBDS G 0 A_TakeInventory("CrocBreakDashCharge", 1)
         CBDS G 0 A_JumpIfInventory("CrocBreakDashCharge", 1, "DashLoop")
         CBDS B 0 ACS_NamedExecuteAlways("core_flyplayer",0,0,0)
-        CBDS B 0 ACS_NamedExecuteAlways("core_freezeplayer",0,0,0)
+        CBDS B 0 // ACS_NamedExecuteAlways("core_freezeplayer",0,0,0)
         CBDS B 0 A_ChangeVelocity(momx * 0.5, momy * 0.5, momz, CVF_REPLACE)
         CBDS S 3
-        CBDS TZON 2
+        CBDS "T]ON" 2
         CBDS H 2
         goto Ready+1
     Recoil:
-        CBDS Z 1
+        CBDS "]" 1
         CBDS G 0 A_PlaySoundEx("weapons/mmv/breakdashimpact", "weapon")
         CBDS G 0 A_ChangeVelocity(-15*cos(pitch), 0, -8*sin(-pitch)+5, CVF_RELATIVE|CVF_REPLACE)
         CBDS G 0 A_TakeInventory("CrocBreakDashCharge", 100)
         CBDS B 0 ACS_NamedExecuteAlways("core_flyplayer",0,0,0)
-        CBDS B 0 ACS_NamedExecuteAlways("core_freezeplayer",0,0,0)
-        CBDS ZZZONH 4
-        CBDS B 0 A_JumpIfInventory("CrocBreakDashHit", 1, "Hold3Ready")
+        CBDS B 0 // ACS_NamedExecuteAlways("core_freezeplayer",0,0,0)
+        CBDS "]]]ONH" 4
+        CBDS B 0 // A_JumpIfInventory("CrocBreakDashHit", 1, "Hold3Ready")
         goto Ready+1
     NoAmmo:
         CBDS H 1 ACS_NamedExecuteAlways("core_noammo",0)
@@ -185,9 +185,6 @@ actor CrocBreakDashAmmo : Ammo
     +INVENTORY.IGNORESKILL
 }
 
-const int WEPC_VBD_HSPEED = 45;
-const int WEPC_VBD_VSPEED = WEPC_VBD_HSPEED/2;
-
 actor CrocBreakDashSpeed : CustomInventory
 {
     States
@@ -210,18 +207,24 @@ actor CrocBreakDashCheck : BasicFastProjectile
 {
     Obituary "$OB_BREAKDASH"
     Damagetype "BreakDash"
-    height 20
-    radius 24
+    height 5
+    radius 2
     speed 64
     Damage (55)
+    var int user_DamageKill;
+    var int user_PierceRipper;
+    reactiontime 1
     States
     {
     Spawn:
         TNT1 A 0
+        TNT1 A 0 A_Explode(55, 32, 0, 0, 32)
         stop
     XDeath:
-        TNT1 A 0 A_GiveToTarget("CrocBreakDashHit", 1)
+        TNT1 A 0 // A_GiveToTarget("CrocBreakDashHit", 1)
+        goto Death+1
     Death:
+        TNT1 A 0 A_JumpIf(reactiontime == 0, "XDeath")
         TNT1 A 0 A_SpawnItemEx("PropBlowerEffect")
         TNT1 A 0 A_SpawnItemEx("CrocBreakDashQuake")
         TNT1 A 0 A_GiveToTarget("CrocBreakDashRecoil", 1)
@@ -235,8 +238,8 @@ actor CrocBreakDashQuake : BasicWatcher
 	{
 	Spawn:
 		TNT1 A 0
-		TNT1 A 0 Radius_Quake(2, 4, 0, 2, 0)
-		TNT1 A 1
+		TNT1 A 0 Radius_Quake(3, 10, 0, 2, 0)
+		TNT1 A 10
 		stop
 	}
 }
@@ -296,6 +299,24 @@ actor CrocBreakDashPuff : CrocBreakDashFX
         stop
     Air:
         BDAS PQR 3
+        stop
+    }
+}
+
+actor CrocBreakDashShot : BasicProjectile
+{
+    damagetype "CrocBreakDashShot"
+    Obituary "$OB_BREAKDASHSHOT"
+    +RIPPER
+    Speed 50
+    Damage (0)
+    radius 10
+    height 5
+    var int user_PierceRipper;
+    States
+    {
+    Spawn:
+        BDAS UUVVWW 1 nodelay A_Explode(12, 12, 0, 0, 12)
         stop
     }
 }

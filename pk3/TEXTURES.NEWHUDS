@@ -1,0 +1,8 @@
+// Break Dash
+sprite "CBDSL0", 308, 204 {Offset -272, 46 Patch HSPRF0, 0, 0 {Translation "192:192=4:4", "198:198=63:63"}}
+sprite "CBDSM0", 308, 204 {Offset -202, 4 Patch HSPRG0, 0, 0 {Translation "192:192=4:4", "198:198=63:63"}}
+sprite "CBDSX0", 308, 204 {Offset -151, -36 Patch HSPRH0, 0, 0 {Translation "192:192=4:4", "198:198=63:63"}}
+sprite "CBDSY0", 308, 204 {Offset -126, -123 Patch HSPRI0, 0, 0 {Translation "192:192=4:4", "198:198=63:63"}}
+sprite "CBDSZ0", 308, 204 {Offset -105, -147 Patch HSPRJ0, 0, 0 {Translation "192:192=4:4", "198:198=63:63"}}
+sprite "CBDS[0", 312, 108 {Offset -192, -175 Patch HSPRK0, 0, 0 {Translation "192:192=4:4", "198:198=63:63"}}
+

@@ -145,7 +145,7 @@ script "croc_addweps" OPEN
         DefineCrocWeapon(0, "TAG_ELECTRICSHOCK", "ElectricShockWep", "ESPAA0", "ElectricShockAmmo", 1.00, DTADD_SLOT_RAPID, mapTrue, lmsTrue, eddieTrue);
         DefineCrocWeapon(0, "TAG_BLACKHOLE", "BlackHoleWep", "BHOLA0", "BlackHoleAmmo", 1.00, DTADD_SLOT_SHIELD, mapTrue, false, eddieTrue);
         DefineCrocWeapon(0, "TAG_DEEPDIGGER", "DeepDiggerWep", "DDIGA0", "DeepDiggerAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "TAG_BREAKDASH", "BreakDashWep", "BDASA0", "BreakDashAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(1, "TAG_BREAKDASH", "BreakDashWep", "BDASA0", "BreakDashAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
         DefineCrocWeapon(0, "TAG_SPARKCHASER", "SparkChaserWep", "SCHSA0", "SparkChaserAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);
         
         DefineCrocWeapon(0, "TAG_SAKUGARNE", "SakugarneWep", "WEA2Z0", "SakugarneAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);

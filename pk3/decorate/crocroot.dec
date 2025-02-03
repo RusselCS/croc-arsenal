@@ -89,7 +89,7 @@ const int C_PRF_CENTEROFMASS = 8;
 // #include "decorate/croc/mmb/tengublade.txt"
 // #include "decorate/croc/mm8/thunderclaw.txt"
 // #include "decorate/croc/mmk/sakugarne.txt"
-// #include "decorate/croc/mmv/breakdash.txt"
+#include "decorate/croc/mmv/breakdash.txt"
 // #include "decorate/croc/mm9/hornetchaser.txt"
 // #include "decorate/croc/mm9/magmabazooka.txt"
 // #include "decorate/croc/mm3/topspin.txt"

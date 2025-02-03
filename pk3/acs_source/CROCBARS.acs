@@ -50,3 +50,28 @@ script "DrawBar_CrocCrashBombWep" (void) {
 script "DrawBar_CrocRemoteMineWep" (void) {
 	if(CheckInventory("WeaponCharge")>4) SetFlashingBar();
 }
+
+script "DrawBar_CrocBreakDashWep" (void) {
+    if(GetUserCvar(ConsolePlayerNumber(),"mm8bdm_usechargebars")) {
+        if(CheckInventory("WeaponCharge") >= 22) {
+            if(Timer() % 3 == 1) {
+                DrawBarColorGlow(63,247,4);
+            } else if (Timer() % 3 == 2) {
+                DrawBarColorGlow(247,4,63);
+            } else if (Timer() % 3 == 0) {
+                DrawBarColor(4,63);
+            }
+        } else if(CheckInventory("WeaponCharge") >= 3) {
+            if (Timer() % 2 == 1) {
+                DrawBarColorGlow(4,63,109);
+            } else {
+                DrawBarColor(4,63);
+            }
+        } else {
+            DrawBarColor(4,63);
+        }
+    } else {
+        DrawBarColor(4,63);
+        if(CheckInventory("WeaponCharge") >= 22) SetFlashingBar();
+    }
+}
