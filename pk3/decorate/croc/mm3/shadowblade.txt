@@ -1,6 +1,6 @@
 actor CrocShadowBladeWep_NormalBar : NormalBar { args 34, 239 }
 
-actor CrocShadowBladeWep : BaseMM8BDMWep 10022
+actor CrocShadowBladeWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Close
 //$Title Shadow Blade

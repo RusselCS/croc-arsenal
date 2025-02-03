@@ -1,6 +1,6 @@
 actor CrocNapalmBombWep_NormalBar : NormalBar { args 216, 75 }
 
-actor CrocNapalmBombWep : BaseMM8BDMWep 10035
+actor CrocNapalmBombWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Power
 //$Title Napalm Bomb

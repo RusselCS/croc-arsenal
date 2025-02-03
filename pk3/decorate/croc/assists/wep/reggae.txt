@@ -1,5 +1,5 @@
 // CrocReggae
-actor CrocReggaeCall : BaseMM8BDMUseItem 10009
+actor CrocReggaeCall : BaseMM8BDMUseItem
 {
 //$Category MM8BDM-Assists/Weapon
 //$Title CrocReggae Call

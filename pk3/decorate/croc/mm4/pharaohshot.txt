@@ -1,7 +1,7 @@
 actor CrocPharaohShotWep_NormalBar : NormalBar { args 52, 225 }
 actor CrocPharaohShotWep_ScriptBar : ScriptBar {}
 
-actor CrocPharaohShotWep : BaseMM8BDMWep // 10062
+actor CrocPharaohShotWep : BaseMM8BDMWep //
 {
 //$Category MM8BDM-Weapons/Power
 //$Title Pharaoh Shot

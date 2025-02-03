@@ -1,7 +1,7 @@
 actor CrocPlantBarrierWep_NormalBar : NormalBar { args 4, 39 }
 actor CrocPlantBarrierWep_ScriptBar : ScriptBar {}
 
-actor CrocPlantBarrierWep : BaseMM8BDMWep 10069
+actor CrocPlantBarrierWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Shield
 //$Title Plant Barrier

@@ -1,4 +1,4 @@
-actor CrocRushSearch : CustomInventory// 10090
+actor CrocRushSearch : CustomInventory//
 {
 //$Category MM8BDM-Assists
 //$Title Rush Search

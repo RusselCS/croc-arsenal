@@ -1,7 +1,7 @@
 actor CrocStarCrashWep_NormalBar : NormalBar { args 229, 220 }
 actor CrocStarCrashWep_ScriptBar : ScriptBar {}
 
-actor CrocStarCrashWep : BaseMM8BDMWep 10073
+actor CrocStarCrashWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Shield
 //$Title Star Crash

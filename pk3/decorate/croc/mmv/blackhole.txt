@@ -1,7 +1,7 @@
 actor CrocBlackHoleWep_NormalBar : NormalBar { args 4, 235 }
 actor CrocBlackHoleWep_ScriptBar : ScriptBar {}
 
-actor CrocBlackHoleWep : BaseMM8BDMWep 10107
+actor CrocBlackHoleWep : BaseMM8BDMWep
 {
     //$Category MM8BDM-Weapons/Shield
     //$Title Black Hole

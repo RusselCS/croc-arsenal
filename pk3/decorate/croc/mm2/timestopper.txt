@@ -2,7 +2,7 @@ const int WEPC_2TS_RADIUS = 350;
 
 actor CrocTimeStopperWep_NormalBar : NormalBar { args 34, 239 }
 
-actor CrocTimeStopperWep : BaseMM8BDMWep 10043
+actor CrocTimeStopperWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/AoE
 //$Title Time Stopper
@@ -181,7 +181,7 @@ inventory.amount 1
 inventory.maxamount 112
 }
 
-actor CrocTimeStopperGiver : CustomInventory// 10043
+actor CrocTimeStopperGiver : CustomInventory//
 {
 //$Category MM8BDM-Weapons
 Inventory.Pickupmessage "$PU_TIMESTOPPER"
@@ -286,7 +286,7 @@ inventory.maxamount 28
 +INVENTORY.IGNORESKILL
 }
 
-actor CrocTimeStopperGiver : CustomInventory 10043
+actor CrocTimeStopperGiver : CustomInventory
 {
 //$Category MM8BDM-Weapons
 //$Title Time Stopper

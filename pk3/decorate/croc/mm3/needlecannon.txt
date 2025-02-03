@@ -1,6 +1,6 @@
 actor CrocNeedleCannonWep_NormalBar : NormalBar { args 4, 220 }
 
-actor CrocNeedleCannonWep : BaseMM8BDMWep 10040
+actor CrocNeedleCannonWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Rapid
 //$Title CrocNeedle Cannon

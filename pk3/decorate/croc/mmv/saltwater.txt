@@ -1,6 +1,6 @@
 actor CrocSaltWaterWep_NormalBar : NormalBar { args 4, 198 }
 
-actor CrocSaltWaterWep : BaseMM8BDMWep 10110
+actor CrocSaltWaterWep : BaseMM8BDMWep
 {
     //$Category MM8BDM-Weapons/Close
     //$Title Salt Water

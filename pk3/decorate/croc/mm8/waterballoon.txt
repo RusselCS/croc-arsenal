@@ -1,6 +1,6 @@
 actor CrocWaterBalloonWep_NormalBar : NormalBar { args 192, 62 }
 
-actor CrocWaterBalloonWep : BaseMM8BDMWep 11098
+actor CrocWaterBalloonWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Rapid
 //$Title Water Balloon

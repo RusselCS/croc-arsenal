@@ -1,6 +1,6 @@
 actor CrocPowerStoneWep_NormalBar : NormalBar { args 4, 46 }
 
-actor CrocPowerStoneWep : BaseMM8BDMWep 10060
+actor CrocPowerStoneWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Close
 //$Title Power Stone

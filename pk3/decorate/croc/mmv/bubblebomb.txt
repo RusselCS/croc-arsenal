@@ -1,6 +1,6 @@
 actor CrocBubbleBombWep_NormalBar : NormalBar { args 4, 229 }
 
-actor CrocBubbleBombWep : BaseMM8BDMWep 10104
+actor CrocBubbleBombWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Power
 //$Title Bubble Bomb

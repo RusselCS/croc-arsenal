@@ -1,7 +1,7 @@
 actor CrocTornadoHoldWep_NormalBar : NormalBar { args 236, 194 }
 actor CrocTornadoHoldWep_ScriptBar : ScriptBar {}
 
-actor CrocTornadoHoldWep : BaseMM8BDMWep 11092
+actor CrocTornadoHoldWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Close
 //$Title Tornado Hold

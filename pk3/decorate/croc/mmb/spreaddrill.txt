@@ -1,6 +1,6 @@
 actor CrocSpreadDrillWep_NormalBar : NormalBar { args 87, 220 }
 
-actor CrocSpreadDrillWep : BaseMM8BDMWep 10014
+actor CrocSpreadDrillWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Power
 //$Title Spread Drill

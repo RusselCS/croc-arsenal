@@ -1,6 +1,6 @@
 actor CrocGyroAttackWep_NormalBar : NormalBar { args 4, 128 }
 
-actor CrocGyroAttackWep : BaseMM8BDMWep 10059
+actor CrocGyroAttackWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Ranged
 //$Title Gyro Attack

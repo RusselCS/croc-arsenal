@@ -1,6 +1,6 @@
 actor CrocWaveBurnerWep_NormalBar : NormalBar { args 218, 40 }
 
-actor CrocWaveBurnerWep : BaseMM8BDMWep 10013
+actor CrocWaveBurnerWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Rapid
 //$Title Wave Burner

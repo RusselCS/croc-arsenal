@@ -1,6 +1,6 @@
 actor CrocReboundStrikerWep_NormalBar : NormalBar { args 38, 251 }
 
-actor CrocReboundStrikerWep : BaseMM8BDMWep 10094
+actor CrocReboundStrikerWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Ranged
 //$Title Rebound Striker

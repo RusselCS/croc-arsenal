@@ -1,6 +1,6 @@
 actor CrocQuickBoomerangWep_NormalBar : NormalBar { args 34, 39 }
 
-actor CrocQuickBoomerangWep : BaseMM8BDMWep 10053
+actor CrocQuickBoomerangWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Rapid
 //$Title Quick Boomerang

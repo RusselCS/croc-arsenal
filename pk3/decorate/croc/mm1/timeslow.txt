@@ -1,7 +1,7 @@
 actor CrocTimeSlowWep_NormalBar : NormalBar { args 34, 239 }
 actor CrocTimeSlowWep_ScriptBar : ScriptBar {}
 
-actor CrocTimeSlowWep : BaseMM8BDMWep 11010
+actor CrocTimeSlowWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/AoE
 //$Title Time Slow

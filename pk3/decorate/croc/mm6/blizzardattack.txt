@@ -1,6 +1,6 @@
 actor CrocBlizzardAttackWep_NormalBar : NormalBar { args 4, 197 }
 
-actor CrocBlizzardAttackWep : BaseMM8BDMWep 10051
+actor CrocBlizzardAttackWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Ranged
 //$Title Blizzard Attack

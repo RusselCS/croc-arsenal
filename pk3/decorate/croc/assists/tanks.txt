@@ -1,4 +1,4 @@
-actor CrocETank : BaseMM8BDMUseItem 10091
+actor CrocETank : BaseMM8BDMUseItem
 {
 //$Category MM8BDM-Assists/Tanks
 //$Title E-Tank
@@ -152,7 +152,7 @@ stop
 
 actor CrocCustWepCanHoldWTank : Once {}
 
-actor CrocWTank : BaseMM8BDMUseItem 10151
+actor CrocWTank : BaseMM8BDMUseItem
 {
 //$Category MM8BDM-Assists/Tanks
 //$Title W-Tank
@@ -288,7 +288,7 @@ actor CrocWTank_RespawnShadow : 8BDMItemRespawnShadow
 	}
 }
 
-actor CrocMTank : BaseMM8BDMUseItem 10154
+actor CrocMTank : BaseMM8BDMUseItem
 {
 //$Category MM8BDM-Assists/Tanks
 //$Title M-Tank
@@ -365,7 +365,7 @@ actor CrocMTank_RespawnShadow : 8BDMItemRespawnShadow
 	}
 }
 
-actor CrocPartyBall 11104
+actor CrocPartyBall
 {
 //$Category MM8BDM-Energy
 +NOGRAVITY

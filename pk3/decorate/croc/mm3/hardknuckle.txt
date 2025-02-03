@@ -1,6 +1,6 @@
 actor CrocHardKnuckleWep_NormalBar : NormalBar { args 87, 199 }
 
-actor CrocHardKnuckleWep : BaseMM8BDMWep 10049
+actor CrocHardKnuckleWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Power
 //$Title Hard Knuckle

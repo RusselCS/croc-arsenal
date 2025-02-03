@@ -1,7 +1,7 @@
 actor CrocWheelCutterWep_NormalBar : NormalBar { args 4, 95 }
 actor CrocWheelCutterWep_ScriptBar : ScriptBar {}
 
-actor CrocWheelCutterWep : BaseMM8BDMWep 10095
+actor CrocWheelCutterWep : BaseMM8BDMWep
 {
     //$Category MM8BDM-Weapons/Close
     //$Title Wheel Cutter

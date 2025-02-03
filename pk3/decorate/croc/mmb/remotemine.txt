@@ -1,7 +1,7 @@
 actor CrocRemoteMineWep_NormalBar : NormalBar { args 41, 3 }
 actor CrocRemoteMineWep_ScriptBar : ScriptBar {}
 
-actor CrocRemoteMineWep : BaseMM8BDMWep // 10017
+actor CrocRemoteMineWep : BaseMM8BDMWep //
 {
 //$Category MM8BDM-Weapons/Power
 //$Title Remote Mine

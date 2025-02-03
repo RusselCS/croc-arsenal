@@ -1,7 +1,7 @@
 actor CrocOilSliderWep_NormalBar : NormalBar { args 68, 47 }
 actor CrocOilSliderWep_ScriptBar : ScriptBar {}
 
-actor CrocOilSliderWep : BaseMM8BDMWep 20042
+actor CrocOilSliderWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Close
 //$Title Oil Slider

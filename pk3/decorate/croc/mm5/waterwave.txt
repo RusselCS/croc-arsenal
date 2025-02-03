@@ -1,6 +1,6 @@
 actor CrocWaterWaveWep_NormalBar : NormalBar { args 4, 198 }
 
-actor CrocWaterWaveWep : BaseMM8BDMWep 10063
+actor CrocWaterWaveWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Rapid
 //$Title Water Wave

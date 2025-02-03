@@ -1,6 +1,6 @@
 actor CrocGrabBusterWep_NormalBar : NormalBar { args 4, 104 }
 
-actor CrocGrabBusterWep : BaseMM8BDMWep 10103
+actor CrocGrabBusterWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Ranged
 //$Title Grab Buster

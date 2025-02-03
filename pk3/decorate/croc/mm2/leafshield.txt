@@ -1,7 +1,7 @@
 actor CrocLeafShieldWep_NormalBar : NormalBar { args 4, 129 }
 actor CrocLeafShieldWep_ScriptBar : ScriptBar {}
 
-actor CrocLeafShieldWep : BaseMM8BDMWep 10011
+actor CrocLeafShieldWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Shield
 //$Title Leaf Shield

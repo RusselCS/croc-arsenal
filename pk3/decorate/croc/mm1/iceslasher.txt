@@ -1,6 +1,6 @@
 actor CrocIceSlasherWep_NormalBar : NormalBar { args 4, 75 }
 
-actor CrocIceSlasherWep : BaseMM8BDMWep 10045
+actor CrocIceSlasherWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Rapid
 //$Title Ice Slasher

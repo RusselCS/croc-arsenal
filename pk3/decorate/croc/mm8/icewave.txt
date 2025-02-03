@@ -1,6 +1,6 @@
 actor CrocIceWaveWep_NormalBar : NormalBar { args 229, 205 }
 
-actor CrocIceWaveWep : BaseMM8BDMWep 11090
+actor CrocIceWaveWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Ranged
 //$Title Ice Wave

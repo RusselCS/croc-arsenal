@@ -1,6 +1,6 @@
 actor CrocTripleBladeWep_NormalBar : NormalBar { args 4, 251 }
 
-actor CrocTripleBladeWep : BaseMM8BDMWep 10097
+actor CrocTripleBladeWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Rapid
 //$Title Triple Blade

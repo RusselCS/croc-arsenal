@@ -1,6 +1,6 @@
 actor CrocRainFlushWep_NormalBar : NormalBar { args 4, 104 }
 
-actor CrocRainFlushWep : BaseMM8BDMWep 10074
+actor CrocRainFlushWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/AoE
 //$Title Rain Flush

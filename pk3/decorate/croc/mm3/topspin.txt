@@ -1,6 +1,6 @@
 actor CrocTopSpinWep_NormalBar : NormalBar { args 52, 93 }
 
-actor CrocTopSpinWep : BaseMM8BDMWep 10039
+actor CrocTopSpinWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Close
 //$Title Top Spin

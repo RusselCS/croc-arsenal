@@ -1,7 +1,7 @@
 actor CrocIceWallWep_NormalBar : NormalBar { args 200, 75 }
 actor CrocIceWallWep_ScriptBar : ScriptBar {}
 
-actor CrocIceWallWep : BaseMM8BDMWep 10018
+actor CrocIceWallWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Shield
 //$Title Ice Wall

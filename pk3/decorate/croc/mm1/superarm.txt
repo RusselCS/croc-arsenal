@@ -2,7 +2,7 @@
 
 actor CrocSuperArmWep_NormalBar : NormalBar { args 4, 220 }
 
-actor CrocSuperArmWep : BaseMM8BDMWep 10044
+actor CrocSuperArmWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Power
 //$Title Super Arm

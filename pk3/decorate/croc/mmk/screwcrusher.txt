@@ -1,6 +1,6 @@
 actor CrocScrewCrusherWep_NormalBar : NormalBar { args 54, 42 }
 
-actor CrocScrewCrusherWep : BaseMM8BDMWep 10077
+actor CrocScrewCrusherWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Rapid
 //$Title Screw Crusher

@@ -1,6 +1,6 @@
 actor CrocElectricShockWep_NormalBar : NormalBar { args 229, 130 }
 
-actor CrocElectricShockWep : BaseMM8BDMWep 10106
+actor CrocElectricShockWep : BaseMM8BDMWep
 {
     //$Category MM8BDM-Weapons/Rapid
     //$Title Electric Shock

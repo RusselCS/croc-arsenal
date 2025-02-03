@@ -1,7 +1,7 @@
 //Yes, I know Sakugarne isn't a MMK weapon. But it fit here best. Okay? -Ivory
 actor CrocSakugarneWep_NormalBar : NormalBar { args 138, 130 }
 
-actor CrocSakugarneWep : BaseMM8BDMWep 10075
+actor CrocSakugarneWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Close
 //$Title Sakugarne

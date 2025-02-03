@@ -1,7 +1,7 @@
 actor CrocSparkShockWep_NormalBar : NormalBar { args 4, 225 }
 actor CrocSparkShockWep_ScriptBar : ScriptBar {}
 
-actor CrocSparkShockWep : BaseMM8BDMWep 10057
+actor CrocSparkShockWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Ranged
 //$Title Spark Shock

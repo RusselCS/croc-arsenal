@@ -4,7 +4,7 @@ const int WEPC_VPM_CHARGEARM = 30;
 actor CrocPhotonMissileWep_NormalBar : NormalBar { args 229, 199 }
 actor CrocPhotonMissileWep_ScriptBar : ScriptBar {}
 
-actor CrocPhotonMissileWep : BaseMM8BDMWep 10105
+actor CrocPhotonMissileWep : BaseMM8BDMWep
 {
     //$Category MM8BDM-Weapons/Power
     //$Title Photon Missile

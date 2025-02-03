@@ -1,7 +1,7 @@
 actor CrocHornetChaserWep_NormalBar : NormalBar { args 4, 228 }
 actor CrocHornetChaserWep_ScriptBar : ScriptBar {}
 
-actor CrocHornetChaserWep : BaseMM8BDMWep 10027
+actor CrocHornetChaserWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Close
 //$Title Hornet Chaser

@@ -1,4 +1,4 @@
-actor CrocExitUnitItem : BaseMM8BDMUseItem 10160
+actor CrocExitUnitItem : BaseMM8BDMUseItem
 {
     //$Category MM8BDM-Assists/Utility
     //$Title Exit Unit
@@ -109,7 +109,7 @@ stop
 // [Jax] you should probably just give your ammo-using custom wep classes energy balancer in the first place >_>
 actor CrocCustWepCanHoldEBal : Once {}
 
-actor CrocEnergyBalancer : BaseMM8BDMUseItem 10008
+actor CrocEnergyBalancer : BaseMM8BDMUseItem
 {
 //$Category MM8BDM-Assists/Utility
 //$Title Energy Balancer

@@ -1,7 +1,7 @@
 actor CrocSkullBarrierWep_NormalBar : NormalBar { args 192, 197 }
 actor CrocSkullBarrierWep_ScriptBar : ScriptBar {}
 
-actor CrocSkullBarrierWep : BaseMM8BDMWep 10065
+actor CrocSkullBarrierWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Shield
 //$Title Skull Barrier

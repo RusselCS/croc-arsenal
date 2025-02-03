@@ -1,6 +1,6 @@
 actor CrocMegaBallWep_NormalBar : NormalBar { args 197, 239 }
 
-actor CrocMegaBallWep : BaseMM8BDMWep 11093
+actor CrocMegaBallWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Ranged
 //$Title Mega Ball

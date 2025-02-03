@@ -1,6 +1,6 @@
 actor CrocChillSpikeWep_NormalBar : NormalBar { args 202, 207 }
 
-actor CrocChillSpikeWep : BaseMM8BDMWep 10100
+actor CrocChillSpikeWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Close
 //$Title Chill Spike

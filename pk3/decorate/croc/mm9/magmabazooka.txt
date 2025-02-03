@@ -1,6 +1,6 @@
 actor CrocMagmaBazookaWep_ScriptBar : ScriptBar {}
 
-actor CrocMagmaBazookaWep : BaseMM8BDMWep 10028
+actor CrocMagmaBazookaWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Close
 //$Title Magma Bazooka

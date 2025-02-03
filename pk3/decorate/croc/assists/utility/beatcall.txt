@@ -1,4 +1,4 @@
-actor CrocBeatBoostItem : BaseMM8BDMUseItem 10157
+actor CrocBeatBoostItem : BaseMM8BDMUseItem
 {
 //$Category MM8BDM-Assists/Mobility
 //$Title Beat Call

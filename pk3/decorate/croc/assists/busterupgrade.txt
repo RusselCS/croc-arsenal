@@ -1,4 +1,4 @@
-actor CrocBassUpgrade : BaseMM8BDMBusterUpgrade 10155
+actor CrocBassUpgrade : BaseMM8BDMBusterUpgrade
 {
 //$Category MM8BDM-Weapons/Buster
 //$Title Bass Upgrade
@@ -45,7 +45,7 @@ actor CrocBassUpgrade_RespawnShadow : 8BDMItemRespawnShadow
 }
 
 
-actor CrocProtoUpgrade : BaseMM8BDMBusterUpgrade 10153
+actor CrocProtoUpgrade : BaseMM8BDMBusterUpgrade
 {
 //$Category MM8BDM-Weapons/Buster
 //$Title Proto Upgrade
@@ -94,7 +94,7 @@ actor CrocProtoUpgrade_RespawnShadow : 8BDMItemRespawnShadow
 	}
 }
 
-actor CrocAdaptorUpgrade : BaseMM8BDMBusterUpgrade 10158
+actor CrocAdaptorUpgrade : BaseMM8BDMBusterUpgrade
 {
 //$Category MM8BDM-Weapons/Buster
 //$Title Adaptor Upgrade
@@ -142,7 +142,7 @@ actor CrocAdaptorUpgrade_RespawnShadow : 8BDMItemRespawnShadow
 	}
 }
 
-actor CrocLaserBusterUpgrade : BaseMM8BDMBusterUpgrade 11100
+actor CrocLaserBusterUpgrade : BaseMM8BDMBusterUpgrade
 {
 //$Category MM8BDM-Weapons/Buster
 //$Title Laser Upgrade
@@ -187,7 +187,7 @@ actor CrocLaserBusterUpgrade_RespawnShadow : 8BDMItemRespawnShadow
 }
 
 
-actor CrocArrowBusterUpgrade : BaseMM8BDMBusterUpgrade 11101
+actor CrocArrowBusterUpgrade : BaseMM8BDMBusterUpgrade
 {
 //$Category MM8BDM-Weapons/Buster
 //$Title Arrow Upgrade
@@ -231,7 +231,7 @@ actor CrocArrowBusterUpgrade_RespawnShadow : 8BDMItemRespawnShadow
 	}
 }
 
-actor CrocDuoFistUpgrade : BaseMM8BDMBusterUpgrade 11102
+actor CrocDuoFistUpgrade : BaseMM8BDMBusterUpgrade
 {
 //$Category MM8BDM-Weapons/Buster
 //$Title Duo Upgrade
@@ -276,7 +276,7 @@ actor CrocDuoFistUpgrade_RespawnShadow : 8BDMItemRespawnShadow
 	}
 }
 
-actor CrocTrebleBoostUpgrade : BaseMM8BDMBusterUpgrade 10020
+actor CrocTrebleBoostUpgrade : BaseMM8BDMBusterUpgrade
 {
 //$Category MM8BDM-Weapons/Buster
 //$Title CrocTreble Upgrade
@@ -322,7 +322,7 @@ actor CrocTrebleBoostUpgrade_RespawnShadow : 8BDMItemRespawnShadow
 	}
 }
 
-actor CrocMegaArmUpgrade : BaseMM8BDMBusterUpgrade 10111
+actor CrocMegaArmUpgrade : BaseMM8BDMBusterUpgrade
 {
 //$Category MM8BDM-Weapons/Buster
 //$Title Mega Arm

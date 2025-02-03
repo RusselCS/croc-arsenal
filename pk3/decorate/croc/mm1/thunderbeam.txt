@@ -1,6 +1,6 @@
 actor CrocThunderBeamWep_NormalBar : NormalBar { args 215, 94 }
 
-actor CrocThunderBeamWep : BaseMM8BDMWep 10047
+actor CrocThunderBeamWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Ranged
 //$Title Thunder Beam

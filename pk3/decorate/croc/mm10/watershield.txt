@@ -1,7 +1,7 @@
 actor CrocWaterShieldWep_NormalBar : NormalBar { args 201, 74 }
 actor CrocWaterShieldWep_ScriptBar : ScriptBar {}
 
-actor CrocWaterShieldWep : BaseMM8BDMWep 10098
+actor CrocWaterShieldWep : BaseMM8BDMWep
 {
 	//$Category MM8BDM-Weapons/Shield
 	//$Title Water Shield

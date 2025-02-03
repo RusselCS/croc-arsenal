@@ -1,6 +1,6 @@
 actor CrocBalladeCrackerWep_NormalBar : NormalBar { args 64, 62 }
 
-actor CrocBalladeCrackerWep : BaseMM8BDMWep 10076
+actor CrocBalladeCrackerWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Power
 //$Title Ballade Cracker

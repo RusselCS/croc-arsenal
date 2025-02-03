@@ -1,6 +1,6 @@
 actor CrocFlashBombWep_NormalBar : NormalBar { args 229, 77 }
 
-actor CrocFlashBombWep : BaseMM8BDMWep 11091
+actor CrocFlashBombWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Power
 //$Title Flash Bomb

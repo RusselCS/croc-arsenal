@@ -1,7 +1,7 @@
 actor CrocJewelSatelliteWep_NormalBar : NormalBar { args 4, 193 }
 actor CrocJewelSatelliteWep_ScriptBar : ScriptBar {}
 
-actor CrocJewelSatelliteWep : BaseMM8BDMWep 10026
+actor CrocJewelSatelliteWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Shield
 //$Title Jewel Satellite

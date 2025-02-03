@@ -1,6 +1,6 @@
 actor CrocWindStormWep_NormalBar : NormalBar { args 4, 93 }
 
-actor CrocWindStormWep : BaseMM8BDMWep 10071
+actor CrocWindStormWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Close
 //$Title Wind Storm

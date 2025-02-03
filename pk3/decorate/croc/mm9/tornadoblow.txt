@@ -1,6 +1,6 @@
 actor CrocTornadoBlowWep_NormalBar : NormalBar { args 4, 109 }
 
-actor CrocTornadoBlowWep : BaseMM8BDMWep 10023
+actor CrocTornadoBlowWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/AoE
 //$Title Tornado Blow

@@ -1,6 +1,6 @@
 actor CrocSlashClawWep_NormalBar : NormalBar { args 228, 111 }
 
-actor CrocSlashClawWep : BaseMM8BDMWep 10088
+actor CrocSlashClawWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Close
 //$Title Slash Claw

@@ -1,6 +1,6 @@
 actor CrocDiveMissileWep_NormalBar : NormalBar { args 4, 198 }
 
-actor CrocDiveMissileWep : BaseMM8BDMWep 10068
+actor CrocDiveMissileWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Ranged
 //$Title Dive Missile

@@ -1,4 +1,4 @@
-actor CrocTangoSummon : BaseMM8BDMUseItem 10156
+actor CrocTangoSummon : BaseMM8BDMUseItem
 {
 //$Category MM8BDM-Assists/Weapon
 //$Title CrocTango Roll

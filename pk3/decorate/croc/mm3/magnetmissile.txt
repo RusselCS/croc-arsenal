@@ -1,6 +1,6 @@
 actor CrocMagnetMissileWep_NormalBar : NormalBar { args 87, 227 }
 
-actor CrocMagnetMissileWep : BaseMM8BDMWep 10038
+actor CrocMagnetMissileWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Ranged
 //$Title Magnet Missile

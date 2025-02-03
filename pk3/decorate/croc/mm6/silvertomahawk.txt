@@ -1,6 +1,6 @@
 actor CrocSilverTomahawkWep_NormalBar : NormalBar { args 52, 220 }
 
-actor CrocSilverTomahawkWep : BaseMM8BDMWep 10070
+actor CrocSilverTomahawkWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Ranged
 //$Title Silver Tomahawk

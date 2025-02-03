@@ -1,7 +1,7 @@
 actor CrocHomingSniperWep_NormalBar : NormalBar { args 192, 230 }
 actor CrocHomingSniperWep_ScriptBar : ScriptBar {}
 
-actor CrocHomingSniperWep : BaseMM8BDMWep 11097
+actor CrocHomingSniperWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Close
 //$Title Homing Sniper

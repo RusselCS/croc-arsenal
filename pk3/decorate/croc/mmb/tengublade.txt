@@ -1,7 +1,7 @@
 actor CrocTenguBladeWep_NormalBar : NormalBar { args 208, 93 }
 actor CrocTenguBladeWep_ScriptBar : ScriptBar {}
 
-actor CrocTenguBladeWep : BaseMM8BDMWep 10012
+actor CrocTenguBladeWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Close
 //$Title Tengu Blade

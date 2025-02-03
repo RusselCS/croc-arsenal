@@ -1,6 +1,6 @@
 actor CrocSolarBlazeWep_NormalBar : NormalBar { args 248, 222 }
 
-actor CrocSolarBlazeWep : BaseMM8BDMWep 10096
+actor CrocSolarBlazeWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Power
 //$Title Solar Blaze

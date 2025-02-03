@@ -1,5 +1,5 @@
 // Rush Marine
-actor CrocRushMarine : BaseMM8BDMUseItem 10150
+actor CrocRushMarine : BaseMM8BDMUseItem
 {
 //$Category MM8BDM-Assists/Mobility
 //$Title Rush Marine

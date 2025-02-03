@@ -1,6 +1,6 @@
 actor CrocAstroCrushWep_NormalBar : NormalBar { args 229, 128 }
 
-actor CrocAstroCrushWep : BaseMM8BDMWep 11094
+actor CrocAstroCrushWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/AoE
 //$Title Astro Crush

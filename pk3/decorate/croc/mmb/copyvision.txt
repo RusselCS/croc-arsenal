@@ -1,6 +1,6 @@
 actor CrocCopyVisionWep_NormalBar : NormalBar { args 201, 110 }
 
-actor CrocCopyVisionWep : BaseMM8BDMWep // 10015
+actor CrocCopyVisionWep : BaseMM8BDMWep //
 {
 //$Category MM8BDM-Weapons/Ranged
 //$Title Copy Vision

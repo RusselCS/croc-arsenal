@@ -1,6 +1,6 @@
 actor CrocLightningBoltWep_NormalBar : NormalBar { args 93,229 }
 
-actor CrocLightningBoltWep : BaseMM8BDMWep 10019
+actor CrocLightningBoltWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/AoE
 //$Title Lightning Bolt

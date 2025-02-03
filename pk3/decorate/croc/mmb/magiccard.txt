@@ -1,6 +1,6 @@
 actor CrocMagicCardWep_NormalBar : NormalBar { args 236, 3 }
 
-actor CrocMagicCardWep : BaseMM8BDMWep 10016
+actor CrocMagicCardWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Close
 //$Title Magic Card

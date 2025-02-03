@@ -1,6 +1,6 @@
 actor CrocGravityHoldWep_NormalBar : NormalBar { args 4, 239 }
 
-actor CrocGravityHoldWep : BaseMM8BDMWep 10079
+actor CrocGravityHoldWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/AoE
 //$Title Gravity Hold

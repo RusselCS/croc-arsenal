@@ -1,6 +1,6 @@
 actor CrocFlameBlastWep_NormalBar : NormalBar { args 52, 225 }
 
-actor CrocFlameBlastWep : BaseMM8BDMWep 10066
+actor CrocFlameBlastWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Close
 //$Title Flame Blast

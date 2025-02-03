@@ -1,6 +1,6 @@
 actor CrocThunderClawWep_NormalBar : NormalBar { args 192, 220 }
 
-actor CrocThunderClawWep : BaseMM8BDMWep 11096
+actor CrocThunderClawWep : BaseMM8BDMWep
 {
     //$Category MM8BDM-Weapons/Close
     //$Title Thunder Claw

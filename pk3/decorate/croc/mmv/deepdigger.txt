@@ -1,7 +1,7 @@
 actor CrocDeepDiggerWep_NormalBar : NormalBar { args 4, 227 }
 actor CrocDeepDiggerWep_ScriptBar : ScriptBar {}
 
-actor CrocDeepDiggerWep : BaseMM8BDMWep 10108
+actor CrocDeepDiggerWep : BaseMM8BDMWep
 {
     //$Category MM8BDM-Weapons/Ranged
     //$Title Deep Digger

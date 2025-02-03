@@ -1,6 +1,6 @@
 actor CrocBubbleLeadWep_NormalBar : NormalBar { args 4, 93 }
 
-actor CrocBubbleLeadWep : BaseMM8BDMWep 10007
+actor CrocBubbleLeadWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Close
 //$Title Bubble Lead

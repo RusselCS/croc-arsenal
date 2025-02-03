@@ -1,6 +1,6 @@
 actor CrocAirShooterWep_NormalBar : NormalBar { args 4, 198 }
 
-actor CrocAirShooterWep : BaseMM8BDMWep 10036
+actor CrocAirShooterWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Close
 //$Title Air Shooter

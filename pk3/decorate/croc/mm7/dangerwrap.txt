@@ -1,6 +1,6 @@
 actor CrocDangerWrapWep_NormalBar : NormalBar { args 4, 230 }
 
-actor CrocDangerWrapWep : BaseMM8BDMWep 10085
+actor CrocDangerWrapWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Power
 //$Title Danger Wrap

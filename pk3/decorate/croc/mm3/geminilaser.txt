@@ -1,6 +1,6 @@
 actor CrocGeminiLaserWep_NormalBar : NormalBar { args 4, 197 }
 
-actor CrocGeminiLaserWep : BaseMM8BDMWep 10041
+actor CrocGeminiLaserWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Ranged
 //$Title Gemini Laser

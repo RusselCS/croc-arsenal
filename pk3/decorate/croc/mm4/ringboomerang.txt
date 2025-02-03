@@ -1,6 +1,6 @@
 actor CrocRingBoomerangWep_NormalBar : NormalBar { args 215, 230 }
 
-actor CrocRingBoomerangWep : BaseMM8BDMWep 10058
+actor CrocRingBoomerangWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Close
 //$Title Ring Boomerang

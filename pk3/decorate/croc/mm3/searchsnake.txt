@@ -1,6 +1,6 @@
 actor CrocSearchSnakeWep_NormalBar : NormalBar { args 4, 110 }
 
-actor CrocSearchSnakeWep : BaseMM8BDMWep 10042
+actor CrocSearchSnakeWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Ranged
 //$Title Search Snake

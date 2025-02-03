@@ -1,6 +1,6 @@
 actor CrocWildCoilWep_ScriptBar : ScriptBar {}
 
-actor CrocWildCoilWep : BaseMM8BDMWep 10084
+actor CrocWildCoilWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Close
 //$Title Wild Coil

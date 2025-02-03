@@ -1,6 +1,6 @@
 actor CrocPlugBallWep_NormalBar : NormalBar { args 4, 39 }
 
-actor CrocPlugBallWep : BaseMM8BDMWep 10025
+actor CrocPlugBallWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Rapid
 //$Title Plug Ball

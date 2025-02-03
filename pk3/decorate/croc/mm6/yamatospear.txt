@@ -1,6 +1,6 @@
 actor CrocYamatoSpearWep_NormalBar : NormalBar { args 4, 236 }
 
-actor CrocYamatoSpearWep : BaseMM8BDMWep 10067
+actor CrocYamatoSpearWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Rapid
 //$Title Yamato Spear

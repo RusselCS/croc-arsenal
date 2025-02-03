@@ -1,6 +1,6 @@
 actor CrocHyperBombWep_NormalBar : NormalBar { args 4, 110 }
 
-actor CrocHyperBombWep : BaseMM8BDMWep 10037
+actor CrocHyperBombWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Power
 //$Title Hyper Bomb

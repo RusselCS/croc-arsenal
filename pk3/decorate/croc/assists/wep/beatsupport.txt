@@ -1,4 +1,4 @@
-actor CrocBeatSupport : BaseMM8BDMUseItem 11105
+actor CrocBeatSupport : BaseMM8BDMUseItem
 {
 //$Category MM8BDM-Assists/Weapon
 //$Title Beat Support

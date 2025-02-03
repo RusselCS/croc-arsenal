@@ -1,6 +1,6 @@
 actor CrocRollingCutterWep_NormalBar : NormalBar { args 4, 94 }
 
-actor CrocRollingCutterWep : BaseMM8BDMWep 10056
+actor CrocRollingCutterWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Close
 //$Title Rolling Cutter

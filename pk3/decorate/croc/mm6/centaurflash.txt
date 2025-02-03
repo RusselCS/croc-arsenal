@@ -4,7 +4,7 @@ actor CrocCentaurFlashWep_ScriptBar : ScriptBar {}
 const int WEPC_6CF_MAXTIME = 140;
 // Check for commented versions of this when changing
 
-actor CrocCentaurFlashWep : BaseMM8BDMWep 10080
+actor CrocCentaurFlashWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Shield
 //$Title Centaur Flash

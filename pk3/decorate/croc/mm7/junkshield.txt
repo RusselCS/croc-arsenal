@@ -1,7 +1,7 @@
 actor CrocJunkShieldWep_NormalBar : NormalBar { args 68, 94 }
 actor CrocJunkShieldWep_ScriptBar : ScriptBar {}
 
-actor CrocJunkShieldWep : BaseMM8BDMWep 10087
+actor CrocJunkShieldWep : BaseMM8BDMWep
 {
     //$Category MM8BDM-Weapons/Shield
     //$Title Junk Shield

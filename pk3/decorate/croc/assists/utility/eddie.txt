@@ -1,4 +1,4 @@
-actor CrocEddieSummon : BaseMM8BDMUseItem 10046
+actor CrocEddieSummon : BaseMM8BDMUseItem
 {
 //$Category MM8BDM-Assists/Utility
 //$Title CrocEddie

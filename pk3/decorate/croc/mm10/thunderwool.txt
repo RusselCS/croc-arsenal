@@ -1,6 +1,6 @@
 actor CrocThunderWoolWep_NormalBar : NormalBar { args 248, 95 }
 
-actor CrocThunderWoolWep : BaseMM8BDMWep 10101
+actor CrocThunderWoolWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Close
 //$Title Thunder Wool

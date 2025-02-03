@@ -1,6 +1,6 @@
 actor CrocLaserTridentWep_NormalBar : NormalBar { args 228, 72 }
 
-actor CrocLaserTridentWep : BaseMM8BDMWep 10024
+actor CrocLaserTridentWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Ranged
 //$Title Laser Trident

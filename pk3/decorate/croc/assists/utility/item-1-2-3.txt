@@ -1,4 +1,4 @@
-actor CrocItem1 : BaseMM8BDMUseItem 10147
+actor CrocItem1 : BaseMM8BDMUseItem
 {
 //$Category MM8BDM-Assists/Mobility
 //$Title Item-1
@@ -96,7 +96,7 @@ actor CrocItem1PlatformUnderWall : Item1Platform
     radius 16
 }
 
-actor CrocItem2 : BaseMM8BDMUseItem 10148
+actor CrocItem2 : BaseMM8BDMUseItem
 {
 //$Category MM8BDM-Assists/Mobility
 //$Title Item-2
@@ -167,7 +167,7 @@ scale 2.5
 species "MovingPlatform"
 +THRUSPECIES
 var int user_playerRiding[64];
-mass 99999999
+mass999
 //ReactionTime 50
 var int user_countdown;
 maxstepheight 0
@@ -234,7 +234,7 @@ stop
 Actor CrocItem2Flag : Once {}
 
 // ITEM 3
-actor CrocItem3 : BaseMM8BDMUseItem 10161
+actor CrocItem3 : BaseMM8BDMUseItem
 {
     //$Category MM8BDM-Assists/Mobility
     //$Title Item-3
@@ -347,7 +347,7 @@ actor CrocItem3Platform : ProjSpawnFuncActor
     +NOTAUTOAIMED
     species "MovingPlatform"
     +THRUSPECIES
-    mass 99999999
+    mass999
     //ReactionTime 50
     var int user_countdown;
     maxstepheight 0

@@ -1,4 +1,4 @@
-actor CrocTrebleSentry : BaseMM8BDMUseItem 10159
+actor CrocTrebleSentry : BaseMM8BDMUseItem
 {
 //$Category MM8BDM-Assists/Weapon
 //$Title CrocTreble Sentry

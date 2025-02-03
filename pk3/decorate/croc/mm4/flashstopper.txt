@@ -1,7 +1,7 @@
 actor CrocFlashStopperWep_NormalBar : NormalBar { args 4, 239 }
 actor CrocFlashStopperWep_ScriptBar : ScriptBar {}
 
-actor CrocFlashStopperWep : BaseMM8BDMWep 10078
+actor CrocFlashStopperWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/AoE
 //$Title Flash Stopper

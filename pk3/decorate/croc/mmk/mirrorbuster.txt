@@ -2,7 +2,7 @@ const int WEPC_KMB_CHARGEMAX = 105;
 
 actor CrocMirrorBusterWep_ScriptBar : ScriptBar {}
 
-actor CrocMirrorBusterWep : BaseMM8BDMWep 10081
+actor CrocMirrorBusterWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Shield
 //$Title Mirror Buster

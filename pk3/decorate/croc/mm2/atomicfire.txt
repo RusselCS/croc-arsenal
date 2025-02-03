@@ -1,6 +1,6 @@
 actor CrocAtomicFireWep_ScriptBar : ScriptBar {}
 
-actor CrocAtomicFireWep : BaseMM8BDMWep 10010
+actor CrocAtomicFireWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Power
 //$Title Atomic Fire

@@ -1,7 +1,7 @@
 actor CrocScorchWheelWep_NormalBar : NormalBar { args 93, 42 }
 actor CrocScorchWheelWep_ScriptBar : ScriptBar {}
 
-actor CrocScorchWheelWep : BaseMM8BDMWep 10086
+actor CrocScorchWheelWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Shield
 //$Title Scorch Wheel

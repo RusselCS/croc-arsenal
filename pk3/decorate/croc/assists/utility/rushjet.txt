@@ -1,4 +1,4 @@
-actor CrocRushJet : BaseMM8BDMUseItem 10152
+actor CrocRushJet : BaseMM8BDMUseItem
 {
 //$Category MM8BDM-Assists/Mobility
 //$Title Rush Jet

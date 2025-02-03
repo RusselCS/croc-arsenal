@@ -1,6 +1,6 @@
 actor CrocConcreteShotWep_NormalBar : NormalBar { args 88, 95 }
 
-actor CrocConcreteShotWep : BaseMM8BDMWep 10021
+actor CrocConcreteShotWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Close
 //$Title Concrete Shot

@@ -1,6 +1,6 @@
 actor CrocFireStormWep_NormalBar : NormalBar { args 229, 227 }
 
-actor CrocFireStormWep : BaseMM8BDMWep 10052
+actor CrocFireStormWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Ranged
 //$Title Fire Storm

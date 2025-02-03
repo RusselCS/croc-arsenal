@@ -1,6 +1,6 @@
 actor CrocSparkChaserWep_NormalBar : NormalBar { args 104, 198 }
 
-actor CrocSparkChaserWep : BaseMM8BDMWep 10102
+actor CrocSparkChaserWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Ranged
 //$Title Spark Chaser

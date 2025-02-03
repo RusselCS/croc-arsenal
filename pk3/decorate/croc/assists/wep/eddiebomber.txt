@@ -1,4 +1,4 @@
-actor CrocEddieBomber : BaseMM8BDMUseItem 10149
+actor CrocEddieBomber : BaseMM8BDMUseItem
 {
 //$Category MM8BDM-Assists/Weapon
 //$Title CrocEddie Bomber

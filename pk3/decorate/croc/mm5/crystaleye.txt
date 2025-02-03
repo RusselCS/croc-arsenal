@@ -1,6 +1,6 @@
 actor CrocCrystalEyeWep_NormalBar : NormalBar { args 4, 193 }
 
-actor CrocCrystalEyeWep : BaseMM8BDMWep 10064
+actor CrocCrystalEyeWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Power
 //$Title Crystal Eye

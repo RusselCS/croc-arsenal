@@ -1,6 +1,6 @@
 actor CrocKnightCrushWep_NormalBar : NormalBar { args 87, 198 }
 
-actor CrocKnightCrushWep : BaseMM8BDMWep 10072
+actor CrocKnightCrushWep : BaseMM8BDMWep
 {
 //$Category MM8BDM-Weapons/Close
 //$Title Knight Crush
