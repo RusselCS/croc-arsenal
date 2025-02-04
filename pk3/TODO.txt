@@ -1,9 +1,26 @@
 ===== TODO =====
+Visual changes:
+- Gravity Hold: Stretch lines vertically to change the visual effect
+- Astro Crush: Activation sound
+- Time Slow: Horizontal/3D graphic
+- Thunder Beam: Additional effects?
+- Gemini Laser: Update bounce particle to use the one from NGPC
+
 Reworks:
 - Power Stone: Altfire to reverse direction
 - Black Hole Bomb: Do something. Possible make it do what it does faster? (Suck in then explode quickly)
 - Bass Buster: Implement v6c changes.
 - Skull Barrier: [needs input from team.]
+- Knight Crush: Reaim Mechanic
+- Super Arm: That low ceiling mechanic feels real bad
+- Tornado Blow: Minimum falling speed on both damage and use
+- Fire Storm: Explode on landing, reduce damage of shield explosion
+- Search Snake: Use CBM version.
+- Ice Wave: Use CBM search snake to merge into.
+- Sakugarne: Make it easier to deselect while active (it tends to enter a "waiting" state that's real annoying)
+- Shadow Blade: Bounce + rippercap
+- Hyper Bomb: Maybe make easier to explode somehow?
+- Scorch Wheel: Split the projectile into separate particles.
 
 Numbers:
 - Flash Bomb: Needs nerfs
@@ -12,11 +29,19 @@ Numbers:
 - Homing Sniper: Very strong, unsure if nerfs needed.
 - Gyro Attack: On the strong side, though not overbearing?
 - Photon Missile: Very strong, allegedly completely oppressive.
-- Water Shield: I don't like how the damage is currently handled, because the change is arbitrary-feeling.
+- Water Shield: Make damage consistent, make water orbs orbit faster.
 - Silver Tomahawk: Make 3 hit.
+- Photon Missile: On release, add half the missing time to the end of the weapon's cycle to discourage spamming.
+- Commando Bomb: Possible increase step height of waves?
+- Ballade Cracker: Slight buff? Atm it does not feel like it competes with most power weapons, but does not need anything super big. Maybe an ROF bump.
+- Blizzard Attack: This definitely does not need to deal as much damage as it does.
+- Water Balloon: Investigate its power level and maybe give it a buff?
+- Atomic Fire: fucked up damage on midcharge
 
 Tech updates:
 - Crystal Eye: Use composite hitbox to handle splits to cap its hits
+- Tornado Hold: Use composite hitbox to handle the "occasional damage" mechanic. Also look into animation and sound accuracy
+- Oil Slider activate sound jump sound on air jump
 - Sweep: A_JumpIfInventory("MM8BDMPlayer", 1, "State", AAPTR_TRACER) -> A_JumpIf(IsPointerEqual(AAPTR_TRACER, AAPTR_NULL), "State")
 - Explosive weapons: DONTREFLECT sweep
 
