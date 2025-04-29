@@ -237,10 +237,13 @@ actor CrocWaterShield : BasicProjectile // "Basic"
 	var int user_turndivisor_add;
 	
 	var int user_damageAdd;
-	Damage (17 + user_damageAdd)
+	Damage (17)
 
 	var int user_NoOwnerDamage;
 	+USEDAMAGEEVENTSCRIPT
+
+	+RIPPER
+	var int user_PierceRipper;
 	States
 	{
 	Spawn:
@@ -265,7 +268,7 @@ actor CrocWaterShield : BasicProjectile // "Basic"
 	Expand:
 		WATS B 0 A_SetUserVar(user_expandtime, 16)
 	ExpandLoop:
-		WATS B 0 A_SetUserVar(user_angleadd, user_angleadd-((user_expandtime%3)%2))
+		WATS B 0 // A_SetUserVar(user_angleadd, user_angleadd-((user_expandtime%3)%2))
 		WATS B 0 A_SetUserVar(user_radius, user_radius+3)
 		WATS B 0 A_SetUserVar(user_expandtime, user_expandtime-1)
 		WATS B 1
@@ -283,6 +286,8 @@ actor CrocWaterShield : BasicProjectile // "Basic"
 		WATS B 0 //A_ChangeFlag(THRUSPECIES, false)
 		goto SpawnLoop
 	Shoot:
+		WATS B 0 A_SetUserVar(user_PierceRipper, 2)
+		WATS B 0 A_ChangeFlag(RIPPER, false)
 		WATS B 0 A_GiveInventory("CrocWaterShieldShoot", 1)
 		// stolen from Power Stone
 		WATS B 0 ACS_NamedExecuteWithResult("core_changeClientProperty", APROP_Alpha, 65536, AAPTR_TARGET) // 1.0

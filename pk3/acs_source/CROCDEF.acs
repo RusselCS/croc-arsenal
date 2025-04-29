@@ -135,7 +135,7 @@ script "croc_addweps" OPEN
         DefineCrocWeapon(0, "TAG_THUNDERWOOL", "ThunderWoolWep", "THWOA0", "ThunderWoolAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
         DefineCrocWeapon(1, "TAG_COMMANDOBOMB", "CommandoBombWep", "COMMA0", "CommandoBombAmmo", 1.00, DTADD_SLOT_POWER, mapTrue, lmsTrue, eddieTrue);
         DefineCrocWeapon(0, "TAG_CHILLSPIKE", "ChillSpikeWep", "CHILA0", "ChillSpikeAmmo", 1.00, DTADD_SLOT_CLOSE, mapTrue, lmsTrue, eddieTrue);
-        DefineCrocWeapon(0, "TAG_WATERSHIELD", "WaterShieldWep", "WATSA0", "WaterShieldAmmo", 1.00, DTADD_SLOT_SHIELD, mapTrue, lmsTrue, eddieTrue);
+        DefineCrocWeapon(1, "TAG_WATERSHIELD", "WaterShieldWep", "WATSA0", "WaterShieldAmmo", 1.00, DTADD_SLOT_SHIELD, mapTrue, lmsTrue, eddieTrue);
         DefineCrocWeapon(0, "TAG_TRIPLEBLADE", "TripleBladeWep", "TRIPA0", "TripleBladeAmmo", 1.00, DTADD_SLOT_RAPID, mapTrue, lmsTrue, eddieTrue);
         
         DefineCrocWeapon(0, "TAG_GRABBUSTER", "GrabBusterWep", "GRBUA0", "GrabBusterAmmo", 1.00, DTADD_SLOT_RANGED, mapTrue, lmsTrue, eddieTrue);

@@ -5,6 +5,7 @@ Visual changes:
 - Time Slow: Horizontal/3D graphic
 - Thunder Beam: Additional effects?
 - Gemini Laser: Update bounce particle to use the one from NGPC
+- Spark Shock: Shocked effect should not be in player face, or it should be less painful.
 
 Reworks:
 - Power Stone: Altfire to reverse direction

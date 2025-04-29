@@ -133,7 +133,7 @@ const int C_PRF_CENTEROFMASS = 8;
 // #include "decorate/croc/mm9/jewelsatellite.txt"
 // #include "decorate/croc/mmb/icewall.txt"
 // #include "decorate/croc/mm7/junkshield.txt"
-// #include "decorate/croc/mm10/watershield.txt"
+#include "decorate/croc/mm10/watershield.txt"
 // #include "decorate/croc/mmk/mirrorbuster.txt"
 // #include "decorate/croc/mmv/blackhole.txt"
 // #include "decorate/croc/mm6/plantbarrier.txt"

@@ -75,3 +75,8 @@ script "DrawBar_CrocBreakDashWep" (void) {
         if(CheckInventory("WeaponCharge") >= 22) SetFlashingBar();
     }
 }
+
+script "DrawBar_CrocWaterShieldWep" (void) {
+    if(CheckInventory("CrocWaterShieldSpread"))	SetOverlayBar(CheckInventory("CrocWaterShieldCheck"), 24);
+    else SetOverlayBar(CheckInventory("CrocWaterShieldCheck"), 8);
+}
